@@ -1,3 +1,7 @@
+- [ ] Criar os cards no github
+- [ ] Crias as telas no https://balsamiq.cloud/sr0yt5p/ppityt0/r2278
+
+
 # Turborepo starter
 
 This is an official starter Turborepo.
