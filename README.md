@@ -1,194 +1,112 @@
-- [ ] Criar os cards no github
-- [ ] Crias as telas no https://balsamiq.cloud/sr0yt5p/ppityt0/r2278
+# 🛣️ Rohan - O Amigo do Motorista
 
+![Logo do Rohan](url-da-imagem-do-logo-aqui)
 
-# Turborepo starter
+## 📖 Sobre
 
-This is an official starter Turborepo.
+"Rohan" é o seu novo companheiro nas estradas. Inspirado na vasta e mágica terra de Rohan do universo de Tolkien, este aplicativo foi projetado para ser o guardião e amigo fiel de todos os motoristas. Projetado para o motorista moderno, ele oferece recursos avançados que ajudam a garantir uma condução segura, eficiente e agradável.
 
-## Using this example
+## 🌟 Características Principais
 
-Run the following command:
+- **Navegação Inteligente:** Orientação otimizada através de rotas atualizadas em tempo real, garantindo a chegada ao destino pela via mais eficiente.
+- **Suporte ao Motorista:** Compilação de dicas práticas, lembretes essenciais e informações relevantes, projetadas para maximizar a performance na estrada.
+- **Prioridade à Segurança:** Implementação de alertas e notificações estratégicas para promover uma experiência de direção segura em todas as viagens.
 
-```sh
-npx create-turbo@latest
+## 💰 Novas Funcionalidades de Gerenciamento Financeiro
+
+- **Controle de Ganhos e Gastos:** Permite que o usuário adicione manualmente os ganhos realizados em todas as plataformas ou estabelecimentos, além dos gastos com itens como combustível, refeições e manutenção.
+- **Cálculo do Lucro Real:** Com base nos dados inseridos, o aplicativo calcula o lucro real do usuário, ajudando a entender melhor a rentabilidade de suas jornadas.
+- **Definição de Metas Financeiras:** Os usuários podem estabelecer metas diárias, semanais ou mensais para seus ganhos, incentivando uma gestão financeira mais eficaz e motivacional.
+s
+
+## 🤔 Por que "Rohan"?
+
+Rohan, no universo de Tolkien, é uma terra de bravos cavaleiros, vastas planícies e um povo leal e determinado. Assim como os Rohirrim, os cavaleiros de Rohan, estão sempre prontos para defender e apoiar, nosso aplicativo busca oferecer suporte contínuo ao motorista. Embarque nesta aventura e sinta-se em boa companhia!
+
+## 🚀 Começando
+
+1. Baixe o aplicativo na [App Store](url-da-app-store-aqui) ou no [Google Play](url-do-google-play-aqui).
+2. Siga as instruções de instalação.
+3. Inicie o aplicativo e configure o seu perfil.
+4. Comece a sua jornada com Rohan ao seu lado!
+
+## 🛠️ Testes e2e
+
+- `pnpm exec playwright test` - Executa os testes de ponta a ponta.
+- `pnpm exec playwright test --ui` - Inicia o modo de UI interativa.
+- `pnpm exec playwright test --project=chromium` - Executa os testes apenas no Chrome Desktop.
+- `pnpm exec playwright test example` - Executa os testes em um arquivo específico.
+- `pnpm exec playwright test --debug` - Executa os testes no modo de depuração.
+- `pnpm exec playwright codegen` - Gera automaticamente testes com Codegen.
+
+## 🛤️ Roadmap
+
+### Editor de Texto
+
+Para futuras funcionalidades que exigem um editor de texto no aplicativo Rohan, escolhemos utilizar o **TiPTaP**. Este editor é robusto, versátil e bem adaptado para integrar-se com Next.js. Recomendamos o TiPTaP para todas as funcionalidades relacionadas à edição de texto avançada.
+
+Para mais detalhes sobre o TiPTaP, visite a [documentação oficial](https://tiptap.dev/docs/editor/installation/nextjs).
+
+### Animações
+
+Se for necessário implementar animações no aplicativo Rohan, recomendamos utilizar uma das seguintes ferramentas:
+
+- **Framer Motion:** Uma biblioteca poderosa para animações no React. Saiba mais e veja exemplos em [Framer Motion](https://www.framer.com/motion/).
+- **Auto Animate:** Uma ferramenta que facilita a adição de animações automáticas com poucos ajustes de código. Confira mais detalhes em [Auto Animate](https://auto-animate.formkit.com/).
+
+## ❓ FAQ
+
+## 🖥️ Client-Side Rendering em Páginas Estáticas com `useSearchParams`
+
+### Problema
+
+Durante a renderização estática, toda a página pode ser convertida para renderização no lado do cliente devido ao uso de `useSearchParams`, caso não exista um limite de `Suspense` que o intercepte.
+
+### Solução
+
+Para reduzir a porção da rota que é renderizada no lado do cliente, você pode encapsular o componente que utiliza `useSearchParams` dentro de um limite de `Suspense`.
+
+#### Exemplo
+
+```tsx
+// app/dashboard/search-bar.tsx
+'use client'
+
+import { useSearchParams } from 'next/navigation'
+
+export default function SearchBar() {
+  const searchParams = useSearchParams()
+  const search = searchParams.get('search')
+
+  return <>Search: {search}</>
+}
 ```
 
-## What's inside?
+```tsx
+import { Suspense } from 'react'
+import SearchBar from './search-bar'
 
-This Turborepo includes the following packages/apps:
+// Este componente será renderizado como um placeholder para a barra de pesquisa no HTML inicial.
+// Quando o valor estiver disponível durante a hidratação do React, o fallback
+// será substituído pelo componente `<SearchBar>`.
+function SearchBarFallback() {
+  return <>placeholder</>
+}
 
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
+export default function Page() {
+  return (
+    <>
+      <nav>
+        <Suspense fallback={<SearchBarFallback />}>
+          <SearchBar />
+        </Suspense>
+      </nav>
+      <h1>Dashboard</h1>
+    </>
+  )
+}
 ```
 
-### Develop
+Adotando essa abordagem, você consegue manter parte da sua página sendo renderizada estaticamente, enquanto manipula os parâmetros de pesquisa de maneira eficaz no lado do cliente.
 
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm dev
-```
-
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
-
-
-Aqui está o texto formatado com melhor organização e legibilidade:
-
-# Padrão de Mensagens de Commit
-
-Este projeto segue o padrão **Conventional Commits**. O uso deste padrão é fundamental para:
-
-- Garantir um histórico de commits legível.
-- Facilitar a automação de processos como geração de changelogs e versionamento semântico.
-- Melhorar a colaboração entre os desenvolvedores.
-
----
-
-## Estrutura da Mensagem de Commit
-
-Cada mensagem de commit deve seguir o formato abaixo:
-
-```
-<tipo>(escopo opcional): <descrição breve>
-
-<corpo opcional>
-
-<rodapé opcional>
-```
-
-### Exemplos:
-
-- `feat(login): adiciona validação de senha forte`
-- `fix(api): corrige erro 500 em requisições POST`
-- `docs: atualiza o README com instruções de configuração`
-
----
-
-## Tipos Suportados
-
-Os principais tipos utilizados no projeto são:
-
-- **feat**: Adição de uma nova funcionalidade.
-- **fix**: Correção de bugs.
-- **docs**: Alterações na documentação.
-- **style**: Ajustes de formatação ou estilo que não afetam o comportamento.
-- **refactor**: Refatorações de código sem alteração de funcionalidades.
-- **test**: Adição ou modificação de testes.
-- **chore**: Atualizações em ferramentas ou configurações que não afetam o código de produção.
-- **perf**: Melhorias de performance.
-- **ci**: Alterações relacionadas à integração contínua.
-- **build**: Alterações no sistema de build ou dependências.
-- **revert**: Reversão de um commit anterior.
-
----
-
-## Regras para o Escopo
-
-O **escopo** é opcional, mas recomendamos seu uso para indicar a área afetada pela alteração.
-
-### Exemplos:
-
-- `feat(auth)` para funcionalidades relacionadas à autenticação.
-- `fix(ui)` para correções de problemas no front-end.
-
----
-
-## Dicas de Uso
-
-- Mantenha a descrição breve e objetiva.
-- Use o corpo da mensagem para detalhar a alteração, se necessário.
-- Utilize o rodapé para mencionar tickets ou issues relacionados, como `Closes #123`.
-
----
-
-## Benefícios
-
-- Histórico de commits claro e padronizado.
-- Facilita a revisão de código e o entendimento das mudanças.
-- Suporte a ferramentas de automação (changelogs, versionamento semântico, etc.).
-
----
-
-**Adote este padrão em todos os seus commits no projeto.**
-Caso tenha dúvidas, consulte a documentação oficial ou entre em contato com o time técnico.
-
-# Stark Project
-
-O **Stark Project** é uma aplicação inspirada na família Stark de *Game of Thrones*. Cada módulo do sistema é representado por um personagem da família, refletindo suas características e funções dentro do projeto.
-
-## Estrutura do Projeto
-
-### 🛠️ **Eddard** - Parte Logada Web (Dashboard)
-- **Descrição**: Representa o painel do usuário após login.
-- **Inspiração**: Nomeado em homenagem a **Eddard Stark** (Ned), o patriarca da Casa Stark, que simboliza liderança e ordem.
----
-
-### 🌐 **Arya** - Parte Deslogada Web (Acesso Público)
-- **Descrição**: Interface pública de acesso ao sistema.
-- **Inspiração**: Nomeado em homenagem a **Arya Stark**, que simboliza independência, liberdade e adaptabilidade.
-
----
-
-### 🧠 **Bran** - Backend
-- **Descrição**: O cérebro do sistema, responsável por toda a lógica de negócios e gerenciamento de dados.
-- **Inspiração**: Nomeado em homenagem a **Bran Stark**, que reflete inteligência, visão estratégica e conectividade.
-
----
-
-### 📱 **Jon** - Aplicativo Mobile
-- **Descrição**: Aplicativo móvel que acompanha o usuário em movimento.
-- **Inspiração**: Nomeado em homenagem a **Jon Snow**, que simboliza mobilidade, exploração e versatilidade.
----
+Desenvolvido com ❤️ por [NeXTIME](url-do-seu-site-aqui).

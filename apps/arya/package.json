@@ -1,0 +1,19 @@
+{
+  "name": "arya",
+  "version": "0.1.0",
+  "description": "Parte deslogada o www - Arya, inspirada em Arya Stark, simboliza independência, liberdade e adaptabilidade. Este projeto é a porta de entrada pública para o sistema, oferecendo uma experiência inicial fluida e acolhedora, com foco em acessibilidade e performance para cativar novos usuários.",
+  "private": true,
+  "scripts": {
+    "dev": "rm -rf .next && next dev --port 3000",
+    "clean": "rm -rf .turbo .next dist node_modules pnpm-lock.yaml",
+    "build": "next build",
+    "start": "next start --port 3001",
+    "lint": "next lint --fix",
+    "e2e": "pnpm exec playwright test",
+    "e2e:ui": "pnpm exec playwright test --ui",
+    "e2e:chromium": "pnpm exec playwright test --project=chromium",
+    "e2e:debug": "pnpm exec playwright test --debug",
+    "e2e:codegen": "pnpm exec playwright codegen",
+    "e2e:report": "pnpm exec playwright show-report"
+  }
+}
