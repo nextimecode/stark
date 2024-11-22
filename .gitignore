@@ -1,0 +1,75 @@
+# dependencies
+node_modules/
+.pnpm-store/
+.turbo/
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# panda css
+styled-system
+styled-system/
+
+# testing
+**/coverage
+**/test-results/
+**/playwright-report/
+**/blob-report/
+**/playwright/.cache/
+coverage
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# next.js
+.next/
+out/
+/.next/
+/out/
+
+# production
+/build
+
+# build output (generalized)
+**/dist
+**/storybook-static
+dist/
+dist
+dist-ssr
+
+# misc
+.DS_Store
+*.pem
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+
+# debug for pnpm
+logs
+*.log
+.pnpm-debug.log*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env*.local
+
+# temp files
+*.pem
+*~
+*.swp
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
