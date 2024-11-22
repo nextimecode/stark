@@ -1,0 +1,26 @@
+{
+  "handle": {
+    "scope": "typescriptreact",
+    "prefix": "handle",
+    "body": [
+      "const handle$1 = useCallback(() => {",
+      "  $2",
+      "}, []);"
+    ],
+    "description": "Snippet para criar uma função de manipulação de eventos memorizada com useCallback. Substitua $1 pelo tipo de evento e $2 pela lógica do manipulador."
+  },
+  "React Functional Component with Props": {
+    "prefix": "c",
+    "body": [
+      "export interface ${TM_FILENAME_BASE}Props {",
+      "  title$0: string",
+      "}",
+      "",
+      "export function ${TM_FILENAME_BASE}({ title }: ${TM_FILENAME_BASE}Props) {",
+      "  return <div>{title}</div>",
+      "}",
+      ""
+    ],
+    "description": "Create a React functional component with props interface"
+  }
+}
