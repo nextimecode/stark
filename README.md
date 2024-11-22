@@ -2,33 +2,24 @@
 
 ![Logo do Rohan](url-da-imagem-do-logo-aqui)
 
-## 📖 Sobre
+## 📖 Sobre o Projeto Stark
 
-"Rohan" é o seu novo companheiro nas estradas. Inspirado na vasta e mágica terra de Rohan do universo de Tolkien, este aplicativo foi projetado para ser o guardião e amigo fiel de todos os motoristas. Projetado para o motorista moderno, ele oferece recursos avançados que ajudam a garantir uma condução segura, eficiente e agradável.
+O Projeto Stark é um aplicativo que conecta pessoas através da análise de compatibilidade, baseada em testes de personalidade e preferências individuais. Inspirado na ideia de promover conexões significativas, Stark é a ferramenta ideal para quem busca entender mais sobre si mesmo e sobre suas relações, sejam elas amorosas, de amizade, familiares ou profissionais.
 
 ## 🌟 Características Principais
 
-- **Navegação Inteligente:** Orientação otimizada através de rotas atualizadas em tempo real, garantindo a chegada ao destino pela via mais eficiente.
-- **Suporte ao Motorista:** Compilação de dicas práticas, lembretes essenciais e informações relevantes, projetadas para maximizar a performance na estrada.
-- **Prioridade à Segurança:** Implementação de alertas e notificações estratégicas para promover uma experiência de direção segura em todas as viagens.
+	•	Teste de Personalidade: Um quiz interativo e gamificado que coleta informações sobre traços de personalidade e preferências.
+	•	Análise de Compatibilidade: Comparação de perfis, apresentando um índice de compatibilidade e gráficos detalhados.
+	•	Compartilhamento e Convites: Os usuários podem convidar outras pessoas para participar e comparar resultados.
+	•	Feedback Contínuo: O aplicativo coleta opiniões dos usuários sobre a precisão dos resultados, ajudando a melhorar os algoritmos.
 
-## 💰 Novas Funcionalidades de Gerenciamento Financeiro
+## 🤔 Por que "Stark"?
 
-- **Controle de Ganhos e Gastos:** Permite que o usuário adicione manualmente os ganhos realizados em todas as plataformas ou estabelecimentos, além dos gastos com itens como combustível, refeições e manutenção.
-- **Cálculo do Lucro Real:** Com base nos dados inseridos, o aplicativo calcula o lucro real do usuário, ajudando a entender melhor a rentabilidade de suas jornadas.
-- **Definição de Metas Financeiras:** Os usuários podem estabelecer metas diárias, semanais ou mensais para seus ganhos, incentivando uma gestão financeira mais eficaz e motivacional.
-s
+Stark é uma aplicação inovadora projetada para explorar conexões humanas e facilitar o entendimento de compatibilidade entre indivíduos. Inspirado pela força, resiliência e senso de união da Casa Stark de Game of Thrones, este projeto busca criar um espaço onde usuários podem compreender melhor suas próprias características e comparar com as de outras pessoas, promovendo conexões mais significativas em diversos contextos: amizades, relacionamentos amorosos, trabalho ou até dinâmicas familiares.
 
-## 🤔 Por que "Rohan"?
+Com base em testes personalizados e análises avançadas, Stark fornece um índice de compatibilidade acompanhado de insights visuais, como gráficos de radar. Este MVP inicial é voltado para coletar dados e validar a ideia, incentivando os usuários a convidarem outras pessoas para explorar a plataforma e compartilharem resultados, gerando crescimento orgânico e aprimoramento contínuo do algoritmo.
 
-Rohan, no universo de Tolkien, é uma terra de bravos cavaleiros, vastas planícies e um povo leal e determinado. Assim como os Rohirrim, os cavaleiros de Rohan, estão sempre prontos para defender e apoiar, nosso aplicativo busca oferecer suporte contínuo ao motorista. Embarque nesta aventura e sinta-se em boa companhia!
-
-## 🚀 Começando
-
-1. Baixe o aplicativo na [App Store](url-da-app-store-aqui) ou no [Google Play](url-do-google-play-aqui).
-2. Siga as instruções de instalação.
-3. Inicie o aplicativo e configure o seu perfil.
-4. Comece a sua jornada com Rohan ao seu lado!
+"Winter is coming", mas com Stark, estamos prontos para criar conexões mais fortes e significativas.
 
 ## 🛠️ Testes e2e
 
@@ -41,15 +32,36 @@ Rohan, no universo de Tolkien, é uma terra de bravos cavaleiros, vastas planíc
 
 ## 🛤️ Roadmap
 
+## 🎯 Fluxo do MVP
+
+1. **Cadastro ou Login:**
+   O usuário insere e-mail e nome. Dados salvos na tabela `users`.
+
+2. **Realização do Teste:**
+   O usuário responde perguntas categorizadas (ex.: personalidade, interesses). Respostas salvas em `answers` e resultados processados em `tests`.
+
+3. **Análise e Resultado:**
+   Um gráfico de radar detalha os traços de personalidade. Caso outro usuário seja comparado, calcula-se a compatibilidade usando a tabela `compatibility_results`.
+
+4. **Convites e Compartilhamento:**
+   Gera links únicos para outros usuários realizarem o teste e compararem os resultados.
+
+## 🚀 Próximos Passos
+
+- [ ] Criar wireframes e protótipos para validar a interface.
+- [ ] Implementar as APIs básicas de cadastro e testes.
+- [ ] Configurar o banco de dados e o ORM (Prisma).
+- [ ] Integrar um gráfico interativo para resultados visuais.
+
 ### Editor de Texto
 
-Para futuras funcionalidades que exigem um editor de texto no aplicativo Rohan, escolhemos utilizar o **TiPTaP**. Este editor é robusto, versátil e bem adaptado para integrar-se com Next.js. Recomendamos o TiPTaP para todas as funcionalidades relacionadas à edição de texto avançada.
+Para futuras funcionalidades que exigem um editor de texto no aplicativo, escolhemos utilizar o **TiPTaP**. Este editor é robusto, versátil e bem adaptado para integrar-se com Next.js. Recomendamos o TiPTaP para todas as funcionalidades relacionadas à edição de texto avançada.
 
 Para mais detalhes sobre o TiPTaP, visite a [documentação oficial](https://tiptap.dev/docs/editor/installation/nextjs).
 
 ### Animações
 
-Se for necessário implementar animações no aplicativo Rohan, recomendamos utilizar uma das seguintes ferramentas:
+Se for necessário implementar animações no aplicativo, recomendamos utilizar uma das seguintes ferramentas:
 
 - **Framer Motion:** Uma biblioteca poderosa para animações no React. Saiba mais e veja exemplos em [Framer Motion](https://www.framer.com/motion/).
 - **Auto Animate:** Uma ferramenta que facilita a adição de animações automáticas com poucos ajustes de código. Confira mais detalhes em [Auto Animate](https://auto-animate.formkit.com/).
