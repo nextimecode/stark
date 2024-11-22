@@ -1,6 +1,8 @@
-# 🛣️ Rohan - O Amigo do Motorista
+# Stark
 
-![Logo do Rohan](url-da-imagem-do-logo-aqui)
+<p align="center">
+  <img src="./assets/stark-logo.png" alt="Chakra logo" />
+</p>
 
 ## 📖 Sobre o Projeto Stark
 
@@ -9,8 +11,11 @@ O Projeto Stark é um aplicativo que conecta pessoas através da análise de com
 ## 🌟 Características Principais
 
 	•	Teste de Personalidade: Um quiz interativo e gamificado que coleta informações sobre traços de personalidade e preferências.
+
 	•	Análise de Compatibilidade: Comparação de perfis, apresentando um índice de compatibilidade e gráficos detalhados.
+
 	•	Compartilhamento e Convites: Os usuários podem convidar outras pessoas para participar e comparar resultados.
+
 	•	Feedback Contínuo: O aplicativo coleta opiniões dos usuários sobre a precisão dos resultados, ajudando a melhorar os algoritmos.
 
 ## 🤔 Por que "Stark"?
@@ -121,4 +126,3 @@ export default function Page() {
 
 Adotando essa abordagem, você consegue manter parte da sua página sendo renderizada estaticamente, enquanto manipula os parâmetros de pesquisa de maneira eficaz no lado do cliente.
 
-Desenvolvido com ❤️ por [NeXTIME](url-do-seu-site-aqui).
