@@ -5,16 +5,10 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [
-        ".next/**",
-        "!.next/cache/**",
-        "dist/**",
-        "storybook-static/**"
-      ]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
     "docs:build": {
-      "dependsOn": ["^docs:build"],
-      "outputs": ["storybook-static/**"]
+      "dependsOn": ["^docs:build"]
     },
     "audit": {
       "cache": false
@@ -58,7 +52,6 @@
     "e2e:ui": {},
     "e2e:chromium": {},
     "e2e:debug": {},
-    "e2e:codegen": {},
-    "storybook": {}
+    "e2e:codegen": {}
   }
 }
