@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 // import GithubProfile from '@/components/GithubProfile'
 
-// import { Button } from '@rohan/ui'
+// import { Button } from '@stark/ui'
 
 // import { api } from '@/data/api'
 // import { HomeProps } from '@/data/types/home'

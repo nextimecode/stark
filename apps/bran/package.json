@@ -1,0 +1,13 @@
+{
+  "name": "bran",
+  "version": "0.0.0-development",
+  "description": "Backend - Bran, inspirado em Bran Stark, reflete inteligência e visão estratégica. Este projeto é o núcleo lógico do sistema, responsável por processar, organizar e prover os dados de forma eficiente e segura para suportar as operações de todas as interfaces conectadas.",
+  "private": true,
+  "scripts": {
+    "dev": "rm -rf .next && next dev --port 8000",
+    "clean": "rm -rf .turbo .next dist node_modules pnpm-lock.yaml",
+    "build": "next build",
+    "start": "next start --port 8000",
+    "lint": "next lint --fix"
+  }
+}

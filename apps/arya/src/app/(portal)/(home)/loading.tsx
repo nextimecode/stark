@@ -1,4 +1,4 @@
-import { Skeleton } from '@rohan/ui'
+import { Skeleton } from '@stark/ui'
 
 export default function HomeLoading() {
   return (
