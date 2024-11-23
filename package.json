@@ -1,14 +1,14 @@
 {
   "name": "stark",
   "version": "0.0.0-development",
+  "description": "Stark é uma aplicação para explorar conexões humanas e entender compatibilidade entre indivíduos. Inspirada na força e união da Casa Stark (Game of Thrones), permite que usuários compreendam características pessoais, comparem com outras pessoas e fortaleçam relações em diferentes contextos. Winter is coming",
   "packageManager": "pnpm@9.14.2",
   "engines": {
     "node": "22.11.0"
   },
-  "description": "Stark é uma aplicação para explorar conexões humanas e entender compatibilidade entre indivíduos. Inspirada na força e união da Casa Stark (Game of Thrones), permite que usuários compreendam características pessoais, comparem com outras pessoas e fortaleçam relações em diferentes contextos. Winter is coming",
   "private": true,
   "keywords": [],
-  "author": "Pedro Duarte - NeXTIME",
+  "author": "NeXTIME",
   "license": "MIT",
   "workspaces": [
     "apps/*",
@@ -60,10 +60,6 @@
   "dependencies": {
     "@formkit/auto-animate": "^0.8.2",
     "@next/font": "^14.2.15",
-    "@nextime-ui/icons": "^2.7.2",
-    "@nextime-ui/react": "^2.7.2",
-    "@nextime-ui/theme-tools": "^2.7.2",
-    "@nextime-ui/tokens": "^2.7.2",
     "@preline/theme-switch": "^2.5.0",
     "@radix-ui/react-collapsible": "1.1.1",
     "@radix-ui/react-scroll-area": "1.2.1",
