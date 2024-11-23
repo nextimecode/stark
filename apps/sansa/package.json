@@ -1,7 +1,7 @@
 {
   "name": "sansa",
   "version": "0.0.0-development",
-  "description": "Parte logada o www - Westfold, uma região vital de Rohan conhecida por sua força e resiliência, é a inspiração para o nosso front end logado. Este projeto é projetado para ser robusto e adaptável, refletindo a tenacidade dos guerreiros de Westfold. Com foco na experiência do usuário e na interatividade aqui é o ponto de encontro onde os usuários autenticados se juntam para explorar e interagir",
+  "description": "Parte logada o app - Sansa, inspirada em Sansa Stark, representa resiliência, crescimento e habilidade diplomática. Este projeto é o coração da área logada, projetado para oferecer uma interface principal organizada e eficiente, que prioriza a experiência do usuário com liderança e clareza em cada funcionalidade.",
   "private": true,
   "scripts": {
     "dev": "rm -rf .next && next dev --port 3001",
