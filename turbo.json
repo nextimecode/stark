@@ -2,7 +2,7 @@
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["tsconfig.json"],
   "globalEnv": ["GITHUB_TOKEN"],
-  "pipeline": {
+  "tasks": {
     "build": {
       "dependsOn": ["^build"],
       "outputs": [
@@ -13,54 +13,40 @@
       ]
     },
     "docs:build": {
-      "cache": true,
       "dependsOn": ["^docs:build"],
       "outputs": ["storybook-static/**"]
     },
     "audit": {
-      "cache": false,
-      "dependsOn": [],
-      "outputs": []
+      "cache": false
     },
     "clean": {
-      "cache": false,
-      "dependsOn": [],
-      "outputs": []
+      "cache": false
     },
     "clean:all": {
-      "cache": false,
-      "dependsOn": [],
-      "outputs": []
+      "cache": false
     },
     "dev": {
       "cache": false,
-      "dependsOn": [],
       "persistent": true
     },
     "lint": {
-      "cache": false,
-      "outputs": [],
-      "dependsOn": []
+      "cache": false
     },
     "prepare": {
-      "cache": false,
-      "outputs": [],
-      "dependsOn": []
+      "cache": false
     },
     "reset:all": {
       "cache": false,
-      "dependsOn": ["clean"],
-      "outputs": []
+      "dependsOn": ["clean"]
     },
     "release": {
       "cache": false,
       "dependsOn": ["build"],
-      "outputMode": "new-only"
+      "outputLogs": "new-only"
     },
     "start": {
       "cache": false,
-      "dependsOn": ["build"],
-      "outputs": []
+      "dependsOn": ["build"]
     },
     "typecheck": {
       "cache": false,
