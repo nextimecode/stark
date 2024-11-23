@@ -1,6 +1,10 @@
 {
   "name": "stark",
   "version": "0.0.0-development",
+  "packageManager": "pnpm@9.14.2",
+  "engines": {
+    "node": "22.11.0"
+  },
   "description": "Stark é uma aplicação para explorar conexões humanas e entender compatibilidade entre indivíduos. Inspirada na força e união da Casa Stark (Game of Thrones), permite que usuários compreendam características pessoais, comparem com outras pessoas e fortaleçam relações em diferentes contextos. Winter is coming",
   "private": true,
   "keywords": [],
@@ -8,7 +12,7 @@
   "license": "MIT",
   "workspaces": [
     "apps/*",
-    "libs/*"
+    "packages/*"
   ],
   "scripts": {
     "vercel-build": "pnpm install && pnpm build",
