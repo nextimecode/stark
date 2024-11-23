@@ -5,7 +5,7 @@ import { Inter } from 'next/font/google'
 
 import PrelineScript from '../components/PrelineScript'
 import './global.css'
-import '@rohan/ui/dist/index.css'
+import '@stark/ui/dist/index.css'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -14,8 +14,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | rohan',
-    default: 'rohan'
+    template: '%s | stark',
+    default: 'stark'
   },
   description: ''
 }
