@@ -18,6 +18,43 @@ O Projeto Stark é um aplicativo que conecta pessoas através da análise de com
 
 	•	Feedback Contínuo: O aplicativo coleta opiniões dos usuários sobre a precisão dos resultados, ajudando a melhorar os algoritmos.
 
+Segue o README atualizado com as informações sobre os aplicativos presentes no projeto Stark:
+
+---
+
+# Stark
+
+<p align="center">
+  <img src="./assets/stark-logo.png" alt="Stark logo" />
+</p>
+
+## 📖 Sobre o Projeto Stark
+
+O Projeto Stark é um aplicativo que conecta pessoas através da análise de compatibilidade, baseada em testes de personalidade e preferências individuais. Inspirado na ideia de promover conexões significativas, Stark é a ferramenta ideal para quem busca entender mais sobre si mesmo e sobre suas relações, sejam elas amorosas, de amizade, familiares ou profissionais.
+
+## 🌟 Características Principais
+
+- **Teste de Personalidade:** Um quiz interativo e gamificado que coleta informações sobre traços de personalidade e preferências.
+- **Análise de Compatibilidade:** Comparação de perfis, apresentando um índice de compatibilidade e gráficos detalhados.
+- **Compartilhamento e Convites:** Os usuários podem convidar outras pessoas para participar e comparar resultados.
+- **Feedback Contínuo:** O aplicativo coleta opiniões dos usuários sobre a precisão dos resultados, ajudando a melhorar os algoritmos.
+
+## 🧱 Estrutura do Projeto
+
+O Stark é um monorepo com os seguintes apps e packages:
+
+### **Apps**
+
+- **[Arya](#arya):** A parte deslogada (www). Inspirada em Arya Stark, simboliza independência, liberdade e adaptabilidade. É a porta de entrada pública para o sistema.
+- **[Bran](#bran):** O backend principal. Inspirado em Bran Stark, reflete inteligência e visão estratégica, processando e organizando dados de forma eficiente e segura.
+- **[Sansa](#sansa):** A parte logada do sistema. Inspirada em Sansa Stark, representa resiliência e crescimento, oferecendo uma interface organizada e eficiente.
+
+### **Packages**
+
+- **[@stark/ui](#stark-ui):** Biblioteca de componentes reutilizáveis para manter consistência de design e eficiência no desenvolvimento.
+
+---
+
 ## 🤔 Por que "Stark"?
 
 Stark é uma aplicação inovadora projetada para explorar conexões humanas e facilitar o entendimento de compatibilidade entre indivíduos. Inspirado pela força, resiliência e senso de união da Casa Stark de Game of Thrones, este projeto busca criar um espaço onde usuários podem compreender melhor suas próprias características e comparar com as de outras pessoas, promovendo conexões mais significativas em diversos contextos: amizades, relacionamentos amorosos, trabalho ou até dinâmicas familiares.
