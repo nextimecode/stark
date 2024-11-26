@@ -1,6 +1,6 @@
-## Jira
+## Card
 
-[JIRA-000](https://qconc.atlassian.net/browse/JIRA-000)
+[000](https://qconc.atlassian.net/browse/JIRA-000)
 
 ## Visão Geral
 
