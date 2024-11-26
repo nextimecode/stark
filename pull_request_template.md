@@ -1,45 +1,74 @@
-## Objetivo
+## Jira
 
-_Descreva a feature ou o problema e adicione links para a tarefa_
+[JIRA-000](https://qconc.atlassian.net/browse/JIRA-000)
 
-## Descrição
+## Visão Geral
 
-_Como essa mudança resolve o problema?_
+[Descreva o problema brevemente]
 
-### Tarefas
+## Abordagem Técnica
 
-- [] Utilize o checklist para melhorar a visualização das tarefas e indicar o andamento
-- [] Desenvolver testes automatizados
-- [] Documentar
+### Problema
 
-### Dependências
+[Detalhe o problema com mais profundidade, se necessário.]
 
-_Descreva as dependências deste PR, como: Reindexar a base de dados no ES ou Rodar migration_
+### Solução
 
-## Screenshots (Caso necessário)
+[Explique sua solução técnica em detalhes e o motivo pelo qual você a escolheu. Considere mencionar se há algum débito técnico a ser resolvido.]
 
-_Caso seja possível exemplificar a tarefa ou problema com alguma imagem, faça nesse espaço_
+<!--
+## Remover seção que não se aplica
+-->
 
-_Antes:_
-_Depois:_
+### Tarefas Realizadas
 
-## Aprendizagem
+- [x] Descreva as etapas envolvidas na implementação da solução.
 
-_Caso haja algum aprendizado interessante, compartilhe com a equipe_
-_EX.: Posts em blogs, bibliotecas utilizadas, add-ons utilizados, etc_
+<!--
+## Remover seção que não se aplica
+-->
 
-## Todo o conteúdo, de uma vez só
+## Dependências
 
-copilot:all
+Este pull request depende dos seguintes elementos:
 
-## Um resumo de um parágrafo das alterações na solicitação de pull
+- [Link para o PR relacionado no back ou no front, se aplicável](https://www.markdownguide.org/basic-syntax/)
+- [Qualquer migração que precise ser executada, ou link para PRs em outras aplicações, se aplicável](https://www.markdownguide.org/basic-syntax/)
 
-copilot:summary
+<!--
+## Remover seção que não se aplica
+-->
 
-## Uma lista detalhada de alterações, incluindo links para as partes relevantes do código
+## Anexos
 
-copilot:walkthrough
+Adicione qualquer anexo relevante, como:
 
-## Um poema sobre as alterações na solicitação de pull
+- Capturas de tela ou desenhos conceituais relacionados à tarefa.
+- Links para referências externas.
+- Documentação de contratos, parâmetros ou outras informações importantes.
 
-copilot:poem
+> Certifique-se de que todas as informações necessárias estão detalhadas neste pull request para facilitar a revisão e o entendimento por parte da equipe.
+
+## Checklist
+
+<!--
+## Remover seção que não se aplica
+-->
+
+### Feature
+
+- [ ] De acordo com a abordagem técnica definida aqui _link_
+- [ ] De acordo com a especificação/figma aqui _link_
+- [ ] GMUD aprovado (se aplicável)
+- [ ] Robusto em casos não previstos
+- [ ] Testes unitários
+- [ ] Commit sem --no-verify
+- [ ] Testes de requisitos locais
+- [ ] Testes de requisitos preview
+
+### Bugs
+
+- [ ] Testes unitários
+- [ ] Commit sem --no-verify
+- [ ] Testes de requisitos locais
+- [ ] Testes de requisitos preview
