@@ -1,6 +1,6 @@
 # Stark
 
-<p align="center">
+<p align="left">
   <img src="./assets/stark-logo.png" alt="Chakra logo" />
 </p>
 
@@ -18,27 +18,6 @@ O Projeto Stark é um aplicativo que conecta pessoas através da análise de com
 
 	•	Feedback Contínuo: O aplicativo coleta opiniões dos usuários sobre a precisão dos resultados, ajudando a melhorar os algoritmos.
 
-Segue o README atualizado com as informações sobre os aplicativos presentes no projeto Stark:
-
----
-
-# Stark
-
-<p align="center">
-  <img src="./assets/stark-logo.png" alt="Stark logo" />
-</p>
-
-## 📖 Sobre o Projeto Stark
-
-O Projeto Stark é um aplicativo que conecta pessoas através da análise de compatibilidade, baseada em testes de personalidade e preferências individuais. Inspirado na ideia de promover conexões significativas, Stark é a ferramenta ideal para quem busca entender mais sobre si mesmo e sobre suas relações, sejam elas amorosas, de amizade, familiares ou profissionais.
-
-## 🌟 Características Principais
-
-- **Teste de Personalidade:** Um quiz interativo e gamificado que coleta informações sobre traços de personalidade e preferências.
-- **Análise de Compatibilidade:** Comparação de perfis, apresentando um índice de compatibilidade e gráficos detalhados.
-- **Compartilhamento e Convites:** Os usuários podem convidar outras pessoas para participar e comparar resultados.
-- **Feedback Contínuo:** O aplicativo coleta opiniões dos usuários sobre a precisão dos resultados, ajudando a melhorar os algoritmos.
-
 ## 🧱 Estrutura do Projeto
 
 O Stark é um monorepo com os seguintes apps e packages:
@@ -52,8 +31,6 @@ O Stark é um monorepo com os seguintes apps e packages:
 ### **Packages**
 
 - **[@stark/ui](#stark-ui):** Biblioteca de componentes reutilizáveis para manter consistência de design e eficiência no desenvolvimento.
-
----
 
 ## 🤔 Por que "Stark"?
 
