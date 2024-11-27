@@ -14,14 +14,23 @@ interface SearchProps {
 async function searchProducts(query: string): Promise<Product[]> {
   const response = await api(`/products/search?q=${query}`, {
     next: {
-      revalidate: 60 * 60 // 1 hour
-    }
-  })
+      revalidate: 60 * 60,
+    },
+  });
 
-  const products = await response.json()
+  if (!response.ok) {
+    throw new Error('Failed to fetch products');
+  }
 
-  return products
+  const products = (await response.json()) as Product[];
+
+  if (!Array.isArray(products)) {
+    throw new Error('Invalid product data');
+  }
+
+  return products;
 }
+
 
 export default async function Search({ searchParams }: SearchProps) {
   const { q: query } = await searchParams;

@@ -1,6 +1,6 @@
 # Stark
 
-<p align="center">
+<p align="left">
   <img src="./assets/stark-logo.png" alt="Chakra logo" />
 </p>
 
@@ -17,6 +17,20 @@ O Projeto Stark é um aplicativo que conecta pessoas através da análise de com
 	•	Compartilhamento e Convites: Os usuários podem convidar outras pessoas para participar e comparar resultados.
 
 	•	Feedback Contínuo: O aplicativo coleta opiniões dos usuários sobre a precisão dos resultados, ajudando a melhorar os algoritmos.
+
+## 🧱 Estrutura do Projeto
+
+O Stark é um monorepo com os seguintes apps e packages:
+
+### **Apps**
+
+- **[Arya](#arya):** A parte deslogada (www). Inspirada em Arya Stark, simboliza independência, liberdade e adaptabilidade. É a porta de entrada pública para o sistema.
+- **[Bran](#bran):** O backend principal. Inspirado em Bran Stark, reflete inteligência e visão estratégica, processando e organizando dados de forma eficiente e segura.
+- **[Sansa](#sansa):** A parte logada do sistema. Inspirada em Sansa Stark, representa resiliência e crescimento, oferecendo uma interface organizada e eficiente.
+
+### **Packages**
+
+- **[@stark/ui](#stark-ui):** Biblioteca de componentes reutilizáveis para manter consistência de design e eficiência no desenvolvimento.
 
 ## 🤔 Por que "Stark"?
 
