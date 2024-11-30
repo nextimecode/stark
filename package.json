@@ -62,6 +62,7 @@
   "dependencies": {
     "@formkit/auto-animate": "^0.8.2",
     "@next/font": "^14.2.15",
+    "@nextime-ui/react": "file:/Users/pedroduarte/dev/nextime-ui/packages/react",
     "@preline/theme-switch": "^2.5.0",
     "@radix-ui/react-collapsible": "1.1.1",
     "@radix-ui/react-scroll-area": "1.2.1",
