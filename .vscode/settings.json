@@ -25,7 +25,7 @@
     "apps/*/.cache": true,
     "apps/*/build": true
   },
-  "cSpell.words": ["arya", "unsplash"],
+  "cSpell.words": ["arya", "datatables", "unsplash"],
   "git.ignoreLimitWarning": true,
   "js/ts.implicitProjectConfig.checkJs": true,
   "javascript.validate.enable": false,

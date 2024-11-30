@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { StarkButton } from '@stark/ui';
 
 export const metadata: Metadata = {
   title: 'Dashboard'
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main>
-      <h1>Hello World</h1>
+      <StarkButton>Hello World</StarkButton>
     </main>
   )
 }
