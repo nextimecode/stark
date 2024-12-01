@@ -1,15 +1,13 @@
-import { Button } from '@nextime-ui/preline'
 import { Metadata } from 'next'
+import Image from 'next/image'
 
 // import GithubProfile from '@/components/GithubProfile'
-
-// import { Button } from '@stark/ui'
 
 // import { api } from '@/data/api'
 // import { HomeProps } from '@/data/types/home'
 
 export const metadata: Metadata = {
-  title: 'Home Edoras'
+  title: 'Portal'
 }
 
 // async function getHomeData(): Promise<HomeProps> {
@@ -21,17 +19,7 @@ export default function Home() {
   // const { message } = await getHomeData()
   return (
     <main>
-      <Button
-        variant="solid"
-        color="blue"
-        size="small"
-        isFullWidth
-        startIcon={<svg>...</svg>}
-        endIcon={<svg>...</svg>}
-      >
-        Add to cart 3
-      </Button>
-      {/* <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-4 md:gap-8 xl:gap-20 md:items-center">
           <div>
             <h1 className="block text-3xl font-bold text-gray-800 sm:text-4xl lg:text-6xl lg:leading-tight dark:text-white">
@@ -413,7 +401,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
     </main>
   )
 }
