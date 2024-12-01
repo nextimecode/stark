@@ -54,8 +54,3 @@ runs:
         key: ${{ runner.os }}-node-modules-${{ hashFiles('pnpm-lock.yaml', '.npmrc', 'pnpm-workspace.yaml') }}
         restore-keys: |
           ${{ runner.os }}-node-modules-
-
-    - name: Debug prepare outputs
-      run: |
-        echo "Node version: ${{ needs.setup.outputs.node_version }}"
-        echo "PNPM version: ${{ needs.setup.outputs.pnpm_version }}"

@@ -19,6 +19,11 @@ jobs:
         id: prepare
         uses: ./.github/actions/prepare
 
+      - name: Debug prepare outputs
+        run: |
+          echo "Node version: ${{ steps.prepare.outputs.node_version }}"
+          echo "PNPM version: ${{ steps.prepare.outputs.pnpm_version }}"
+
   lint:
     needs: setup
     runs-on: ubuntu-latest
