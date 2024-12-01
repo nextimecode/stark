@@ -1,0 +1,56 @@
+# prepare/action.yml
+
+name: 'Install'
+description: 'Install project dependencies'
+inputs:
+  install:
+    description: 'Whether to install dependencies'
+    required: false
+    default: 'true'
+outputs:
+  node_version:
+    description: 'The Node.js version extracted from package.json'
+  pnpm_version:
+    description: 'The pnpm version extracted from package.json'
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Extract Node.js and pnpm versions from package.json
+      id: versions
+      shell: bash
+      run: |
+        NODE_VERSION=$(jq -r '.engines.node' package.json)
+        PNPM_VERSION=$(jq -r '.packageManager' package.json | cut -d "@" -f 2)
+        echo "node_version=$NODE_VERSION" >> $GITHUB_OUTPUT
+        echo "pnpm_version=$PNPM_VERSION" >> $GITHUB_OUTPUT
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ steps.versions.outputs.node_version }}
+        cache: 'pnpm'
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: ${{ steps.versions.outputs.pnpm_version }}
+
+    - name: Install dependencies
+      if: ${{ inputs.install == 'true' }}
+      run: |
+        pnpm install
+        pnpm clean:cache
+
+    - name: Save node_modules cache
+      if: always() && inputs.install == 'true'
+      uses: actions/cache@v4
+      with:
+        path: '**/node_modules'
+        key: ${{ runner.os }}-node-modules-${{ hashFiles('pnpm-lock.yaml', '.npmrc', 'pnpm-workspace.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-node-modules-
