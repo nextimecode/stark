@@ -5,10 +5,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'media.graphassets.com',
-        pathname: '**',
-      },
-    ],
-  },
+        pathname: '**'
+      }
+    ]
+  }
 }
 
 module.exports = nextConfig

@@ -9,7 +9,7 @@ import Image from 'next/image'
 // import { HomeProps } from '@/data/types/home'
 
 export const metadata: Metadata = {
-  title: 'Home Arya'
+  title: 'Home Edoras'
 }
 
 // async function getHomeData(): Promise<HomeProps> {

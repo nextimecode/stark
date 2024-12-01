@@ -93,7 +93,6 @@
     "@nextime-ui/eslint-config": "^3.0.0",
     "@nextime-ui/ts-config": "^3.0.0",
     "@playwright/test": "^1.49.0",
-    "@stark/ui": "workspace:^",
     "@swc/core": "^1.9.3",
     "@tailwindcss/forms": "^0.5.9",
     "@tsconfig/node22": "^22.0.0",

@@ -22,8 +22,7 @@ export default [
       },
       globals: {
         ...globals.browser,
-        ...globals.es6,
-        process: 'readonly'
+        ...globals.es6
       }
     },
     plugins: {

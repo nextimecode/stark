@@ -2,11 +2,7 @@
   "handle": {
     "scope": "typescriptreact",
     "prefix": "handle",
-    "body": [
-      "const handle$1 = useCallback(() => {",
-      "  $2",
-      "}, []);"
-    ],
+    "body": ["const handle$1 = useCallback(() => {", "  $2", "}, []);"],
     "description": "Snippet para criar uma função de manipulação de eventos memorizada com useCallback. Substitua $1 pelo tipo de evento e $2 pela lógica do manipulador."
   },
   "React Functional Component with Props": {

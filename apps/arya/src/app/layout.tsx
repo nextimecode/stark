@@ -5,7 +5,6 @@ import { Inter } from 'next/font/google'
 
 import PrelineScript from '../components/PrelineScript'
 import './global.css'
-import '@stark/ui/dist/index.css'
 
 const inter = Inter({
   subsets: ['latin'],
