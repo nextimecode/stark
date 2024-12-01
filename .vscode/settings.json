@@ -1,8 +1,9 @@
 {
   "workbench.colorCustomizations": {
-    "activityBar.inactiveForeground": "#30d158",
-    "statusBar.foreground": "#30d158",
-    "statusBarItem.remoteForeground": "#30d158"
+    "activityBar.inactiveForeground": "#64D2FF",
+    "statusBar.foreground": "#64D2FF",
+    "statusBarItem.remoteForeground": "#000000",
+    "statusBarItem.remoteBackground": "#64D2FF"
   },
   "eslint.workingDirectories": [
     {

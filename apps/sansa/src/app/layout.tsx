@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google'
 
 import PrelineScript from '../components/PrelineScript'
 import './global.css'
+// import '@nextime-ui/preline/dist/global.css';
 // import '@stark/ui/dist/index.css'
 
 const inter = Inter({

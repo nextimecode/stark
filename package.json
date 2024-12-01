@@ -17,7 +17,7 @@
   "scripts": {
     "vercel-build": "pnpm install && pnpm build",
     "build": "turbo run build --parallel",
-    "clean:all": "turbo run clean && pnpm store prune && rm -rf .next .turbo node_modules tsconfig.tsbuildinfo pnpm-lock.yaml",
+    "clean:all": "turbo run clean && pnpm store prune && rm -rf .next .turbo node_modules tsconfig.tsbuildinfo pnpm-lock.yaml && pnpm i && pnpm build",
     "coverage": "turbo run coverage",
     "e2e": "turbo run e2e",
     "test": "turbo run test",

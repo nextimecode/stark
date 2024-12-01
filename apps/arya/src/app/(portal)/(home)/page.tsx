@@ -1,6 +1,5 @@
 import { Button } from '@nextime-ui/preline'
 import { Metadata } from 'next'
-import Image from 'next/image'
 
 // import GithubProfile from '@/components/GithubProfile'
 
@@ -25,12 +24,12 @@ export default function Home() {
       <Button
         variant="solid"
         color="blue"
-        size="large"
+        size="small"
         isFullWidth
         startIcon={<svg>...</svg>}
         endIcon={<svg>...</svg>}
       >
-        Add to cart
+        Add to cart 3
       </Button>
       {/* <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-4 md:gap-8 xl:gap-20 md:items-center">
