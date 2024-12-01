@@ -22,7 +22,8 @@ export default [
       },
       globals: {
         ...globals.browser,
-        ...globals.es6
+        ...globals.es6,
+        process: 'readonly'
       }
     },
     plugins: {
@@ -50,7 +51,7 @@ export default [
           groups: [
             '/^react/',
             ['/^next/', '/@next/'],
-            '/@nextime-ui/react/',
+            '/@nextime-ui/preline/',
             '/@chakra-ui/',
             '/components/',
             'module',

@@ -1,3 +1,3 @@
 import './global.css'
-export * from './button'
-export * from './skeleton'
+export * from './Button'
+export * from './Skeleton'
