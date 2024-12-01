@@ -8,21 +8,21 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     outputs:
-      node_version: ${{ steps.prepare.outputs.node_version }}
-      pnpm_version: ${{ steps.prepare.outputs.pnpm_version }}
+      node_version: ${{ steps.extract-versions.outputs.node_version }}
+      pnpm_version: ${{ steps.extract-versions.outputs.pnpm_version }}
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: Prepare
-        id: prepare
-        uses: ./.github/actions/prepare
-
-      - name: Debug prepare outputs
+      - name: Extract Node.js and pnpm versions from package.json
+        id: extract-versions
+        shell: bash
         run: |
-          echo "Node version: ${{ steps.prepare.outputs.node_version }}"
-          echo "PNPM version: ${{ steps.prepare.outputs.pnpm_version }}"
+          NODE_VERSION=$(jq -r '.engines.node' package.json)
+          PNPM_VERSION=$(jq -r '.packageManager' package.json | cut -d "@" -f 2)
+          echo "node_version=$NODE_VERSION" >> $GITHUB_OUTPUT
+          echo "pnpm_version=$PNPM_VERSION" >> $GITHUB_OUTPUT
 
   lint:
     needs: setup
@@ -30,21 +30,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: ${{ needs.setup.outputs.pnpm_version }}
-          run_install: false
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ needs.setup.outputs.node_version }}
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
-        shell: bash
+      - name: Install pnpm and dependencies
+        run: |
+          npm install -g pnpm@${{ needs.setup.outputs.pnpm_version }}
+          pnpm install
 
       - name: Run lint
         run: pnpm run lint
@@ -55,20 +44,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ needs.setup.outputs.node_version }}
-          cache: 'pnpm'
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: ${{ needs.setup.outputs.pnpm_version }}
-          run_install: false
-
-      - name: Install dependencies
-        run: pnpm install
+      - name: Install pnpm and dependencies
+        run: |
+          npm install -g pnpm@${{ needs.setup.outputs.pnpm_version }}
+          pnpm install
 
       - name: Run typecheck
         run: pnpm run typecheck
@@ -79,20 +58,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ needs.setup.outputs.node_version }}
-          cache: 'pnpm'
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: ${{ needs.setup.outputs.pnpm_version }}
-          run_install: false
-
-      - name: Install dependencies
-        run: pnpm install
+      - name: Install pnpm and dependencies
+        run: |
+          npm install -g pnpm@${{ needs.setup.outputs.pnpm_version }}
+          pnpm install
 
       - name: Audit dependencies
         run: pnpm audit

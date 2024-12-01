@@ -1,6 +1,6 @@
 # prepare/action.yml
 
-name: 'Install'
+name: 'prepare'
 description: 'Install project dependencies'
 inputs:
   install:
