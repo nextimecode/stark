@@ -29,16 +29,16 @@ runs:
         echo "node_version=$NODE_VERSION" >> $GITHUB_OUTPUT
         echo "pnpm_version=$PNPM_VERSION" >> $GITHUB_OUTPUT
 
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+      with:
+        version: ${{ steps.versions.outputs.pnpm_version }}
+
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: ${{ steps.versions.outputs.node_version }}
         cache: 'pnpm'
-
-    - name: Setup pnpm
-      uses: pnpm/action-setup@v2
-      with:
-        version: ${{ steps.versions.outputs.pnpm_version }}
 
     - name: Install dependencies
       if: ${{ inputs.install == 'true' }}
