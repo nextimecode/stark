@@ -30,6 +30,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ needs.setup.outputs.node_version }}
+
       - name: Install pnpm and dependencies
         run: |
           npm install -g pnpm@${{ needs.setup.outputs.pnpm_version }}
@@ -44,6 +49,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ needs.setup.outputs.node_version }}
+
       - name: Install pnpm and dependencies
         run: |
           npm install -g pnpm@${{ needs.setup.outputs.pnpm_version }}
@@ -57,6 +67,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ needs.setup.outputs.node_version }}
 
       - name: Install pnpm and dependencies
         run: |
