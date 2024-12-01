@@ -25,17 +25,17 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: ${{ needs.setup.outputs.pnpm_version }}
-          run_install: false
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ needs.setup.outputs.node_version }}
           cache: 'pnpm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ needs.setup.outputs.pnpm_version }}
+          run_install: false
 
       - name: Install dependencies
         run: pnpm install
@@ -49,17 +49,17 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: ${{ needs.setup.outputs.pnpm_version }}
-          run_install: false
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ needs.setup.outputs.node_version }}
           cache: 'pnpm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ needs.setup.outputs.pnpm_version }}
+          run_install: false
 
       - name: Install dependencies
         run: pnpm install
@@ -73,17 +73,17 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: ${{ needs.setup.outputs.pnpm_version }}
-          run_install: false
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ needs.setup.outputs.node_version }}
           cache: 'pnpm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ needs.setup.outputs.pnpm_version }}
+          run_install: false
 
       - name: Install dependencies
         run: pnpm install
