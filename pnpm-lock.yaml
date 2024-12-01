@@ -166,7 +166,7 @@ importers:
         specifier: ^5.2.1
         version: 5.2.1(eslint-config-prettier@9.1.0(eslint@9.16.0(jiti@1.21.6)))(eslint@9.16.0(jiti@1.21.6))(prettier@3.4.1)
       globals:
-        specifier: ^15.12.0
+        specifier: ^15.13.0
         version: 15.13.0
       husky:
         specifier: ^9.1.7
