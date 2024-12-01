@@ -30,20 +30,21 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ needs.setup.outputs.node_version }}
-          cache: 'pnpm'
-
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
           version: ${{ needs.setup.outputs.pnpm_version }}
           run_install: false
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ needs.setup.outputs.node_version }}
+          cache: 'pnpm'
+
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
+        shell: bash
 
       - name: Run lint
         run: pnpm run lint
