@@ -1,6 +1,6 @@
+import { Button } from '@nextime-ui/preline'
 import { Metadata } from 'next'
 import Image from 'next/image'
-import { Button } from '@nextime-ui/preline'
 
 // import GithubProfile from '@/components/GithubProfile'
 
@@ -22,7 +22,10 @@ export default function Home() {
   // const { message } = await getHomeData()
   return (
     <main>
-      <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
+      <Button type="button" variant="link" isLoading>
+        Teste
+        </Button>
+      {/* <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-4 md:gap-8 xl:gap-20 md:items-center">
           <div>
             <h1 className="block text-3xl font-bold text-gray-800 sm:text-4xl lg:text-6xl lg:leading-tight dark:text-white">
@@ -138,7 +141,6 @@ export default function Home() {
                 </p>
 
                 <div className="mt-5">
-                  {/* <!-- Star --> */}
                   <svg
                     className="h-auto w-16 text-gray-800 dark:text-white"
                     width="80"
@@ -405,7 +407,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </main>
   )
 }

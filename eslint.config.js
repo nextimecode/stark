@@ -35,6 +35,9 @@ export default [
       'import-helpers': importHelpersPlugin,
       perfectionist: perfectionistPlugin
     },
+    extends: [
+      'plugin:prettier/recommended'
+    ],
     rules: {
       'space-before-blocks': 'error',
       'keyword-spacing': 'error',
@@ -44,6 +47,7 @@ export default [
       'no-console': 'error',
       'no-undef': 'error',
       'comma-dangle': 'off',
+      'quotes': ['error', 'single', { avoidEscape: true, allowTemplateLiterals: true }], // Aspas simples
       'import-helpers/order-imports': [
         'error',
         {
