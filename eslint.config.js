@@ -55,7 +55,7 @@ export default [
           groups: [
             '/^react/',
             ['/^next/', '/@next/'],
-            '/@nextime-ui/react/',
+            '/@nextime-ui/preline/',
             '/@chakra-ui/',
             '/components/',
             'module',
