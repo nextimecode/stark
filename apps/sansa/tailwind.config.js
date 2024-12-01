@@ -1,7 +1,10 @@
 /**
  * @type {import('tailwindcss').Config}
  */
-module.exports = {
+import forms from '@tailwindcss/forms'
+import preline from 'preline/plugin'
+
+export default {
   content: [
     './src/**/*.{js,ts,jsx,tsx,mdx}',
     '../../node_modules/preline/dist/*.js'
@@ -13,8 +16,8 @@ module.exports = {
       padding: '1rem'
     },
     screens: {
-      xs: { max: '479px' },
-      sm: '480px',
+      xs: { max: '639px' },
+      sm: '640px',
       md: '768px',
       lg: '992px',
       xl: '1200px',
@@ -36,5 +39,5 @@ module.exports = {
       }
     }
   },
-  plugins: [require('@tailwindcss/forms'), require('preline/plugin')]
+  plugins: [forms, preline]
 }

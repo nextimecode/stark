@@ -2,9 +2,7 @@
   "compilerOptions": {
     "target": "es2018",
     "module": "esnext",
-    "lib": [
-      "esnext"
-    ],
+    "lib": ["esnext"],
     "moduleResolution": "Bundler",
     "esModuleInterop": true,
     "strict": true,
@@ -16,9 +14,7 @@
     "skipDefaultLibCheck": true,
     "jsx": "react-jsx",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     }
   }
 }
