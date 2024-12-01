@@ -45,6 +45,7 @@ runs:
       run: |
         pnpm install
         pnpm clean:cache
+      shell: bash
 
     - name: Save node_modules cache
       if: always() && inputs.install == 'true'
