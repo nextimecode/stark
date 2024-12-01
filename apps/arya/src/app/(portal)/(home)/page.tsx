@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import Image from 'next/image'
+import { Button } from '@nextime-ui/preline'
 
 // import GithubProfile from '@/components/GithubProfile'
 
@@ -17,12 +18,11 @@ export const metadata: Metadata = {
 //   const message = await response.json()
 //   return message
 // }
-export default async function Home() {
+export default function Home() {
   // const { message } = await getHomeData()
   return (
     <main>
       <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* <!-- Grid --> */}
         <div className="grid md:grid-cols-2 gap-4 md:gap-8 xl:gap-20 md:items-center">
           <div>
             <h1 className="block text-3xl font-bold text-gray-800 sm:text-4xl lg:text-6xl lg:leading-tight dark:text-white">
@@ -34,7 +34,6 @@ export default async function Home() {
               designed for any kind of entrepreneur.
             </p>
 
-            {/* <!-- Buttons --> */}
             <div className="mt-7 grid gap-3 w-full sm:inline-flex">
               <a
                 className="py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
@@ -63,11 +62,8 @@ export default async function Home() {
                 Contact sales team
               </a>
             </div>
-            {/* <!-- End Buttons --> */}
 
-            {/* <!-- Review --> */}
             <div className="mt-6 lg:mt-10 grid grid-cols-2 gap-x-5">
-              {/* <!-- Review --> */}
               <div className="py-5">
                 <div className="flex space-x-1">
                   <svg
@@ -176,12 +172,9 @@ export default async function Home() {
                       fill="currentColor"
                     />
                   </svg>
-                  {/* <!-- End Star --> */}
                 </div>
               </div>
-              {/* <!-- End Review --> */}
 
-              {/* <!-- Review --> */}
               <div className="py-5">
                 <div className="flex space-x-1">
                   <svg
@@ -260,7 +253,6 @@ export default async function Home() {
                 </p>
 
                 <div className="mt-5">
-                  {/* <!-- Star --> */}
                   <svg
                     className="h-auto w-16 text-gray-800 dark:text-white"
                     width="110"
@@ -278,14 +270,10 @@ export default async function Home() {
                       fill="currentColor"
                     />
                   </svg>
-                  {/* <!-- End Star --> */}
                 </div>
               </div>
-              {/* <!-- End Review --> */}
             </div>
-            {/* <!-- End Review --> */}
           </div>
-          {/* <!-- End Col --> */}
 
           <div className="relative ms-4">
             <Image
@@ -297,7 +285,6 @@ export default async function Home() {
             />
             <div className="absolute inset-0 -z-[1] bg-gradient-to-tr from-gray-200 via-white/0 to-white/0 size-full rounded-md mt-4 -mb-4 me-4 -ms-4 lg:mt-6 lg:-mb-6 lg:me-6 lg:-ms-6 dark:from-neutral-800 dark:via-neutral-900/0 dark:to-neutral-900/0"></div>
 
-            {/* <!-- SVG--> */}
             <div className="absolute bottom-0 start-0">
               <svg
                 className="w-2/3 ms-auto h-auto text-white dark:text-neutral-900"
@@ -416,13 +403,9 @@ export default async function Home() {
                 />
               </svg>
             </div>
-            {/* <!-- End SVG--> */}
           </div>
-          {/* <!-- End Col --> */}
         </div>
-        {/* <!-- End Grid --> */}
       </div>
-      {/* <!-- End Hero --> */}
     </main>
   )
 }
