@@ -1,4 +1,4 @@
-# prepare/action.yml
+# github/workflows/action.yml
 
 name: 'prepare'
 description: 'Install project dependencies'
