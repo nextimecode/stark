@@ -22,6 +22,7 @@ test-results/
 playwright-report/
 blob-report/
 playwright/.cache/
+.playwright/
 
 # next.js
 .next/

@@ -1,4 +1,4 @@
-import React from 'react'
+import { ReactNode } from 'react'
 
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
@@ -18,11 +18,7 @@ export const metadata: Metadata = {
   },
   description: ''
 }
-export default function RootLayout({
-  children
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html className={inter.variable} lang="pt-BR">
       <body className="bg-white dark:bg-slate-800">

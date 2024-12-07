@@ -1,5 +1,3 @@
-# workflows/run-e2e.yml
-
 name: Run E2E tests
 
 on:
@@ -7,33 +5,34 @@ on:
 
 jobs:
   run-e2es:
-    if: github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success'
+    if: ${{ github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success' }}
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Prepare
-        id: prepare
-        uses: ./.github/actions/prepare
-
-      - name: Extract Project Name from package.json
-        id: project-name
-        shell: bash
+      - name: Extract Node.js and pnpm versions from package.json
+        id: extract-versions
         run: |
-          PROJECT_NAME=$(jq -r '.name' package.json)
-          echo "PROJECT_NAME=$PROJECT_NAME" >> $GITHUB_ENV
-          echo "project_name=$PROJECT_NAME" >> $GITHUB_OUTPUT
+          NODE_VERSION=$(jq -r '.engines.node' package.json)
+          PNPM_VERSION=$(jq -r '.packageManager' package.json | cut -d "@" -f 2)
+          echo "node_version=$NODE_VERSION" >> $GITHUB_OUTPUT
+          echo "pnpm_version=$PNPM_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ steps.extract-versions.outputs.pnpm_version }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ steps.prepare.outputs.node_version }}
-          cache: 'pnpm'
+          node-version: ${{ steps.extract-versions.outputs.node_version }}
+          cache: pnpm
 
-      - name: Install pnpm
-        run: npm install -g pnpm@${{ steps.prepare.outputs.pnpm_version }}
+      - name: Verify pnpm installation
+        run: pnpm --version
 
       - name: Install dependencies
         run: pnpm install
@@ -41,15 +40,50 @@ jobs:
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
 
-      - name: Run Playwright tests
-        run: pnpm run ${{ steps.project-name.outputs.project_name }}:e2e
+      - name: Start all applications
+        run: |
+          pnpm dev &
+          echo $! > dev_pid
         env:
-          BASE_URL: ${{ github.event.deployment_status.environment_url }}
+          ARYA_BASE_URL: http://localhost:3000
+          SANSA_BASE_URL: http://localhost:3001
+          BRAN_BASE_URL: http://localhost:8000
+          NED_BASE_URL: http://localhost:3002
+
+      - name: Wait for applications to be ready
+        run: |
+          timeout 120s bash -c '
+          until curl -s http://localhost:8000 > /dev/null && \
+                curl -s http://localhost:3000 > /dev/null && \
+                curl -s http://localhost:3001 > /dev/null && \
+                curl -s http://localhost:3002 > /dev/null; do
+            echo "Waiting for applications to be ready...";
+            sleep 5;
+          done
+          echo "All applications are ready!"'
+
+      - name: Run Playwright tests for Arya
+        run: pnpm run arya:e2e
+        env:
+          BASE_URL: http://localhost:3000
+
+      - name: Run Playwright tests for Sansa
+        run: pnpm run sansa:e2e
+        env:
+          BASE_URL: http://localhost:3001
 
       - name: Upload Playwright Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report
-          path: 'apps/${{ steps.project-name.outputs.project_name }}/playwright-report/'
+          name: playwright-reports
+          path: '**/playwright-report/'
           retention-days: 30
+
+      - name: Stop applications
+        if: always()
+        run: |
+          if [ -f dev_pid ]; then
+            kill $(cat dev_pid) || true
+          fi
+          killall node || true
