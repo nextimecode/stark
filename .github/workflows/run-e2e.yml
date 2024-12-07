@@ -31,23 +31,24 @@ jobs:
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
 
-      - name: Run Playwright tests for Arya
-        run: pnpm run arya:e2e
+      - name: Start Sansa application
+        run: pnpm --filter sansa start &
         env:
-          BASE_URL: ${{ github.event.deployment_status.environment_url }}
+          BASE_URL: http://localhost:3001
+
+      - name: Wait for Sansa to be ready
+        run: |
+          timeout 30s bash -c '
+          until curl -s http://localhost:3001 > /dev/null; do
+            echo "Waiting for Sansa to be ready...";
+            sleep 2;
+          done
+          echo "Sansa is ready!"'
 
       - name: Run Playwright tests for Sansa
         run: pnpm run sansa:e2e
         env:
-          BASE_URL: ${{ github.event.deployment_status.environment_url }}
-
-      - name: Upload Playwright Report for Arya
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: arya-playwright-report
-          path: 'apps/arya/playwright-report/'
-          retention-days: 30
+          BASE_URL: http://localhost:3001
 
       - name: Upload Playwright Report for Sansa
         if: always()

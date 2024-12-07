@@ -51,6 +51,8 @@
     "sansa:e2e:report": "turbo run e2e:report --filter sansa",
     "bran:build": "turbo run build --filter bran",
     "bran:dev": "turbo run dev --filter bran",
+    "ned:build": "turbo run build --filter ned",
+    "ned:dev": "turbo run dev --filter ned",
     "ui:build": "turbo run build --filter ui",
     "ui:dev": "turbo run dev --filter ui",
     "precommit": "turbo lint typecheck audit",
