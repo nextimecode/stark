@@ -2,12 +2,10 @@ name: Run E2E tests
 
 on:
   deployment_status:
-    types:
-      - completed
 
 jobs:
   run-e2es:
-    if: github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success'
+    if: ${{ github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success' }}
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
