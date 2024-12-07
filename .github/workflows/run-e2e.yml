@@ -12,18 +12,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Prepare
-        id: prepare
-        uses: ./.github/actions/prepare
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ steps.prepare.outputs.node_version }}
+          node-version: 22.12.0
           cache: 'pnpm'
-
-      - name: Install pnpm
-        run: npm install -g pnpm@${{ steps.prepare.outputs.pnpm_version }}
 
       - name: Install dependencies
         run: pnpm install
@@ -31,29 +24,38 @@ jobs:
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
 
-      - name: Start Sansa application
-        run: pnpm --filter sansa start &
+      - name: Start all applications
+        run: pnpm dev &
         env:
-          BASE_URL: http://localhost:3001
+          ARYA_BASE_URL: http://localhost:3000
+          SANSA_BASE_URL: http://localhost:3001
+          BRAN_BASE_URL: http://localhost:8000
 
-      - name: Wait for Sansa to be ready
+      - name: Wait for applications to be ready
         run: |
-          timeout 30s bash -c '
-          until curl -s http://localhost:3001 > /dev/null; do
-            echo "Waiting for Sansa to be ready...";
-            sleep 2;
+          timeout 60s bash -c '
+          until curl -s http://localhost:8000 > /dev/null && \
+                curl -s http://localhost:3000 > /dev/null && \
+                curl -s http://localhost:3001 > /dev/null; do
+            echo "Waiting for applications to be ready...";
+            sleep 5;
           done
-          echo "Sansa is ready!"'
+          echo "All applications are ready!"'
+
+      - name: Run Playwright tests for Arya
+        run: pnpm run arya:e2e
+        env:
+          BASE_URL: http://localhost:3000
 
       - name: Run Playwright tests for Sansa
         run: pnpm run sansa:e2e
         env:
           BASE_URL: http://localhost:3001
 
-      - name: Upload Playwright Report for Sansa
+      - name: Upload Playwright Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: sansa-playwright-report
-          path: 'apps/sansa/playwright-report/'
+          name: playwright-reports
+          path: '**/playwright-report/'
           retention-days: 30
