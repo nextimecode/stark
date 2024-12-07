@@ -2,6 +2,8 @@ name: Run E2E tests
 
 on:
   deployment_status:
+    types:
+      - completed
 
 jobs:
   run-e2es:
@@ -14,7 +16,6 @@ jobs:
 
       - name: Extract Node.js and pnpm versions from package.json
         id: extract-versions
-        shell: bash
         run: |
           NODE_VERSION=$(jq -r '.engines.node' package.json)
           PNPM_VERSION=$(jq -r '.packageManager' package.json | cut -d "@" -f 2)
@@ -25,7 +26,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ steps.extract-versions.outputs.node_version }}
-          cache: 'pnpm'
+          cache: pnpm
 
       - name: Install pnpm
         run: npm install -g pnpm@${{ steps.extract-versions.outputs.pnpm_version }}
@@ -42,6 +43,7 @@ jobs:
       - name: Start all applications
         run: |
           pnpm dev &
+          echo $! > dev_pid
         env:
           ARYA_BASE_URL: http://localhost:3000
           SANSA_BASE_URL: http://localhost:3001
@@ -85,4 +87,8 @@ jobs:
 
       - name: Stop applications
         if: always()
-        run: killall node || true
+        run: |
+          if [ -f dev_pid ]; then
+            kill $(cat dev_pid) || true
+          fi
+          killall node || true
