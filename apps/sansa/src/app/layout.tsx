@@ -1,10 +1,11 @@
-import React from 'react'
+import { ReactNode } from 'react'
 
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
 import PrelineScript from '../components/PrelineScript'
 import './global.css'
+
 
 const inter = Inter({
   subsets: ['latin'],
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children
 }: {
-  children: React.ReactNode
+  children: ReactNode
 }) {
   return (
     <html className={inter.variable} lang="pt-BR">
