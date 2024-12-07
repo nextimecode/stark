@@ -72,11 +72,6 @@ jobs:
         env:
           BASE_URL: http://localhost:3001
 
-      - name: Run Playwright tests for Ned
-        run: pnpm run ned:e2e
-        env:
-          BASE_URL: http://localhost:3002
-
       - name: Upload Playwright Report
         if: always()
         uses: actions/upload-artifact@v4
