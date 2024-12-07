@@ -1,5 +1,3 @@
-# workflows/run-e2e.yml
-
 name: Run E2E tests
 
 on:
@@ -18,14 +16,6 @@ jobs:
         id: prepare
         uses: ./.github/actions/prepare
 
-      - name: Extract Project Name from package.json
-        id: project-name
-        shell: bash
-        run: |
-          PROJECT_NAME=$(jq -r '.name' package.json)
-          echo "PROJECT_NAME=$PROJECT_NAME" >> $GITHUB_ENV
-          echo "project_name=$PROJECT_NAME" >> $GITHUB_OUTPUT
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -41,15 +31,28 @@ jobs:
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
 
-      - name: Run Playwright tests
-        run: pnpm run ${{ steps.project-name.outputs.project_name }}:e2e
+      - name: Run Playwright tests for Arya
+        run: pnpm run arya:e2e
         env:
           BASE_URL: ${{ github.event.deployment_status.environment_url }}
 
-      - name: Upload Playwright Report
+      - name: Run Playwright tests for Sansa
+        run: pnpm run sansa:e2e
+        env:
+          BASE_URL: ${{ github.event.deployment_status.environment_url }}
+
+      - name: Upload Playwright Report for Arya
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report
-          path: 'apps/${{ steps.project-name.outputs.project_name }}/playwright-report/'
+          name: arya-playwright-report
+          path: 'apps/arya/playwright-report/'
+          retention-days: 30
+
+      - name: Upload Playwright Report for Sansa
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sansa-playwright-report
+          path: 'apps/sansa/playwright-report/'
           retention-days: 30
