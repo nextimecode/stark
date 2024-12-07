@@ -74,7 +74,7 @@
     "datatables.net-dt": "^2.1.8",
     "dropzone": "6.0.0-beta.2",
     "eslint-plugin-unicorn": "^56.0.1",
-    "framer-motion": "11.13.1",
+    "framer-motion": "12.0.0-alpha.1",
     "lucide-react": "^0.468.0",
     "next": "^15.0.4",
     "preline": "^2.6.0",
