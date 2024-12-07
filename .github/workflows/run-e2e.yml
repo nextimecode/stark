@@ -30,7 +30,10 @@ jobs:
         run: npm install -g pnpm@${{ steps.extract-versions.outputs.pnpm_version }}
 
       - name: Verify pnpm installation
-        run: pnpm --version
+        run: |
+          export PATH="$(npm bin --global):$PATH"
+          echo "PATH: $PATH"
+          pnpm --version
 
       - name: Install dependencies
         run: pnpm install
