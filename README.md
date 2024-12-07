@@ -1,7 +1,14 @@
-# Stark
+<p align="center">
+  <a href="https://www.nextime.com.br/">
+    <img src="https://github.com/nextimecode.png" width="150px" height="150px" alt="Nextime logo" />
+  </a>
+  <h1 align="center">NeXTIME - Every Second Counts</h1>
+</p>
+
+# Projeto Stark - Winter is Coming
 
 <p align="left">
-  <img src="./assets/stark-logo.png" alt="Chakra logo" />
+  <img src="./assets/stark-logo.png" width="300px" height="212px" alt="Chakra logo" />
 </p>
 
 ## 📖 Sobre o Projeto Stark
@@ -139,3 +146,5 @@ export default function Page() {
 ```
 
 Adotando essa abordagem, você consegue manter parte da sua página sendo renderizada estaticamente, enquanto manipula os parâmetros de pesquisa de maneira eficaz no lado do cliente.
+
+
