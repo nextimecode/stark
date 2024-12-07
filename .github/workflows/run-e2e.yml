@@ -12,11 +12,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Extract Node.js and pnpm versions from package.json
+        id: extract-versions
+        shell: bash
+        run: |
+          NODE_VERSION=$(jq -r '.engines.node' package.json)
+          PNPM_VERSION=$(jq -r '.packageManager' package.json | cut -d "@" -f 2)
+          echo "node_version=$NODE_VERSION" >> $GITHUB_OUTPUT
+          echo "pnpm_version=$PNPM_VERSION" >> $GITHUB_OUTPUT
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22.12.0
+          node-version: ${{ steps.extract-versions.outputs.node_version }}
           cache: 'pnpm'
+
+      - name: Setup pnpm
+        run: npm install -g pnpm@${{ steps.extract-versions.outputs.pnpm_version }}
 
       - name: Install dependencies
         run: pnpm install
