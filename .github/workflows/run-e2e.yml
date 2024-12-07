@@ -20,20 +20,19 @@ jobs:
           echo "node_version=$NODE_VERSION" >> $GITHUB_OUTPUT
           echo "pnpm_version=$PNPM_VERSION" >> $GITHUB_OUTPUT
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ steps.extract-versions.outputs.pnpm_version }}
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ steps.extract-versions.outputs.node_version }}
           cache: pnpm
 
-      - name: Install pnpm
-        run: npm install -g pnpm@${{ steps.extract-versions.outputs.pnpm_version }}
-
       - name: Verify pnpm installation
-        run: |
-          export PATH="$(npm bin --global):$PATH"
-          echo "PATH: $PATH"
-          pnpm --version
+        run: pnpm --version
 
       - name: Install dependencies
         run: pnpm install
