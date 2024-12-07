@@ -37,18 +37,21 @@ jobs:
         run: pnpm exec playwright install --with-deps
 
       - name: Start all applications
-        run: pnpm dev &
+        run: |
+          pnpm dev &
         env:
           ARYA_BASE_URL: http://localhost:3000
           SANSA_BASE_URL: http://localhost:3001
           BRAN_BASE_URL: http://localhost:8000
+          NED_BASE_URL: http://localhost:3002
 
       - name: Wait for applications to be ready
         run: |
           timeout 60s bash -c '
           until curl -s http://localhost:8000 > /dev/null && \
                 curl -s http://localhost:3000 > /dev/null && \
-                curl -s http://localhost:3001 > /dev/null; do
+                curl -s http://localhost:3001 > /dev/null && \
+                curl -s http://localhost:3002 > /dev/null; do
             echo "Waiting for applications to be ready...";
             sleep 5;
           done
@@ -63,6 +66,11 @@ jobs:
         run: pnpm run sansa:e2e
         env:
           BASE_URL: http://localhost:3001
+
+      - name: Run Playwright tests for Ned
+        run: pnpm run ned:e2e
+        env:
+          BASE_URL: http://localhost:3002
 
       - name: Upload Playwright Report
         if: always()
