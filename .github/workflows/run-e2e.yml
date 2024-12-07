@@ -27,8 +27,11 @@ jobs:
           node-version: ${{ steps.extract-versions.outputs.node_version }}
           cache: 'pnpm'
 
-      - name: Setup pnpm
+      - name: Install pnpm
         run: npm install -g pnpm@${{ steps.extract-versions.outputs.pnpm_version }}
+
+      - name: Verify pnpm installation
+        run: pnpm --version
 
       - name: Install dependencies
         run: pnpm install
