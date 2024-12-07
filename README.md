@@ -146,5 +146,3 @@ export default function Page() {
 ```
 
 Adotando essa abordagem, você consegue manter parte da sua página sendo renderizada estaticamente, enquanto manipula os parâmetros de pesquisa de maneira eficaz no lado do cliente.
-
-
