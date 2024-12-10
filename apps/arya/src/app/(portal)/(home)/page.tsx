@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 }
 
 async function getHomeData(): Promise<HomeProps> {
-  const response = await api('/drivers');
-  return response.json();
+  const response = await api('/drivers')
+  return response.json()
 }
 
 export default async function Home() {
