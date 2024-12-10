@@ -22,7 +22,8 @@ export default [
       },
       globals: {
         ...globals.browser,
-        ...globals.es6
+        ...globals.es6,
+        ...globals.node
       }
     },
     plugins: {
