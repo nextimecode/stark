@@ -1,18 +1,21 @@
 import { createClient, SupabaseClient, PostgrestError } from '@supabase/supabase-js';
-import { Env } from '../../env/env';
+import { envSchema } from '@/infra/env/env'
 
 export class SupabaseRepository<T> {
   private supabase: SupabaseClient;
   private tableName: string;
 
-  constructor(env: Env, tableName: string) {
-    const { NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY } = env;
+  constructor(tableName: string) {
+    const env = envSchema.parse(process.env)
 
-    if (!NEXT_PUBLIC_SUPABASE_URL || !NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    const SUPABASE_URL = env.NEXT_PUBLIC_SUPABASE_URL;
+    const SUPABASE_KEY = env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+    if (!SUPABASE_URL || !SUPABASE_KEY) {
       throw new Error('Supabase URL and Key must be provided.');
     }
 
-    this.supabase = createClient(NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY);
+    this.supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
     this.tableName = tableName;
   }
 

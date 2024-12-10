@@ -3,20 +3,20 @@ import Image from 'next/image'
 
 // import GithubProfile from '@/components/GithubProfile'
 
-// import { api } from '@/data/api'
-// import { HomeProps } from '@/data/types/home'
+import { api } from '@/data/api'
+import { HomeProps } from '@/data/types/home'
 
 export const metadata: Metadata = {
   title: 'Portal'
 }
 
-// async function getHomeData(): Promise<HomeProps> {
-//   const response = await api('/drivers')
-//   const message = await response.json()
-//   return message
-// }
-export default function Home() {
-  // const { message } = await getHomeData()
+async function getHomeData(): Promise<HomeProps> {
+  const response = await api('/drivers');
+  return response.json();
+}
+
+export default async function Home() {
+  const { data } = await getHomeData()
   return (
     <main>
       <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,7 +24,7 @@ export default function Home() {
           <div>
             <h1 className="block text-3xl font-bold text-gray-800 sm:text-4xl lg:text-6xl lg:leading-tight dark:text-white">
               Start your journey with{' '}
-              <span className="text-blue-600">Preline</span>
+              <span className="text-blue-600">{data.user.name}</span>
             </h1>
             <p className="mt-3 text-lg text-gray-800 dark:text-neutral-400">
               Hand-picked professionals and expertly crafted components,
