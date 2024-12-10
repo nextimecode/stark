@@ -1,4 +1,4 @@
-import { DomainEvent } from '../events/domain-event'
+import { DomainEvent } from './domain-event'
 import { UniqueEntityID } from '../entities/unique-entity-id'
 import { AggregateRoot } from '../entities/aggregate-root'
 import { DomainEvents } from '@/core/events/domain-events'
