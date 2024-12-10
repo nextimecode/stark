@@ -70,5 +70,6 @@
   ],
   "npm.packageManager": "pnpm",
   "typescript.tsdk": "./node_modules/typescript/lib",
-  "typescript.preferences.importModuleSpecifier": "project-relative"
+  "typescript.preferences.importModuleSpecifier": "project-relative",
+  "WillLuke.nextjs.hasPrompted": true
 }
