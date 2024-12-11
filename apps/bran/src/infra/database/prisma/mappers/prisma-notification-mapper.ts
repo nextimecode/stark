@@ -1,6 +1,5 @@
 import { Notification as PrismaNotification, Prisma } from '@prisma/client'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Slug } from '@/domain/forum/enterprise/entities/value-objects/slug'
 import { Notification } from '@/domain/notification/enterprise/entities/notification'
 
 export class PrismaNotificationMapper {
