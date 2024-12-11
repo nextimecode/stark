@@ -14,6 +14,7 @@
     "e2e:chromium": "pnpm exec playwright test --project=chromium",
     "e2e:debug": "pnpm exec playwright test --debug",
     "e2e:codegen": "pnpm exec playwright codegen",
-    "e2e:report": "pnpm exec playwright show-report"
+    "e2e:report": "pnpm exec playwright show-report",
+    "typecheck": "tsc --noEmit"
   }
 }
