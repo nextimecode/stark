@@ -207,8 +207,6 @@ importers:
 
   apps/arya: {}
 
-  apps/bran: {}
-
   apps/ned:
     dependencies:
       '@radix-ui/react-checkbox':
