@@ -1,3 +1,5 @@
+// vitest.config.e2e.ts
+
 import swc from 'unplugin-swc'
 import { defineConfig } from 'vitest/config'
 import tsConfigPaths from 'vite-tsconfig-paths'
@@ -15,4 +17,7 @@ export default defineConfig({
       module: { type: 'es6' },
     }),
   ],
+  resolve: {
+    mainFields: ['module', 'main'],
+  },
 })

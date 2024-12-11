@@ -1,3 +1,4 @@
+// vitest.workspace.js
 
 import { defineWorkspace } from 'vitest/config'
 
