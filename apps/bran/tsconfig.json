@@ -20,9 +20,7 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "types": [
-      "vitest/globals",
-      "multer"
-    ]
-  }
+    "types": ["vitest/globals", "multer"]
+  },
+  "exclude": ["node_modules", "dist"]
 }
