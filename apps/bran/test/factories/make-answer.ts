@@ -10,16 +10,16 @@ import { PrismaAnswerMapper } from '@/infra/database/prisma/mappers/prisma-answe
 
 export function makeAnswer(
   override: Partial<AnswerProps> = {},
-  id?: UniqueEntityID,
+  id?: UniqueEntityID
 ) {
   const answer = Answer.create(
     {
       authorId: new UniqueEntityID(),
       questionId: new UniqueEntityID(),
       content: faker.lorem.text(),
-      ...override,
+      ...override
     },
-    id,
+    id
   )
 
   return answer
@@ -33,7 +33,7 @@ export class AnswerFactory {
     const answer = makeAnswer(data)
 
     await this.prisma.answer.create({
-      data: PrismaAnswerMapper.toPrisma(answer),
+      data: PrismaAnswerMapper.toPrisma(answer)
     })
 
     return answer

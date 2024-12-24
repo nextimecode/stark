@@ -3,7 +3,7 @@ import {
   Controller,
   Delete,
   HttpCode,
-  Param,
+  Param
 } from '@nestjs/common'
 import { CurrentUser } from '@/infra/auth/current-user-decorator'
 import { UserPayload } from '@/infra/auth/jwt.strategy'
@@ -17,13 +17,13 @@ export class DeleteAnswerCommentController {
   @HttpCode(204)
   async handle(
     @CurrentUser() user: UserPayload,
-    @Param('id') answerCommentId: string,
+    @Param('id') answerCommentId: string
   ) {
     const userId = user.sub
 
     const result = await this.deleteAnswerComment.execute({
       answerCommentId,
-      authorId: userId,
+      authorId: userId
     })
 
     if (result.isLeft()) {

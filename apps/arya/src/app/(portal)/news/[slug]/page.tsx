@@ -10,18 +10,18 @@ interface NewsProps {
 export async function generateMetadata({
   params
 }: NewsProps): Promise<Metadata> {
-  const { slug } = await params
+  const slug = (await params).slug
   return {
     title: slug
   }
 }
 
-export function generateStaticParams() {
-  return [
-    {
-      slug: 'titulo-do-artigo'
-    }
-  ]
+export async function generateStaticParams() {
+  const posts = await fetch('https://.../posts').then(res => res.json())
+
+  return posts.map((post: any) => ({
+    slug: post.slug
+  }))
 }
 
 export default function NewsPage() {

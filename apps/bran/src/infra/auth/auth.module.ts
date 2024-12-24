@@ -21,18 +21,18 @@ import { EnvModule } from '../env/env.module'
         return {
           signOptions: { algorithm: 'RS256' },
           privateKey: Buffer.from(privateKey, 'base64'),
-          publicKey: Buffer.from(publicKey, 'base64'),
+          publicKey: Buffer.from(publicKey, 'base64')
         }
-      },
-    }),
+      }
+    })
   ],
   providers: [
     JwtStrategy,
     EnvService,
     {
       provide: APP_GUARD,
-      useClass: JwtAuthGuard,
-    },
-  ],
+      useClass: JwtAuthGuard
+    }
+  ]
 })
 export class AuthModule {}

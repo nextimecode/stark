@@ -7,7 +7,7 @@ export class CommentPresenter {
       id: comment.id.toString(),
       content: comment.content,
       createdAt: comment.createdAt,
-      updatedAt: comment.updatedAt,
+      updatedAt: comment.updatedAt
     }
   }
 }

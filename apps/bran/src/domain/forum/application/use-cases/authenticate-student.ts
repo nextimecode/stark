@@ -22,12 +22,12 @@ export class AuthenticateStudentUseCase {
   constructor(
     private studentsRepository: StudentsRepository,
     private hashComparer: HashComparer,
-    private encrypter: Encrypter,
+    private encrypter: Encrypter
   ) {}
 
   async execute({
     email,
-    password,
+    password
   }: AuthenticateStudentUseCaseRequest): Promise<AuthenticateStudentUseCaseResponse> {
     const student = await this.studentsRepository.findByEmail(email)
 
@@ -37,7 +37,7 @@ export class AuthenticateStudentUseCase {
 
     const isPasswordValid = await this.hashComparer.compare(
       password,
-      student.password,
+      student.password
     )
 
     if (!isPasswordValid) {
@@ -45,11 +45,11 @@ export class AuthenticateStudentUseCase {
     }
 
     const accessToken = await this.encrypter.encrypt({
-      sub: student.id.toString(),
+      sub: student.id.toString()
     })
 
     return right({
-      accessToken,
+      accessToken
     })
   }
 }

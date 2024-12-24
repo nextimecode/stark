@@ -13,14 +13,14 @@ export class AnswerComment extends Comment<AnswerCommentProps> {
 
   static create(
     props: Optional<AnswerCommentProps, 'createdAt'>,
-    id?: UniqueEntityID,
+    id?: UniqueEntityID
   ) {
     const answerComment = new AnswerComment(
       {
         ...props,
-        createdAt: props.createdAt ?? new Date(),
+        createdAt: props.createdAt ?? new Date()
       },
-      id,
+      id
     )
 
     return answerComment

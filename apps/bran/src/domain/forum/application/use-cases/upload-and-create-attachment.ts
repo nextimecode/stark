@@ -20,13 +20,13 @@ type UploadAndCreateAttachmentResponse = Either<
 export class UploadAndCreateAttachmentUseCase {
   constructor(
     private attachmentsRepository: AttachmentsRepository,
-    private uploader: Uploader,
+    private uploader: Uploader
   ) {}
 
   async execute({
     fileName,
     fileType,
-    body,
+    body
   }: UploadAndCreateAttachmentRequest): Promise<UploadAndCreateAttachmentResponse> {
     if (!/^(image\/(jpeg|png))$|^application\/pdf$/.test(fileType)) {
       return left(new InvalidAttachmentTypeError(fileType))
@@ -36,13 +36,13 @@ export class UploadAndCreateAttachmentUseCase {
 
     const attachment = Attachment.create({
       title: fileName,
-      url,
+      url
     })
 
     await this.attachmentsRepository.create(attachment)
 
     return right({
-      attachment,
+      attachment
     })
   }
 }

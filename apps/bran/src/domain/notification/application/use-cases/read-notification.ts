@@ -23,7 +23,7 @@ export class ReadNotificationUseCase {
 
   async execute({
     recipientId,
-    notificationId,
+    notificationId
   }: ReadNotificationUseCaseRequest): Promise<ReadNotificationUseCaseResponse> {
     const notification =
       await this.notificationsRepository.findById(notificationId)

@@ -20,7 +20,7 @@ describe('Answer question (E2E)', () => {
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
-      providers: [StudentFactory, QuestionFactory, AttachmentFactory],
+      providers: [StudentFactory, QuestionFactory, AttachmentFactory]
     }).compile()
 
     app = moduleRef.createNestApplication()
@@ -40,7 +40,7 @@ describe('Answer question (E2E)', () => {
     const accessToken = jwt.sign({ sub: user.id.toString() })
 
     const question = await questionFactory.makePrismaQuestion({
-      authorId: user.id,
+      authorId: user.id
     })
 
     const questionId = question.id.toString()
@@ -53,23 +53,23 @@ describe('Answer question (E2E)', () => {
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         content: 'New answer',
-        attachments: [attachment1.id.toString(), attachment2.id.toString()],
+        attachments: [attachment1.id.toString(), attachment2.id.toString()]
       })
 
     expect(response.statusCode).toBe(201)
 
     const answerOnDatabase = await prisma.answer.findFirst({
       where: {
-        content: 'New answer',
-      },
+        content: 'New answer'
+      }
     })
 
     expect(answerOnDatabase).toBeTruthy()
 
     const attachmentsOnDatabase = await prisma.attachment.findMany({
       where: {
-        answerId: answerOnDatabase?.id,
-      },
+        answerId: answerOnDatabase?.id
+      }
     })
 
     expect(attachmentsOnDatabase).toHaveLength(2)

@@ -20,25 +20,25 @@ describe('Send Notification', () => {
 
     const result = await sut.execute({
       recipientId: notification.recipientId.toString(),
-      notificationId: notification.id.toString(),
+      notificationId: notification.id.toString()
     })
 
     expect(result.isRight()).toBe(true)
     expect(inMemoryNotificationsRepository.items[0].readAt).toEqual(
-      expect.any(Date),
+      expect.any(Date)
     )
   })
 
   it('should not be able to read a notification from another user', async () => {
     const notification = makeNotification({
-      recipientId: new UniqueEntityID('recipient-1'),
+      recipientId: new UniqueEntityID('recipient-1')
     })
 
     inMemoryNotificationsRepository.create(notification)
 
     const result = await sut.execute({
       notificationId: notification.id.toString(),
-      recipientId: 'recipient-2',
+      recipientId: 'recipient-2'
     })
 
     expect(result.isLeft()).toBe(true)

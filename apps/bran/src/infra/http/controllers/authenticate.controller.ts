@@ -4,7 +4,7 @@ import {
   Controller,
   Post,
   UnauthorizedException,
-  UsePipes,
+  UsePipes
 } from '@nestjs/common'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 import { z } from 'zod'
@@ -14,7 +14,7 @@ import { Public } from '@/infra/auth/public'
 
 const authenticateBodySchema = z.object({
   email: z.string().email(),
-  password: z.string(),
+  password: z.string()
 })
 
 type AuthenticateBodySchema = z.infer<typeof authenticateBodySchema>
@@ -31,7 +31,7 @@ export class AuthenticateController {
 
     const result = await this.authenticateStudent.execute({
       email,
-      password,
+      password
     })
 
     if (result.isLeft()) {
@@ -48,7 +48,7 @@ export class AuthenticateController {
     const { accessToken } = result.value
 
     return {
-      access_token: accessToken,
+      access_token: accessToken
     }
   }
 }

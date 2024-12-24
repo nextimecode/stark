@@ -13,7 +13,7 @@ describe('Fetch Question Answers', () => {
     inMemoryAnswerAttachmentsRepository =
       new InMemoryAnswerAttachmentsRepository()
     inMemoryAnswersRepository = new InMemoryAnswersRepository(
-      inMemoryAnswerAttachmentsRepository,
+      inMemoryAnswerAttachmentsRepository
     )
     sut = new FetchQuestionAnswersUseCase(inMemoryAnswersRepository)
   })
@@ -21,23 +21,23 @@ describe('Fetch Question Answers', () => {
   it('should be able to fetch question answers', async () => {
     await inMemoryAnswersRepository.create(
       makeAnswer({
-        questionId: new UniqueEntityID('question-1'),
-      }),
+        questionId: new UniqueEntityID('question-1')
+      })
     )
     await inMemoryAnswersRepository.create(
       makeAnswer({
-        questionId: new UniqueEntityID('question-1'),
-      }),
+        questionId: new UniqueEntityID('question-1')
+      })
     )
     await inMemoryAnswersRepository.create(
       makeAnswer({
-        questionId: new UniqueEntityID('question-1'),
-      }),
+        questionId: new UniqueEntityID('question-1')
+      })
     )
 
     const result = await sut.execute({
       questionId: 'question-1',
-      page: 1,
+      page: 1
     })
 
     expect(result.value?.answers).toHaveLength(3)
@@ -47,14 +47,14 @@ describe('Fetch Question Answers', () => {
     for (let i = 1; i <= 22; i++) {
       await inMemoryAnswersRepository.create(
         makeAnswer({
-          questionId: new UniqueEntityID('question-1'),
-        }),
+          questionId: new UniqueEntityID('question-1')
+        })
       )
     }
 
     const result = await sut.execute({
       questionId: 'question-1',
-      page: 2,
+      page: 2
     })
 
     expect(result.value?.answers).toHaveLength(2)

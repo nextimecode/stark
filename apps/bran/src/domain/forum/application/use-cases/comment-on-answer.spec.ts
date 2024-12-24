@@ -17,15 +17,15 @@ describe('Comment on Answer', () => {
       new InMemoryAnswerAttachmentsRepository()
     inMemoryStudentsRepository = new InMemoryStudentsRepository()
     inMemoryAnswersRepository = new InMemoryAnswersRepository(
-      inMemoryAnswerAttachmentsRepository,
+      inMemoryAnswerAttachmentsRepository
     )
     inMemoryAnswerCommentsRepository = new InMemoryAnswerCommentsRepository(
-      inMemoryStudentsRepository,
+      inMemoryStudentsRepository
     )
 
     sut = new CommentOnAnswerUseCase(
       inMemoryAnswersRepository,
-      inMemoryAnswerCommentsRepository,
+      inMemoryAnswerCommentsRepository
     )
   })
 
@@ -37,11 +37,11 @@ describe('Comment on Answer', () => {
     await sut.execute({
       answerId: answer.id.toString(),
       authorId: answer.authorId.toString(),
-      content: 'Comentário teste',
+      content: 'Comentário teste'
     })
 
     expect(inMemoryAnswerCommentsRepository.items[0].content).toEqual(
-      'Comentário teste',
+      'Comentário teste'
     )
   })
 })

@@ -8,7 +8,7 @@ export class CommentWithAuthorPresenter {
       authorName: commentWithAuthor.author,
       content: commentWithAuthor.content,
       createdAt: commentWithAuthor.createdAt,
-      updatedAt: commentWithAuthor.updatedAt,
+      updatedAt: commentWithAuthor.updatedAt
     }
   }
 }

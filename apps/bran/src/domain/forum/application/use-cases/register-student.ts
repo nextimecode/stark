@@ -22,13 +22,13 @@ type RegisterStudentUseCaseResponse = Either<
 export class RegisterStudentUseCase {
   constructor(
     private studentsRepository: StudentsRepository,
-    private hashGenerator: HashGenerator,
+    private hashGenerator: HashGenerator
   ) {}
 
   async execute({
     name,
     email,
-    password,
+    password
   }: RegisterStudentUseCaseRequest): Promise<RegisterStudentUseCaseResponse> {
     const studentWithSameEmail =
       await this.studentsRepository.findByEmail(email)
@@ -42,13 +42,13 @@ export class RegisterStudentUseCase {
     const student = Student.create({
       name,
       email,
-      password: hashedPassword,
+      password: hashedPassword
     })
 
     await this.studentsRepository.create(student)
 
     return right({
-      student,
+      student
     })
   }
 }

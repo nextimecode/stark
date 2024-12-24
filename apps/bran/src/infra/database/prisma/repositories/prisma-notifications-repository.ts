@@ -11,8 +11,8 @@ export class PrismaNotificationsRepository implements NotificationsRepository {
   async findById(id: string): Promise<Notification | null> {
     const notification = await this.prisma.notification.findUnique({
       where: {
-        id,
-      },
+        id
+      }
     })
 
     if (!notification) {
@@ -26,7 +26,7 @@ export class PrismaNotificationsRepository implements NotificationsRepository {
     const data = PrismaNotificationMapper.toPrisma(notification)
 
     await this.prisma.notification.create({
-      data,
+      data
     })
   }
 
@@ -35,9 +35,9 @@ export class PrismaNotificationsRepository implements NotificationsRepository {
 
     await this.prisma.notification.update({
       where: {
-        id: notification.id.toString(),
+        id: notification.id.toString()
       },
-      data,
+      data
     })
   }
 }

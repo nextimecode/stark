@@ -9,7 +9,7 @@ import { Injectable } from '@nestjs/common'
 export class OnAnswerCreated implements EventHandler {
   constructor(
     private questionsRepository: QuestionsRepository,
-    private sendNotification: SendNotificationUseCase,
+    private sendNotification: SendNotificationUseCase
   ) {
     this.setupSubscriptions()
   }
@@ -17,13 +17,13 @@ export class OnAnswerCreated implements EventHandler {
   setupSubscriptions(): void {
     DomainEvents.register(
       this.sendNewAnswerNotification.bind(this),
-      AnswerCreatedEvent.name,
+      AnswerCreatedEvent.name
     )
   }
 
   private async sendNewAnswerNotification({ answer }: AnswerCreatedEvent) {
     const question = await this.questionsRepository.findById(
-      answer.questionId.toString(),
+      answer.questionId.toString()
     )
 
     if (question) {
@@ -32,7 +32,7 @@ export class OnAnswerCreated implements EventHandler {
         title: `Nova resposta em "${question.title
           .substring(0, 40)
           .concat('...')}"`,
-        content: answer.excerpt,
+        content: answer.excerpt
       })
     }
   }

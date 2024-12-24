@@ -20,7 +20,7 @@ describe('Comment on answer (E2E)', () => {
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
-      providers: [StudentFactory, QuestionFactory, AnswerFactory],
+      providers: [StudentFactory, QuestionFactory, AnswerFactory]
     }).compile()
 
     app = moduleRef.createNestApplication()
@@ -40,12 +40,12 @@ describe('Comment on answer (E2E)', () => {
     const accessToken = jwt.sign({ sub: user.id.toString() })
 
     const question = await questionFactory.makePrismaQuestion({
-      authorId: user.id,
+      authorId: user.id
     })
 
     const answer = await answerFactory.makePrismaAnswer({
       questionId: question.id,
-      authorId: user.id,
+      authorId: user.id
     })
 
     const answerId = answer.id.toString()
@@ -54,15 +54,15 @@ describe('Comment on answer (E2E)', () => {
       .post(`/answers/${answerId}/comments`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
-        content: 'New comment',
+        content: 'New comment'
       })
 
     expect(response.statusCode).toBe(201)
 
     const commentOnDatabase = await prisma.comment.findFirst({
       where: {
-        content: 'New comment',
-      },
+        content: 'New comment'
+      }
     })
 
     expect(commentOnDatabase).toBeTruthy()
