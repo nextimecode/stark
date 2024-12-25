@@ -5,7 +5,7 @@ import { z } from 'zod'
 import { EnvService } from '../env/env.service'
 
 const tokenPayloadSchema = z.object({
-  sub: z.string().uuid(),
+  sub: z.string().uuid()
 })
 
 export type UserPayload = z.infer<typeof tokenPayloadSchema>
@@ -18,7 +18,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: Buffer.from(publicKey, 'base64'),
-      algorithms: ['RS256'],
+      algorithms: ['RS256']
     })
   }
 

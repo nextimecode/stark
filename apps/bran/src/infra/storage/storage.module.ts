@@ -8,9 +8,9 @@ import { EnvModule } from '../env/env.module'
   providers: [
     {
       provide: Uploader,
-      useClass: R2Storage,
-    },
+      useClass: R2Storage
+    }
   ],
-  exports: [Uploader],
+  exports: [Uploader]
 })
 export class StorageModule {}

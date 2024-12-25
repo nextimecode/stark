@@ -5,7 +5,7 @@ import {
   Controller,
   HttpCode,
   Post,
-  UsePipes,
+  UsePipes
 } from '@nestjs/common'
 import { z } from 'zod'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
@@ -16,7 +16,7 @@ import { Public } from '@/infra/auth/public'
 const createAccountBodySchema = z.object({
   name: z.string(),
   email: z.string().email(),
-  password: z.string(),
+  password: z.string()
 })
 
 type CreateAccountBodySchema = z.infer<typeof createAccountBodySchema>
@@ -35,7 +35,7 @@ export class CreateAccountController {
     const result = await this.registerStudent.execute({
       name,
       email,
-      password,
+      password
     })
 
     if (result.isLeft()) {

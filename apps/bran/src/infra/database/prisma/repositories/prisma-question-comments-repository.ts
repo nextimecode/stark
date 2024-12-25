@@ -16,8 +16,8 @@ export class PrismaQuestionCommentsRepository
   async findById(id: string): Promise<QuestionComment | null> {
     const questionComment = await this.prisma.comment.findUnique({
       where: {
-        id,
-      },
+        id
+      }
     })
 
     if (!questionComment) {
@@ -29,17 +29,17 @@ export class PrismaQuestionCommentsRepository
 
   async findManyByQuestionId(
     questionId: string,
-    { page }: PaginationParams,
+    { page }: PaginationParams
   ): Promise<QuestionComment[]> {
     const questionComments = await this.prisma.comment.findMany({
       where: {
-        questionId,
+        questionId
       },
       orderBy: {
-        createdAt: 'desc',
+        createdAt: 'desc'
       },
       take: 20,
-      skip: (page - 1) * 20,
+      skip: (page - 1) * 20
     })
 
     return questionComments.map(PrismaQuestionCommentMapper.toDomain)
@@ -47,20 +47,20 @@ export class PrismaQuestionCommentsRepository
 
   async findManyByQuestionIdWithAuthor(
     questionId: string,
-    { page }: PaginationParams,
+    { page }: PaginationParams
   ): Promise<CommentWithAuthor[]> {
     const questionComments = await this.prisma.comment.findMany({
       where: {
-        questionId,
+        questionId
       },
       include: {
-        author: true,
+        author: true
       },
       orderBy: {
-        createdAt: 'desc',
+        createdAt: 'desc'
       },
       take: 20,
-      skip: (page - 1) * 20,
+      skip: (page - 1) * 20
     })
 
     return questionComments.map(PrismaCommentWithAuthorMapper.toDomain)
@@ -70,15 +70,15 @@ export class PrismaQuestionCommentsRepository
     const data = PrismaQuestionCommentMapper.toPrisma(questionComment)
 
     await this.prisma.comment.create({
-      data,
+      data
     })
   }
 
   async delete(questionComment: QuestionComment): Promise<void> {
     await this.prisma.comment.delete({
       where: {
-        id: questionComment.id.toString(),
-      },
+        id: questionComment.id.toString()
+      }
     })
   }
 }

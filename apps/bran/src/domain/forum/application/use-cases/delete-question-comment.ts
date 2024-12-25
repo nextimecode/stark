@@ -20,7 +20,7 @@ export class DeleteQuestionCommentUseCase {
 
   async execute({
     authorId,
-    questionCommentId,
+    questionCommentId
   }: DeleteQuestionCommentUseCaseRequest): Promise<DeleteQuestionCommentUseCaseResponse> {
     const questionComment =
       await this.questionCommentsRepository.findById(questionCommentId)

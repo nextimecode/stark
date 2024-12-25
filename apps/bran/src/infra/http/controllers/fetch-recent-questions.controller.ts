@@ -22,7 +22,7 @@ export class FetchRecentQuestionsController {
   @Get()
   async handle(@Query('page', queryValidationPipe) page: PageQueryParamSchema) {
     const result = await this.fetchRecentQuestions.execute({
-      page,
+      page
     })
 
     if (result.isLeft()) {

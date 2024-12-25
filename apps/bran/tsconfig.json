@@ -20,7 +20,7 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "types": ["vitest/globals", "multer"]
+    "types": ["vitest/globals", "multer", "passport-jwt"]
   },
   "exclude": ["node_modules", "dist"]
 }

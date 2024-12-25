@@ -26,7 +26,7 @@ describe('Get Question By Slug', () => {
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
       inMemoryQuestionAttachmentsRepository,
       inMemoryAttachmentsRepository,
-      inMemoryStudentsRepository,
+      inMemoryStudentsRepository
     )
     sut = new GetQuestionBySlugUseCase(inMemoryQuestionsRepository)
   })
@@ -38,13 +38,13 @@ describe('Get Question By Slug', () => {
 
     const newQuestion = makeQuestion({
       authorId: student.id,
-      slug: Slug.create('example-question'),
+      slug: Slug.create('example-question')
     })
 
     await inMemoryQuestionsRepository.create(newQuestion)
 
     const attachment = makeAttachment({
-      title: 'Some attachment',
+      title: 'Some attachment'
     })
 
     inMemoryAttachmentsRepository.items.push(attachment)
@@ -52,12 +52,12 @@ describe('Get Question By Slug', () => {
     inMemoryQuestionAttachmentsRepository.items.push(
       makeQuestionAttachment({
         attachmentId: attachment.id,
-        questionId: newQuestion.id,
-      }),
+        questionId: newQuestion.id
+      })
     )
 
     const result = await sut.execute({
-      slug: 'example-question',
+      slug: 'example-question'
     })
 
     expect(result.value).toMatchObject({
@@ -66,10 +66,10 @@ describe('Get Question By Slug', () => {
         author: 'John Doe',
         attachments: [
           expect.objectContaining({
-            title: attachment.title,
-          }),
-        ],
-      }),
+            title: attachment.title
+          })
+        ]
+      })
     })
   })
 })

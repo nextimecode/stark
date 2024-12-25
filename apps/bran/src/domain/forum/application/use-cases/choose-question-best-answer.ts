@@ -22,12 +22,12 @@ type ChooseQuestionBestAnswerUseCaseResponse = Either<
 export class ChooseQuestionBestAnswerUseCase {
   constructor(
     private questionsRepository: QuestionsRepository,
-    private answersRepository: AnswersRepository,
+    private answersRepository: AnswersRepository
   ) {}
 
   async execute({
     answerId,
-    authorId,
+    authorId
   }: ChooseQuestionBestAnswerUseCaseRequest): Promise<ChooseQuestionBestAnswerUseCaseResponse> {
     const answer = await this.answersRepository.findById(answerId)
 
@@ -36,7 +36,7 @@ export class ChooseQuestionBestAnswerUseCase {
     }
 
     const question = await this.questionsRepository.findById(
-      answer.questionId.toString(),
+      answer.questionId.toString()
     )
 
     if (!question) {
@@ -52,7 +52,7 @@ export class ChooseQuestionBestAnswerUseCase {
     await this.questionsRepository.save(question)
 
     return right({
-      question,
+      question
     })
   }
 }

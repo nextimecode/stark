@@ -12,7 +12,7 @@ describe('Create Answer', () => {
     inMemoryAnswerAttachmentsRepository =
       new InMemoryAnswerAttachmentsRepository()
     inMemoryAnswersRepository = new InMemoryAnswersRepository(
-      inMemoryAnswerAttachmentsRepository,
+      inMemoryAnswerAttachmentsRepository
     )
     sut = new AnswerQuestionUseCase(inMemoryAnswersRepository)
   })
@@ -22,19 +22,19 @@ describe('Create Answer', () => {
       questionId: '1',
       authorId: '1',
       content: 'Conteúdo da resposta',
-      attachmentsIds: ['1', '2'],
+      attachmentsIds: ['1', '2']
     })
 
     expect(result.isRight()).toBe(true)
     expect(inMemoryAnswersRepository.items[0]).toEqual(result.value?.answer)
     expect(
-      inMemoryAnswersRepository.items[0].attachments.currentItems,
+      inMemoryAnswersRepository.items[0].attachments.currentItems
     ).toHaveLength(2)
     expect(inMemoryAnswersRepository.items[0].attachments.currentItems).toEqual(
       [
         expect.objectContaining({ attachmentId: new UniqueEntityID('1') }),
-        expect.objectContaining({ attachmentId: new UniqueEntityID('2') }),
-      ],
+        expect.objectContaining({ attachmentId: new UniqueEntityID('2') })
+      ]
     )
   })
 
@@ -43,7 +43,7 @@ describe('Create Answer', () => {
       questionId: '1',
       authorId: '1',
       content: 'Conteúdo da resposta',
-      attachmentsIds: ['1', '2'],
+      attachmentsIds: ['1', '2']
     })
 
     expect(result.isRight()).toBe(true)
@@ -51,12 +51,12 @@ describe('Create Answer', () => {
     expect(inMemoryAnswerAttachmentsRepository.items).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          attachmentId: new UniqueEntityID('1'),
+          attachmentId: new UniqueEntityID('1')
         }),
         expect.objectContaining({
-          attachmentId: new UniqueEntityID('1'),
-        }),
-      ]),
+          attachmentId: new UniqueEntityID('1')
+        })
+      ])
     )
   })
 })

@@ -3,7 +3,7 @@ import {
   Controller,
   Get,
   Param,
-  Query,
+  Query
 } from '@nestjs/common'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 import { z } from 'zod'
@@ -28,11 +28,11 @@ export class FetchQuestionAnswersController {
   @Get()
   async handle(
     @Query('page', queryValidationPipe) page: PageQueryParamSchema,
-    @Param('questionId') questionId: string,
+    @Param('questionId') questionId: string
   ) {
     const result = await this.fetchQuestionAnswers.execute({
       page,
-      questionId,
+      questionId
     })
 
     if (result.isLeft()) {

@@ -21,18 +21,18 @@ export class FetchAnswerCommentsUseCase {
 
   async execute({
     answerId,
-    page,
+    page
   }: FetchAnswerCommentsUseCaseRequest): Promise<FetchAnswerCommentsUseCaseResponse> {
     const comments =
       await this.answerCommentsRepository.findManyByAnswerIdWithAuthor(
         answerId,
         {
-          page,
-        },
+          page
+        }
       )
 
     return right({
-      comments,
+      comments
     })
   }
 }

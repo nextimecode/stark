@@ -11,28 +11,28 @@ export class PrismaQuestionAttachmentMapper {
     return QuestionAttachment.create(
       {
         attachmentId: new UniqueEntityID(raw.id),
-        questionId: new UniqueEntityID(raw.questionId),
+        questionId: new UniqueEntityID(raw.questionId)
       },
-      new UniqueEntityID(raw.id),
+      new UniqueEntityID(raw.id)
     )
   }
 
   static toPrismaUpdateMany(
-    attachments: QuestionAttachment[],
+    attachments: QuestionAttachment[]
   ): Prisma.AttachmentUpdateManyArgs {
-    const attachmentIds = attachments.map((attachment) => {
+    const attachmentIds = attachments.map(attachment => {
       return attachment.attachmentId.toString()
     })
 
     return {
       where: {
         id: {
-          in: attachmentIds,
-        },
+          in: attachmentIds
+        }
       },
       data: {
-        questionId: attachments[0].questionId.toString(),
-      },
+        questionId: attachments[0].questionId.toString()
+      }
     }
   }
 }

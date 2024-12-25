@@ -21,15 +21,15 @@ export class FetchQuestionAnswersUseCase {
 
   async execute({
     questionId,
-    page,
+    page
   }: FetchQuestionAnswersUseCaseRequest): Promise<FetchQuestionAnswersUseCaseResponse> {
     const answers = await this.answersRepository.findManyByQuestionId(
       questionId,
-      { page },
+      { page }
     )
 
     return right({
-      answers,
+      answers
     })
   }
 }

@@ -14,14 +14,14 @@ export class PrismaAnswerCommentMapper {
         authorId: new UniqueEntityID(raw.authorId),
         answerId: new UniqueEntityID(raw.answerId),
         createdAt: raw.createdAt,
-        updatedAt: raw.updatedAt,
+        updatedAt: raw.updatedAt
       },
-      new UniqueEntityID(raw.id),
+      new UniqueEntityID(raw.id)
     )
   }
 
   static toPrisma(
-    answerComment: AnswerComment,
+    answerComment: AnswerComment
   ): Prisma.CommentUncheckedCreateInput {
     return {
       id: answerComment.id.toString(),
@@ -29,7 +29,7 @@ export class PrismaAnswerCommentMapper {
       answerId: answerComment.answerId.toString(),
       content: answerComment.content,
       createdAt: answerComment.createdAt,
-      updatedAt: answerComment.updatedAt,
+      updatedAt: answerComment.updatedAt
     }
   }
 }
