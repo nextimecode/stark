@@ -6,6 +6,7 @@ import perfectionistPlugin from 'eslint-plugin-perfectionist'
 import prettierPlugin from 'eslint-plugin-prettier'
 import reactPlugin from 'eslint-plugin-react'
 import unicornPlugin from 'eslint-plugin-unicorn'
+import nextPlugin from 'eslint-plugin-next'
 import globals from 'globals'
 
 export default [
@@ -33,7 +34,8 @@ export default [
       prettier: prettierPlugin,
       unicorn: unicornPlugin,
       'import-helpers': importHelpersPlugin,
-      perfectionist: perfectionistPlugin
+      perfectionist: perfectionistPlugin,
+      '@next/next': nextPlugin
     },
     rules: {
       'space-before-blocks': 'error',
@@ -107,7 +109,9 @@ export default [
       'unicorn/filename-case': 'off',
       'unicorn/prefer-module': 'off',
       'sonarjs/no-duplicate-string': 'off',
-      'unicorn/expiring-todo-comments': 'off'
+      'unicorn/expiring-todo-comments': 'off',
+      ...nextPlugin.configs.recommended.rules,
+      ...nextPlugin.configs['core-web-vitals'].rules
     },
     settings: {
       react: {
