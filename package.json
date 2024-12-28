@@ -1,65 +1,75 @@
 {
   "name": "stark",
   "version": "0.0.0-development",
-  "description": "Stark é uma aplicação para explorar conexões humanas e entender compatibilidade entre indivíduos. Inspirada na força e união da Casa Stark (Game of Thrones), permite que usuários compreendam características pessoais, comparem com outras pessoas e fortaleçam relações em diferentes contextos. Winter is coming",
-  "packageManager": "pnpm@9.15.0",
-  "engines": {
-    "node": "22.12.0"
-  },
   "private": true,
+  "description": "Stark é uma aplicação para explorar conexões humanas e entender compatibilidade entre indivíduos. Inspirada na força e união da Casa Stark (Game of Thrones), permite que usuários compreendam características pessoais, comparem com outras pessoas e fortaleçam relações em diferentes contextos. Winter is coming",
   "keywords": [],
-  "author": "NeXTIME",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nextimecode/stark.git"
+  },
   "license": "MIT",
+  "author": "NeXTIME",
   "workspaces": [
     "apps/*",
     "packages/*"
   ],
   "scripts": {
-    "vercel-build": "pnpm install && pnpm build",
-    "build": "prisma generate && turbo run build --parallel",
-    "clean:all": "turbo run clean && pnpm store prune && rm -rf .next .turbo node_modules tsconfig.tsbuildinfo pnpm-lock.yaml && pnpm i && pnpm build",
-    "coverage": "turbo run coverage",
-    "e2e": "turbo run e2e",
-    "test": "turbo run test",
-    "dev": "prisma generate && turbo run dev --parallel",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "lint": "turbo run lint --parallel",
-    "audit": "pnpm audit",
-    "outdated": "pnpm outdated",
-    "release": "semantic-release",
-    "semantic-release:ui": "semantic-release --config semantic-release-ui.config.js",
-    "release:ui": "turbo run build --filter=ui && changeset publish",
-    "reset:all": "pnpm clean:all && pnpm i && turbo run build --parallel",
-    "start": "turbo run start",
-    "typecheck": "turbo run typecheck --parallel",
-    "update": "pnpm update --latest",
     "arya:build": "turbo run build --filter arya",
     "arya:dev": "turbo run dev --filter arya",
     "arya:e2e": "turbo run e2e --filter arya",
-    "arya:e2e:ui": "turbo run e2e:ui --filter arya",
     "arya:e2e:chromium": "turbo run e2e:chromium --filter arya",
-    "arya:e2e:debug": "turbo run e2e:debug --filter arya",
     "arya:e2e:codegen": "turbo run e2e:codegen --filter arya",
+    "arya:e2e:debug": "turbo run e2e:debug --filter arya",
     "arya:e2e:report": "turbo run e2e:report --filter arya",
+    "arya:e2e:ui": "turbo run e2e:ui --filter arya",
+    "audit": "pnpm audit",
+    "bran:build": "turbo run build --filter bran",
+    "bran:dev": "turbo run dev --filter bran",
+    "build": "prisma generate && turbo run build --parallel",
+    "clean:all": "turbo run clean && pnpm store prune && rm -rf .next .turbo node_modules tsconfig.tsbuildinfo pnpm-lock.yaml && pnpm i && pnpm build",
+    "precommit": "turbo lint typecheck audit",
+    "commit": "cz",
+    "coverage": "turbo run coverage",
+    "depcheck": "depcheck",
+    "dev": "prisma generate && turbo run dev --parallel",
+    "e2e": "turbo run e2e",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "postinstall": "husky",
+    "lint": "turbo run lint --parallel",
+    "ned:build": "turbo run build --filter ned",
+    "ned:dev": "turbo run dev --filter ned",
+    "outdated": "pnpm outdated",
+    "prepare": "husky",
+    "release": "semantic-release",
+    "release:ui": "turbo run build --filter=ui && changeset publish",
+    "reset:all": "pnpm clean:all && pnpm i && turbo run build --parallel",
     "sansa:build": "turbo run build --filter sansa",
     "sansa:dev": "turbo run dev --filter sansa",
     "sansa:e2e": "turbo run e2e --filter sansa",
-    "sansa:e2e:ui": "turbo run e2e:ui --filter sansa",
     "sansa:e2e:chromium": "turbo run e2e:chromium --filter sansa",
-    "sansa:e2e:debug": "turbo run e2e:debug --filter sansa",
     "sansa:e2e:codegen": "turbo run e2e:codegen --filter sansa",
+    "sansa:e2e:debug": "turbo run e2e:debug --filter sansa",
     "sansa:e2e:report": "turbo run e2e:report --filter sansa",
-    "bran:build": "turbo run build --filter bran",
-    "bran:dev": "turbo run dev --filter bran",
-    "ned:build": "turbo run build --filter ned",
-    "ned:dev": "turbo run dev --filter ned",
+    "sansa:e2e:ui": "turbo run e2e:ui --filter sansa",
+    "semantic-release:ui": "semantic-release --config semantic-release-ui.config.js",
+    "start": "turbo run start",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck --parallel",
     "ui:build": "turbo run build --filter ui",
     "ui:dev": "turbo run dev --filter ui",
-    "precommit": "turbo lint typecheck audit",
-    "commit": "cz",
-    "prepare": "husky",
-    "postinstall": "husky",
-    "depcheck": "depcheck"
+    "update": "pnpm update --latest",
+    "vercel-build": "pnpm install && pnpm build"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "release": {
+    "branches": [
+      "main"
+    ]
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.717.0",
@@ -73,7 +83,7 @@
     "@radix-ui/react-collapsible": "^1.1.2",
     "@radix-ui/react-scroll-area": "^1.2.2",
     "@radix-ui/react-select": "^2.1.4",
-    "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-slot": "^1.1.1",
     "@radix-ui/react-tabs": "^1.1.2",
     "@t3-oss/env-nextjs": "^0.11.1",
     "@tailwindcss/forms": "^0.5.9",
@@ -82,15 +92,15 @@
     "eslint-plugin-unicorn": "^56.0.1",
     "framer-motion": "^11.15.0",
     "ioredis": "^5.4.2",
-    "lucide-react": "^0.468.0",
+    "lucide-react": "^0.469.0",
     "multer": "1.4.5-lts.1",
-    "next": "^15.1.2",
+    "next": "^15.1.3",
     "passport-jwt": "^4.0.1",
     "preline": "^2.6.0",
     "punycode": "^2.3.1",
     "react": "^19.0.0",
     "react-world-flags": "^1.6.0",
-    "tailwind-merge": "^2.5.5",
+    "tailwind-merge": "^2.6.0",
     "tailwind-variants": "^0.3.0",
     "zod": "^3.24.1",
     "zod-validation-error": "^3.4.0"
@@ -104,7 +114,7 @@
     "@types/multer": "^1.4.12",
     "@types/node": "22.10.2",
     "@types/passport-jwt": "^4.0.1",
-    "@types/react": "^19.0.1",
+    "@types/react": "^19.0.2",
     "@types/react-dom": "19.0.2",
     "@types/react-world-flags": "^1.6.0",
     "@typescript-eslint/eslint-plugin": "^8.18.2",
@@ -132,22 +142,12 @@
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^2.1.8"
   },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/nextimecode/stark.git"
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": "22.12.0"
   },
   "publishConfig": {
     "access": "restricted"
-  },
-  "release": {
-    "branches": [
-      "main"
-    ]
   },
   "overrides": {
     "uri-js": "npm:uri-js-replace"
