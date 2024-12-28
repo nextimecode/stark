@@ -1,13 +1,15 @@
+import { Injectable } from '@nestjs/common'
+
 import { Either, left, right } from '@/core/either'
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { NotAllowedError } from '@/core/errors/errors/not-allowed-error'
 import { ResourceNotFoundError } from '@/core/errors/errors/resource-not-found-error'
-import { Question } from '@/domain/forum/enterprise/entities/question'
-import { QuestionsRepository } from '../repositories/questions-repository'
 import { QuestionAttachmentsRepository } from '@/domain/forum/application/repositories/question-attachments-repository'
-import { QuestionAttachmentList } from '@/domain/forum/enterprise/entities/question-attachment-list'
+import { Question } from '@/domain/forum/enterprise/entities/question'
 import { QuestionAttachment } from '@/domain/forum/enterprise/entities/question-attachment'
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Injectable } from '@nestjs/common'
+import { QuestionAttachmentList } from '@/domain/forum/enterprise/entities/question-attachment-list'
+
+import { QuestionsRepository } from '../repositories/questions-repository'
 
 interface EditQuestionUseCaseRequest {
   authorId: string
@@ -28,7 +30,7 @@ type EditQuestionUseCaseResponse = Either<
 export class EditQuestionUseCase {
   constructor(
     private questionsRepository: QuestionsRepository,
-    private questionAttachmentsRepository: QuestionAttachmentsRepository
+    private questionAttachmentsRepository: QuestionAttachmentsRepository,
   ) {}
 
   async execute({
@@ -36,7 +38,7 @@ export class EditQuestionUseCase {
     questionId,
     title,
     content,
-    attachmentsIds
+    attachmentsIds,
   }: EditQuestionUseCaseRequest): Promise<EditQuestionUseCaseResponse> {
     const question = await this.questionsRepository.findById(questionId)
 
@@ -52,13 +54,13 @@ export class EditQuestionUseCase {
       await this.questionAttachmentsRepository.findManyByQuestionId(questionId)
 
     const questionAttachmentList = new QuestionAttachmentList(
-      currentQuestionAttachments
+      currentQuestionAttachments,
     )
 
-    const questionAttachments = attachmentsIds.map(attachmentId => {
+    const questionAttachments = attachmentsIds.map((attachmentId) => {
       return QuestionAttachment.create({
         attachmentId: new UniqueEntityID(attachmentId),
-        questionId: question.id
+        questionId: question.id,
       })
     })
 
@@ -71,7 +73,7 @@ export class EditQuestionUseCase {
     await this.questionsRepository.save(question)
 
     return right({
-      question
+      question,
     })
   }
 }

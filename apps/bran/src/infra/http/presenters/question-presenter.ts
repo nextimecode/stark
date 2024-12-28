@@ -8,7 +8,7 @@ export class QuestionPresenter {
       slug: question.slug.value,
       bestAnswer: question.bestAnswerId?.toString(),
       createdAt: question.createdAt,
-      updatedAt: question.updatedAt
+      updatedAt: question.updatedAt,
     }
   }
 }

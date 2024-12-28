@@ -1,13 +1,15 @@
-import { GetQuestionBySlugUseCase } from './get-question-by-slug'
-import { InMemoryQuestionsRepository } from 'test/repositories/in-memory-questions-repository'
-import { Slug } from '@/domain/forum/enterprise/entities/value-objects/slug'
-import { makeQuestion } from 'test/factories/make-question'
-import { InMemoryQuestionAttachmentsRepository } from 'test/repositories/in-memory-question-attachments-repository'
-import { InMemoryAttachmentsRepository } from 'test/repositories/in-memory-attachments-repository'
-import { InMemoryStudentsRepository } from 'test/repositories/in-memory-students-repository'
-import { makeStudent } from 'test/factories/make-student'
 import { makeAttachment } from 'test/factories/make-attachment'
+import { makeQuestion } from 'test/factories/make-question'
 import { makeQuestionAttachment } from 'test/factories/make-question-attachments'
+import { makeStudent } from 'test/factories/make-student'
+import { InMemoryAttachmentsRepository } from 'test/repositories/in-memory-attachments-repository'
+import { InMemoryQuestionAttachmentsRepository } from 'test/repositories/in-memory-question-attachments-repository'
+import { InMemoryQuestionsRepository } from 'test/repositories/in-memory-questions-repository'
+import { InMemoryStudentsRepository } from 'test/repositories/in-memory-students-repository'
+
+import { Slug } from '@/domain/forum/enterprise/entities/value-objects/slug'
+
+import { GetQuestionBySlugUseCase } from './get-question-by-slug'
 
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository
 let inMemoryAttachmentsRepository: InMemoryAttachmentsRepository
@@ -26,7 +28,7 @@ describe('Get Question By Slug', () => {
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
       inMemoryQuestionAttachmentsRepository,
       inMemoryAttachmentsRepository,
-      inMemoryStudentsRepository
+      inMemoryStudentsRepository,
     )
     sut = new GetQuestionBySlugUseCase(inMemoryQuestionsRepository)
   })
@@ -38,13 +40,13 @@ describe('Get Question By Slug', () => {
 
     const newQuestion = makeQuestion({
       authorId: student.id,
-      slug: Slug.create('example-question')
+      slug: Slug.create('example-question'),
     })
 
     await inMemoryQuestionsRepository.create(newQuestion)
 
     const attachment = makeAttachment({
-      title: 'Some attachment'
+      title: 'Some attachment',
     })
 
     inMemoryAttachmentsRepository.items.push(attachment)
@@ -52,12 +54,12 @@ describe('Get Question By Slug', () => {
     inMemoryQuestionAttachmentsRepository.items.push(
       makeQuestionAttachment({
         attachmentId: attachment.id,
-        questionId: newQuestion.id
-      })
+        questionId: newQuestion.id,
+      }),
     )
 
     const result = await sut.execute({
-      slug: 'example-question'
+      slug: 'example-question',
     })
 
     expect(result.value).toMatchObject({
@@ -66,10 +68,10 @@ describe('Get Question By Slug', () => {
         author: 'John Doe',
         attachments: [
           expect.objectContaining({
-            title: attachment.title
-          })
-        ]
-      })
+            title: attachment.title,
+          }),
+        ],
+      }),
     })
   })
 })

@@ -1,12 +1,13 @@
-import {
-  UploadParams,
-  Uploader
-} from '@/domain/forum/application/storage/uploader'
-
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import { Injectable } from '@nestjs/common'
-import { EnvService } from '../env/env.service'
 import { randomUUID } from 'node:crypto'
+
+import {
+  UploadParams,
+  Uploader,
+} from '@/domain/forum/application/storage/uploader'
+
+import { EnvService } from '../env/env.service'
 
 @Injectable()
 export class R2Storage implements Uploader {
@@ -20,15 +21,15 @@ export class R2Storage implements Uploader {
       region: 'auto',
       credentials: {
         accessKeyId: envService.get('AWS_ACCESS_KEY_ID'),
-        secretAccessKey: envService.get('AWS_SECRET_ACCESS_KEY')
-      }
+        secretAccessKey: envService.get('AWS_SECRET_ACCESS_KEY'),
+      },
     })
   }
 
   async upload({
     fileName,
     fileType,
-    body
+    body,
   }: UploadParams): Promise<{ url: string }> {
     const uploadId = randomUUID()
     const uniqueFileName = `${uploadId}-${fileName}`
@@ -38,12 +39,12 @@ export class R2Storage implements Uploader {
         Bucket: this.envService.get('AWS_BUCKET_NAME'),
         Key: uniqueFileName,
         ContentType: fileType,
-        Body: body
-      })
+        Body: body,
+      }),
     )
 
     return {
-      url: uniqueFileName
+      url: uniqueFileName,
     }
   }
 }

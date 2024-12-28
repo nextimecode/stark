@@ -4,17 +4,18 @@ import {
   Controller,
   HttpCode,
   Param,
-  Put
+  Put,
 } from '@nestjs/common'
+import { z } from 'zod'
+
+import { EditAnswerUseCase } from '@/domain/forum/application/use-cases/edit-answer'
 import { CurrentUser } from '@/infra/auth/current-user-decorator'
 import { UserPayload } from '@/infra/auth/jwt.strategy'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
-import { z } from 'zod'
-import { EditAnswerUseCase } from '@/domain/forum/application/use-cases/edit-answer'
 
 const editAnswerBodySchema = z.object({
   content: z.string(),
-  attachments: z.array(z.string().uuid()).default([])
+  attachments: z.array(z.string().uuid()).default([]),
 })
 
 const bodyValidationPipe = new ZodValidationPipe(editAnswerBodySchema)
@@ -30,7 +31,7 @@ export class EditAnswerController {
   async handle(
     @Body(bodyValidationPipe) body: EditAnswerBodySchema,
     @CurrentUser() user: UserPayload,
-    @Param('id') answerId: string
+    @Param('id') answerId: string,
   ) {
     const { content, attachments } = body
     const userId = user.sub
@@ -39,7 +40,7 @@ export class EditAnswerController {
       content,
       answerId,
       authorId: userId,
-      attachmentsIds: attachments
+      attachmentsIds: attachments,
     })
 
     if (result.isLeft()) {

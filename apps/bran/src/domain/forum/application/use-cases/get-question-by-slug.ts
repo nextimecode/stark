@@ -1,8 +1,10 @@
-import { QuestionsRepository } from '../repositories/questions-repository'
+import { Injectable } from '@nestjs/common'
+
 import { Either, left, right } from '@/core/either'
 import { ResourceNotFoundError } from '@/core/errors/errors/resource-not-found-error'
-import { Injectable } from '@nestjs/common'
+
 import { QuestionDetails } from '../../enterprise/entities/value-objects/question-details'
+import { QuestionsRepository } from '../repositories/questions-repository'
 
 interface GetQuestionBySlugUseCaseRequest {
   slug: string
@@ -20,7 +22,7 @@ export class GetQuestionBySlugUseCase {
   constructor(private questionsRepository: QuestionsRepository) {}
 
   async execute({
-    slug
+    slug,
   }: GetQuestionBySlugUseCaseRequest): Promise<GetQuestionBySlugUseCaseResponse> {
     const question = await this.questionsRepository.findDetailsBySlug(slug)
 
@@ -29,7 +31,7 @@ export class GetQuestionBySlugUseCase {
     }
 
     return right({
-      question
+      question,
     })
   }
 }

@@ -7,7 +7,6 @@ import prettierPlugin from 'eslint-plugin-prettier'
 import reactPlugin from 'eslint-plugin-react'
 import unicornPlugin from 'eslint-plugin-unicorn'
 import globals from 'globals'
-import nextPlugin from 'eslint-plugin-next';
 
 export default [
   {
@@ -34,10 +33,8 @@ export default [
       prettier: prettierPlugin,
       unicorn: unicornPlugin,
       'import-helpers': importHelpersPlugin,
-      perfectionist: perfectionistPlugin,
-      next: nextPlugin
+      perfectionist: perfectionistPlugin
     },
-    ignores: ['node_modules/', 'dist/', 'build/'],
     rules: {
       'space-before-blocks': 'error',
       'keyword-spacing': 'error',

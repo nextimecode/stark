@@ -5,7 +5,7 @@ export class AttachmentPresenter {
     return {
       id: attachment.id.toString(),
       title: attachment.title,
-      url: attachment.url
+      url: attachment.url,
     }
   }
 }

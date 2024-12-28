@@ -1,10 +1,12 @@
-import { QuestionsRepository } from '../repositories/questions-repository'
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { QuestionComment } from '@/domain/forum/enterprise/entities/question-comment'
-import { QuestionCommentsRepository } from '@/domain/forum/application/repositories/question-comments-repository'
-import { Either, left, right } from '@/core/either'
-import { ResourceNotFoundError } from '@/core/errors/errors/resource-not-found-error'
 import { Injectable } from '@nestjs/common'
+
+import { Either, left, right } from '@/core/either'
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { ResourceNotFoundError } from '@/core/errors/errors/resource-not-found-error'
+import { QuestionCommentsRepository } from '@/domain/forum/application/repositories/question-comments-repository'
+import { QuestionComment } from '@/domain/forum/enterprise/entities/question-comment'
+
+import { QuestionsRepository } from '../repositories/questions-repository'
 
 interface CommentOnQuestionUseCaseRequest {
   authorId: string
@@ -23,13 +25,13 @@ type CommentOnQuestionUseCaseResponse = Either<
 export class CommentOnQuestionUseCase {
   constructor(
     private questionsRepository: QuestionsRepository,
-    private questionCommentsRepository: QuestionCommentsRepository
+    private questionCommentsRepository: QuestionCommentsRepository,
   ) {}
 
   async execute({
     authorId,
     questionId,
-    content
+    content,
   }: CommentOnQuestionUseCaseRequest): Promise<CommentOnQuestionUseCaseResponse> {
     const question = await this.questionsRepository.findById(questionId)
 
@@ -40,13 +42,13 @@ export class CommentOnQuestionUseCase {
     const questionComment = QuestionComment.create({
       authorId: new UniqueEntityID(authorId),
       questionId: new UniqueEntityID(questionId),
-      content
+      content,
     })
 
     await this.questionCommentsRepository.create(questionComment)
 
     return right({
-      questionComment
+      questionComment,
     })
   }
 }

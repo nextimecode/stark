@@ -1,14 +1,15 @@
-import { QuestionsRepository } from '@/domain/forum/application/repositories/questions-repository'
-import { AppModule } from '@/infra/app.module'
-import { CacheRepository } from '@/infra/cache/cache-repository'
-import { CacheModule } from '@/infra/cache/cache.module'
-import { DatabaseModule } from '@/infra/database/database.module'
 import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import { AttachmentFactory } from 'test/factories/make-attachment'
 import { QuestionFactory } from 'test/factories/make-question'
 import { QuestionAttachmentFactory } from 'test/factories/make-question-attachments'
 import { StudentFactory } from 'test/factories/make-student'
+
+import { QuestionsRepository } from '@/domain/forum/application/repositories/questions-repository'
+import { AppModule } from '@/infra/app.module'
+import { CacheRepository } from '@/infra/cache/cache-repository'
+import { CacheModule } from '@/infra/cache/cache.module'
+import { DatabaseModule } from '@/infra/database/database.module'
 
 describe('Prisma Questions Repository (E2E)', () => {
   let app: INestApplication
@@ -26,8 +27,8 @@ describe('Prisma Questions Repository (E2E)', () => {
         StudentFactory,
         QuestionFactory,
         AttachmentFactory,
-        QuestionAttachmentFactory
-      ]
+        QuestionAttachmentFactory,
+      ],
     }).compile()
 
     app = moduleRef.createNestApplication()
@@ -46,14 +47,14 @@ describe('Prisma Questions Repository (E2E)', () => {
     const user = await studentFactory.makePrismaStudent()
 
     const question = await questionFactory.makePrismaQuestion({
-      authorId: user.id
+      authorId: user.id,
     })
 
     const attachment = await attachmentFactory.makePrismaAttachment()
 
     await questionAttachmentFactory.makePrismaQuestionAttachment({
       attachmentId: attachment.id,
-      questionId: question.id
+      questionId: question.id,
     })
 
     const slug = question.slug.value
@@ -69,21 +70,21 @@ describe('Prisma Questions Repository (E2E)', () => {
     const user = await studentFactory.makePrismaStudent()
 
     const question = await questionFactory.makePrismaQuestion({
-      authorId: user.id
+      authorId: user.id,
     })
 
     const attachment = await attachmentFactory.makePrismaAttachment()
 
     await questionAttachmentFactory.makePrismaQuestionAttachment({
       attachmentId: attachment.id,
-      questionId: question.id
+      questionId: question.id,
     })
 
     const slug = question.slug.value
 
     await cacheRepository.set(
       `question:${slug}:details`,
-      JSON.stringify({ empty: true })
+      JSON.stringify({ empty: true }),
     )
 
     const questionDetails = await questionsRepository.findDetailsBySlug(slug)
@@ -95,21 +96,21 @@ describe('Prisma Questions Repository (E2E)', () => {
     const user = await studentFactory.makePrismaStudent()
 
     const question = await questionFactory.makePrismaQuestion({
-      authorId: user.id
+      authorId: user.id,
     })
 
     const attachment = await attachmentFactory.makePrismaAttachment()
 
     await questionAttachmentFactory.makePrismaQuestionAttachment({
       attachmentId: attachment.id,
-      questionId: question.id
+      questionId: question.id,
     })
 
     const slug = question.slug.value
 
     await cacheRepository.set(
       `question:${slug}:details`,
-      JSON.stringify({ empty: true })
+      JSON.stringify({ empty: true }),
     )
 
     await questionsRepository.save(question)

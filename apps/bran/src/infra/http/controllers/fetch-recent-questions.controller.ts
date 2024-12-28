@@ -1,7 +1,9 @@
 import { BadRequestException, Controller, Get, Query } from '@nestjs/common'
-import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 import { z } from 'zod'
+
 import { FetchRecentQuestionsUseCase } from '@/domain/forum/application/use-cases/fetch-recent-questions'
+import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
+
 import { QuestionPresenter } from '../presenters/question-presenter'
 
 const pageQueryParamSchema = z
@@ -22,7 +24,7 @@ export class FetchRecentQuestionsController {
   @Get()
   async handle(@Query('page', queryValidationPipe) page: PageQueryParamSchema) {
     const result = await this.fetchRecentQuestions.execute({
-      page
+      page,
     })
 
     if (result.isLeft()) {

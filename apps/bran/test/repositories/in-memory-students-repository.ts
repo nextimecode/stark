@@ -6,7 +6,7 @@ export class InMemoryStudentsRepository implements StudentsRepository {
   public items: Student[] = []
 
   async findByEmail(email: string) {
-    const student = this.items.find(item => item.email === email)
+    const student = this.items.find((item) => item.email === email)
 
     if (!student) {
       return null

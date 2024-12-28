@@ -43,17 +43,17 @@ export abstract class WatchedList<T> {
   }
 
   private removeFromNew(item: T): void {
-    this.new = this.new.filter(v => !this.compareItems(v, item))
+    this.new = this.new.filter((v) => !this.compareItems(v, item))
   }
 
   private removeFromCurrent(item: T): void {
     this.currentItems = this.currentItems.filter(
-      v => !this.compareItems(item, v)
+      (v) => !this.compareItems(item, v),
     )
   }
 
   private removeFromRemoved(item: T): void {
-    this.removed = this.removed.filter(v => !this.compareItems(item, v))
+    this.removed = this.removed.filter((v) => !this.compareItems(item, v))
   }
 
   private wasAddedInitially(item: T): boolean {
@@ -95,12 +95,12 @@ export abstract class WatchedList<T> {
   }
 
   public update(items: T[]): void {
-    const newItems = items.filter(a => {
-      return !this.getItems().some(b => this.compareItems(a, b))
+    const newItems = items.filter((a) => {
+      return !this.getItems().some((b) => this.compareItems(a, b))
     })
 
-    const removedItems = this.getItems().filter(a => {
-      return !items.some(b => this.compareItems(a, b))
+    const removedItems = this.getItems().filter((a) => {
+      return !items.some((b) => this.compareItems(a, b))
     })
 
     this.currentItems = items
