@@ -27,8 +27,8 @@ describe('Delete answer comment (E2E)', () => {
         StudentFactory,
         QuestionFactory,
         AnswerFactory,
-        AnswerCommentFactory,
-      ],
+        AnswerCommentFactory
+      ]
     }).compile()
 
     app = moduleRef.createNestApplication()
@@ -49,17 +49,17 @@ describe('Delete answer comment (E2E)', () => {
     const accessToken = jwt.sign({ sub: user.id.toString() })
 
     const question = await questionFactory.makePrismaQuestion({
-      authorId: user.id,
+      authorId: user.id
     })
 
     const answer = await answerFactory.makePrismaAnswer({
       questionId: question.id,
-      authorId: user.id,
+      authorId: user.id
     })
 
     const answerComment = await answerCommentFactory.makePrismaAnswerComment({
       answerId: answer.id,
-      authorId: user.id,
+      authorId: user.id
     })
 
     const answerCommentId = answerComment.id.toString()
@@ -72,8 +72,8 @@ describe('Delete answer comment (E2E)', () => {
 
     const commentOnDatabase = await prisma.comment.findUnique({
       where: {
-        id: answerCommentId,
-      },
+        id: answerCommentId
+      }
     })
 
     expect(commentOnDatabase).toBeNull()

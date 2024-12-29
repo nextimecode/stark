@@ -21,7 +21,7 @@ describe('On answer created (E2E)', () => {
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
-      providers: [StudentFactory, QuestionFactory],
+      providers: [StudentFactory, QuestionFactory]
     }).compile()
 
     app = moduleRef.createNestApplication()
@@ -42,7 +42,7 @@ describe('On answer created (E2E)', () => {
     const accessToken = jwt.sign({ sub: user.id.toString() })
 
     const question = await questionFactory.makePrismaQuestion({
-      authorId: user.id,
+      authorId: user.id
     })
 
     const questionId = question.id.toString()
@@ -52,14 +52,14 @@ describe('On answer created (E2E)', () => {
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         content: 'New answer',
-        attachments: [],
+        attachments: []
       })
 
     await waitFor(async () => {
       const notificationOnDatabase = await prisma.notification.findFirst({
         where: {
-          recipientId: user.id.toString(),
-        },
+          recipientId: user.id.toString()
+        }
       })
 
       expect(notificationOnDatabase).not.toBeNull()
