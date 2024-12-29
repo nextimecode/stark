@@ -156,6 +156,7 @@
   },
   "overrides": {
     "uri-js": "npm:uri-js-replace@1.0.1",
-    "@rollup/rollup": "npm:@rollup/wasm-node"
+    "@rollup/rollup": "npm:@rollup/wasm-node@4.29.1",
+    "whatwg-url": "14.1.0"
   }
 }
