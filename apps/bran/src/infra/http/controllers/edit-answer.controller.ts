@@ -4,7 +4,7 @@ import {
   Controller,
   HttpCode,
   Param,
-  Put,
+  Put
 } from '@nestjs/common'
 import { z } from 'zod'
 
@@ -15,7 +15,7 @@ import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
 const editAnswerBodySchema = z.object({
   content: z.string(),
-  attachments: z.array(z.string().uuid()).default([]),
+  attachments: z.array(z.string().uuid()).default([])
 })
 
 const bodyValidationPipe = new ZodValidationPipe(editAnswerBodySchema)
@@ -31,7 +31,7 @@ export class EditAnswerController {
   async handle(
     @Body(bodyValidationPipe) body: EditAnswerBodySchema,
     @CurrentUser() user: UserPayload,
-    @Param('id') answerId: string,
+    @Param('id') answerId: string
   ) {
     const { content, attachments } = body
     const userId = user.sub
@@ -40,7 +40,7 @@ export class EditAnswerController {
       content,
       answerId,
       authorId: userId,
-      attachmentsIds: attachments,
+      attachmentsIds: attachments
     })
 
     if (result.isLeft()) {

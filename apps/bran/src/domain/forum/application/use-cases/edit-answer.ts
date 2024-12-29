@@ -29,14 +29,14 @@ type EditAnswerUseCaseResponse = Either<
 export class EditAnswerUseCase {
   constructor(
     private answersRepository: AnswersRepository,
-    private answerAttachmentsRepository: AnswerAttachmentsRepository,
+    private answerAttachmentsRepository: AnswerAttachmentsRepository
   ) {}
 
   async execute({
     authorId,
     answerId,
     content,
-    attachmentsIds,
+    attachmentsIds
   }: EditAnswerUseCaseRequest): Promise<EditAnswerUseCaseResponse> {
     const answer = await this.answersRepository.findById(answerId)
 
@@ -52,13 +52,13 @@ export class EditAnswerUseCase {
       await this.answerAttachmentsRepository.findManyByAnswerId(answerId)
 
     const answerAttachmentList = new AnswerAttachmentList(
-      currentAnswerAttachments,
+      currentAnswerAttachments
     )
 
-    const answerAttachments = attachmentsIds.map((attachmentId) => {
+    const answerAttachments = attachmentsIds.map(attachmentId => {
       return AnswerAttachment.create({
         attachmentId: new UniqueEntityID(attachmentId),
-        answerId: answer.id,
+        answerId: answer.id
       })
     })
 
@@ -70,7 +70,7 @@ export class EditAnswerUseCase {
     await this.answersRepository.save(answer)
 
     return right({
-      answer,
+      answer
     })
   }
 }

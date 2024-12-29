@@ -14,7 +14,7 @@ describe('Delete Question Comment', () => {
   beforeEach(() => {
     inMemoryStudentsRepository = new InMemoryStudentsRepository()
     inMemoryQuestionCommentsRepository = new InMemoryQuestionCommentsRepository(
-      inMemoryStudentsRepository,
+      inMemoryStudentsRepository
     )
 
     sut = new DeleteQuestionCommentUseCase(inMemoryQuestionCommentsRepository)
@@ -27,7 +27,7 @@ describe('Delete Question Comment', () => {
 
     await sut.execute({
       questionCommentId: questionComment.id.toString(),
-      authorId: questionComment.authorId.toString(),
+      authorId: questionComment.authorId.toString()
     })
 
     expect(inMemoryQuestionCommentsRepository.items).toHaveLength(0)
@@ -35,14 +35,14 @@ describe('Delete Question Comment', () => {
 
   it('should not be able to delete another user question comment', async () => {
     const questionComment = makeQuestionComment({
-      authorId: new UniqueEntityID('author-1'),
+      authorId: new UniqueEntityID('author-1')
     })
 
     await inMemoryQuestionCommentsRepository.create(questionComment)
 
     const result = await sut.execute({
       questionCommentId: questionComment.id.toString(),
-      authorId: 'author-2',
+      authorId: 'author-2'
     })
 
     expect(result.isLeft()).toBe(true)

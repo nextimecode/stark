@@ -19,7 +19,7 @@ describe('Fetch question answers (E2E)', () => {
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
-      providers: [StudentFactory, QuestionFactory, AnswerFactory],
+      providers: [StudentFactory, QuestionFactory, AnswerFactory]
     }).compile()
 
     app = moduleRef.createNestApplication()
@@ -38,20 +38,20 @@ describe('Fetch question answers (E2E)', () => {
     const accessToken = jwt.sign({ sub: user.id.toString() })
 
     const question = await questionFactory.makePrismaQuestion({
-      authorId: user.id,
+      authorId: user.id
     })
 
     await Promise.all([
       answerFactory.makePrismaAnswer({
         authorId: user.id,
         questionId: question.id,
-        content: 'Answer 01',
+        content: 'Answer 01'
       }),
       answerFactory.makePrismaAnswer({
         authorId: user.id,
         questionId: question.id,
-        content: 'Answer 02',
-      }),
+        content: 'Answer 02'
+      })
     ])
 
     const questionId = question.id.toString()
@@ -65,8 +65,8 @@ describe('Fetch question answers (E2E)', () => {
     expect(response.body).toEqual({
       answers: expect.arrayContaining([
         expect.objectContaining({ content: 'Answer 01' }),
-        expect.objectContaining({ content: 'Answer 01' }),
-      ]),
+        expect.objectContaining({ content: 'Answer 01' })
+      ])
     })
   })
 })

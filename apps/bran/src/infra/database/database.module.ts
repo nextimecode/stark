@@ -28,40 +28,40 @@ import { PrismaStudentsRepository } from './prisma/repositories/prisma-students-
     PrismaService,
     {
       provide: QuestionsRepository,
-      useClass: PrismaQuestionsRepository,
+      useClass: PrismaQuestionsRepository
     },
     {
       provide: StudentsRepository,
-      useClass: PrismaStudentsRepository,
+      useClass: PrismaStudentsRepository
     },
     {
       provide: QuestionCommentsRepository,
-      useClass: PrismaQuestionCommentsRepository,
+      useClass: PrismaQuestionCommentsRepository
     },
     {
       provide: QuestionAttachmentsRepository,
-      useClass: PrismaQuestionAttachmentsRepository,
+      useClass: PrismaQuestionAttachmentsRepository
     },
     {
       provide: AnswersRepository,
-      useClass: PrismaAnswersRepository,
+      useClass: PrismaAnswersRepository
     },
     {
       provide: AnswerCommentsRepository,
-      useClass: PrismaAnswerCommentsRepository,
+      useClass: PrismaAnswerCommentsRepository
     },
     {
       provide: AnswerAttachmentsRepository,
-      useClass: PrismaAnswerAttachmentsRepository,
+      useClass: PrismaAnswerAttachmentsRepository
     },
     {
       provide: AttachmentsRepository,
-      useClass: PrismaAttachmentsRepository,
+      useClass: PrismaAttachmentsRepository
     },
     {
       provide: NotificationsRepository,
-      useClass: PrismaNotificationsRepository,
-    },
+      useClass: PrismaNotificationsRepository
+    }
   ],
   exports: [
     PrismaService,
@@ -73,7 +73,7 @@ import { PrismaStudentsRepository } from './prisma/repositories/prisma-students-
     AnswerCommentsRepository,
     AnswerAttachmentsRepository,
     AttachmentsRepository,
-    NotificationsRepository,
-  ],
+    NotificationsRepository
+  ]
 })
 export class DatabaseModule {}

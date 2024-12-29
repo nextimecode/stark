@@ -11,7 +11,7 @@ export class GetQuestionBySlugController {
   @Get()
   async handle(@Param('slug') slug: string) {
     const result = await this.getQuestionBySlug.execute({
-      slug,
+      slug
     })
 
     if (result.isLeft()) {

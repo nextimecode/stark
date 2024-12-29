@@ -30,7 +30,7 @@ type EditQuestionUseCaseResponse = Either<
 export class EditQuestionUseCase {
   constructor(
     private questionsRepository: QuestionsRepository,
-    private questionAttachmentsRepository: QuestionAttachmentsRepository,
+    private questionAttachmentsRepository: QuestionAttachmentsRepository
   ) {}
 
   async execute({
@@ -38,7 +38,7 @@ export class EditQuestionUseCase {
     questionId,
     title,
     content,
-    attachmentsIds,
+    attachmentsIds
   }: EditQuestionUseCaseRequest): Promise<EditQuestionUseCaseResponse> {
     const question = await this.questionsRepository.findById(questionId)
 
@@ -54,13 +54,13 @@ export class EditQuestionUseCase {
       await this.questionAttachmentsRepository.findManyByQuestionId(questionId)
 
     const questionAttachmentList = new QuestionAttachmentList(
-      currentQuestionAttachments,
+      currentQuestionAttachments
     )
 
-    const questionAttachments = attachmentsIds.map((attachmentId) => {
+    const questionAttachments = attachmentsIds.map(attachmentId => {
       return QuestionAttachment.create({
         attachmentId: new UniqueEntityID(attachmentId),
-        questionId: question.id,
+        questionId: question.id
       })
     })
 
@@ -73,7 +73,7 @@ export class EditQuestionUseCase {
     await this.questionsRepository.save(question)
 
     return right({
-      question,
+      question
     })
   }
 }

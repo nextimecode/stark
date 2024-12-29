@@ -67,7 +67,7 @@ import { UploadAttachmentController } from './controllers/upload-attachment.cont
     FetchQuestionCommentsController,
     FetchAnswerCommentsController,
     UploadAttachmentController,
-    ReadNotificationController,
+    ReadNotificationController
   ],
   providers: [
     CreateQuestionUseCase,
@@ -89,7 +89,7 @@ import { UploadAttachmentController } from './controllers/upload-attachment.cont
     FetchQuestionCommentsUseCase,
     FetchAnswerCommentsUseCase,
     UploadAndCreateAttachmentUseCase,
-    ReadNotificationUseCase,
-  ],
+    ReadNotificationUseCase
+  ]
 })
 export class HttpModule {}

@@ -16,7 +16,7 @@ describe('Upload attachment (E2E)', () => {
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
-      providers: [StudentFactory, QuestionFactory],
+      providers: [StudentFactory, QuestionFactory]
     }).compile()
 
     app = moduleRef.createNestApplication()
@@ -39,7 +39,7 @@ describe('Upload attachment (E2E)', () => {
 
     expect(response.statusCode).toBe(201)
     expect(response.body).toEqual({
-      attachmentId: expect.any(String),
+      attachmentId: expect.any(String)
     })
   })
 })

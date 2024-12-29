@@ -30,8 +30,8 @@ describe('Edit answer (E2E)', () => {
         QuestionFactory,
         AnswerFactory,
         AttachmentFactory,
-        AnswerAttachmentFactory,
-      ],
+        AnswerAttachmentFactory
+      ]
     }).compile()
 
     app = moduleRef.createNestApplication()
@@ -53,12 +53,12 @@ describe('Edit answer (E2E)', () => {
     const accessToken = jwt.sign({ sub: user.id.toString() })
 
     const question = await questionFactory.makePrismaQuestion({
-      authorId: user.id,
+      authorId: user.id
     })
 
     const answer = await answerFactory.makePrismaAnswer({
       questionId: question.id,
-      authorId: user.id,
+      authorId: user.id
     })
 
     const attachment1 = await attachmentFactory.makePrismaAttachment()
@@ -66,12 +66,12 @@ describe('Edit answer (E2E)', () => {
 
     await answerAttachmentFactory.makePrismaAnswerAttachment({
       attachmentId: attachment1.id,
-      answerId: answer.id,
+      answerId: answer.id
     })
 
     await answerAttachmentFactory.makePrismaAnswerAttachment({
       attachmentId: attachment2.id,
-      answerId: answer.id,
+      answerId: answer.id
     })
 
     const attachment3 = await attachmentFactory.makePrismaAttachment()
@@ -83,35 +83,35 @@ describe('Edit answer (E2E)', () => {
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
         content: 'New answer content',
-        attachments: [attachment1.id.toString(), attachment3.id.toString()],
+        attachments: [attachment1.id.toString(), attachment3.id.toString()]
       })
 
     expect(response.statusCode).toBe(204)
 
     const answerOnDatabase = await prisma.answer.findFirst({
       where: {
-        content: 'New answer content',
-      },
+        content: 'New answer content'
+      }
     })
 
     expect(answerOnDatabase).toBeTruthy()
 
     const attachmentsOnDatabase = await prisma.attachment.findMany({
       where: {
-        answerId: answerOnDatabase?.id,
-      },
+        answerId: answerOnDatabase?.id
+      }
     })
 
     expect(attachmentsOnDatabase).toHaveLength(2)
     expect(attachmentsOnDatabase).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          id: attachment1.id.toString(),
+          id: attachment1.id.toString()
         }),
         expect.objectContaining({
-          id: attachment3.id.toString(),
-        }),
-      ]),
+          id: attachment3.id.toString()
+        })
+      ])
     )
   })
 })

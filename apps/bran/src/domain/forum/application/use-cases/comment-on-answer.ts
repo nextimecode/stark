@@ -25,13 +25,13 @@ type CommentOnAnswerUseCaseResponse = Either<
 export class CommentOnAnswerUseCase {
   constructor(
     private answersRepository: AnswersRepository,
-    private answerCommentsRepository: AnswerCommentsRepository,
+    private answerCommentsRepository: AnswerCommentsRepository
   ) {}
 
   async execute({
     authorId,
     answerId,
-    content,
+    content
   }: CommentOnAnswerUseCaseRequest): Promise<CommentOnAnswerUseCaseResponse> {
     const answer = await this.answersRepository.findById(answerId)
 
@@ -42,13 +42,13 @@ export class CommentOnAnswerUseCase {
     const answerComment = AnswerComment.create({
       authorId: new UniqueEntityID(authorId),
       answerId: new UniqueEntityID(answerId),
-      content,
+      content
     })
 
     await this.answerCommentsRepository.create(answerComment)
 
     return right({
-      answerComment,
+      answerComment
     })
   }
 }

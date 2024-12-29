@@ -5,7 +5,7 @@ export abstract class QuestionAttachmentsRepository {
   abstract deleteMany(attachments: QuestionAttachment[]): Promise<void>
 
   abstract findManyByQuestionId(
-    questionId: string,
+    questionId: string
   ): Promise<QuestionAttachment[]>
 
   abstract deleteManyByQuestionId(questionId: string): Promise<void>

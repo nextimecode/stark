@@ -16,9 +16,9 @@ export class PrismaQuestionMapper {
           : null,
         slug: Slug.create(raw.slug),
         createdAt: raw.createdAt,
-        updatedAt: raw.updatedAt,
+        updatedAt: raw.updatedAt
       },
-      new UniqueEntityID(raw.id),
+      new UniqueEntityID(raw.id)
     )
   }
 
@@ -31,7 +31,7 @@ export class PrismaQuestionMapper {
       content: question.content,
       slug: question.slug.value,
       createdAt: question.createdAt,
-      updatedAt: question.updatedAt,
+      updatedAt: question.updatedAt
     }
   }
 }

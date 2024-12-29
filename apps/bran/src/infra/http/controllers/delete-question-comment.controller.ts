@@ -3,7 +3,7 @@ import {
   Controller,
   Delete,
   HttpCode,
-  Param,
+  Param
 } from '@nestjs/common'
 
 import { DeleteQuestionCommentUseCase } from '@/domain/forum/application/use-cases/delete-question-comment'
@@ -18,13 +18,13 @@ export class DeleteQuestionCommentController {
   @HttpCode(204)
   async handle(
     @CurrentUser() user: UserPayload,
-    @Param('id') questionCommentId: string,
+    @Param('id') questionCommentId: string
   ) {
     const userId = user.sub
 
     const result = await this.deleteQuestionComment.execute({
       questionCommentId,
-      authorId: userId,
+      authorId: userId
     })
 
     if (result.isLeft()) {

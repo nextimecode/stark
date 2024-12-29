@@ -30,18 +30,18 @@ export class AnswerQuestionUseCase {
     authorId,
     questionId,
     content,
-    attachmentsIds,
+    attachmentsIds
   }: AnswerQuestionUseCaseRequest): Promise<AnswerQuestionUseCaseResponse> {
     const answer = Answer.create({
       content,
       authorId: new UniqueEntityID(authorId),
-      questionId: new UniqueEntityID(questionId),
+      questionId: new UniqueEntityID(questionId)
     })
 
-    const answerAttachments = attachmentsIds.map((attachmentId) => {
+    const answerAttachments = attachmentsIds.map(attachmentId => {
       return AnswerAttachment.create({
         attachmentId: new UniqueEntityID(attachmentId),
-        answerId: answer.id,
+        answerId: answer.id
       })
     })
 
@@ -50,7 +50,7 @@ export class AnswerQuestionUseCase {
     await this.answersRepository.create(answer)
 
     return right({
-      answer,
+      answer
     })
   }
 }

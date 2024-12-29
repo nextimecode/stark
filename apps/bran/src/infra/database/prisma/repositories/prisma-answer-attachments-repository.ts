@@ -15,8 +15,8 @@ export class PrismaAnswerAttachmentsRepository
   async findManyByAnswerId(answerId: string): Promise<AnswerAttachment[]> {
     const answerAttachments = await this.prisma.attachment.findMany({
       where: {
-        answerId,
-      },
+        answerId
+      }
     })
 
     return answerAttachments.map(PrismaAnswerAttachmentMapper.toDomain)
@@ -37,24 +37,24 @@ export class PrismaAnswerAttachmentsRepository
       return
     }
 
-    const attachmentIds = attachments.map((attachment) => {
+    const attachmentIds = attachments.map(attachment => {
       return attachment.id.toString()
     })
 
     await this.prisma.attachment.deleteMany({
       where: {
         id: {
-          in: attachmentIds,
-        },
-      },
+          in: attachmentIds
+        }
+      }
     })
   }
 
   async deleteManyByAnswerId(answerId: string): Promise<void> {
     await this.prisma.attachment.deleteMany({
       where: {
-        answerId,
-      },
+        answerId
+      }
     })
   }
 }

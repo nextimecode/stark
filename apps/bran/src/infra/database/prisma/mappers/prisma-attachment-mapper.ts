@@ -8,19 +8,19 @@ export class PrismaAttachmentMapper {
     return Attachment.create(
       {
         title: raw.title,
-        url: raw.url,
+        url: raw.url
       },
-      new UniqueEntityID(raw.id),
+      new UniqueEntityID(raw.id)
     )
   }
 
   static toPrisma(
-    attachment: Attachment,
+    attachment: Attachment
   ): Prisma.AttachmentUncheckedCreateInput {
     return {
       id: attachment.id.toString(),
       title: attachment.title,
-      url: attachment.url,
+      url: attachment.url
     }
   }
 }

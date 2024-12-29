@@ -33,16 +33,16 @@ describe('On Answer Created', () => {
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
       inMemoryQuestionAttachmentsRepository,
       inMemoryAttachmentsRepository,
-      inMemoryStudentsRepository,
+      inMemoryStudentsRepository
     )
     inMemoryAnswerAttachmentsRepository =
       new InMemoryAnswerAttachmentsRepository()
     inMemoryAnswersRepository = new InMemoryAnswersRepository(
-      inMemoryAnswerAttachmentsRepository,
+      inMemoryAnswerAttachmentsRepository
     )
     inMemoryNotificationsRepository = new InMemoryNotificationsRepository()
     sendNotificationUseCase = new SendNotificationUseCase(
-      inMemoryNotificationsRepository,
+      inMemoryNotificationsRepository
     )
 
     sendNotificationExecuteSpy = vi.spyOn(sendNotificationUseCase, 'execute')

@@ -8,12 +8,12 @@ export abstract class QuestionCommentsRepository {
 
   abstract findManyByQuestionId(
     questionId: string,
-    params: PaginationParams,
+    params: PaginationParams
   ): Promise<QuestionComment[]>
 
   abstract findManyByQuestionIdWithAuthor(
     questionId: string,
-    params: PaginationParams,
+    params: PaginationParams
   ): Promise<CommentWithAuthor[]>
 
   abstract create(questionComment: QuestionComment): Promise<void>

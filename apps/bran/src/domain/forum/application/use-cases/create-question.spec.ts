@@ -22,7 +22,7 @@ describe('Create Question', () => {
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
       inMemoryQuestionAttachmentsRepository,
       inMemoryAttachmentsRepository,
-      inMemoryStudentsRepository,
+      inMemoryStudentsRepository
     )
     sut = new CreateQuestionUseCase(inMemoryQuestionsRepository)
   })
@@ -32,19 +32,19 @@ describe('Create Question', () => {
       authorId: '1',
       title: 'Nova pergunta',
       content: 'Conteúdo da pergunta',
-      attachmentsIds: ['1', '2'],
+      attachmentsIds: ['1', '2']
     })
 
     expect(result.isRight()).toBe(true)
     expect(inMemoryQuestionsRepository.items[0]).toEqual(result.value?.question)
     expect(
-      inMemoryQuestionsRepository.items[0].attachments.currentItems,
+      inMemoryQuestionsRepository.items[0].attachments.currentItems
     ).toHaveLength(2)
     expect(
-      inMemoryQuestionsRepository.items[0].attachments.currentItems,
+      inMemoryQuestionsRepository.items[0].attachments.currentItems
     ).toEqual([
       expect.objectContaining({ attachmentId: new UniqueEntityID('1') }),
-      expect.objectContaining({ attachmentId: new UniqueEntityID('2') }),
+      expect.objectContaining({ attachmentId: new UniqueEntityID('2') })
     ])
   })
 
@@ -53,7 +53,7 @@ describe('Create Question', () => {
       authorId: '1',
       title: 'Nova pergunta',
       content: 'Conteúdo da pergunta',
-      attachmentsIds: ['1', '2'],
+      attachmentsIds: ['1', '2']
     })
 
     expect(result.isRight()).toBe(true)
@@ -61,12 +61,12 @@ describe('Create Question', () => {
     expect(inMemoryQuestionAttachmentsRepository.items).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          attachmentId: new UniqueEntityID('1'),
+          attachmentId: new UniqueEntityID('1')
         }),
         expect.objectContaining({
-          attachmentId: new UniqueEntityID('1'),
-        }),
-      ]),
+          attachmentId: new UniqueEntityID('1')
+        })
+      ])
     )
   })
 })

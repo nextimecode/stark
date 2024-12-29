@@ -26,18 +26,18 @@ export class SendNotificationUseCase {
   async execute({
     recipientId,
     title,
-    content,
+    content
   }: SendNotificationUseCaseRequest): Promise<SendNotificationUseCaseResponse> {
     const notification = Notification.create({
       recipientId: new UniqueEntityID(recipientId),
       title,
-      content,
+      content
     })
 
     await this.notificationsRepository.create(notification)
 
     return right({
-      notification,
+      notification
     })
   }
 }

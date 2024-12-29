@@ -3,7 +3,7 @@ import {
   Body,
   Controller,
   Param,
-  Post,
+  Post
 } from '@nestjs/common'
 import { z } from 'zod'
 
@@ -13,7 +13,7 @@ import { UserPayload } from '@/infra/auth/jwt.strategy'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
 const commentOnQuestionBodySchema = z.object({
-  content: z.string(),
+  content: z.string()
 })
 
 const bodyValidationPipe = new ZodValidationPipe(commentOnQuestionBodySchema)
@@ -28,7 +28,7 @@ export class CommentOnQuestionController {
   async handle(
     @Body(bodyValidationPipe) body: CommentOnQuestionBodySchema,
     @CurrentUser() user: UserPayload,
-    @Param('questionId') questionId: string,
+    @Param('questionId') questionId: string
   ) {
     const { content } = body
     const userId = user.sub
@@ -36,7 +36,7 @@ export class CommentOnQuestionController {
     const result = await this.commentOnQuestion.execute({
       content,
       questionId,
-      authorId: userId,
+      authorId: userId
     })
 
     if (result.isLeft()) {

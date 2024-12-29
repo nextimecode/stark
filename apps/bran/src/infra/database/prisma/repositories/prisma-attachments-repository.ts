@@ -14,7 +14,7 @@ export class PrismaAttachmentsRepository implements AttachmentsRepository {
     const data = PrismaAttachmentMapper.toPrisma(attachment)
 
     await this.prisma.attachment.create({
-      data,
+      data
     })
   }
 }

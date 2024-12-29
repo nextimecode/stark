@@ -101,16 +101,16 @@ export class Question extends AggregateRoot<QuestionProps> {
 
   static create(
     props: Optional<QuestionProps, 'createdAt' | 'slug' | 'attachments'>,
-    id?: UniqueEntityID,
+    id?: UniqueEntityID
   ) {
     const question = new Question(
       {
         ...props,
         slug: props.slug ?? Slug.createFromText(props.title),
         attachments: props.attachments ?? new QuestionAttachmentList(),
-        createdAt: props.createdAt ?? new Date(),
+        createdAt: props.createdAt ?? new Date()
       },
-      id,
+      id
     )
 
     return question

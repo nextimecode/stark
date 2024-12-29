@@ -22,7 +22,7 @@ export class DeleteQuestionUseCase {
 
   async execute({
     questionId,
-    authorId,
+    authorId
   }: DeleteQuestionUseCaseRequest): Promise<DeleteQuestionUseCaseResponse> {
     const question = await this.questionsRepository.findById(questionId)
 

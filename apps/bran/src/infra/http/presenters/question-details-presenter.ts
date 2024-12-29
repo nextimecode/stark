@@ -14,7 +14,7 @@ export class QuestionDetailsPresenter {
       bestAnswerId: questionDetails.bestAnswerId?.toString(),
       attachments: questionDetails.attachments.map(AttachmentPresenter.toHTTP),
       createdAt: questionDetails.createdAt,
-      updatedAt: questionDetails.updatedAt,
+      updatedAt: questionDetails.updatedAt
     }
   }
 }

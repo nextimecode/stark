@@ -22,7 +22,7 @@ export class GetQuestionBySlugUseCase {
   constructor(private questionsRepository: QuestionsRepository) {}
 
   async execute({
-    slug,
+    slug
   }: GetQuestionBySlugUseCaseRequest): Promise<GetQuestionBySlugUseCaseResponse> {
     const question = await this.questionsRepository.findDetailsBySlug(slug)
 
@@ -31,7 +31,7 @@ export class GetQuestionBySlugUseCase {
     }
 
     return right({
-      question,
+      question
     })
   }
 }

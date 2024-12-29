@@ -1,7 +1,7 @@
 import {
   Question as PrismaQuestion,
   User as PrismaUser,
-  Attachment as PrismaAttachment,
+  Attachment as PrismaAttachment
 } from '@prisma/client'
 
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
@@ -29,7 +29,7 @@ export class PrismaQuestionDetailsMapper {
         : null,
       content: raw.content,
       createdAt: raw.createdAt,
-      updatedAt: raw.updatedAt,
+      updatedAt: raw.updatedAt
     })
   }
 }

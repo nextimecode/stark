@@ -13,8 +13,8 @@ export class PrismaStudentsRepository implements StudentsRepository {
   async findByEmail(email: string): Promise<Student | null> {
     const student = await this.prisma.user.findUnique({
       where: {
-        email,
-      },
+        email
+      }
     })
 
     if (!student) {
@@ -28,7 +28,7 @@ export class PrismaStudentsRepository implements StudentsRepository {
     const data = PrismaStudentMapper.toPrisma(student)
 
     await this.prisma.user.create({
-      data,
+      data
     })
   }
 }

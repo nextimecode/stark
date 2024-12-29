@@ -3,7 +3,7 @@ import {
   Controller,
   HttpCode,
   Param,
-  Patch,
+  Patch
 } from '@nestjs/common'
 
 import { ReadNotificationUseCase } from '@/domain/notification/application/use-cases/read-notification'
@@ -18,11 +18,11 @@ export class ReadNotificationController {
   @HttpCode(204)
   async handle(
     @CurrentUser() user: UserPayload,
-    @Param('notificationId') notificationId: string,
+    @Param('notificationId') notificationId: string
   ) {
     const result = await this.readNotification.execute({
       notificationId,
-      recipientId: user.sub,
+      recipientId: user.sub
     })
 
     if (result.isLeft()) {

@@ -17,7 +17,7 @@ describe('Delete Answer', () => {
     inMemoryAnswerAttachmentsRepository =
       new InMemoryAnswerAttachmentsRepository()
     inMemoryAnswersRepository = new InMemoryAnswersRepository(
-      inMemoryAnswerAttachmentsRepository,
+      inMemoryAnswerAttachmentsRepository
     )
 
     sut = new DeleteAnswerUseCase(inMemoryAnswersRepository)
@@ -26,9 +26,9 @@ describe('Delete Answer', () => {
   it('should be able to delete a answer', async () => {
     const newAnswer = makeAnswer(
       {
-        authorId: new UniqueEntityID('author-1'),
+        authorId: new UniqueEntityID('author-1')
       },
-      new UniqueEntityID('answer-1'),
+      new UniqueEntityID('answer-1')
     )
 
     await inMemoryAnswersRepository.create(newAnswer)
@@ -36,17 +36,17 @@ describe('Delete Answer', () => {
     inMemoryAnswerAttachmentsRepository.items.push(
       makeAnswerAttachment({
         answerId: newAnswer.id,
-        attachmentId: new UniqueEntityID('1'),
+        attachmentId: new UniqueEntityID('1')
       }),
       makeAnswerAttachment({
         answerId: newAnswer.id,
-        attachmentId: new UniqueEntityID('2'),
-      }),
+        attachmentId: new UniqueEntityID('2')
+      })
     )
 
     await sut.execute({
       answerId: 'answer-1',
-      authorId: 'author-1',
+      authorId: 'author-1'
     })
 
     expect(inMemoryAnswersRepository.items).toHaveLength(0)
@@ -56,16 +56,16 @@ describe('Delete Answer', () => {
   it('should not be able to delete a answer from another user', async () => {
     const newAnswer = makeAnswer(
       {
-        authorId: new UniqueEntityID('author-1'),
+        authorId: new UniqueEntityID('author-1')
       },
-      new UniqueEntityID('answer-1'),
+      new UniqueEntityID('answer-1')
     )
 
     await inMemoryAnswersRepository.create(newAnswer)
 
     const result = await sut.execute({
       answerId: 'answer-1',
-      authorId: 'author-2',
+      authorId: 'author-2'
     })
 
     expect(result.isLeft()).toBe(true)
