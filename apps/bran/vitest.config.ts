@@ -7,13 +7,13 @@ export default defineConfig({
     globals: true,
     root: './',
     deps: {
-      inline: ['vite-tsconfig-paths'],
-    },
+      inline: ['vite-tsconfig-paths']
+    }
   },
   plugins: [
     tsConfigPaths(),
     swc.vite({
-      module: { type: 'es6' },
-    }),
-  ],
+      module: { type: 'es6' }
+    })
+  ]
 })
