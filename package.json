@@ -26,6 +26,7 @@
     "audit": "pnpm audit",
     "bran:build": "turbo run build --filter bran",
     "bran:dev": "turbo run dev --filter bran",
+    "bran:start:prod": "turbo run start:prod --filter bran",
     "build": "prisma generate && turbo run build --parallel",
     "clean:all": "turbo run clean && pnpm store prune && rm -rf .next .turbo node_modules tsconfig.tsbuildinfo pnpm-lock.yaml && pnpm i && pnpm build",
     "precommit": "turbo lint typecheck audit && pnpm prettier --write .",
@@ -154,6 +155,7 @@
     "access": "restricted"
   },
   "overrides": {
-    "uri-js": "npm:uri-js-replace@1.0.1"
+    "uri-js": "npm:uri-js-replace@1.0.1",
+    "@rollup/rollup": "npm:@rollup/wasm-node"
   }
 }
