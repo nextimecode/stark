@@ -3,7 +3,7 @@ import {
   Body,
   Controller,
   Param,
-  Post,
+  Post
 } from '@nestjs/common'
 import { z } from 'zod'
 
@@ -14,7 +14,7 @@ import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
 const answerQuestionBodySchema = z.object({
   content: z.string(),
-  attachments: z.array(z.string().uuid()),
+  attachments: z.array(z.string().uuid())
 })
 
 const bodyValidationPipe = new ZodValidationPipe(answerQuestionBodySchema)
@@ -29,7 +29,7 @@ export class AnswerQuestionController {
   async handle(
     @Body(bodyValidationPipe) body: AnswerQuestionBodySchema,
     @CurrentUser() user: UserPayload,
-    @Param('questionId') questionId: string,
+    @Param('questionId') questionId: string
   ) {
     const { content, attachments } = body
     const userId = user.sub
@@ -38,7 +38,7 @@ export class AnswerQuestionController {
       content,
       questionId,
       authorId: userId,
-      attachmentsIds: attachments,
+      attachmentsIds: attachments
     })
 
     if (result.isLeft()) {

@@ -1,8 +1,0 @@
-node_modules
-.next
-/*.js
-dist
-.turbo
-apps/*/.next/
-styled-system/*
-next-env.d.ts
