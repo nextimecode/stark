@@ -27,8 +27,8 @@ describe('Prisma Questions Repository (E2E)', () => {
         StudentFactory,
         QuestionFactory,
         AttachmentFactory,
-        QuestionAttachmentFactory,
-      ],
+        QuestionAttachmentFactory
+      ]
     }).compile()
 
     app = moduleRef.createNestApplication()
@@ -47,14 +47,14 @@ describe('Prisma Questions Repository (E2E)', () => {
     const user = await studentFactory.makePrismaStudent()
 
     const question = await questionFactory.makePrismaQuestion({
-      authorId: user.id,
+      authorId: user.id
     })
 
     const attachment = await attachmentFactory.makePrismaAttachment()
 
     await questionAttachmentFactory.makePrismaQuestionAttachment({
       attachmentId: attachment.id,
-      questionId: question.id,
+      questionId: question.id
     })
 
     const slug = question.slug.value
@@ -70,21 +70,21 @@ describe('Prisma Questions Repository (E2E)', () => {
     const user = await studentFactory.makePrismaStudent()
 
     const question = await questionFactory.makePrismaQuestion({
-      authorId: user.id,
+      authorId: user.id
     })
 
     const attachment = await attachmentFactory.makePrismaAttachment()
 
     await questionAttachmentFactory.makePrismaQuestionAttachment({
       attachmentId: attachment.id,
-      questionId: question.id,
+      questionId: question.id
     })
 
     const slug = question.slug.value
 
     await cacheRepository.set(
       `question:${slug}:details`,
-      JSON.stringify({ empty: true }),
+      JSON.stringify({ empty: true })
     )
 
     const questionDetails = await questionsRepository.findDetailsBySlug(slug)
@@ -96,21 +96,21 @@ describe('Prisma Questions Repository (E2E)', () => {
     const user = await studentFactory.makePrismaStudent()
 
     const question = await questionFactory.makePrismaQuestion({
-      authorId: user.id,
+      authorId: user.id
     })
 
     const attachment = await attachmentFactory.makePrismaAttachment()
 
     await questionAttachmentFactory.makePrismaQuestionAttachment({
       attachmentId: attachment.id,
-      questionId: question.id,
+      questionId: question.id
     })
 
     const slug = question.slug.value
 
     await cacheRepository.set(
       `question:${slug}:details`,
-      JSON.stringify({ empty: true }),
+      JSON.stringify({ empty: true })
     )
 
     await questionsRepository.save(question)

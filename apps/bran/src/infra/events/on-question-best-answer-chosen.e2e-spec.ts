@@ -23,7 +23,7 @@ describe('On question best answer chosen (E2E)', () => {
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
-      providers: [StudentFactory, QuestionFactory, AnswerFactory],
+      providers: [StudentFactory, QuestionFactory, AnswerFactory]
     }).compile()
 
     app = moduleRef.createNestApplication()
@@ -45,12 +45,12 @@ describe('On question best answer chosen (E2E)', () => {
     const accessToken = jwt.sign({ sub: user.id.toString() })
 
     const question = await questionFactory.makePrismaQuestion({
-      authorId: user.id,
+      authorId: user.id
     })
 
     const answer = await answerFactory.makePrismaAnswer({
       questionId: question.id,
-      authorId: user.id,
+      authorId: user.id
     })
 
     const answerId = answer.id.toString()
@@ -63,8 +63,8 @@ describe('On question best answer chosen (E2E)', () => {
     await waitFor(async () => {
       const notificationOnDatabase = await prisma.notification.findFirst({
         where: {
-          recipientId: user.id.toString(),
-        },
+          recipientId: user.id.toString()
+        }
       })
 
       expect(notificationOnDatabase).not.toBeNull()

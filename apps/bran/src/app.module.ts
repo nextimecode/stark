@@ -10,13 +10,13 @@ import { HttpModule } from '@/infra/http/http.module'
 @Module({
   imports: [
     ConfigModule.forRoot({
-      validate: (env) => envSchema.parse(env),
-      isGlobal: true,
+      validate: env => envSchema.parse(env),
+      isGlobal: true
     }),
     AuthModule,
     HttpModule,
     EnvModule,
-    EventsModule,
-  ],
+    EventsModule
+  ]
 })
 export class AppModule {}
