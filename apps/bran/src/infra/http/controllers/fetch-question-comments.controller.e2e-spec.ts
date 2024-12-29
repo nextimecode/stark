@@ -6,7 +6,7 @@ import { QuestionFactory } from 'test/factories/make-question'
 import { QuestionCommentFactory } from 'test/factories/make-question-comment'
 import { StudentFactory } from 'test/factories/make-student'
 
-import { AppModule } from '@/app.module'
+import { AppModule } from '@/infra/app.module'
 import { DatabaseModule } from '@/infra/database/database.module'
 
 describe('Fetch question comments (E2E)', () => {
