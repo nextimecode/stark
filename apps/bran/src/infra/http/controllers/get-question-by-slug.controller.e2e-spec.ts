@@ -8,7 +8,7 @@ import { QuestionAttachmentFactory } from 'test/factories/make-question-attachme
 import { StudentFactory } from 'test/factories/make-student'
 
 import { Slug } from '@/domain/forum/enterprise/entities/value-objects/slug'
-import { AppModule } from '@/infra/app.module'
+import { AppModule } from '@/app.module'
 import { DatabaseModule } from '@/infra/database/database.module'
 
 describe('Get question by slug (E2E)', () => {
@@ -26,8 +26,8 @@ describe('Get question by slug (E2E)', () => {
         StudentFactory,
         QuestionFactory,
         AttachmentFactory,
-        QuestionAttachmentFactory
-      ]
+        QuestionAttachmentFactory,
+      ],
     }).compile()
 
     app = moduleRef.createNestApplication()
@@ -43,7 +43,7 @@ describe('Get question by slug (E2E)', () => {
 
   test('[GET] /questions/:slug', async () => {
     const user = await studentFactory.makePrismaStudent({
-      name: 'John Doe'
+      name: 'John Doe',
     })
 
     const accessToken = jwt.sign({ sub: user.id.toString() })
@@ -51,16 +51,16 @@ describe('Get question by slug (E2E)', () => {
     const question = await questionFactory.makePrismaQuestion({
       authorId: user.id,
       title: 'Question 01',
-      slug: Slug.create('question-01')
+      slug: Slug.create('question-01'),
     })
 
     const attachment = await attachmentFactory.makePrismaAttachment({
-      title: 'Some attachment'
+      title: 'Some attachment',
     })
 
     await questionAttachmentFactory.makePrismaQuestionAttachment({
       attachmentId: attachment.id,
-      questionId: question.id
+      questionId: question.id,
     })
 
     const response = await request(app.getHttpServer())
@@ -75,10 +75,10 @@ describe('Get question by slug (E2E)', () => {
         author: 'John Doe',
         attachments: [
           expect.objectContaining({
-            title: 'Some attachment'
-          })
-        ]
-      })
+            title: 'Some attachment',
+          }),
+        ],
+      }),
     })
   })
 })

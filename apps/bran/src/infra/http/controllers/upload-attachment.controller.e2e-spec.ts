@@ -5,7 +5,7 @@ import request from 'supertest'
 import { QuestionFactory } from 'test/factories/make-question'
 import { StudentFactory } from 'test/factories/make-student'
 
-import { AppModule } from '@/infra/app.module'
+import { AppModule } from '@/app.module'
 import { DatabaseModule } from '@/infra/database/database.module'
 
 describe('Upload attachment (E2E)', () => {
@@ -16,7 +16,7 @@ describe('Upload attachment (E2E)', () => {
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
-      providers: [StudentFactory, QuestionFactory]
+      providers: [StudentFactory, QuestionFactory],
     }).compile()
 
     app = moduleRef.createNestApplication()
@@ -39,7 +39,7 @@ describe('Upload attachment (E2E)', () => {
 
     expect(response.statusCode).toBe(201)
     expect(response.body).toEqual({
-      attachmentId: expect.any(String)
+      attachmentId: expect.any(String),
     })
   })
 })

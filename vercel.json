@@ -2,11 +2,8 @@
   "version": 2,
   "builds": [
     {
-      "src": "apps/bran/package.json",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": ["dist/**"]
-      }
+      "src": "apps/bran/dist/main.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
