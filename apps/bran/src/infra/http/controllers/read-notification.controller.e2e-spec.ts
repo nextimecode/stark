@@ -5,7 +5,7 @@ import request from 'supertest'
 import { NotificationFactory } from 'test/factories/make-notification'
 import { StudentFactory } from 'test/factories/make-student'
 
-import { AppModule } from '@/app.module'
+import { AppModule } from '@/infra/app.module'
 import { DatabaseModule } from '@/infra/database/database.module'
 import { PrismaService } from '@/infra/database/prisma/prisma.service'
 

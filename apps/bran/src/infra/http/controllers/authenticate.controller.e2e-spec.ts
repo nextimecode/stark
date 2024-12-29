@@ -4,7 +4,7 @@ import { hash } from 'bcryptjs'
 import request from 'supertest'
 import { StudentFactory } from 'test/factories/make-student'
 
-import { AppModule } from '@/app.module'
+import { AppModule } from '@/infra/app.module'
 import { DatabaseModule } from '@/infra/database/database.module'
 
 describe('Authenticate (E2E)', () => {

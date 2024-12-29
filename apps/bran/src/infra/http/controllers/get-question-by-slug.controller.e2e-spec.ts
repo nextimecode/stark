@@ -8,7 +8,7 @@ import { QuestionAttachmentFactory } from 'test/factories/make-question-attachme
 import { StudentFactory } from 'test/factories/make-student'
 
 import { Slug } from '@/domain/forum/enterprise/entities/value-objects/slug'
-import { AppModule } from '@/app.module'
+import { AppModule } from '@/infra/app.module'
 import { DatabaseModule } from '@/infra/database/database.module'
 
 describe('Get question by slug (E2E)', () => {

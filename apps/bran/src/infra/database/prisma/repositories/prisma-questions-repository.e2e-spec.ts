@@ -6,7 +6,7 @@ import { QuestionAttachmentFactory } from 'test/factories/make-question-attachme
 import { StudentFactory } from 'test/factories/make-student'
 
 import { QuestionsRepository } from '@/domain/forum/application/repositories/questions-repository'
-import { AppModule } from '@/app.module'
+import { AppModule } from '@/infra/app.module'
 import { CacheRepository } from '@/infra/cache/cache-repository'
 import { CacheModule } from '@/infra/cache/cache.module'
 import { DatabaseModule } from '@/infra/database/database.module'
