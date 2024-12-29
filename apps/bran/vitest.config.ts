@@ -11,11 +11,15 @@ export default defineConfig({
   },
   plugins: [
     tsConfigPaths(),
-    swc.vite({
-      module: { type: 'es6' }
-    })
   ],
+  esbuild: {
+    target: 'esnext',
+    loader: 'ts',
+    format: 'esm',
+  },
   resolve: {
-    mainFields: ['module', 'main']
+    mainFields: ['module', 'main', 'jsnext:main'],
+    conditions: ['import', 'require'],
+    extensions: ['.mjs', '.js', '.ts', '.json']
   }
 })
