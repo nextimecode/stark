@@ -3,11 +3,13 @@ import {
   Controller,
   Get,
   Param,
-  Query,
+  Query
 } from '@nestjs/common'
-import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 import { z } from 'zod'
+
 import { FetchQuestionAnswersUseCase } from '@/domain/forum/application/use-cases/fetch-question-answers'
+import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
+
 import { AnswerPresenter } from '../presenters/answer-presenter'
 
 const pageQueryParamSchema = z
@@ -28,11 +30,11 @@ export class FetchQuestionAnswersController {
   @Get()
   async handle(
     @Query('page', queryValidationPipe) page: PageQueryParamSchema,
-    @Param('questionId') questionId: string,
+    @Param('questionId') questionId: string
   ) {
     const result = await this.fetchQuestionAnswers.execute({
       page,
-      questionId,
+      questionId
     })
 
     if (result.isLeft()) {

@@ -1,8 +1,10 @@
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Injectable } from '@nestjs/common'
+
 import { Either, right } from '@/core/either'
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+
 import { Notification } from '../../enterprise/entities/notification'
 import { NotificationsRepository } from '../repositories/notifications-repository'
-import { Injectable } from '@nestjs/common'
 
 export interface SendNotificationUseCaseRequest {
   recipientId: string
@@ -24,18 +26,18 @@ export class SendNotificationUseCase {
   async execute({
     recipientId,
     title,
-    content,
+    content
   }: SendNotificationUseCaseRequest): Promise<SendNotificationUseCaseResponse> {
     const notification = Notification.create({
       recipientId: new UniqueEntityID(recipientId),
       title,
-      content,
+      content
     })
 
     await this.notificationsRepository.create(notification)
 
     return right({
-      notification,
+      notification
     })
   }
 }

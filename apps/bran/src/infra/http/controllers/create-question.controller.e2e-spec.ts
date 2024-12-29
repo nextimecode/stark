@@ -1,12 +1,13 @@
-import { AppModule } from '@/infra/app.module'
-import { DatabaseModule } from '@/infra/database/database.module'
-import { PrismaService } from '@/infra/database/prisma/prisma.service'
 import { INestApplication } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { AttachmentFactory } from 'test/factories/make-attachment'
 import { StudentFactory } from 'test/factories/make-student'
+
+import { AppModule } from '@/infra/app.module'
+import { DatabaseModule } from '@/infra/database/database.module'
+import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 describe('Create question (E2E)', () => {
   let app: INestApplication
@@ -18,7 +19,7 @@ describe('Create question (E2E)', () => {
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
-      providers: [StudentFactory, AttachmentFactory],
+      providers: [StudentFactory, AttachmentFactory]
     }).compile()
 
     app = moduleRef.createNestApplication()
@@ -45,23 +46,23 @@ describe('Create question (E2E)', () => {
       .send({
         title: 'New question',
         content: 'Question content',
-        attachments: [attachment1.id.toString(), attachment2.id.toString()],
+        attachments: [attachment1.id.toString(), attachment2.id.toString()]
       })
 
     expect(response.statusCode).toBe(201)
 
     const questionOnDatabase = await prisma.question.findFirst({
       where: {
-        title: 'New question',
-      },
+        title: 'New question'
+      }
     })
 
     expect(questionOnDatabase).toBeTruthy()
 
     const attachmentsOnDatabase = await prisma.attachment.findMany({
       where: {
-        questionId: questionOnDatabase?.id,
-      },
+        questionId: questionOnDatabase?.id
+      }
     })
 
     expect(attachmentsOnDatabase).toHaveLength(2)

@@ -1,5 +1,3 @@
-import { InvalidAttachmentTypeError } from '@/domain/forum/application/use-cases/errors/invalid-attachment-type-error'
-import { UploadAndCreateAttachmentUseCase } from '@/domain/forum/application/use-cases/upload-and-create-attachment'
 import {
   BadRequestException,
   Controller,
@@ -8,14 +6,17 @@ import {
   ParseFilePipe,
   Post,
   UploadedFile,
-  UseInterceptors,
+  UseInterceptors
 } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
+
+import { InvalidAttachmentTypeError } from '@/domain/forum/application/use-cases/errors/invalid-attachment-type-error'
+import { UploadAndCreateAttachmentUseCase } from '@/domain/forum/application/use-cases/upload-and-create-attachment'
 
 @Controller('/attachments')
 export class UploadAttachmentController {
   constructor(
-    private uploadAndCreateAttachment: UploadAndCreateAttachmentUseCase,
+    private uploadAndCreateAttachment: UploadAndCreateAttachmentUseCase
   ) {}
 
   @Post()
@@ -25,21 +26,21 @@ export class UploadAttachmentController {
       new ParseFilePipe({
         validators: [
           new MaxFileSizeValidator({
-            maxSize: 1024 * 1024 * 2, // 2mb
+            maxSize: 1024 * 1024 * 2 // 2mb
           }),
           new FileTypeValidator({
             fileType:
-              '.(png|jpg|jpeg|gif|tiff|tif|svg|webp|heif|heic|mp4|avi|mkv|mov|webm|m4v)',
-          }),
-        ],
-      }),
+              '.(png|jpg|jpeg|gif|tiff|tif|svg|webp|heif|heic|mp4|avi|mkv|mov|webm|m4v)'
+          })
+        ]
+      })
     )
-    file: Express.Multer.File,
+    file: Express.Multer.File
   ) {
     const result = await this.uploadAndCreateAttachment.execute({
       fileName: file.originalname,
       fileType: file.mimetype,
-      body: file.buffer,
+      body: file.buffer
     })
 
     if (result.isLeft()) {
@@ -56,7 +57,7 @@ export class UploadAttachmentController {
     const { attachment } = result.value
 
     return {
-      attachmentId: attachment.id.toString(),
+      attachmentId: attachment.id.toString()
     }
   }
 }

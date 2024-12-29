@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Comment } from '@/domain/forum/enterprise/entities/comment'
 
 export class CommentPresenter {
@@ -7,7 +8,7 @@ export class CommentPresenter {
       id: comment.id.toString(),
       content: comment.content,
       createdAt: comment.createdAt,
-      updatedAt: comment.updatedAt,
+      updatedAt: comment.updatedAt
     }
   }
 }

@@ -1,11 +1,12 @@
-import { AppModule } from '@/infra/app.module'
-import { DatabaseModule } from '@/infra/database/database.module'
 import { INestApplication } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
 import { QuestionFactory } from 'test/factories/make-question'
 import { StudentFactory } from 'test/factories/make-student'
+
+import { AppModule } from '@/infra/app.module'
+import { DatabaseModule } from '@/infra/database/database.module'
 
 describe('Fetch recent questions (E2E)', () => {
   let app: INestApplication
@@ -16,7 +17,7 @@ describe('Fetch recent questions (E2E)', () => {
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
-      providers: [StudentFactory, QuestionFactory],
+      providers: [StudentFactory, QuestionFactory]
     }).compile()
 
     app = moduleRef.createNestApplication()
@@ -36,12 +37,12 @@ describe('Fetch recent questions (E2E)', () => {
     await Promise.all([
       questionFactory.makePrismaQuestion({
         authorId: user.id,
-        title: 'Question 01',
+        title: 'Question 01'
       }),
       questionFactory.makePrismaQuestion({
         authorId: user.id,
-        title: 'Question 02',
-      }),
+        title: 'Question 02'
+      })
     ])
 
     const response = await request(app.getHttpServer())
@@ -53,8 +54,8 @@ describe('Fetch recent questions (E2E)', () => {
     expect(response.body).toEqual({
       questions: expect.arrayContaining([
         expect.objectContaining({ title: 'Question 01' }),
-        expect.objectContaining({ title: 'Question 02' }),
-      ]),
+        expect.objectContaining({ title: 'Question 02' })
+      ])
     })
   })
 })

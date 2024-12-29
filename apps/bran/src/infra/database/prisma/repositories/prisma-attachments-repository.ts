@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common'
-import { PrismaService } from '../prisma.service'
+
 import { AttachmentsRepository } from '@/domain/forum/application/repositories/attachments-repository'
 import { Attachment } from '@/domain/forum/enterprise/entities/attachment'
+
 import { PrismaAttachmentMapper } from '../mappers/prisma-attachment-mapper'
+import { PrismaService } from '../prisma.service'
 
 @Injectable()
 export class PrismaAttachmentsRepository implements AttachmentsRepository {
@@ -12,7 +14,7 @@ export class PrismaAttachmentsRepository implements AttachmentsRepository {
     const data = PrismaAttachmentMapper.toPrisma(attachment)
 
     await this.prisma.attachment.create({
-      data,
+      data
     })
   }
 }

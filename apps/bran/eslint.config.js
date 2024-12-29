@@ -1,7 +1,7 @@
-import { FlatCompat } from '@eslint/eslintrc';
-import rocketseatConfig from '@rocketseat/eslint-config/node.js';
+import { FlatCompat } from '@eslint/eslintrc'
+import rocketseatConfig from '@rocketseat/eslint-config/node.js'
 
-const compat = new FlatCompat();
+const compat = new FlatCompat()
 
 export default [
   ...compat.config(rocketseatConfig), // Converte para flat config
@@ -16,4 +16,4 @@ export default [
       'no-new': 'off'
     }
   }
-];
+]

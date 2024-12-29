@@ -1,8 +1,10 @@
+import { Injectable } from '@nestjs/common'
+
 import { AnswerAttachmentsRepository } from '@/domain/forum/application/repositories/answer-attachments-repository'
 import { AnswerAttachment } from '@/domain/forum/enterprise/entities/answer-attachment'
-import { Injectable } from '@nestjs/common'
-import { PrismaService } from '../prisma.service'
+
 import { PrismaAnswerAttachmentMapper } from '../mappers/prisma-answer-attachment-mapper'
+import { PrismaService } from '../prisma.service'
 
 @Injectable()
 export class PrismaAnswerAttachmentsRepository
@@ -13,8 +15,8 @@ export class PrismaAnswerAttachmentsRepository
   async findManyByAnswerId(answerId: string): Promise<AnswerAttachment[]> {
     const answerAttachments = await this.prisma.attachment.findMany({
       where: {
-        answerId,
-      },
+        answerId
+      }
     })
 
     return answerAttachments.map(PrismaAnswerAttachmentMapper.toDomain)
@@ -35,24 +37,24 @@ export class PrismaAnswerAttachmentsRepository
       return
     }
 
-    const attachmentIds = attachments.map((attachment) => {
+    const attachmentIds = attachments.map(attachment => {
       return attachment.id.toString()
     })
 
     await this.prisma.attachment.deleteMany({
       where: {
         id: {
-          in: attachmentIds,
-        },
-      },
+          in: attachmentIds
+        }
+      }
     })
   }
 
   async deleteManyByAnswerId(answerId: string): Promise<void> {
     await this.prisma.attachment.deleteMany({
       where: {
-        answerId,
-      },
+        answerId
+      }
     })
   }
 }

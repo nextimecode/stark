@@ -1,8 +1,9 @@
+import { randomUUID } from 'crypto'
+
 import {
   UploadParams,
-  Uploader,
+  Uploader
 } from '@/domain/forum/application/storage/uploader'
-import { randomUUID } from 'crypto'
 
 interface Upload {
   fileName: string
@@ -17,7 +18,7 @@ export class FakeUploader implements Uploader {
 
     this.uploads.push({
       fileName,
-      url,
+      url
     })
 
     return { url }

@@ -1,6 +1,3 @@
-import { AppModule } from '@/infra/app.module'
-import { DatabaseModule } from '@/infra/database/database.module'
-import { PrismaService } from '@/infra/database/prisma/prisma.service'
 import { INestApplication } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { Test } from '@nestjs/testing'
@@ -8,6 +5,10 @@ import request from 'supertest'
 import { QuestionFactory } from 'test/factories/make-question'
 import { QuestionCommentFactory } from 'test/factories/make-question-comment'
 import { StudentFactory } from 'test/factories/make-student'
+
+import { AppModule } from '@/infra/app.module'
+import { DatabaseModule } from '@/infra/database/database.module'
+import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 describe('Delete question comment (E2E)', () => {
   let app: INestApplication
@@ -20,7 +21,7 @@ describe('Delete question comment (E2E)', () => {
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
-      providers: [StudentFactory, QuestionFactory, QuestionCommentFactory],
+      providers: [StudentFactory, QuestionFactory, QuestionCommentFactory]
     }).compile()
 
     app = moduleRef.createNestApplication()
@@ -40,13 +41,13 @@ describe('Delete question comment (E2E)', () => {
     const accessToken = jwt.sign({ sub: user.id.toString() })
 
     const question = await questionFactory.makePrismaQuestion({
-      authorId: user.id,
+      authorId: user.id
     })
 
     const questionComment =
       await questionCommentFactory.makePrismaQuestionComment({
         authorId: user.id,
-        questionId: question.id,
+        questionId: question.id
       })
 
     const questionCommentId = questionComment.id.toString()
@@ -59,8 +60,8 @@ describe('Delete question comment (E2E)', () => {
 
     const commentOnDatabase = await prisma.comment.findUnique({
       where: {
-        id: questionCommentId,
-      },
+        id: questionCommentId
+      }
     })
 
     expect(commentOnDatabase).toBeNull()

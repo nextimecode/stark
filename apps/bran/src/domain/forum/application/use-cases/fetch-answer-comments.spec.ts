@@ -1,9 +1,10 @@
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { InMemoryAnswerCommentsRepository } from 'test/repositories/in-memory-answer-comments-repository'
-import { FetchAnswerCommentsUseCase } from '@/domain/forum/application/use-cases/fetch-answer-comments'
 import { makeAnswerComment } from 'test/factories/make-answer-comment'
-import { InMemoryStudentsRepository } from 'test/repositories/in-memory-students-repository'
 import { makeStudent } from 'test/factories/make-student'
+import { InMemoryAnswerCommentsRepository } from 'test/repositories/in-memory-answer-comments-repository'
+import { InMemoryStudentsRepository } from 'test/repositories/in-memory-students-repository'
+
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { FetchAnswerCommentsUseCase } from '@/domain/forum/application/use-cases/fetch-answer-comments'
 
 let inMemoryAnswerCommentsRepository: InMemoryAnswerCommentsRepository
 let inMemoryStudentsRepository: InMemoryStudentsRepository
@@ -13,7 +14,7 @@ describe('Fetch Answer Comments', () => {
   beforeEach(() => {
     inMemoryStudentsRepository = new InMemoryStudentsRepository()
     inMemoryAnswerCommentsRepository = new InMemoryAnswerCommentsRepository(
-      inMemoryStudentsRepository,
+      inMemoryStudentsRepository
     )
     sut = new FetchAnswerCommentsUseCase(inMemoryAnswerCommentsRepository)
   })
@@ -25,17 +26,17 @@ describe('Fetch Answer Comments', () => {
 
     const comment1 = makeAnswerComment({
       answerId: new UniqueEntityID('answer-1'),
-      authorId: student.id,
+      authorId: student.id
     })
 
     const comment2 = makeAnswerComment({
       answerId: new UniqueEntityID('answer-1'),
-      authorId: student.id,
+      authorId: student.id
     })
 
     const comment3 = makeAnswerComment({
       answerId: new UniqueEntityID('answer-1'),
-      authorId: student.id,
+      authorId: student.id
     })
 
     await inMemoryAnswerCommentsRepository.create(comment1)
@@ -44,7 +45,7 @@ describe('Fetch Answer Comments', () => {
 
     const result = await sut.execute({
       answerId: 'answer-1',
-      page: 1,
+      page: 1
     })
 
     expect(result.value?.comments).toHaveLength(3)
@@ -52,17 +53,17 @@ describe('Fetch Answer Comments', () => {
       expect.arrayContaining([
         expect.objectContaining({
           author: 'John Doe',
-          commentId: comment1.id,
+          commentId: comment1.id
         }),
         expect.objectContaining({
           author: 'John Doe',
-          commentId: comment2.id,
+          commentId: comment2.id
         }),
         expect.objectContaining({
           author: 'John Doe',
-          commentId: comment3.id,
-        }),
-      ]),
+          commentId: comment3.id
+        })
+      ])
     )
   })
 
@@ -75,14 +76,14 @@ describe('Fetch Answer Comments', () => {
       await inMemoryAnswerCommentsRepository.create(
         makeAnswerComment({
           answerId: new UniqueEntityID('answer-1'),
-          authorId: student.id,
-        }),
+          authorId: student.id
+        })
       )
     }
 
     const result = await sut.execute({
       answerId: 'answer-1',
-      page: 2,
+      page: 2
     })
 
     expect(result.value?.comments).toHaveLength(2)

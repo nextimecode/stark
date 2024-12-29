@@ -1,5 +1,6 @@
 import { PaginationParams } from '@/core/repositories/pagination-params'
 import { Question } from '@/domain/forum/enterprise/entities/question'
+
 import { QuestionDetails } from '../../enterprise/entities/value-objects/question-details'
 
 export abstract class QuestionsRepository {
