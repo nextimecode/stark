@@ -3,7 +3,10 @@
   "builds": [
     {
       "src": "apps/bran/package.json",
-      "use": "@vercel/node"
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": ["dist/**"]
+      }
     }
   ],
   "routes": [
