@@ -9,13 +9,11 @@ export default defineConfig({
     globals: true,
     root: './'
   },
-  plugins: [
-    tsConfigPaths(),
-  ],
+  plugins: [tsConfigPaths()],
   esbuild: {
     target: 'esnext',
     loader: 'ts',
-    format: 'esm',
+    format: 'esm'
   },
   resolve: {
     mainFields: ['module', 'main', 'jsnext:main'],
