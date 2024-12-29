@@ -6,7 +6,7 @@ import { AnswerFactory } from 'test/factories/make-answer'
 import { QuestionFactory } from 'test/factories/make-question'
 import { StudentFactory } from 'test/factories/make-student'
 
-import { AppModule } from '@/infra/app.module'
+import { AppModule } from '@/app.module'
 import { DatabaseModule } from '@/infra/database/database.module'
 import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
@@ -21,7 +21,7 @@ describe('Choose question best answer (E2E)', () => {
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
-      providers: [StudentFactory, QuestionFactory, AnswerFactory]
+      providers: [StudentFactory, QuestionFactory, AnswerFactory],
     }).compile()
 
     app = moduleRef.createNestApplication()
@@ -41,12 +41,12 @@ describe('Choose question best answer (E2E)', () => {
     const accessToken = jwt.sign({ sub: user.id.toString() })
 
     const question = await questionFactory.makePrismaQuestion({
-      authorId: user.id
+      authorId: user.id,
     })
 
     const answer = await answerFactory.makePrismaAnswer({
       questionId: question.id,
-      authorId: user.id
+      authorId: user.id,
     })
 
     const answerId = answer.id.toString()
@@ -60,8 +60,8 @@ describe('Choose question best answer (E2E)', () => {
 
     const questionOnDatabase = await prisma.question.findUnique({
       where: {
-        id: question.id.toString()
-      }
+        id: question.id.toString(),
+      },
     })
 
     expect(questionOnDatabase?.bestAnswerId).toEqual(answerId)

@@ -2,7 +2,7 @@ import { INestApplication } from '@nestjs/common'
 import { Test } from '@nestjs/testing'
 import request from 'supertest'
 
-import { AppModule } from '@/infra/app.module'
+import { AppModule } from '@/app.module'
 import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
 describe('Create Account (E2E)', () => {
@@ -11,7 +11,7 @@ describe('Create Account (E2E)', () => {
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
-      imports: [AppModule]
+      imports: [AppModule],
     }).compile()
 
     app = moduleRef.createNestApplication()
@@ -25,15 +25,15 @@ describe('Create Account (E2E)', () => {
     const response = await request(app.getHttpServer()).post('/accounts').send({
       name: 'John Doe',
       email: 'johndoe@example.com',
-      password: '123456'
+      password: '123456',
     })
 
     expect(response.statusCode).toBe(201)
 
     const userOnDatabase = await prisma.user.findUnique({
       where: {
-        email: 'johndoe@example.com'
-      }
+        email: 'johndoe@example.com',
+      },
     })
 
     expect(userOnDatabase).toBeTruthy()

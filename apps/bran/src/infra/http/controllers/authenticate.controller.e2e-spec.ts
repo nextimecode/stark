@@ -4,7 +4,7 @@ import { hash } from 'bcryptjs'
 import request from 'supertest'
 import { StudentFactory } from 'test/factories/make-student'
 
-import { AppModule } from '@/infra/app.module'
+import { AppModule } from '@/app.module'
 import { DatabaseModule } from '@/infra/database/database.module'
 
 describe('Authenticate (E2E)', () => {
@@ -14,7 +14,7 @@ describe('Authenticate (E2E)', () => {
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
-      providers: [StudentFactory]
+      providers: [StudentFactory],
     }).compile()
 
     app = moduleRef.createNestApplication()
@@ -27,17 +27,17 @@ describe('Authenticate (E2E)', () => {
   test('[POST] /sessions', async () => {
     await studentFactory.makePrismaStudent({
       email: 'johndoe@example.com',
-      password: await hash('123456', 8)
+      password: await hash('123456', 8),
     })
 
     const response = await request(app.getHttpServer()).post('/sessions').send({
       email: 'johndoe@example.com',
-      password: '123456'
+      password: '123456',
     })
 
     expect(response.statusCode).toBe(201)
     expect(response.body).toEqual({
-      access_token: expect.any(String)
+      access_token: expect.any(String),
     })
   })
 })

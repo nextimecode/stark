@@ -5,7 +5,7 @@ import request from 'supertest'
 import { QuestionFactory } from 'test/factories/make-question'
 import { StudentFactory } from 'test/factories/make-student'
 
-import { AppModule } from '@/infra/app.module'
+import { AppModule } from '@/app.module'
 import { DatabaseModule } from '@/infra/database/database.module'
 import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
@@ -19,7 +19,7 @@ describe('Delete question (E2E)', () => {
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
-      providers: [StudentFactory, QuestionFactory]
+      providers: [StudentFactory, QuestionFactory],
     }).compile()
 
     app = moduleRef.createNestApplication()
@@ -38,7 +38,7 @@ describe('Delete question (E2E)', () => {
     const accessToken = jwt.sign({ sub: user.id.toString() })
 
     const question = await questionFactory.makePrismaQuestion({
-      authorId: user.id
+      authorId: user.id,
     })
 
     const questionId = question.id.toString()
@@ -51,8 +51,8 @@ describe('Delete question (E2E)', () => {
 
     const questionOnDatabase = await prisma.question.findUnique({
       where: {
-        id: questionId
-      }
+        id: questionId,
+      },
     })
 
     expect(questionOnDatabase).toBeNull()

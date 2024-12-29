@@ -5,7 +5,7 @@ import request from 'supertest'
 import { QuestionFactory } from 'test/factories/make-question'
 import { StudentFactory } from 'test/factories/make-student'
 
-import { AppModule } from '@/infra/app.module'
+import { AppModule } from '@/app.module'
 import { DatabaseModule } from '@/infra/database/database.module'
 import { PrismaService } from '@/infra/database/prisma/prisma.service'
 
@@ -19,7 +19,7 @@ describe('Comment on question (E2E)', () => {
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
-      providers: [StudentFactory, QuestionFactory]
+      providers: [StudentFactory, QuestionFactory],
     }).compile()
 
     app = moduleRef.createNestApplication()
@@ -38,7 +38,7 @@ describe('Comment on question (E2E)', () => {
     const accessToken = jwt.sign({ sub: user.id.toString() })
 
     const question = await questionFactory.makePrismaQuestion({
-      authorId: user.id
+      authorId: user.id,
     })
 
     const questionId = question.id.toString()
@@ -47,15 +47,15 @@ describe('Comment on question (E2E)', () => {
       .post(`/questions/${questionId}/comments`)
       .set('Authorization', `Bearer ${accessToken}`)
       .send({
-        content: 'New comment'
+        content: 'New comment',
       })
 
     expect(response.statusCode).toBe(201)
 
     const commentOnDatabase = await prisma.comment.findFirst({
       where: {
-        content: 'New comment'
-      }
+        content: 'New comment',
+      },
     })
 
     expect(commentOnDatabase).toBeTruthy()
