@@ -9,11 +9,17 @@ export default [
     files: ['**/*.{js,ts}'], // Define os arquivos a serem analisados
     languageOptions: {
       ecmaVersion: 'latest',
-      sourceType: 'module'
+      sourceType: 'module',
     },
     rules: {
       'no-useless-constructor': 'off',
-      'no-new': 'off'
-    }
-  }
+      'no-new': 'off',
+      'prettier/prettier': [
+        'error',
+        {
+          trailingComma: 'none',
+        },
+      ],
+    },
+  },
 ]
