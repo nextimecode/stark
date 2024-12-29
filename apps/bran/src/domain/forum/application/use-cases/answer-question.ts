@@ -1,10 +1,12 @@
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { Answer } from '../../enterprise/entities/answer'
-import { AnswersRepository } from '../repositories/answers-repository'
+import { Injectable } from '@nestjs/common'
+
 import { Either, right } from '@/core/either'
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+
+import { Answer } from '../../enterprise/entities/answer'
 import { AnswerAttachment } from '../../enterprise/entities/answer-attachment'
 import { AnswerAttachmentList } from '../../enterprise/entities/answer-attachment-list'
-import { Injectable } from '@nestjs/common'
+import { AnswersRepository } from '../repositories/answers-repository'
 
 interface AnswerQuestionUseCaseRequest {
   authorId: string
@@ -28,18 +30,18 @@ export class AnswerQuestionUseCase {
     authorId,
     questionId,
     content,
-    attachmentsIds,
+    attachmentsIds
   }: AnswerQuestionUseCaseRequest): Promise<AnswerQuestionUseCaseResponse> {
     const answer = Answer.create({
       content,
       authorId: new UniqueEntityID(authorId),
-      questionId: new UniqueEntityID(questionId),
+      questionId: new UniqueEntityID(questionId)
     })
 
-    const answerAttachments = attachmentsIds.map((attachmentId) => {
+    const answerAttachments = attachmentsIds.map(attachmentId => {
       return AnswerAttachment.create({
         attachmentId: new UniqueEntityID(attachmentId),
-        answerId: answer.id,
+        answerId: answer.id
       })
     })
 
@@ -48,7 +50,7 @@ export class AnswerQuestionUseCase {
     await this.answersRepository.create(answer)
 
     return right({
-      answer,
+      answer
     })
   }
 }

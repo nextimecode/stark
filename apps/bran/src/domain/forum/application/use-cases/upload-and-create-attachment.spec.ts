@@ -1,7 +1,8 @@
 import { InMemoryAttachmentsRepository } from 'test/repositories/in-memory-attachments-repository'
-import { UploadAndCreateAttachmentUseCase } from './upload-and-create-attachment'
 import { FakeUploader } from 'test/storage/fake-uploader'
+
 import { InvalidAttachmentTypeError } from './errors/invalid-attachment-type-error'
+import { UploadAndCreateAttachmentUseCase } from './upload-and-create-attachment'
 
 let inMemoryAttachmentsRepository: InMemoryAttachmentsRepository
 let fakeUploader: FakeUploader
@@ -15,7 +16,7 @@ describe('Upload and create attachment', () => {
 
     sut = new UploadAndCreateAttachmentUseCase(
       inMemoryAttachmentsRepository,
-      fakeUploader,
+      fakeUploader
     )
   })
 
@@ -23,18 +24,18 @@ describe('Upload and create attachment', () => {
     const result = await sut.execute({
       fileName: 'profile.png',
       fileType: 'image/png',
-      body: Buffer.from(''),
+      body: Buffer.from('')
     })
 
     expect(result.isRight()).toBe(true)
     expect(result.value).toEqual({
-      attachment: inMemoryAttachmentsRepository.items[0],
+      attachment: inMemoryAttachmentsRepository.items[0]
     })
     expect(fakeUploader.uploads).toHaveLength(1)
     expect(fakeUploader.uploads[0]).toEqual(
       expect.objectContaining({
-        fileName: 'profile.png',
-      }),
+        fileName: 'profile.png'
+      })
     )
   })
 
@@ -42,7 +43,7 @@ describe('Upload and create attachment', () => {
     const result = await sut.execute({
       fileName: 'profile.mp3',
       fileType: 'audio/mpeg',
-      body: Buffer.from(''),
+      body: Buffer.from('')
     })
 
     expect(result.isLeft()).toBe(true)

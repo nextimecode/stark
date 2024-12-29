@@ -66,8 +66,8 @@ $ pnpm run test:cov
 ## Docker
 
 ### Docker Compose
-O Docker Compose é usado para definir e gerenciar aplicações multi-containers no Docker, permitindo configurar todos os serviços de uma aplicação em um único arquivo YAML.
 
+O Docker Compose é usado para definir e gerenciar aplicações multi-containers no Docker, permitindo configurar todos os serviços de uma aplicação em um único arquivo YAML.
 
 ```bash
 # é utilizado para iniciar todos os contêineres definidos no arquivo docker-compose.yml em segundo plano, permitindo que a aplicação funcione sem ocupar o terminal atual.
@@ -129,15 +129,16 @@ base64 -i public_key.pem -o public_key_base64.txt
 ### NestJS
 
 #### Providers
+
 Providers no NestJS são classes que podem ser injetadas e utilizadas por outros componentes, facilitando a reutilização de código e a implementação de injeção de dependências.
 
 #### Pipe
+
 Pipes no NestJS são usados para transformar dados de entrada ou validar dados antes que eles sejam manipulados pelos controladores. Eles atuam como intermediários, processando e transformando as requisições.
 
 #### Guards
+
 Guards no NestJS são usados para proteger rotas, determinando se uma requisição deve ser tratada pelo controlador com base em certas condições, como a autenticação e autorização do usuário.
-
-
 
 ### Authentication
 
@@ -156,67 +157,71 @@ O uso de buffer implica carregar todo o arquivo na memória antes de processá-l
 Prefixos utilizados:
 
 #### use-cases
+
 - `get`: para requisições que trazem apenas um item.
 - `fetch`: para requisições que trazem uma listagem.
 
 #### repositories
+
 - `findBy`: para requisições que trazem apenas um item.
 - `findMany`: para requisições que trazem uma listagem.
 
-## Arquitetura do projeto 
+## Arquitetura do projeto
 
 ![Clean Architecture](./assets/CleanArchitecture.jpg)
 
 ![Arquitetura do projeto](./assets/arquitetura.png)
-
 
 ## Orientação a Objetos
 
 Em orientação a objetos, as palavras-chave `private` e `protected` são usadas para controlar o acesso aos membros (atributos e métodos) de uma classe. Aqui está a diferença entre elas:
 
 ### `private`
+
 - **Acesso Restrito à Própria Classe**: Um membro `private` só pode ser acessado dentro da própria classe em que é declarado. Ele não pode ser acessado por nenhuma outra classe, nem mesmo por classes derivadas (subclasses).
 - **Encapsulamento**: É usado para esconder detalhes de implementação da classe, garantindo que os membros `private` não sejam acessados ou modificados diretamente de fora da classe.
 
 ```typescript
 class Animal {
-  private name: string;
+  private name: string
 
   constructor(name: string) {
-    this.name = name;
+    this.name = name
   }
 
   private getName(): string {
-    return this.name;
+    return this.name
   }
 }
 ```
 
 ### `protected`
+
 - **Acesso Restrito à Classe e Subclasses**: Um membro `protected` pode ser acessado dentro da própria classe em que é declarado e também por todas as classes que herdam dessa classe (subclasses). No entanto, ele não pode ser acessado por outras classes que não fazem parte da hierarquia de herança.
 - **Herança**: É usado para permitir que subclasses tenham acesso aos membros protegidos da classe base, facilitando a reutilização de código e a extensão da funcionalidade da classe base.
 
 ```typescript
 class Animal {
-  protected name: string;
+  protected name: string
 
   constructor(name: string) {
-    this.name = name;
+    this.name = name
   }
 
   protected getName(): string {
-    return this.name;
+    return this.name
   }
 }
 
 class Dog extends Animal {
   public getDogName(): string {
-    return this.getName(); // Acesso permitido
+    return this.getName() // Acesso permitido
   }
 }
 ```
 
 ### Resumo
+
 - `private`: Membros só podem ser acessados dentro da própria classe.
 - `protected`: Membros podem ser acessados dentro da própria classe e em subclasses.
 
@@ -281,16 +286,16 @@ Imagine um cenário de um sistema de pedidos de e-commerce. Um pedido pode ter m
 ```typescript
 // Entidade Raiz do Aggregate
 class Order {
-  private orderId: string;
-  private items: OrderItem[] = [];
+  private orderId: string
+  private items: OrderItem[] = []
 
   constructor(orderId: string) {
-    this.orderId = orderId;
+    this.orderId = orderId
   }
 
   addItem(productId: string, quantity: number) {
-    const item = new OrderItem(productId, quantity);
-    this.items.push(item);
+    const item = new OrderItem(productId, quantity)
+    this.items.push(item)
   }
 
   // Outros métodos de negócio para manipular o Aggregate
@@ -298,12 +303,12 @@ class Order {
 
 // Entidade dentro do Aggregate
 class OrderItem {
-  private productId: string;
-  private quantity: number;
+  private productId: string
+  private quantity: number
 
   constructor(productId: string, quantity: number) {
-    this.productId = productId;
-    this.quantity = quantity;
+    this.productId = productId
+    this.quantity = quantity
   }
 
   // Métodos de negócio para manipular o item do pedido
@@ -311,7 +316,6 @@ class OrderItem {
 ```
 
 Neste exemplo, todas as alterações relacionadas aos itens do pedido são feitas através da entidade raiz `Order`, assegurando que as regras de consistência sejam mantidas dentro do boundary do Aggregate.
-
 
 ### Bounded Context
 
@@ -341,8 +345,6 @@ Por exemplo, em um sistema de comércio eletrônico, um evento de domínio pode 
 
 Eventos de domínio são importantes porque permitem que diferentes partes do sistema sejam notificadas e atualizadas quando ocorrem mudanças importantes no domínio. Eles também permitem que o sistema seja projetado de forma mais modular e escalável, pois diferentes partes do sistema podem ser projetadas para reagir a diferentes tipos de eventos, de forma independente.
 
-
-
 ## Watched List
 
 é um padrão usado em Domain-Driven Design (DDD) e em outras arquiteturas de software para gerenciar coleções de objetos que precisam ser monitoradas para mudanças. É particularmente útil quando você precisa saber quais objetos foram adicionados, removidos ou modificados em uma coleção, sem a necessidade de fazer comparações dispendiosas entre estados antigos e novos da coleção.
@@ -361,70 +363,70 @@ Vamos supor que você tenha um Aggregate `Order` que contenha uma lista de `Orde
 
 ```typescript
 class WatchedList<T> {
-  private currentItems: T[] = [];
-  private addedItems: T[] = [];
-  private removedItems: T[] = [];
+  private currentItems: T[] = []
+  private addedItems: T[] = []
+  private removedItems: T[] = []
 
   addItem(item: T) {
-    this.currentItems.push(item);
-    this.addedItems.push(item);
+    this.currentItems.push(item)
+    this.addedItems.push(item)
   }
 
   removeItem(item: T) {
-    const index = this.currentItems.indexOf(item);
+    const index = this.currentItems.indexOf(item)
     if (index > -1) {
-      this.currentItems.splice(index, 1);
-      this.removedItems.push(item);
+      this.currentItems.splice(index, 1)
+      this.removedItems.push(item)
     }
   }
 
   getCurrentItems(): T[] {
-    return [...this.currentItems];
+    return [...this.currentItems]
   }
 
   getAddedItems(): T[] {
-    return [...this.addedItems];
+    return [...this.addedItems]
   }
 
   getRemovedItems(): T[] {
-    return [...this.removedItems];
+    return [...this.removedItems]
   }
 
   clearChanges() {
-    this.addedItems = [];
-    this.removedItems = [];
+    this.addedItems = []
+    this.removedItems = []
   }
 }
 
 // Uso da Watched List dentro de um Aggregate
 class Order {
-  private orderId: string;
-  private items: WatchedList<OrderItem>;
+  private orderId: string
+  private items: WatchedList<OrderItem>
 
   constructor(orderId: string) {
-    this.orderId = orderId;
-    this.items = new WatchedList<OrderItem>();
+    this.orderId = orderId
+    this.items = new WatchedList<OrderItem>()
   }
 
   addItem(productId: string, quantity: number) {
-    const item = new OrderItem(productId, quantity);
-    this.items.addItem(item);
+    const item = new OrderItem(productId, quantity)
+    this.items.addItem(item)
   }
 
   removeItem(item: OrderItem) {
-    this.items.removeItem(item);
+    this.items.removeItem(item)
   }
 
   getItems(): OrderItem[] {
-    return this.items.getCurrentItems();
+    return this.items.getCurrentItems()
   }
 
   getAddedItems(): OrderItem[] {
-    return this.items.getAddedItems();
+    return this.items.getAddedItems()
   }
 
   getRemovedItems(): OrderItem[] {
-    return this.items.getRemovedItems();
+    return this.items.getRemovedItems()
   }
 }
 ```
@@ -471,5 +473,3 @@ A Watched List é uma técnica poderosa para manter o controle de mudanças em c
 - Chat
 
 ### Pub/Sub
-
-

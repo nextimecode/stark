@@ -1,9 +1,10 @@
-import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { InMemoryQuestionCommentsRepository } from 'test/repositories/in-memory-question-comments-repository'
-import { FetchQuestionCommentsUseCase } from '@/domain/forum/application/use-cases/fetch-question-comments'
 import { makeQuestionComment } from 'test/factories/make-question-comment'
-import { InMemoryStudentsRepository } from 'test/repositories/in-memory-students-repository'
 import { makeStudent } from 'test/factories/make-student'
+import { InMemoryQuestionCommentsRepository } from 'test/repositories/in-memory-question-comments-repository'
+import { InMemoryStudentsRepository } from 'test/repositories/in-memory-students-repository'
+
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { FetchQuestionCommentsUseCase } from '@/domain/forum/application/use-cases/fetch-question-comments'
 
 let inMemoryStudentsRepository: InMemoryStudentsRepository
 let inMemoryQuestionCommentsRepository: InMemoryQuestionCommentsRepository
@@ -13,7 +14,7 @@ describe('Fetch Question Comments', () => {
   beforeEach(() => {
     inMemoryStudentsRepository = new InMemoryStudentsRepository()
     inMemoryQuestionCommentsRepository = new InMemoryQuestionCommentsRepository(
-      inMemoryStudentsRepository,
+      inMemoryStudentsRepository
     )
     sut = new FetchQuestionCommentsUseCase(inMemoryQuestionCommentsRepository)
   })
@@ -25,17 +26,17 @@ describe('Fetch Question Comments', () => {
 
     const comment1 = makeQuestionComment({
       questionId: new UniqueEntityID('question-1'),
-      authorId: student.id,
+      authorId: student.id
     })
 
     const comment2 = makeQuestionComment({
       questionId: new UniqueEntityID('question-1'),
-      authorId: student.id,
+      authorId: student.id
     })
 
     const comment3 = makeQuestionComment({
       questionId: new UniqueEntityID('question-1'),
-      authorId: student.id,
+      authorId: student.id
     })
 
     await inMemoryQuestionCommentsRepository.create(comment1)
@@ -44,7 +45,7 @@ describe('Fetch Question Comments', () => {
 
     const result = await sut.execute({
       questionId: 'question-1',
-      page: 1,
+      page: 1
     })
 
     expect(result.value?.comments).toHaveLength(3)
@@ -52,17 +53,17 @@ describe('Fetch Question Comments', () => {
       expect.arrayContaining([
         expect.objectContaining({
           author: 'John Doe',
-          commentId: comment1.id,
+          commentId: comment1.id
         }),
         expect.objectContaining({
           author: 'John Doe',
-          commentId: comment2.id,
+          commentId: comment2.id
         }),
         expect.objectContaining({
           author: 'John Doe',
-          commentId: comment3.id,
-        }),
-      ]),
+          commentId: comment3.id
+        })
+      ])
     )
   })
 
@@ -75,14 +76,14 @@ describe('Fetch Question Comments', () => {
       await inMemoryQuestionCommentsRepository.create(
         makeQuestionComment({
           questionId: new UniqueEntityID('question-1'),
-          authorId: student.id,
-        }),
+          authorId: student.id
+        })
       )
     }
 
     const result = await sut.execute({
       questionId: 'question-1',
-      page: 2,
+      page: 2
     })
 
     expect(result.value?.comments).toHaveLength(2)
