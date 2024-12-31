@@ -37,7 +37,15 @@ export default [
       perfectionist: perfectionistPlugin,
       next: nextPlugin
     },
-    ignores: ['node_modules/', 'dist/', 'build/', '.next/', '.turbo/', '.vercel/', 'playwright-report/'],
+    ignores: [
+      'node_modules/',
+      'dist/',
+      'build/',
+      '.next/',
+      '.turbo/',
+      '.vercel/',
+      'playwright-report/'
+    ],
     rules: {
       'space-before-blocks': 'error',
       'keyword-spacing': 'error',
