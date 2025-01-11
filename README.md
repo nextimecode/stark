@@ -34,6 +34,7 @@ O Stark é um monorepo com os seguintes apps e packages:
 - **[Arya](#arya):** A parte deslogada (www). Inspirada em Arya Stark, simboliza independência, liberdade e adaptabilidade. É a porta de entrada pública para o sistema.
 - **[Bran](#bran):** O backend principal. Inspirado em Bran Stark, reflete inteligência e visão estratégica, processando e organizando dados de forma eficiente e segura.
 - **[Sansa](#sansa):** A parte logada do sistema. Inspirada em Sansa Stark, representa resiliência e crescimento, oferecendo uma interface organizada e eficiente.
+- Ned vai ser com firebase e sera o projeto de login e cadastro
 
 ### **Packages**
 
