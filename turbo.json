@@ -42,9 +42,6 @@
       "cache": false,
       "dependsOn": ["build"]
     },
-    "start:prod": {
-      "cache": false
-    },
     "typecheck": {
       "cache": false,
       "outputs": ["tsconfig.tsbuildinfo"]
