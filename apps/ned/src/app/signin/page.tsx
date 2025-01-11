@@ -5,7 +5,10 @@ import { useState } from 'react'
 
 import { useRouter } from 'next/navigation'
 
+import { logEvent } from 'firebase/analytics'
+
 import signIn from '@/firebase/auth/signIn'
+import { analytics } from '@/firebase/config'
 
 export default function Signin() {
   const [email, setEmail] = useState('')
@@ -27,6 +30,10 @@ export default function Signin() {
 
     // Sign in successful
     console.log(result)
+
+    if (analytics) {
+      logEvent(analytics, 'login', { method: 'email' })
+    }
 
     // Redirect to the admin page
     // Typically you would want to redirect them to a protected page an add a check to see if they are admin or

@@ -5,12 +5,22 @@ import { useState } from 'react'
 
 import { useRouter } from 'next/navigation'
 
+import { logEvent } from 'firebase/analytics'
+
 import signUp from '@/firebase/auth/signup'
+import { analytics } from '@/firebase/config'
 
 export default function Signup() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const router = useRouter()
+
+  const handleStartSignup = () => {
+    // Log event when the user clicks the "Sign up" button
+    if (analytics) {
+      logEvent(analytics, 'signup_started', { email })
+    }
+  }
 
   // Handle form submission
   const handleForm = async (event: { preventDefault: () => void }) => {
@@ -27,6 +37,10 @@ export default function Signup() {
 
     // Sign up successful
     console.log(result)
+
+    if (analytics) {
+      logEvent(analytics, 'sign_up', { method: 'email' })
+    }
 
     // Redirect to the admin page
     router.push('/admin')
@@ -67,6 +81,7 @@ export default function Signup() {
           </div>
           <button
             type="submit"
+            onClick={handleStartSignup} // Log event before submitting the form
             className="w-full bg-blue-500 text-white font-semibold py-2 rounded"
           >
             Sign up

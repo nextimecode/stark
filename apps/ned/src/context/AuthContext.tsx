@@ -9,7 +9,7 @@ import {
 
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth'
 
-import firebase_app from '@/firebase/config'
+import { firebase_app } from '@/firebase/config'
 
 // Initialize Firebase auth instance
 const auth = getAuth(firebase_app)
