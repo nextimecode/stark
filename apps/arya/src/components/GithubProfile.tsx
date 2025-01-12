@@ -15,7 +15,7 @@ export default async function GithubProfile() {
   const response = await getHomeData()
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div>Carregando...</div>}>
         {/* <Button>{message}</Button> */}
       </Suspense>
       {/* <Button>{response.message}</Button> */}
