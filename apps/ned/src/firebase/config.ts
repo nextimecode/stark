@@ -6,6 +6,7 @@ import { initializeApp, getApps } from 'firebase/app'
 
 // Your web app's Firebase configuration
 
+// eslint-disable-next-line no-console
 console.log(
   'NEXT_PUBLIC_FIREBASE_API_KEY',
   process.env.NEXT_PUBLIC_FIREBASE_API_KEY
