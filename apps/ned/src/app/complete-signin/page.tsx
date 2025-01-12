@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 import { useRouter } from 'next/navigation'
 
-import { completeSignIn } from '@/firebase/auth/signin'
+import { completeSignIn } from '@/firebase/auth/signIn'
 
 export default function CompleteSignIn() {
   const [loading, setLoading] = useState(true)

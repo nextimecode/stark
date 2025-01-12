@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Backend - Bran, inspirado em Bran Stark, reflete inteligência e visão estratégica. Este projeto é o núcleo lógico do sistema, responsável por processar, organizar e prover os dados de forma eficiente e segura para suportar as operações de todas as interfaces conectadas.",
   "author": "Pedro Duarte",
-  "type": "module",
   "private": true,
   "license": "MIT",
   "scripts": {

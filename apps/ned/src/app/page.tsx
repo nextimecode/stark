@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import { logEvent } from 'firebase/analytics'
 
 import { useAuthContext } from '@/context/AuthContext'
-import { sendSignInLink, signInWithGoogle } from '@/firebase/auth/signin'
+import { sendSignInLink, signInWithGoogle } from '@/firebase/auth/signIn'
 import { analytics } from '@/firebase/config'
 
 export default function Home() {
