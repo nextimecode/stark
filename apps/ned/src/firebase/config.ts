@@ -6,12 +6,6 @@ import { initializeApp, getApps } from 'firebase/app'
 
 // Your web app's Firebase configuration
 
-// eslint-disable-next-line no-console
-console.log(
-  'NEXT_PUBLIC_FIREBASE_API_KEY',
-  process.env.NEXT_PUBLIC_FIREBASE_API_KEY
-)
-
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
