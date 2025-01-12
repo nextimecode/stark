@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-// Importar funções de autenticação do Firebase
+
 import {
   getAuth,
   sendSignInLinkToEmail,
