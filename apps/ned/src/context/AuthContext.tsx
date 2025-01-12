@@ -1,4 +1,5 @@
 'use client'
+
 import {
   createContext,
   useContext,
@@ -11,46 +12,56 @@ import { getAuth, onAuthStateChanged, User } from 'firebase/auth'
 
 import { firebase_app } from '@/firebase/config'
 
-// Initialize Firebase auth instance
+// Inicializa a instância de autenticação do Firebase
 const auth = getAuth(firebase_app)
 
-// Create the authentication context
-export const AuthContext = createContext({})
+// Cria o contexto de autenticação
+interface AuthContextType {
+  user: User | null
+  loading: boolean
+}
 
-// Custom hook to access the authentication context
-export const useAuthContext = () => useContext(AuthContext)
+const AuthContext = createContext<AuthContextType | undefined>(undefined)
+
+// Hook personalizado para acessar o contexto de autenticação
+export const useAuthContext = (): AuthContextType => {
+  const context = useContext(AuthContext)
+  if (context === undefined) {
+    throw new Error(
+      'useAuthContext deve ser usado dentro de AuthContextProvider'
+    )
+  }
+  return context
+}
 
 interface AuthContextProviderProps {
   children: ReactNode
 }
 
 export function AuthContextProvider({ children }: AuthContextProviderProps) {
-  // Set up state to track the authenticated user and loading status
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Subscribe to the authentication state changes
-    const unsubscribe = onAuthStateChanged(auth, user => {
-      if (user) {
-        // User is signed in
-        setUser(user)
-      } else {
-        // User is signed out
-        setUser(null)
-      }
-      // Set loading to false once authentication state is determined
-      setLoading(false)
+    // Assina as mudanças no estado de autenticação
+    const unsubscribe = onAuthStateChanged(auth, firebaseUser => {
+      setUser(firebaseUser || null) // Atualiza o estado do usuário
+      setLoading(false) // Define loading como falso quando o estado é resolvido
     })
 
-    // Unsubscribe from the authentication state changes when the component is unmounted
+    // Desassina as mudanças no estado de autenticação ao desmontar
     return () => unsubscribe()
   }, [])
 
-  // Provide the authentication context to child components
   return (
-    <AuthContext.Provider value={{ user }}>
-      {loading ? <div>Loading...</div> : children}
+    <AuthContext.Provider value={{ user, loading }}>
+      {loading ? (
+        <div className="flex items-center justify-center h-screen">
+          <p>Carregando...</p>
+        </div>
+      ) : (
+        children
+      )}
     </AuthContext.Provider>
   )
 }

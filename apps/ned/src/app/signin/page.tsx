@@ -1,25 +1,33 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useRouter } from 'next/navigation'
 
-import { sendSignInLink, signInWithGoogle } from '@/firebase/auth/signIn'
+import { useAuthContext } from '@/context/AuthContext'
+import { sendSignInLink, signInWithGoogle } from '@/firebase/auth/signin'
 
 export default function Signin() {
+  const { user, loading } = useAuthContext()
+  const router = useRouter()
   const [email, setEmail] = useState('')
   const [isLinkSent, setIsLinkSent] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
-  const router = useRouter()
+
+  useEffect(() => {
+    if (!loading && user) {
+      router.push('/') // Redireciona para a página inicial se o usuário já estiver autenticado
+    }
+  }, [loading, user, router])
 
   const handleGoogleLogin = async () => {
-    const { success, error, user } = await signInWithGoogle()
+    const { success, error } = await signInWithGoogle()
 
     if (success) {
       router.push('/') // Redirecionar para a página inicial após o login
     } else {
       setErrorMessage(
-        (error as Error).message || 'Falha ao fazer login com o Google.'
+        (error as Error)?.message || 'Falha ao fazer login com o Google.'
       )
     }
   }
@@ -39,6 +47,15 @@ export default function Signin() {
     }
 
     setIsLinkSent(true)
+  }
+
+  if (loading || (!loading && user)) {
+    // Tela de carregamento enquanto verifica o estado de autenticação
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p>Carregando...</p>
+      </div>
+    )
   }
 
   return (
