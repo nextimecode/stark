@@ -4,7 +4,9 @@ import {
   sendSignInLinkToEmail,
   isSignInWithEmailLink,
   signInWithEmailLink,
-  fetchSignInMethodsForEmail
+  fetchSignInMethodsForEmail,
+  GoogleAuthProvider,
+  signInWithPopup
 } from 'firebase/auth'
 
 import { firebase_app } from '@/firebase/config'
@@ -58,6 +60,20 @@ export async function completeSignIn() {
     window.localStorage.removeItem('emailForSignIn')
 
     return { success: true, user: result.user }
+  } catch (error) {
+    console.error(error)
+    return { success: false, error }
+  }
+}
+
+export async function signInWithGoogle() {
+  const provider = new GoogleAuthProvider()
+
+  try {
+    const result = await signInWithPopup(auth, provider)
+    const user = result.user
+
+    return { success: true, user }
   } catch (error) {
     console.error(error)
     return { success: false, error }

@@ -4,13 +4,25 @@ import { useState } from 'react'
 
 import { useRouter } from 'next/navigation'
 
-import { sendSignInLink } from '@/firebase/auth/signIn'
+import { sendSignInLink, signInWithGoogle } from '@/firebase/auth/signIn'
 
 export default function Signin() {
   const [email, setEmail] = useState('')
   const [isLinkSent, setIsLinkSent] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const router = useRouter()
+
+  const handleGoogleLogin = async () => {
+    const { success, error, user } = await signInWithGoogle()
+
+    if (success) {
+      router.push('/') // Redirecionar para a página inicial após o login
+    } else {
+      setErrorMessage(
+        (error as Error).message || 'Falha ao fazer login com o Google.'
+      )
+    }
+  }
 
   const handleForm = async (event: { preventDefault: () => void }) => {
     event.preventDefault()
@@ -92,6 +104,14 @@ export default function Signin() {
             </button>
           </div>
         )}
+        <div className="mt-4">
+          <button
+            onClick={handleGoogleLogin}
+            className="w-full bg-red-500 text-white font-semibold py-2 rounded"
+          >
+            Login com Google
+          </button>
+        </div>
       </div>
     </div>
   )
