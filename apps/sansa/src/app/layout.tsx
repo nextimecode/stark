@@ -4,6 +4,9 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
 import PrelineScript from '../components/PrelineScript'
+
+import { AuthContextProvider } from '@/context/AuthContext'
+
 import './global.css'
 
 const inter = Inter({
@@ -23,7 +26,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html className={inter.variable} lang="pt-BR">
       <body>
-        {children}
+        <AuthContextProvider>{children}</AuthContextProvider>
         <PrelineScript />
       </body>
     </html>
