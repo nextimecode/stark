@@ -39,7 +39,27 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Rohan Release
+      - name: Stark Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
+
+      - name: Get Latest Tag
+        id: get_tag
+        run: echo "tag=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Update package.json with release tag
+        run: |
+          echo "Atualizando package.json com a versão $TAG"
+          jq ".version = \"$TAG\"" package.json > package.tmp.json
+          mv package.tmp.json package.json
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add package.json
+          git commit -m "chore: atualiza versão para $TAG"
+          git push origin main
+        env:
+          TAG: ${{ env.tag }}
