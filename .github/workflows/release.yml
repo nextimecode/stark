@@ -41,7 +41,10 @@ jobs:
 
       - name: Get Latest Tag
         id: get_tag
-        run: echo "::set-output name=tag::$(git describe --tags --abbrev=0)"
+        run: |
+          TAG=$(git describe --tags --abbrev=0)
+          TAG_NO_V=${TAG#v}
+          echo "::set-output name=tag::$TAG_NO_V"
 
       - name: Install jq
         run: sudo apt-get update && sudo apt-get install -y jq
