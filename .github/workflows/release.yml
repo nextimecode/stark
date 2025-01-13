@@ -65,6 +65,6 @@ jobs:
           labels: version-update
 
       - name: Merge Pull Request
-        run: gh pr merge ${{ steps.create_pr.outputs.pull-request-number }} --merge --auto
+        run: gh pr merge ${{ steps.create_pr.outputs.pull-request-number }} --squash --auto
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
