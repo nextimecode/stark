@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import {
   getAuth,
   sendSignInLinkToEmail,
@@ -26,7 +24,6 @@ export async function sendSignInLink(email: string) {
     window.localStorage.setItem('emailForSignIn', email)
     return { success: true }
   } catch (error) {
-    console.error(error)
     return { success: false, error }
   }
 }
@@ -62,7 +59,6 @@ export async function completeSignIn() {
 
     return { success: true, user: result.user }
   } catch (error) {
-    console.error(error)
     return { success: false, error }
   }
 }
@@ -76,7 +72,6 @@ export async function signInWithGoogle() {
 
     return { success: true, user }
   } catch (error) {
-    console.error(error)
     return { success: false, error }
   }
 }
