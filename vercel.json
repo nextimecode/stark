@@ -1,12 +1,11 @@
 {
   "version": 2,
-  "projects": {
-    "bran": {
-      "src": "apps/bran",
-      "buildCommand": "pnpm bran:build",
-      "outputDirectory": "apps/bran/dist/infra"
+  "builds": [
+    {
+      "src": "apps/bran/dist/infra/main.js",
+      "use": "@vercel/node"
     }
-  },
+  ],
   "routes": [
     {
       "src": "/(.*)",
