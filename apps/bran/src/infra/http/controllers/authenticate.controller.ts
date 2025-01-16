@@ -1,52 +1,55 @@
-import { Controller, Post, Body, UnauthorizedException, BadRequestException } from '@nestjs/common';
-import { z } from 'zod';
-import { createZodDto } from 'nestjs-zod';
-import { ApiTags, ApiBody } from '@nestjs/swagger';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Post,
+  UnauthorizedException,
+  UsePipes
+} from '@nestjs/common'
+import { z } from 'zod'
 
-import { AuthenticateStudentUseCase } from '@/domain/forum/application/use-cases/authenticate-student';
-import { WrongCredentialsError } from '@/domain/forum/application/use-cases/errors/wrong-credentials-error';
-import { Public } from '@/infra/auth/public';
+import { AuthenticateStudentUseCase } from '@/domain/forum/application/use-cases/authenticate-student'
+import { WrongCredentialsError } from '@/domain/forum/application/use-cases/errors/wrong-credentials-error'
+import { Public } from '@/infra/auth/public'
+import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 
-// Defina o schema Zod
 const authenticateBodySchema = z.object({
   email: z.string().email(),
-  password: z.string(),
-});
+  password: z.string()
+})
 
-// Converta para um DTO
-export class AuthenticateBodyDto extends createZodDto(authenticateBodySchema) {}
+type AuthenticateBodySchema = z.infer<typeof authenticateBodySchema>
 
-@ApiTags('Sessions')
 @Controller('/sessions')
 @Public()
 export class AuthenticateController {
   constructor(private authenticateStudent: AuthenticateStudentUseCase) {}
 
   @Post()
-  @ApiBody({ type: AuthenticateBodyDto }) // Descreve o Body no Swagger
-  async handle(@Body() body: AuthenticateBodyDto) {
-    const { email, password } = body;
+  @UsePipes(new ZodValidationPipe(authenticateBodySchema))
+  async handle(@Body() body: AuthenticateBodySchema) {
+    const { email, password } = body
 
     const result = await this.authenticateStudent.execute({
       email,
-      password,
-    });
+      password
+    })
 
     if (result.isLeft()) {
-      const error = result.value;
+      const error = result.value
 
       switch (error.constructor) {
         case WrongCredentialsError:
-          throw new UnauthorizedException(error.message);
+          throw new UnauthorizedException(error.message)
         default:
-          throw new BadRequestException(error.message);
+          throw new BadRequestException(error.message)
       }
     }
 
-    const { accessToken } = result.value;
+    const { accessToken } = result.value
 
     return {
-      access_token: accessToken,
-    };
+      access_token: accessToken
+    }
   }
 }
