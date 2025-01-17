@@ -1,11 +1,10 @@
 import { ReactNode } from 'react'
 
+import { AuthContextProvider } from '@nextime/auth'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
 import PrelineScript from '../components/PrelineScript'
-
-import { AuthContextProvider } from '@/context/AuthContext'
 
 import './global.css'
 

@@ -1,15 +1,16 @@
 'use client'
+export const dynamic = 'force-dynamic'
 
 // import { useEffect } from 'react'
 
 // import { useRouter } from 'next/navigation'
 
-import { useAuthContext } from '@/context/AuthContext'
+import { useAuthContext } from '@nextime/auth'
 // import { env } from '@/env'
 
 export default function Home() {
   const { user } = useAuthContext() as { user: any } // Use 'as' to assert the type as { user: any }
-  console.log(user)
+  console.error(user)
   // const router = useRouter()
 
   // useEffect(() => {

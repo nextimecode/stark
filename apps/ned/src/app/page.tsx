@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from 'react'
 
+import {
+  sendSignInLink,
+  signInWithGoogle,
+  useAuthContext,
+  analytics,
+  logEvent
+} from '@nextime/auth'
 import { useRouter } from 'next/navigation'
-
-import { logEvent } from 'firebase/analytics'
-
-import { useAuthContext } from '@/context/AuthContext'
-import { sendSignInLink, signInWithGoogle } from '@/firebase/auth/signin'
-import { analytics } from '@/firebase/config'
 
 export default function Home() {
   const { user, loading } = useAuthContext()
@@ -19,7 +20,7 @@ export default function Home() {
 
   useEffect(() => {
     if (!loading && user) {
-      console.log('user', user)
+      console.error('user', user)
       // router.push(`${process.env.NEXT_PUBLIC_SANSA_URL}/`)
     }
   }, [loading, user, router])
@@ -28,9 +29,7 @@ export default function Home() {
     const { success, error } = await signInWithGoogle()
 
     if (success) {
-      if (analytics) {
-        logEvent(analytics, 'login', { method: 'Google' })
-      }
+      logEvent('login', { method: 'Google' })
       router.push(`${process.env.NEXT_PUBLIC_SANSA_URL}/`)
     } else {
       setErrorMessage(
@@ -54,7 +53,7 @@ export default function Home() {
     }
 
     if (analytics) {
-      logEvent(analytics, 'login', { method: 'email_link_sent' })
+      logEvent('login', { method: 'email_link_sent' })
     }
 
     setIsLinkSent(true)

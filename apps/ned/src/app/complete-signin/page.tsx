@@ -1,10 +1,10 @@
 'use client'
+export const dynamic = 'force-dynamic'
 
 import { useEffect, useState } from 'react'
 
+import { completeSignIn } from '@nextime/auth'
 import { useRouter } from 'next/navigation'
-
-import { completeSignIn } from '@/firebase/auth/signin'
 
 export default function CompleteSignIn() {
   const [loading, setLoading] = useState(true)
