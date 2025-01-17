@@ -1,5 +1,9 @@
 // Import the functions you need from the SDKs you need
-import { getAnalytics, Analytics, logEvent as firebaseLogEvent } from 'firebase/analytics';
+import {
+  getAnalytics,
+  Analytics,
+  logEvent as firebaseLogEvent
+} from 'firebase/analytics'
 import { initializeApp, getApps } from 'firebase/app'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -26,9 +30,9 @@ if (typeof window !== 'undefined' && firebase_app) {
 
 const logEvent = (eventName: string, eventParams?: Record<string, any>) => {
   if (!analytics) {
-    throw new Error('Analytics não está configurado.');
+    throw new Error('Analytics não está configurado.')
   }
-  firebaseLogEvent(analytics, eventName, eventParams);
-};
+  firebaseLogEvent(analytics, eventName, eventParams)
+}
 
-export { firebase_app, analytics, logEvent };
+export { firebase_app, analytics, logEvent }
