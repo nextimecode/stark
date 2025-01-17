@@ -60,10 +60,15 @@ export default function Home() {
   }
 
   if (loading || (!loading && user)) {
-    // Tela de carregamento enquanto verifica o estado de autenticação
     return (
       <div className="flex items-center justify-center h-screen">
-        <p>Carregando...</p>
+        <div
+          className="animate-spin inline-block size-6 border-[3px] border-current border-t-transparent text-blue-600 rounded-full dark:text-blue-500"
+          role="status"
+          aria-label="loading"
+        >
+          <span className="sr-only">Carregando</span>
+        </div>
       </div>
     )
   }
@@ -75,8 +80,19 @@ export default function Home() {
           <div>
             {!isLinkSent ? (
               <>
-                <div className="text-center">
-                  <h1 className="text-2xl font-bold mb-6 text-black">Entrar</h1>
+                <div className="text-center pb-4">
+                  <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">
+                    Entrar
+                  </h1>
+                  {/* <p className="mt-2 text-sm text-gray-600 dark:text-neutral-400">
+                    Faça login na sua conta
+                    <a
+                      className="text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500"
+                      href="../examples/html/signup.html"
+                    >
+                      Sign up here
+                    </a>
+                  </p> */}
                 </div>
                 <button
                   type="button"
@@ -112,7 +128,7 @@ export default function Home() {
                 <div className="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-1 before:border-t before:border-gray-200 before:me-6 after:flex-1 after:border-t after:border-gray-200 after:ms-6 dark:text-neutral-500 dark:before:border-neutral-600 dark:after:border-neutral-600">
                   Ou
                 </div>
-                <form>
+                <form onSubmit={handleForm}>
                   <div className="grid gap-y-4">
                     <div>
                       <label
@@ -129,9 +145,13 @@ export default function Home() {
                           className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                           required
                           aria-describedby="email-error"
+                          onChange={e => setEmail(e.target.value)}
                         />
                       </div>
                     </div>
+                    {errorMessage && (
+                      <p className="text-red-500 text-sm">{errorMessage}</p>
+                    )}
                     {/*
                     <div>
                       <div className="flex justify-between items-center">
@@ -197,12 +217,12 @@ export default function Home() {
                   Verifique sua caixa de entrada e clique no link enviado para
                   concluir o login.
                 </p>
-                <button
+                {/* <button
                   onClick={() => router.push('/')}
                   className="mt-4 w-full bg-blue-500 text-white font-semibold py-2 rounded"
                 >
                   Voltar para a página inicial
-                </button>
+                </button> */}
               </div>
             )}
           </div>
@@ -211,78 +231,78 @@ export default function Home() {
     </div>
   )
 
-  return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <div className="w-full max-w-xs">
-        {!isLinkSent ? (
-          <form
-            onSubmit={handleForm}
-            className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-          >
-            <h1 className="text-3xl font-bold mb-6 text-black">Sign In</h1>
-            <div className="mb-4">
-              <label
-                htmlFor="email"
-                className="block text-gray-700 text-sm font-bold mb-2"
-              >
-                Email
-              </label>
-              <input
-                onChange={e => setEmail(e.target.value)}
-                required
-                type="email"
-                name="email"
-                id="email"
-                placeholder="example@mail.com"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              />
-            </div>
-            {errorMessage && (
-              <p className="text-red-500 text-sm mb-4">{errorMessage}</p>
-            )}
-            {errorMessage ===
-              'Este e-mail já está vinculado a outra forma de login. Por favor, use sua senha ou outro método.' && (
-              <p className="text-gray-700">
-                Já possui uma conta?{' '}
-                <a href="/login" className="text-blue-500">
-                  Faça login aqui
-                </a>
-                .
-              </p>
-            )}
-            <div className="flex items-center justify-between mt-4">
-              <button
-                type="submit"
-                className="w-full bg-blue-500 text-white font-semibold py-2 rounded"
-              >
-                Enviar Link de Login
-              </button>
-            </div>
-          </form>
-        ) : (
-          <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            <h1 className="text-2xl font-bold mb-6 text-black">Link Enviado</h1>
-            <p className="text-gray-700">
-              Verifique sua caixa de entrada e clique no link enviado para
-              concluir o login.
-            </p>
-            <button
-              onClick={() => router.push('/')}
-              className="mt-4 w-full bg-blue-500 text-white font-semibold py-2 rounded"
-            >
-              Voltar para a página inicial
-            </button>
-          </div>
-        )}
-        <div className="mt-4">
-          <button
-            onClick={handleGoogleLogin}
-            className="w-full bg-red-500 text-white font-semibold py-2 rounded"
-          >
-            Login com Google
-          </button>
-        </div>
-      </div>
-    </div>
-  )
+  // return (
+  //   <div className="flex flex-col items-center justify-center h-screen">
+  //     <div className="w-full max-w-xs">
+  //       {!isLinkSent ? (
+  //         <form
+  //           onSubmit={handleForm}
+  //           className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+  //         >
+  //           <h1 className="text-3xl font-bold mb-6 text-black">Sign In</h1>
+  //           <div className="mb-4">
+  //             <label
+  //               htmlFor="email"
+  //               className="block text-gray-700 text-sm font-bold mb-2"
+  //             >
+  //               Email
+  //             </label>
+  //             <input
+  //               onChange={e => setEmail(e.target.value)}
+  //               required
+  //               type="email"
+  //               name="email"
+  //               id="email"
+  //               placeholder="example@mail.com"
+  //               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+  //             />
+  //           </div>
+  //           {errorMessage && (
+  //             <p className="text-red-500 text-sm mb-4">{errorMessage}</p>
+  //           )}
+  //           {errorMessage ===
+  //             'Este e-mail já está vinculado a outra forma de login. Por favor, use sua senha ou outro método.' && (
+  //             <p className="text-gray-700">
+  //               Já possui uma conta?{' '}
+  //               <a href="/login" className="text-blue-500">
+  //                 Faça login aqui
+  //               </a>
+  //               .
+  //             </p>
+  //           )}
+  //           <div className="flex items-center justify-between mt-4">
+  //             <button
+  //               type="submit"
+  //               className="w-full bg-blue-500 text-white font-semibold py-2 rounded"
+  //             >
+  //               Enviar Link de Login
+  //             </button>
+  //           </div>
+  //         </form>
+  //       ) : (
+  //         <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+  //           <h1 className="text-2xl font-bold mb-6 text-black">Link Enviado</h1>
+  //           <p className="text-gray-700">
+  //             Verifique sua caixa de entrada e clique no link enviado para
+  //             concluir o login.
+  //           </p>
+  //           <button
+  //             onClick={() => router.push('/')}
+  //             className="mt-4 w-full bg-blue-500 text-white font-semibold py-2 rounded"
+  //           >
+  //             Voltar para a página inicial
+  //           </button>
+  //         </div>
+  //       )}
+  //       <div className="mt-4">
+  //         <button
+  //           onClick={handleGoogleLogin}
+  //           className="w-full bg-red-500 text-white font-semibold py-2 rounded"
+  //         >
+  //           Login com Google
+  //         </button>
+  //       </div>
+  //     </div>
+  //   </div>
+  // )
 }

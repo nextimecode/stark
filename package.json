@@ -90,6 +90,7 @@
     "@t3-oss/env-nextjs": "^0.11.1",
     "@tailwindcss/forms": "^0.5.10",
     "bcryptjs": "^2.4.3",
+    "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
     "dotenv": "^16.4.7",
     "eslint-plugin-unicorn": "^56.0.1",

@@ -1,4 +1,23 @@
+'use client'
+
+import { logEvent } from 'firebase/analytics'
+
+import { env } from '@/env'
+import { analytics } from '@/firebase/config'
+
+import { Title } from './Title'
+
 export function Header() {
+  const handleLogin = async () => {
+    if (analytics) {
+      logEvent(analytics, 'login', { method: 'Google' })
+    }
+    if (env.NEXT_PUBLIC_SANSA_URL) {
+      window.location.href = env.NEXT_PUBLIC_SANSA_URL
+    } else {
+      console.error('NEXT_PUBLIC_SANSA_URL não está definido no ambiente')
+    }
+  }
   return (
     // <!-- ========== HEADER ========== -->
     <header className="flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full py-7">
@@ -8,7 +27,7 @@ export function Header() {
       >
         <div className="md:col-span-3">
           {/* <!-- Logo --> */}
-          <a
+          {/* <a
             className="flex-none rounded-xl text-xl inline-block font-semibold focus:outline-none focus:opacity-80"
             href="../templates/creative-agency/index.html"
             aria-label="Preline"
@@ -46,23 +65,27 @@ export function Header() {
                 fill="currentColor"
               />
             </svg>
-          </a>
+          </a> */}
+          <Title color="violet" size="text-3xl">
+            Logo
+          </Title>
           {/* <!-- End Logo --> */}
         </div>
 
         {/* <!-- Button Group --> */}
         <div className="flex items-center gap-x-2 ms-auto py-1 md:ps-6 md:order-3 md:col-span-3">
-          <button
+          {/* <button
             type="button"
             className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl border border-gray-200 text-black hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:border-neutral-700 dark:hover:bg-white/10 dark:text-white dark:hover:text-white"
           >
-            Sign in
-          </button>
+            Entrar
+          </button> */}
           <button
             type="button"
-            className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl border border-transparent bg-lime-400 text-black hover:bg-lime-500 transition disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-lime-500"
+            className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl border border-transparent bg-primary-500 text-black hover:bg-primary-300 transition disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-primary-600"
+            onClick={handleLogin}
           >
-            Hire us
+            Entrar
           </button>
 
           <div className="md:hidden">
