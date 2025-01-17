@@ -24,6 +24,7 @@ export default [
       globals: {
         ...globals.browser,
         ...globals.es6,
+        ...globals.node,
         process: 'readonly'
       }
     },

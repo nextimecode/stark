@@ -8,7 +8,11 @@ const nextConfig = {
         pathname: '**'
       }
     ]
-  }
+  },
+  experimental: {
+    appDir: true
+  },
+  transpilePackages: ['@nextime/auth']
 }
 
 module.exports = nextConfig

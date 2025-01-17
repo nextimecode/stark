@@ -8,6 +8,8 @@ import {
   ReactNode
 } from 'react'
 
+export const dynamic = 'force-dynamic'
+
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth'
 
 import { firebase_app } from '@/firebase/config'
