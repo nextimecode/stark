@@ -52,10 +52,10 @@ export default [
       'arrow-spacing': 'error',
       'semi-spacing': 'error',
       'no-redeclare': 'error',
-      "no-console": [
-      "error",
+      'no-console': [
+        'error',
         {
-          "allow": ["error"]
+          allow: ['error']
         }
       ],
       'no-undef': 'error',
