@@ -1,6 +1,9 @@
 import { ReactNode } from 'react'
 
+import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+
+import PrelineScript from '../components/PrelineScript'
 
 import { AuthContextProvider } from '@/context/AuthContext'
 
@@ -12,25 +15,23 @@ const inter = Inter({
   variable: '--font-inter'
 })
 
-// Metadata for the application
-export const metadata = {
-  title: 'Next.js + Firebase Starter',
-  description: 'Template to use Next.js with Firebase'
+export const metadata: Metadata = {
+  title: {
+    template: '%s | Entrar',
+    default: 'NeXTIME | Entrar'
+  },
+  description: ''
 }
 
 // Root layout component for the application
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html className={inter.variable} lang="pt-BR">
-      {/*
-        The <head /> component will contain the components returned by the nearest parent
-        head.js. It can be used to define the document head for SEO, metadata, and other purposes.
-        Learn more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
-      <head />
-      <body>
-        {/* Wrap the children with the AuthContextProvider to provide authentication context */}
-        <AuthContextProvider>{children}</AuthContextProvider>
+      <body className="bg-gray-100 dark:bg-neutral-800">
+        <AuthContextProvider>
+          <div className="relative min-h-screen">{children}</div>
+        </AuthContextProvider>
+        <PrelineScript />
       </body>
     </html>
   )
