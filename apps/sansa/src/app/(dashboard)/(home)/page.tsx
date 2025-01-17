@@ -1,14 +1,15 @@
-// 'use client'
+'use client'
 
 // import { useEffect } from 'react'
 
 // import { useRouter } from 'next/navigation'
 
-// import { useAuthContext } from '@/context/AuthContext'
+import { useAuthContext } from '@/context/AuthContext'
 // import { env } from '@/env'
 
 export default function Home() {
-  // const { user } = useAuthContext() as { user: any } // Use 'as' to assert the type as { user: any }
+  const { user } = useAuthContext() as { user: any } // Use 'as' to assert the type as { user: any }
+  console.log(user)
   // const router = useRouter()
 
   // useEffect(() => {

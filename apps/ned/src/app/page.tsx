@@ -19,7 +19,8 @@ export default function Home() {
 
   useEffect(() => {
     if (!loading && user) {
-      router.push(`${process.env.NEXT_PUBLIC_SANSA_URL}/`)
+      console.log('user', user)
+      // router.push(`${process.env.NEXT_PUBLIC_SANSA_URL}/`)
     }
   }, [loading, user, router])
 
