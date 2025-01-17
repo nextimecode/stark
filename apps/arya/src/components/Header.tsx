@@ -12,11 +12,7 @@ export function Header() {
     if (analytics) {
       logEvent(analytics, 'login', { method: 'Google' })
     }
-    if (env.NEXT_PUBLIC_SANSA_URL) {
-      window.location.href = env.NEXT_PUBLIC_SANSA_URL
-    } else {
-      console.error('NEXT_PUBLIC_SANSA_URL não está definido no ambiente')
-    }
+    window.location.href = env.NEXT_PUBLIC_NED_URL
   }
   return (
     // <!-- ========== HEADER ========== -->

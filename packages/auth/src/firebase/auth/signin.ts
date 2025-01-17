@@ -5,12 +5,33 @@ import {
   signInWithEmailLink,
   fetchSignInMethodsForEmail,
   GoogleAuthProvider,
-  signInWithPopup
+  signInWithPopup,
+  signInWithEmailAndPassword as firebaseSignInWithEmailAndPassword
 } from 'firebase/auth'
 
 import { firebase_app } from '@/firebase/config'
 
 const auth = getAuth(firebase_app)
+
+export async function signInWithEmailAndPassword(
+  email: string,
+  password: string
+) {
+  try {
+    const userCredential = await firebaseSignInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    )
+    const user = userCredential.user
+
+    // Retorna sucesso e os dados do usuário autenticado
+    return { success: true, user }
+  } catch (error: any) {
+    // Trata os erros possíveis e os retorna
+    return { success: false, error: error.message || 'Erro desconhecido.' }
+  }
+}
 
 // Função para enviar o link de autenticação para o e-mail
 export async function sendSignInLink(email: string) {

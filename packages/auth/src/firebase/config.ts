@@ -5,6 +5,7 @@ import {
   logEvent as firebaseLogEvent
 } from 'firebase/analytics'
 import { initializeApp, getApps } from 'firebase/app'
+import { getAuth, onAuthStateChanged, User } from 'firebase/auth'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -35,4 +36,6 @@ const logEvent = (eventName: string, eventParams?: Record<string, any>) => {
   firebaseLogEvent(analytics, eventName, eventParams)
 }
 
-export { firebase_app, analytics, logEvent }
+const auth = getAuth(firebase_app)
+
+export { firebase_app, analytics, logEvent, auth, onAuthStateChanged, User }

@@ -8,14 +8,7 @@ import {
   ReactNode
 } from 'react'
 
-export const dynamic = 'force-dynamic'
-
-import { firebase_app } from '@nextime/auth'
-
-import { getAuth, onAuthStateChanged, User } from 'firebase/auth'
-
-// Inicializa a instância de autenticação do Firebase
-const auth = getAuth(firebase_app)
+import { auth, onAuthStateChanged, User } from '@nextime/auth'
 
 // Cria o contexto de autenticação
 interface AuthContextType {
