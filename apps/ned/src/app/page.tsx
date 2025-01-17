@@ -1,30 +1,30 @@
 'use client'
-// export const dynamic = 'force-dynamic'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import {
   sendSignInLink,
   signInWithGoogle,
-  useAuthContext,
   analytics,
   logEvent
 } from '@nextime/auth'
 import { useRouter } from 'next/navigation'
 
+import { useAuthContext } from '@/contexts/auth-context'
+
 export default function Home() {
-  // const { user, loading } = useAuthContext()
+  const { user, loading } = useAuthContext()
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [isLinkSent, setIsLinkSent] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
 
-  // useEffect(() => {
-  //   if (!loading && user) {
-  //     console.error('user', user)
-  //     // router.push(`${process.env.NEXT_PUBLIC_SANSA_URL}/`)
-  //   }
-  // }, [loading, user, router])
+  useEffect(() => {
+    if (!loading && user) {
+      console.error('user', user)
+      // router.push(`${process.env.NEXT_PUBLIC_SANSA_URL}/`)
+    }
+  }, [loading, user, router])
 
   const handleGoogleLogin = async () => {
     const { success, error } = await signInWithGoogle()
@@ -60,19 +60,19 @@ export default function Home() {
     setIsLinkSent(true)
   }
 
-  // if (loading || (!loading && user)) {
-  //   return (
-  //     <div className="flex items-center justify-center h-screen">
-  //       <div
-  //         className="animate-spin inline-block size-6 border-[3px] border-current border-t-transparent text-blue-600 rounded-full dark:text-blue-500"
-  //         role="status"
-  //         aria-label="loading"
-  //       >
-  //         <span className="sr-only">Carregando</span>
-  //       </div>
-  //     </div>
-  //   )
-  // }
+  if (loading || (!loading && user)) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div
+          className="animate-spin inline-block size-6 border-[3px] border-current border-t-transparent text-blue-600 rounded-full dark:text-blue-500"
+          role="status"
+          aria-label="loading"
+        >
+          <span className="sr-only">Carregando</span>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center">

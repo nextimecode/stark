@@ -1,10 +1,11 @@
 import { ReactNode } from 'react'
 
-// import { AuthContextProvider } from '@nextime/auth'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
-import PrelineScript from '../components/PrelineScript'
+import PrelineScript from '@/components/PrelineScript'
+
+import { AuthContextProvider } from '@/contexts/auth-context'
 
 import './global.css'
 
@@ -25,9 +26,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html className={inter.variable} lang="pt-BR">
       <body>
-        {/* <AuthContextProvider> */}
-        {children}
-        {/* </AuthContextProvider> */}
+        <AuthContextProvider>{children}</AuthContextProvider>
         <PrelineScript />
       </body>
     </html>

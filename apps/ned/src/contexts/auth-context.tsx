@@ -10,9 +10,9 @@ import {
 
 export const dynamic = 'force-dynamic'
 
-import { getAuth, onAuthStateChanged, User } from 'firebase/auth'
+import { firebase_app } from '@nextime/auth'
 
-import { firebase_app } from '@/firebase/config'
+import { getAuth, onAuthStateChanged, User } from 'firebase/auth'
 
 // Inicializa a instância de autenticação do Firebase
 const auth = getAuth(firebase_app)
