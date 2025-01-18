@@ -3,30 +3,31 @@
 import { useEffect, useState, FormEvent } from 'react'
 
 import { signInWithGoogle, signInWithEmailAndPassword } from '@nextime/auth'
-import { logEvent } from '@nextime/tracker'
+// import { logEvent } from '@nextime/tracker'
 import { useRouter } from 'next/navigation'
+import router from 'next/router'
 
 import { useAuthContext } from '@/contexts/auth-context'
 
 export default function Home() {
-  const { user, loading } = useAuthContext()
+  // const { user, loading } = useAuthContext()
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
 
-  useEffect(() => {
-    if (!loading && user) {
-      console.error('user', user)
-      // router.push(`${process.env.NEXT_PUBLIC_SANSA_URL}/`)
-    }
-  }, [loading, user, router])
+  // useEffect(() => {
+  //   if (!loading && user) {
+  //     console.error('user', user)
+  //     // router.push(`${process.env.NEXT_PUBLIC_SANSA_URL}/`)
+  //   }
+  // }, [loading, user, router])
 
   const handleGoogleLogin = async () => {
     const { success, error } = await signInWithGoogle()
 
     if (success) {
-      logEvent('login', { method: 'Google' })
+      // logEvent('login', { method: 'Google' })
       router.push(`${process.env.NEXT_PUBLIC_SANSA_URL}/`)
     } else {
       setErrorMessage(
@@ -41,7 +42,7 @@ export default function Home() {
     const { success, error } = await signInWithEmailAndPassword(email, password)
 
     if (success) {
-      logEvent('login', { method: 'email_and_password' })
+      // logEvent('login', { method: 'email_and_password' })
       router.push(`${process.env.NEXT_PUBLIC_SANSA_URL}/`)
     } else {
       console.error('error', error)
@@ -55,19 +56,19 @@ export default function Home() {
     }
   }
 
-  if (loading || (!loading && user)) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <div
-          className="animate-spin inline-block size-6 border-[3px] border-current border-t-transparent text-blue-600 rounded-full dark:text-blue-500"
-          role="status"
-          aria-label="loading"
-        >
-          <span className="sr-only">Carregando</span>
-        </div>
-      </div>
-    )
-  }
+  // if (loading || (!loading && user)) {
+  //   return (
+  //     <div className="flex items-center justify-center h-screen">
+  //       <div
+  //         className="animate-spin inline-block size-6 border-[3px] border-current border-t-transparent text-blue-600 rounded-full dark:text-blue-500"
+  //         role="status"
+  //         aria-label="loading"
+  //       >
+  //         <span className="sr-only">Carregando</span>
+  //       </div>
+  //     </div>
+  //   )
+  // }
 
   return (
     <div className="min-h-screen flex items-center justify-center">

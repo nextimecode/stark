@@ -10,7 +10,7 @@ import {
 
 let analytics: Analytics | null = null
 
-if (typeof window !== 'undefined' && firebase_app) {
+if (firebase_app) {
   analytics = getAnalytics(firebase_app)
 }
 
