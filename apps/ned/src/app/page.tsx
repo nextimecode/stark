@@ -5,7 +5,9 @@ import { useState, FormEvent } from 'react'
 import { signInWithGoogle, signInWithEmailAndPassword } from '@nextime/auth'
 import { useRouter } from 'next/navigation'
 
-import { GoogleIcon } from '../components/icons/GoogleIcon'
+import { GoogleIcon } from '@/components/icons/GoogleIcon'
+
+import { env } from '@/env'
 
 export default function Home() {
   const router = useRouter()
@@ -17,8 +19,7 @@ export default function Home() {
     const { success, error } = await signInWithGoogle()
 
     if (success) {
-      // logEvent('login', { method: 'Google' })
-      router.push(`${process.env.NEXT_PUBLIC_SANSA_URL}/`)
+      router.push(`${env.NEXT_PUBLIC_SANSA_URL}/`)
     } else {
       setErrorMessage(error || 'Falha ao fazer login com o Google.')
     }
@@ -30,15 +31,13 @@ export default function Home() {
     const { success, error } = await signInWithEmailAndPassword(email, password)
 
     if (success) {
-      router.push(`${process.env.NEXT_PUBLIC_SANSA_URL}/`)
+      router.push(`${env.NEXT_PUBLIC_SANSA_URL}/`)
     } else {
       console.error('error', error)
       setErrorMessage(
         error === 'auth/wrong-password'
           ? 'Senha incorreta. Por favor, tente novamente.'
-          : error === 'auth/user-not-found'
-            ? 'Usuário não encontrado. Verifique suas credenciais.'
-            : 'Falha ao fazer login. Tente novamente.'
+          : 'Falha ao fazer login. Tente novamente.'
       )
     }
   }
