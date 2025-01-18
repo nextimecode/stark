@@ -1,9 +1,10 @@
 'use client'
 
+import { analytics } from '@nextime/auth'
+
 import { logEvent } from 'firebase/analytics'
 
 import { env } from '@/env'
-import { analytics } from '@/firebase/config'
 
 import { Title } from './Title'
 

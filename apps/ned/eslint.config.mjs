@@ -132,6 +132,11 @@ export default [
       },
       'import/parsers': {
         '@typescript-eslint/parser': ['.ts', '.tsx', '.d.ts']
+      },
+      'import/resolver': {
+        typescript: {
+          project: './tsconfig.json'
+        }
       }
     }
   }
