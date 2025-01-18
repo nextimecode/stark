@@ -2,42 +2,41 @@
 
 import { useState, FormEvent } from 'react'
 
-import { signInWithGoogle, signInWithEmailAndPassword } from '@nextime/auth'
+import { signUpWithGoogle, signUpWithEmailAndPassword } from '@nextime/auth'
 import { useRouter } from 'next/navigation'
 
 import { GoogleIcon } from '@/components/icons/GoogleIcon'
 
 import { env } from '@/env'
 
-export default function Home() {
+export default function SignUp() {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
 
-  const handleGoogleLogin = async () => {
-    const { success, error } = await signInWithGoogle()
+  const handleGoogleSignUp = async () => {
+    const { success, error } = await signUpWithGoogle()
 
     if (success) {
       router.push(`${env.NEXT_PUBLIC_SANSA_URL}/`)
     } else {
-      setErrorMessage(error || 'Falha ao fazer login com o Google.')
+      setErrorMessage(error || 'Falha ao se cadastrar com o Google.')
     }
   }
 
   const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    const { success, error } = await signInWithEmailAndPassword(email, password)
+    const { success, error } = await signUpWithEmailAndPassword(email, password)
 
     if (success) {
       router.push(`${env.NEXT_PUBLIC_SANSA_URL}/`)
     } else {
-      console.error('error', error)
       setErrorMessage(
-        error === 'auth/wrong-password'
-          ? 'Senha incorreta. Por favor, tente novamente.'
-          : 'Falha ao fazer login. Tente novamente.'
+        error === 'auth/email-already-in-use'
+          ? 'Este email já está em uso. Por favor, tente outro.'
+          : 'Falha ao se cadastrar. Tente novamente.'
       )
     }
   }
@@ -49,25 +48,25 @@ export default function Home() {
           <div>
             <div className="text-center pb-4">
               <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">
-                Entrar
+                Cadastro
               </h1>
               <p className="mt-2 text-sm text-gray-600 dark:text-neutral-400">
-                Faça login na sua conta
+                Crie uma conta para começar
                 <a
                   className="text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500"
-                  href="../examples/html/signup.html"
+                  href="../examples/html/login.html"
                 >
-                  Sign up here
+                  Faça login aqui
                 </a>
               </p>
             </div>
             <button
               type="button"
               className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
-              onClick={handleGoogleLogin}
+              onClick={handleGoogleSignUp}
             >
               <GoogleIcon />
-              Entrar com Google
+              Cadastrar com Google
             </button>
             <div className="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-1 before:border-t before:border-gray-200 before:me-6 after:flex-1 after:border-t after:border-gray-200 after:ms-6 dark:text-neutral-500 dark:before:border-neutral-600 dark:after:border-neutral-600">
               Ou
@@ -98,20 +97,12 @@ export default function Home() {
                 )}
 
                 <div>
-                  <div className="flex justify-between items-center">
-                    <label
-                      htmlFor="password"
-                      className="block text-sm mb-2 dark:text-white"
-                    >
-                      Senha
-                    </label>
-                    <a
-                      className="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500"
-                      href="../examples/html/recover-account.html"
-                    >
-                      Esqueceu sua senha?
-                    </a>
-                  </div>
+                  <label
+                    htmlFor="password"
+                    className="block text-sm mb-2 dark:text-white"
+                  >
+                    Senha
+                  </label>
                   <div className="relative">
                     <input
                       type="password"
@@ -128,7 +119,7 @@ export default function Home() {
                   type="submit"
                   className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
                 >
-                  Entrar
+                  Cadastrar
                 </button>
               </div>
             </form>

@@ -82,6 +82,16 @@ docker ps
 docker logs CONTAINER_ID
 ```
 
+```bash
+# Deletar tudo de uma vez só (contêineres, volumes, imagens e caches):
+docker system prune -a --volumes
+```
+
+```bash
+# Para garantir que tudo foi limpo: Use o comando abaixo para verificar se ainda há algo:
+docker system df
+```
+
 ## Gerar e Converter Chaves RSA256 para Base64 no macOS
 
 Para gerar chaves privadas e públicas RSA256 no macOS e convertê-las para o formato Base64, siga os passos abaixo utilizando o OpenSSL, que geralmente já vem instalado no sistema.

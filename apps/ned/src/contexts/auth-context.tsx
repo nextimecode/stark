@@ -8,14 +8,8 @@ import {
   ReactNode
 } from 'react'
 
-import { getAuth, onAuthStateChanged, User } from 'firebase/auth'
+import { auth, onAuthStateChanged, User } from '@nextime/auth'
 
-import { firebase_app } from '@/firebase/config'
-
-// Inicializa a instância de autenticação do Firebase
-const auth = getAuth(firebase_app)
-
-// Cria o contexto de autenticação
 interface AuthContextType {
   user: User | null
   loading: boolean
@@ -23,13 +17,11 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
-// Hook personalizado para acessar o contexto de autenticação
 export const useAuthContext = (): AuthContextType => {
   const context = useContext(AuthContext)
   if (context === undefined) {
-    throw new Error(
-      'useAuthContext deve ser usado dentro de AuthContextProvider'
-    )
+    console.error('useAuthContext deve ser usado dentro de AuthContextProvider')
+    return { user: null, loading: true }
   }
   return context
 }
@@ -43,13 +35,11 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Assina as mudanças no estado de autenticação
     const unsubscribe = onAuthStateChanged(auth, firebaseUser => {
-      setUser(firebaseUser || null) // Atualiza o estado do usuário
-      setLoading(false) // Define loading como falso quando o estado é resolvido
+      setUser(firebaseUser || null)
+      setLoading(false)
     })
 
-    // Desassina as mudanças no estado de autenticação ao desmontar
     return () => unsubscribe()
   }, [])
 

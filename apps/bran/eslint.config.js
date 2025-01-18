@@ -16,7 +16,7 @@ export default [
       '**/*.spec.ts',
       '**/*.e2e-spec.ts',
       '**/setup-e2e.ts'
-    ] // Ignora arquivos de teste
+    ]
   },
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
@@ -52,7 +52,12 @@ export default [
       'arrow-spacing': 'error',
       'semi-spacing': 'error',
       'no-redeclare': 'error',
-      'no-console': 'error',
+      'no-console': [
+        'error',
+        {
+          allow: ['error']
+        }
+      ],
       'no-undef': 'error',
       'comma-dangle': 'off',
       quotes: [

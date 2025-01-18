@@ -24,7 +24,6 @@ export default [
       globals: {
         ...globals.browser,
         ...globals.es6,
-        ...globals.node,
         process: 'readonly'
       }
     },
@@ -132,11 +131,6 @@ export default [
       },
       'import/parsers': {
         '@typescript-eslint/parser': ['.ts', '.tsx', '.d.ts']
-      },
-      'import/resolver': {
-        typescript: {
-          project: './tsconfig.json'
-        }
       }
     }
   }

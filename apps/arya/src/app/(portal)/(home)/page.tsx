@@ -1,6 +1,8 @@
 import { Metadata } from 'next'
 import Image from 'next/image'
 
+import { Title } from '@/components/Title'
+
 // import GithubProfile from '@/components/GithubProfile'
 
 // import { api } from '@/data/api'
@@ -24,7 +26,9 @@ export default function Home() {
           <div>
             <h1 className="block text-3xl font-bold text-gray-800 sm:text-4xl lg:text-6xl lg:leading-tight dark:text-white">
               Start your journey with{' '}
-              <span className="text-blue-600">Preline</span>
+              <Title color="violet" size="text-6xl">
+                NeXTverso
+              </Title>
             </h1>
             <p className="mt-3 text-lg text-gray-800 dark:text-neutral-400">
               Hand-picked professionals and expertly crafted components,
@@ -33,7 +37,7 @@ export default function Home() {
 
             <div className="mt-7 grid gap-3 w-full sm:inline-flex">
               <a
-                className="py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                className="py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-primary text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
                 href="#"
               >
                 Get started
