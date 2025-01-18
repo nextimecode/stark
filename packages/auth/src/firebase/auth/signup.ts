@@ -1,6 +1,5 @@
 import {
   createUserWithEmailAndPassword,
-  getAuth,
   GoogleAuthProvider,
   signInWithPopup
 } from 'firebase/auth'
@@ -39,6 +38,6 @@ export async function signUpWithGoogle() {
     return { success: true, user }
   } catch (error) {
     console.error('Error signup:', (error as Error).message)
-    return { success: false, error }
+    return { success: false, error: (error as Error).message }
   }
 }
