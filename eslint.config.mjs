@@ -7,6 +7,7 @@ import prettierPlugin from 'eslint-plugin-prettier'
 import reactPlugin from 'eslint-plugin-react'
 import unicornPlugin from 'eslint-plugin-unicorn'
 import globals from 'globals'
+import nextPlugin from '@next/eslint-plugin-next'
 
 export default [
   {
@@ -23,6 +24,7 @@ export default [
       globals: {
         ...globals.browser,
         ...globals.es6,
+        ...globals.node,
         process: 'readonly'
       }
     },
@@ -33,23 +35,32 @@ export default [
       prettier: prettierPlugin,
       unicorn: unicornPlugin,
       'import-helpers': importHelpersPlugin,
-      perfectionist: perfectionistPlugin
+      perfectionist: perfectionistPlugin,
+      next: nextPlugin
     },
-    extends: ['plugin:prettier/recommended'],
+    ignores: [
+      'node_modules/',
+      'dist/',
+      'build/',
+      '.next/',
+      '.turbo/',
+      '.vercel/',
+      'playwright-report/'
+    ],
     rules: {
       'space-before-blocks': 'error',
       'keyword-spacing': 'error',
       'arrow-spacing': 'error',
       'semi-spacing': 'error',
       'no-redeclare': 'error',
-      'no-console': 'error',
+      'no-console': [
+        'error',
+        {
+          allow: ['error']
+        }
+      ],
       'no-undef': 'error',
       'comma-dangle': 'off',
-      quotes: [
-        'error',
-        'single',
-        { avoidEscape: true, allowTemplateLiterals: true }
-      ], // Aspas simples
       'import-helpers/order-imports': [
         'error',
         {
@@ -121,6 +132,11 @@ export default [
       },
       'import/parsers': {
         '@typescript-eslint/parser': ['.ts', '.tsx', '.d.ts']
+      },
+      'import/resolver': {
+        typescript: {
+          project: './tsconfig.json'
+        }
       }
     }
   }
