@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import Image from 'next/image'
 
-import { Title } from '@/components/Title'
+import { Title } from '../../../components/Title'
 
 // import GithubProfile from '@/components/GithubProfile'
 
