@@ -1,4 +1,3 @@
-// Import the functions you need from the SDKs you need
 import {
   getAnalytics,
   Analytics,
@@ -6,10 +5,6 @@ import {
 } from 'firebase/analytics'
 import { initializeApp, getApps } from 'firebase/app'
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth'
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -20,18 +15,19 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 }
 
-// Initialize Firebase
 let firebase_app =
   getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0]
 
 let analytics: Analytics | null = null
+
 if (typeof window !== 'undefined' && firebase_app) {
   analytics = getAnalytics(firebase_app)
 }
 
 const logEvent = (eventName: string, eventParams?: Record<string, any>) => {
   if (!analytics) {
-    throw new Error('Analytics não está configurado.')
+    console.error('Analytics não está configurado.')
+    return
   }
   firebaseLogEvent(analytics, eventName, eventParams)
 }
