@@ -16,7 +16,7 @@ export default [
       '**/*.spec.ts',
       '**/*.e2e-spec.ts',
       '**/setup-e2e.ts'
-    ] // Ignora arquivos de teste
+    ]
   },
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
