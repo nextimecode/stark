@@ -38,6 +38,9 @@ export async function signInWithGoogle() {
     return { success: true, user }
   } catch (error) {
     console.error('Error signInWithGoogle:', (error as Error).message)
-    return { success: false, error }
+    return {
+      success: false,
+      error: (error as Error).message || 'Erro desconhecido.'
+    }
   }
 }
