@@ -18,6 +18,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@nextime/auth": "workspace:*"
+    "@nextime/auth": "workspace:*",
+    "@nextime/tracker": "workspace:*"
   }
 }

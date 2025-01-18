@@ -1,8 +1,3 @@
-import {
-  getAnalytics,
-  Analytics,
-  logEvent as firebaseLogEvent
-} from 'firebase/analytics'
 import { initializeApp, getApps } from 'firebase/app'
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth'
 
@@ -18,20 +13,6 @@ const firebaseConfig = {
 let firebase_app =
   getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0]
 
-let analytics: Analytics | null = null
-
-if (typeof window !== 'undefined' && firebase_app) {
-  analytics = getAnalytics(firebase_app)
-}
-
-const logEvent = (eventName: string, eventParams?: Record<string, any>) => {
-  if (!analytics) {
-    console.error('Analytics não está configurado.')
-    return
-  }
-  firebaseLogEvent(analytics, eventName, eventParams)
-}
-
 const auth = getAuth(firebase_app)
 
-export { firebase_app, analytics, logEvent, auth, onAuthStateChanged, User }
+export { firebase_app, auth, onAuthStateChanged, User }

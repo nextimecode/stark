@@ -2,12 +2,8 @@
 
 import { useEffect, useState, FormEvent } from 'react'
 
-import {
-  signInWithGoogle,
-  signInWithEmailAndPassword,
-  analytics,
-  logEvent
-} from '@nextime/auth'
+import { signInWithGoogle, signInWithEmailAndPassword } from '@nextime/auth'
+import { logEvent } from '@nextime/tracker'
 import { useRouter } from 'next/navigation'
 
 import { useAuthContext } from '@/contexts/auth-context'

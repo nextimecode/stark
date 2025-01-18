@@ -1,8 +1,6 @@
 'use client'
 
-import { analytics } from '@nextime/auth'
-
-import { logEvent } from 'firebase/analytics'
+import { logEvent } from '@nextime/tracker'
 
 import { env } from '@/env'
 
@@ -10,9 +8,8 @@ import { Title } from './Title'
 
 export function Header() {
   const handleLogin = async () => {
-    if (analytics) {
-      logEvent(analytics, 'login', { method: 'Google' })
-    }
+    logEvent('login', { method: 'Google' })
+
     window.location.href = env.NEXT_PUBLIC_NED_URL
   }
   return (
