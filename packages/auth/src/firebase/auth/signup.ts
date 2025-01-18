@@ -5,9 +5,7 @@ import {
   signInWithPopup
 } from 'firebase/auth'
 
-import { firebase_app } from '@/firebase/config'
-
-const auth = getAuth(firebase_app)
+import { auth } from '@/firebase/config'
 
 export async function signUpWithEmailAndPassword(
   email: string,

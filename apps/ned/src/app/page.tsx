@@ -51,7 +51,7 @@ export default function Home() {
           ? 'Senha incorreta. Por favor, tente novamente.'
           : error === 'auth/user-not-found'
             ? 'Usuário não encontrado. Verifique suas credenciais.'
-            : error?.message || 'Falha ao fazer login. Tente novamente.'
+            : 'Falha ao fazer login. Tente novamente.'
       )
     }
   }
