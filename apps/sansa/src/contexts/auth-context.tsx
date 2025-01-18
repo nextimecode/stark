@@ -20,9 +20,8 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export const useAuthContext = (): AuthContextType => {
   const context = useContext(AuthContext)
   if (context === undefined) {
-    throw new Error(
-      'useAuthContext deve ser usado dentro de AuthContextProvider'
-    )
+    console.error('useAuthContext deve ser usado dentro de AuthContextProvider')
+    return { user: null, loading: true }
   }
   return context
 }
