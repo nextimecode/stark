@@ -30,9 +30,7 @@ export default function Home() {
       // logEvent('login', { method: 'Google' })
       router.push(`${process.env.NEXT_PUBLIC_SANSA_URL}/`)
     } else {
-      setErrorMessage(
-        (error as Error)?.message || 'Falha ao fazer login com o Google.'
-      )
+      setErrorMessage(error || 'Falha ao fazer login com o Google.')
     }
   }
 
