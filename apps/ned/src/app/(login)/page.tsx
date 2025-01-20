@@ -6,18 +6,20 @@ import { signInWithGoogle, signInWithEmailAndPassword } from '@nextime/auth'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
-import { Title } from '../components/Title'
+import { Title } from '@/components/'
 
 import { env } from '@/env'
-import { GoogleIcon } from '@/icons/GoogleIcon'
+import { GoogleIcon } from '@/icons'
 
 export default function Home() {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleGoogleLogin = async () => {
+    setIsLoading(true)
     const { success, error } = await signInWithGoogle()
 
     if (success) {
@@ -25,10 +27,12 @@ export default function Home() {
     } else {
       setErrorMessage(error || 'Falha ao fazer login com o Google.')
     }
+    setIsLoading(false)
   }
 
   const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    setIsLoading(true)
 
     const { success, error } = await signInWithEmailAndPassword(email, password)
 
@@ -42,6 +46,7 @@ export default function Home() {
           : 'Falha ao fazer login. Tente novamente.'
       )
     }
+    setIsLoading(false)
   }
 
   return (
@@ -67,9 +72,10 @@ export default function Home() {
               type="button"
               className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
               onClick={handleGoogleLogin}
+              disabled={isLoading}
             >
               <GoogleIcon />
-              Entrar com Google
+              {isLoading ? 'Carregando...' : 'Entrar com Google'}
             </button>
             <div className="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-1 before:border-t before:border-gray-200 before:me-6 after:flex-1 after:border-t after:border-gray-200 after:ms-6 dark:text-neutral-500 dark:before:border-neutral-600 dark:after:border-neutral-600">
               Ou
@@ -131,8 +137,9 @@ export default function Home() {
                 <button
                   type="submit"
                   className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                  disabled={isLoading}
                 >
-                  Entrar
+                  {isLoading ? 'Carregando...' : 'Entrar'}
                 </button>
               </div>
             </form>

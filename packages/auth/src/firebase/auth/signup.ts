@@ -20,6 +20,7 @@ export async function signUpWithEmailAndPassword(
 
     return { success: true, user }
   } catch (error) {
+    console.error('Error signup:', (error as Error).message)
     return {
       success: false,
       error:
