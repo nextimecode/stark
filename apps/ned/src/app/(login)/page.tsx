@@ -11,7 +11,7 @@ import { Title } from '@/components/'
 import { env } from '@/env'
 import { GoogleIcon } from '@/icons'
 
-export default function Home() {
+export default function Login() {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
