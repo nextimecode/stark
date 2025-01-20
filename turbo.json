@@ -1,11 +1,11 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["tsconfig.json"],
+  "globalDependencies": ["tsconfig.json", "pnpm-lock.yaml"],
   "globalEnv": ["GITHUB_TOKEN"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**", "types/**"]
     },
     "docs:build": {
       "dependsOn": ["^docs:build"]
@@ -24,13 +24,13 @@
       "persistent": true
     },
     "lint": {
-      "cache": false
+      "cache": true,
+      "outputs": []
     },
     "prepare": {
       "cache": false
     },
     "reset:all": {
-      "cache": false,
       "dependsOn": ["clean"]
     },
     "release": {
@@ -44,9 +44,12 @@
     },
     "typecheck": {
       "cache": false,
+      "dependsOn": ["build"],
       "outputs": ["tsconfig.tsbuildinfo"]
     },
-    "test": {},
+    "test": {
+      "outputs": ["coverage/**"]
+    },
     "e2e": {},
     "e2e:report": {},
     "e2e:ui": {},

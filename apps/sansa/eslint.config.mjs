@@ -24,6 +24,7 @@ export default [
       globals: {
         ...globals.browser,
         ...globals.es6,
+        ...globals.node,
         process: 'readonly'
       }
     },
@@ -52,7 +53,12 @@ export default [
       'arrow-spacing': 'error',
       'semi-spacing': 'error',
       'no-redeclare': 'error',
-      'no-console': 'error',
+      'no-console': [
+        'error',
+        {
+          allow: ['error']
+        }
+      ],
       'no-undef': 'error',
       'comma-dangle': 'off',
       'import-helpers/order-imports': [
@@ -126,6 +132,11 @@ export default [
       },
       'import/parsers': {
         '@typescript-eslint/parser': ['.ts', '.tsx', '.d.ts']
+      },
+      'import/resolver': {
+        typescript: {
+          project: './tsconfig.json'
+        }
       }
     }
   }
