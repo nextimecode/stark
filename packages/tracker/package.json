@@ -9,8 +9,5 @@
     "clean": "rm -rf .turbo dist node_modules pnpm-lock.yaml",
     "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
     "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@nextime/auth": "workspace:*"
   }
 }

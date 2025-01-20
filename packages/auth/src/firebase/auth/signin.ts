@@ -18,7 +18,10 @@ export async function signInWithEmailAndPassword(
     )
     const user = userCredential.user
 
-    return { success: true, user }
+    return {
+      success: true,
+      data: user
+    }
   } catch (error) {
     console.error('Error signInWithEmailAndPassword:', (error as Error).message)
     return {
