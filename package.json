@@ -30,7 +30,7 @@
     "build": "prisma generate && turbo run build --parallel",
     "clean:all": "turbo run clean && pnpm store prune && rm -rf .next .turbo node_modules tsconfig.tsbuildinfo pnpm-lock.yaml && pnpm i && pnpm build",
     "precommit": "turbo lint",
-    "prepush": "turbo lint typecheck audit test",
+    "prepush": "turbo typecheck audit test",
     "commit": "cz",
     "coverage": "turbo run coverage",
     "depcheck": "depcheck",
