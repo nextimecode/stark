@@ -1,17 +1,12 @@
 'use client'
 
-import { logEvent } from '@nextime/tracker'
+import Link from 'next/link'
 
 import { env } from '@/env'
 
 import { Title } from './Title'
 
 export function Header() {
-  const handleLogin = async () => {
-    logEvent('login', { method: 'Google' })
-
-    window.location.href = env.NEXT_PUBLIC_NED_URL
-  }
   return (
     // <!-- ========== HEADER ========== -->
     <header className="flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full py-7">
@@ -74,13 +69,14 @@ export function Header() {
           >
             Entrar
           </button> */}
-          <button
-            type="button"
-            className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl border border-transparent bg-primary-500 text-black hover:bg-primary-300 transition disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-primary-600"
-            onClick={handleLogin}
-          >
-            Entrar
-          </button>
+          <Link href={env.NEXT_PUBLIC_NED_URL}>
+            <button
+              type="button"
+              className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl border border-transparent bg-primary-500 text-black hover:bg-primary-300 transition disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-primary-600"
+            >
+              Entrar
+            </button>
+          </Link>
 
           <div className="md:hidden">
             <button
