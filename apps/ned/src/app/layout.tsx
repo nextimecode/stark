@@ -5,7 +5,7 @@ import { ReactNode } from 'react'
 // import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
-import PrelineScript from '@/components/PrelineScript'
+import { PrelineScript } from '@/components'
 
 // import { AuthContextProvider } from '@/contexts/auth-context'
 

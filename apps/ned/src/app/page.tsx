@@ -3,11 +3,13 @@
 import { useState, FormEvent } from 'react'
 
 import { signInWithGoogle, signInWithEmailAndPassword } from '@nextime/auth'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
-import { GoogleIcon } from '@/components/icons/GoogleIcon'
+import { Title } from '../components/Title'
 
 import { env } from '@/env'
+import { GoogleIcon } from '@/icons/GoogleIcon'
 
 export default function Home() {
   const router = useRouter()
@@ -44,21 +46,21 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-md mt-7 bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-neutral-900 dark:border-neutral-700">
+      <div className="w-full max-w-md bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-neutral-900 dark:border-neutral-700">
         <div className="p-4 sm:p-7">
           <div>
             <div className="text-center pb-4">
-              <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">
-                Entrar
-              </h1>
+              <Title color="blue" size="text-3xl">
+                Conta NeXTIME
+              </Title>
               <p className="mt-2 text-sm text-gray-600 dark:text-neutral-400">
-                Faça login na sua conta
-                <a
+                Não tem conta?{' '}
+                <Link
                   className="text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500"
-                  href="../examples/html/signup.html"
+                  href="/register"
                 >
-                  Sign up here
-                </a>
+                  Criar conta grátis
+                </Link>
               </p>
             </div>
             <button
@@ -79,7 +81,7 @@ export default function Home() {
                     htmlFor="email"
                     className="block text-sm mb-2 dark:text-white"
                   >
-                    Email
+                    Informe o seu e-mail
                   </label>
                   <div className="relative">
                     <input
@@ -88,6 +90,7 @@ export default function Home() {
                       name="email"
                       className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                       required
+                      placeholder="Ex: @gmail, @outlook, @yahoo, etc."
                       aria-describedby="email-error"
                       onChange={e => setEmail(e.target.value)}
                     />
@@ -119,6 +122,7 @@ export default function Home() {
                       name="password"
                       className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                       required
+                      placeholder="Digite a sua senha"
                       aria-describedby="password-error"
                       onChange={e => setPassword(e.target.value)}
                     />

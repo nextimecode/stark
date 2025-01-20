@@ -3,13 +3,15 @@
 import { useState, FormEvent } from 'react'
 
 import { signUpWithGoogle, signUpWithEmailAndPassword } from '@nextime/auth'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
-import { GoogleIcon } from '@/components/icons/GoogleIcon'
+import { Title } from '@/components'
 
 import { env } from '@/env'
+import { GoogleIcon } from '@/icons'
 
-export default function SignUp() {
+export default function Register() {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -47,17 +49,17 @@ export default function SignUp() {
         <div className="p-4 sm:p-7">
           <div>
             <div className="text-center pb-4">
-              <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">
-                Cadastro
-              </h1>
+              <Title color="blue" size="text-3xl">
+                Crie sua conta, é grátis
+              </Title>
               <p className="mt-2 text-sm text-gray-600 dark:text-neutral-400">
-                Crie uma conta para começar
-                <a
+                Já tem conta?{' '}
+                <Link
                   className="text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500"
-                  href="../examples/html/login.html"
+                  href="/"
                 >
                   Faça login aqui
-                </a>
+                </Link>
               </p>
             </div>
             <button
@@ -78,7 +80,7 @@ export default function SignUp() {
                     htmlFor="email"
                     className="block text-sm mb-2 dark:text-white"
                   >
-                    Email
+                    Informe o seu e-mail
                   </label>
                   <div className="relative">
                     <input
@@ -87,6 +89,7 @@ export default function SignUp() {
                       name="email"
                       className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                       required
+                      placeholder="Ex: @gmail, @outlook, @yahoo, etc."
                       aria-describedby="email-error"
                       onChange={e => setEmail(e.target.value)}
                     />
@@ -110,6 +113,7 @@ export default function SignUp() {
                       name="password"
                       className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                       required
+                      placeholder="Digite uma senha forte"
                       aria-describedby="password-error"
                       onChange={e => setPassword(e.target.value)}
                     />
