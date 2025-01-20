@@ -69,9 +69,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-
 
-      - name: Run build (optional)
-        run: pnpm build
-
       - name: Run typecheck
         run: pnpm run typecheck
 
