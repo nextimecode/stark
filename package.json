@@ -81,6 +81,8 @@
     "@nestjs/passport": "^10.0.3",
     "@nestjs/platform-express": "^10.4.15",
     "@nestjs/swagger": "^11.0.0",
+    "@nextime/auth": "workspace:*",
+    "@nextime/tracker": "workspace:*",
     "@prisma/client": "6.2.1",
     "@radix-ui/react-collapsible": "^1.1.2",
     "@radix-ui/react-scroll-area": "^1.2.2",
