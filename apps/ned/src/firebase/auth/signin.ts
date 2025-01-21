@@ -1,11 +1,14 @@
 // firebase/auth/signin.ts
 
+'use client'
+
 import {
   GoogleAuthProvider,
   signInWithPopup,
   signInWithEmailAndPassword as firebaseSignInWithEmailAndPassword
 } from 'firebase/auth'
 
+import { useAuthContext } from '@/contexts/auth-context'
 import { auth } from '@/firebase/config'
 
 export async function signInWithEmailAndPassword(
@@ -40,7 +43,10 @@ export async function signInWithGoogle() {
     const result = await signInWithPopup(auth, provider)
     const user = result.user
 
-    return { success: true, user }
+    return {
+      success: true,
+      data: { user }
+    }
   } catch (error) {
     console.error('Error signInWithGoogle:', (error as Error).message)
     return {

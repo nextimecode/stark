@@ -2,13 +2,13 @@
 
 import { useState, FormEvent } from 'react'
 
-import { signUpWithGoogle, signUpWithEmailAndPassword } from '@nextime/auth'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 import { Title } from '@/components'
 
 import { env } from '@/env'
+import { signUpWithGoogle, signUpWithEmailAndPassword } from '@/firebase/auth'
 import { GoogleIcon } from '@/icons'
 
 export default function Register() {

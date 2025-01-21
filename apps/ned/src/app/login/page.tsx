@@ -1,18 +1,21 @@
+// app/login
+
 'use client'
 
 import { useState, FormEvent } from 'react'
 
-import { signInWithGoogle, signInWithEmailAndPassword } from '@nextime/auth'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 import { Title } from '@/components/'
 
-import { env } from '@/env'
+import { useAuthContext } from '@/contexts/auth-context'
+import { signInWithGoogle, signInWithEmailAndPassword } from '@/firebase/auth'
 import { GoogleIcon } from '@/icons'
 
 export default function Login() {
   const router = useRouter()
+  const { updateUser } = useAuthContext() // Pega o updateUser aqui
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
@@ -23,7 +26,7 @@ export default function Login() {
     const { success, error } = await signInWithGoogle()
 
     if (success) {
-      router.push(`${env.NEXT_PUBLIC_SANSA_URL}/`)
+      router.push('/')
     } else {
       setErrorMessage(error || 'Falha ao fazer login com o Google.')
     }
@@ -34,10 +37,14 @@ export default function Login() {
     event.preventDefault()
     setIsLoading(true)
 
-    const { success, error } = await signInWithEmailAndPassword(email, password)
+    const { success, error, data } = await signInWithEmailAndPassword(
+      email,
+      password
+    )
 
-    if (success) {
-      router.push(`${env.NEXT_PUBLIC_SANSA_URL}/`)
+    if (success && data?.user) {
+      updateUser(data.user)
+      router.push('/')
     } else {
       console.error('error', error)
       setErrorMessage(
@@ -46,6 +53,7 @@ export default function Login() {
           : 'Falha ao fazer login. Tente novamente.'
       )
     }
+
     setIsLoading(false)
   }
 

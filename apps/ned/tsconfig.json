@@ -24,7 +24,13 @@
       "@nextime/auth": ["packages/auth/src/index.ts"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/firebase/auth/signup.tsz"
+  ],
   "exclude": [
     "node_modules",
     ".next",
