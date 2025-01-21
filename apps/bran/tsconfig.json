@@ -22,5 +22,13 @@
     },
     "types": ["vitest/globals", "multer", "passport-jwt"]
   },
-  "exclude": ["node_modules", "dist"]
+  "exclude": [
+    "node_modules",
+    ".next",
+    "dist",
+    ".turbo",
+    "test-results",
+    "data",
+    "playwright-report"
+  ]
 }

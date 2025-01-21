@@ -16,5 +16,13 @@
     "paths": {
       "@/*": ["./src/*"]
     }
-  }
+  },
+  "exclude": [
+    "node_modules",
+    ".next",
+    "dist",
+    ".turbo",
+    "test-results",
+    "playwright-report"
+  ]
 }
