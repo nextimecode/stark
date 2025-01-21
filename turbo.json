@@ -47,9 +47,7 @@
       "dependsOn": ["build"],
       "outputs": ["tsconfig.tsbuildinfo"]
     },
-    "test": {
-      "outputs": ["coverage/**"]
-    },
+    "test": {},
     "e2e": {},
     "e2e:report": {},
     "e2e:ui": {},
