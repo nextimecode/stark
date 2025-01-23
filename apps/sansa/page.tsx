@@ -2,8 +2,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
-import { api } from '@/data/api'
-import { Product } from '@/data/types/product'
+import { api } from '@/firebase/data/api'
+import { Product } from '@/firebase/data/types/product'
 
 interface SearchProps {
   searchParams: {

@@ -1,32 +1,29 @@
+// app/layout.tsx
+
+'use client'
+
 import { ReactNode } from 'react'
 
-import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
-import PrelineScript from '@/components/PrelineScript'
+import { PrelineScript } from '@/components'
 
 import { AuthContextProvider } from '@/contexts/auth-context'
 
-import './global.css'
+import './globals.css'
 
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter'
 })
 
-export const metadata: Metadata = {
-  title: {
-    template: '%s | Stark',
-    default: 'Stark'
-  },
-  description: 'O amigo do motorista'
-}
-
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html className={inter.variable} lang="pt-BR">
-      <body>
-        <AuthContextProvider>{children}</AuthContextProvider>
+      <body className="bg-gray-100 dark:bg-neutral-800">
+        <AuthContextProvider>
+          <div className="relative min-h-screen">{children}</div>
+        </AuthContextProvider>
         <PrelineScript />
       </body>
     </html>
