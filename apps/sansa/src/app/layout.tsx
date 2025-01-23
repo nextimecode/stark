@@ -10,7 +10,7 @@ import { PrelineScript } from '@/components'
 
 import { AuthContextProvider } from '@/contexts/auth-context'
 
-import './global'
+import './global.css'
 
 const inter = Inter({
   subsets: ['latin'],
