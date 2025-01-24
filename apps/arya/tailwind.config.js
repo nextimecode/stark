@@ -39,30 +39,61 @@ export default {
       },
       colors: {
         primary: {
-          DEFAULT: '#64D2FF',
-          50: '#f3fbff',
-          100: '#daf4ff',
-          200: '#b1e9ff',
-          300: '#87ddff',
-          400: '#5ed2ff',
-          500: '#64D2FF',
-          600: '#44b1e6',
-          700: '#348bb3',
-          800: '#246380',
-          900: '#14334d'
+          DEFAULT: '#BF5AF2',
+          50: '#B556E6',
+          100: '#AC51DA',
+          200: '#863FA9',
+          300: '#602D79',
+          400: '#4C2461',
+          500: '#BF5AF2',
+          600: '#391B49',
+          700: '#261230',
+          800: '#1D0E24',
+          900: '#130918'
         },
         secondary: {
-          DEFAULT: '#0A84FF',
-          50: '#e5f3ff',
-          100: '#cce6ff',
-          200: '#99ccff',
-          300: '#66b3ff',
-          400: '#3399ff',
-          500: '#0A84FF',
-          600: '#0076e6',
-          700: '#005cb3',
-          800: '#004280',
-          900: '#00284d'
+          DEFAULT: '#5E5CE6',
+          50: '#5957DA',
+          100: '#5553CF',
+          200: '#4240A1',
+          300: '#2F2E73',
+          400: '#26255C',
+          500: '#5E5CE6',
+          600: '#1C1C45',
+          700: '#13122E',
+          800: '#0E0E22',
+          900: '#090917'
+        }
+      },
+      animation: {
+        'border-gradient': 'border-gradient 2.5s linear infinite',
+        'hover-glow': 'hover-glow 1.5s ease-in-out infinite',
+        'button-glow': 'button-glow 1.5s ease-in-out infinite'
+      },
+      keyframes: {
+        'border-gradient': {
+          '0%': { borderColor: '#FF375F' },
+          '15%': { borderColor: '#BF5AF2' },
+          '30%': { borderColor: '#5E5CE6' },
+          '45%': { borderColor: '#0A84FF' },
+          '60%': { borderColor: '#64D2FF' },
+          '75%': { borderColor: '#30D158' },
+          '90%': { borderColor: '#FFD60A' },
+          '100%': { borderColor: '#FF9F0A' }
+        },
+        'hover-glow': {
+          '0%, 100%': { boxShadow: '0 0 10px 2px #BF5AF2' },
+          '50%': { boxShadow: '0 0 20px 4px #5E5CE6' }
+        },
+        'button-glow': {
+          '0%, 100%': {
+            backgroundColor: '#BF5AF2',
+            boxShadow: '0 0 10px 2px #BF5AF2'
+          },
+          '50%': {
+            backgroundColor: '#5E5CE6',
+            boxShadow: '0 0 20px 4px #5E5CE6'
+          }
         }
       }
     }

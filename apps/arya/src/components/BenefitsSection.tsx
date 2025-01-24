@@ -14,7 +14,7 @@ export function BenefitsSection() {
           </p>
           <a
             href="/get-started"
-            className="mt-6 inline-block px-6 py-3 text-lg font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
+            className="mt-6 inline-block px-6 py-3 text-lg font-medium text-white bg-primary-500 rounded-md transition-all duration-300 hover:animate-button-glow"
           >
             Comece de Graça
           </a>
@@ -27,7 +27,6 @@ export function BenefitsSection() {
               title="Como Funciona"
               description="Nosso aplicativo avalia compatibilidade com base em dados científicos, ajudando você a descobrir e fortalecer conexões."
               buttonText="Saiba Mais"
-              highlightText="100%"
               highlightColor="bg-gradient-to-l from-purple-400 to-blue-600"
             />
             <Card
@@ -132,7 +131,7 @@ export function Card({
   return (
     <a
       href={href}
-      className="relative focus:outline-none before:absolute before:inset-0 before:z-10 before:border before:rounded-xl before:transition hover:shadow-lg dark:before:border-neutral-800 dark:rounded-xl"
+      className="relative focus:outline-none before:absolute before:inset-0 before:z-10 before:border before:rounded-xl before:transition before:border-transparent hover:before:animate-border-gradient hover:shadow-lg dark:rounded-xl"
     >
       <div className="relative overflow-hidden p-6 flex flex-col justify-center items-center text-center rounded-xl">
         {icon}
