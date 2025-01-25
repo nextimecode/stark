@@ -154,7 +154,7 @@
     "prisma": "^6.2.1",
     "semantic-release": "^24.2.1",
     "supertest": "^7.0.0",
-    "tailwindcss": "3.4.17",
+    "tailwindcss": "4.0.0",
     "ts-node": "^10.9.2",
     "tsup": "^8.3.5",
     "turbo": "^2.3.4",
