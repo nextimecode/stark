@@ -6,12 +6,9 @@ export function HowItWorks() {
       <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-3xl font-bold text-gray-800 sm:text-4xl lg:text-5xl dark:text-white">
-            Como Funciona o{' '}
-            <Title color="cyan" size="text-6xl">
-              NeXTverso
-            </Title>
+            Como Funciona?
           </h2>
-          <p className="mt-4 text-lg text-gray-600 dark:text-neutral-400">
+          <p className="mt-4 text-lg text-gray-600 dark:text-neutral-300">
             Descubra conexões de maneira simples e intuitiva. Veja como nossos
             algoritmos criam análises detalhadas para você.
           </p>

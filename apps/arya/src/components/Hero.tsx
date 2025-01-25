@@ -1,5 +1,3 @@
-import { Metadata } from 'next'
-import Image from 'next/image'
 import Link from 'next/link'
 
 import { Title } from '@/components/Title'
@@ -24,10 +22,10 @@ export function Hero() {
 
           <div className="mt-7 grid gap-3 w-full sm:inline-flex">
             <a
-              className="py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-primary text-black hover:bg-primary-300 disabled:opacity-50 disabled:pointer-events-none"
-              href="#"
+              className="transition-all duration-300 hover:animate-button-glow py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-primary dark:text-white hover:bg-primary-300 disabled:opacity-50 disabled:pointer-events-none"
+              href="/register"
             >
-              Comece Agora
+              Use grátis enquanto pode
               <svg
                 className="shrink-0 size-4"
                 xmlns="http://www.w3.org/2000/svg"
@@ -51,25 +49,22 @@ export function Hero() {
             </a>
           </div>
 
-          <div className="mt-6 lg:mt-10 grid grid-cols-1 gap-x-5">
-            <div className="py-5">
-              <p className="mt-3 text-sm text-gray-800 dark:text-neutral-200">
-                Uma relação saudável depende de comunicação, respeito e
-                compatibilidade, e nosso aplicativo tenta fortalecer esses laços
-                com análise de dados e feedback personalizado.
-              </p>
-              <Link href="https://www.instagram.com/phdduarte/">
-                <p className="mt-2 font-bold">Pedro Duarte</p>
-              </Link>
-            </div>
+          <div className="my-5 lg:mt-10 grid grid-cols-1 gap-x-5">
+            <p className="text-sm text-gray-800 dark:text-neutral-200">
+              Uma relação saudável depende de comunicação, respeito e
+              compatibilidade, e nosso aplicativo tenta fortalecer esses laços
+              com análise de dados e feedback personalizado.
+            </p>
+            {/* <Link href="https://www.instagram.com/phdduarte/">
+              <p className="mt-2 font-bold">Pedro Duarte</p>
+            </Link> */}
           </div>
         </div>
 
         <div className="relative ms-4">
           <video
-            className="w-[600px] h-[600px] rounded-md object-cover"
+            className="md:w-[600px] md:h-[600px] rounded-md object-cover"
             src="/movie.mp4"
-            controls
             autoPlay
             loop
             muted
