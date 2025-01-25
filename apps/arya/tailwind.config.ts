@@ -1,9 +1,11 @@
+// import forms from '@tailwindcss/forms'
+// import preline from 'preline/plugin'
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
   content: [
-    './src/**/*.{js,ts,jsx,tsx,mdx}'
-    // '../../node_modules/preline/dist/*.js'
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
+    '../../node_modules/preline/dist/*.js'
   ],
   darkMode: 'class',
   theme: {
