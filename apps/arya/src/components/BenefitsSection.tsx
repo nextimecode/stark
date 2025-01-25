@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 
 import { BuildingAndSquareIcon } from './Icon/BuidingAndSquareIcon'
 import { DiamondGridIcon } from './Icon/DimongGridIcon'
+import { DocumentAndClipboardIcon } from './Icon/DocumentAndClipboardIcon'
 
 export function BenefitsSection() {
   return (
@@ -49,6 +50,7 @@ export function BenefitsSection() {
               title="Teste de Compatibilidade"
               description="Baseado no MBTI (Indicador de Tipos de Myers-Briggs), este teste avalia diferentes tipos de personalidade."
               buttonText="Fazer o Teste"
+              icon={<DocumentAndClipboardIcon />}
             />
             <Card
               href="./invite.html"
