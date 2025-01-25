@@ -130,7 +130,7 @@ export function Header() {
           <div className="flex flex-col gap-y-4 gap-x-0 mt-5 md:flex-row md:justify-center md:items-center md:gap-y-0 md:gap-x-7 md:mt-0">
             <div>
               <a
-                className="relative inline-block text-black before:absolute before:bottom-0.5 before:start-0 before:-z-1 before:w-full before:h-1 before:bg-lime-400 dark:text-white"
+                className="relative inline-block text-black before:absolute before:bottom-0.5 before:start-0 before:-z-1 before:w-full before:h-1 before:bg-secondary dark:text-white"
                 href="#"
                 aria-current="page"
               >

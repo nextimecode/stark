@@ -13,12 +13,12 @@ export const TestimonialCard = ({
     <div className="p-6 border border-neutral-800 rounded-lg shadow-md transition-all duration-300 hover:animate-hover-glow hover:shadow-lg hover:border-primary-500">
       <p className="text-gray-300">{text}</p>
       <div className="mt-4 flex items-center">
-        <img
+        {/* <img
           className="w-10 h-10 rounded-full"
           src="https://via.placeholder.com/40"
           alt={name}
-        />
-        <div className="ml-4">
+        /> */}
+        <div>
           <p className="font-medium text-white">{name}</p>
           <p className="text-gray-500 text-sm">{location}</p>
         </div>

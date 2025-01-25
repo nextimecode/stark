@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 
+import { AchievementIcon } from './Icon/AchievementIcon'
 import { BuildingAndSquareIcon } from './Icon/BuidingAndSquareIcon'
 import { DiamondGridIcon } from './Icon/DimongGridIcon'
 import { DocumentAndClipboardIcon } from './Icon/DocumentAndClipboardIcon'
@@ -67,6 +68,7 @@ export function BenefitsSection() {
               title="Aprimoramento Contínuo"
               description="Nosso algoritmo melhora com o feedback dos usuários. Avalie os resultados para contribuir com a evolução da plataforma."
               buttonText="Enviar Feedback"
+              icon={<AchievementIcon />}
             />
             <Card
               href="./privacy.html"
@@ -95,7 +97,7 @@ export function Card({
   href,
   title,
   description,
-  buttonText = 'Learn more',
+  buttonText,
   highlightText,
   highlightColor,
   icon
@@ -119,23 +121,25 @@ export function Card({
         <p className="mt-2 text-gray-500 dark:text-neutral-400">
           {description}
         </p>
-        <p className="mt-6 inline-flex items-center gap-x-1 text-blue-600 font-medium dark:text-blue-500">
-          {buttonText}
-          <svg
-            className="shrink-0 size-4"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="m9 18 6-6-6-6" />
-          </svg>
-        </p>
+        {buttonText && (
+          <p className="mt-6 inline-flex items-center gap-x-1 text-blue-600 font-medium dark:text-secondary">
+            {buttonText}
+            <svg
+              className="shrink-0 size-4"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </p>
+        )}
       </div>
     </a>
   )
