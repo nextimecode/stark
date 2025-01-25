@@ -204,7 +204,6 @@ export function Accordion() {
           type="button"
           id="hs-auto-init-accordion"
           className="py-1 px-2 inline-flex items-center gap-x-1 text-sm rounded-lg border border-transparent bg-gray-100 text-gray-800 hover:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none dark:bg-white/10 dark:hover:bg-white/20 dark:text-white dark:hover:text-white"
-          disabled=""
         >
           <svg
             className="shrink-0 size-3.5"
