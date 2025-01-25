@@ -74,7 +74,7 @@ export function Header() {
               type="button"
               className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl border border-transparent bg-primary-500 text-black hover:bg-primary-300 transition disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-primary-600"
             >
-              Entrar
+              Conta NeXTIME
             </button>
           </Link>
 

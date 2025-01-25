@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 
 export const CookieBanner = () => {
-  const [showBanner, setShowBanner] = useState(true)
+  const [showBanner, setShowBanner] = useState(false)
 
   const dismissBanner = () => {
     setShowBanner(false) // Atualiza o estado para não mostrar o banner

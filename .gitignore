@@ -63,9 +63,12 @@ yarn-error.log*
 
 # local env files
 .env
-.env*.local
-**/.env
+.env.local
+.env.development
+.env.production
 .env.test
+**/.env
+
 
 
 # temp files
@@ -114,3 +117,6 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# Docker
+data

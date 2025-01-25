@@ -1,3 +1,5 @@
+// firebase/auth/signin.ts
+
 import {
   GoogleAuthProvider,
   signInWithPopup,
@@ -20,7 +22,7 @@ export async function signInWithEmailAndPassword(
 
     return {
       success: true,
-      data: user
+      data: { user }
     }
   } catch (error) {
     console.error('Error signInWithEmailAndPassword:', (error as Error).message)
