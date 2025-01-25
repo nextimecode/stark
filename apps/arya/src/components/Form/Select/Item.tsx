@@ -10,7 +10,7 @@ export interface ItemProps extends ComponentProps<typeof Select.Item> {}
 export function Item({ children, ...props }: ItemProps) {
   return (
     <Select.Item
-      className="flex items-center gap-2 px-3 py-2.5 data-[highlighted]:bg-zinc-50 data-[highlighted]:outline-none dark:data-[highlighted]:bg-zinc-700"
+      className="flex items-center gap-2 px-3 py-2.5 data-highlighted:bg-zinc-50 data-highlighted:outline-hidden dark:data-highlighted:bg-zinc-700"
       {...props}
     >
       {children}

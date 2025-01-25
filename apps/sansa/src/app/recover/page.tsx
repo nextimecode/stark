@@ -39,7 +39,7 @@ export default function Recover() {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-md bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-neutral-900 dark:border-neutral-700">
+      <div className="w-full max-w-md bg-white border border-gray-200 rounded-xl shadow-xs dark:bg-neutral-900 dark:border-neutral-700">
         <div className="p-4 sm:p-7">
           <div>
             <div className="text-center pb-4">
@@ -81,7 +81,7 @@ export default function Recover() {
                 )}
                 <button
                   type="submit"
-                  className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                  className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
                   disabled={isLoading}
                 >
                   {isLoading ? 'Enviando...' : 'Enviar'}
@@ -92,7 +92,7 @@ export default function Recover() {
               Lembrou sua senha?{' '}
               <Link
                 href="/login"
-                className="text-blue-600 decoration-2 hover:underline focus:outline-none focus:underline font-medium dark:text-blue-500"
+                className="text-blue-600 decoration-2 hover:underline focus:outline-hidden focus:underline font-medium dark:text-blue-500"
               >
                 Faça login
               </Link>

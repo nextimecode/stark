@@ -13,9 +13,9 @@ export const CookieBanner = () => {
       {showBanner && (
         <div
           id="cookies-simple-with-dismiss-button"
-          className="fixed bottom-0 start-1/2 transform -translate-x-1/2 z-[60] sm:max-w-4xl w-full mx-auto p-6"
+          className="fixed bottom-0 start-1/2 transform -translate-x-1/2 z-60 sm:max-w-4xl w-full mx-auto p-6"
         >
-          <div className="p-4 bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-neutral-900 dark:border-neutral-800">
+          <div className="p-4 bg-white border border-gray-200 rounded-xl shadow-xs dark:bg-neutral-900 dark:border-neutral-800">
             <div className="flex justify-between items-center gap-x-5 sm:gap-x-10">
               <h2 className="text-sm text-gray-600 dark:text-neutral-400">
                 By continuing to use this site you consent to the use of cookies
@@ -34,7 +34,7 @@ export const CookieBanner = () => {
                 aria-label="Dismiss"
               >
                 <svg
-                  className="flex-shrink-0 size-5"
+                  className="shrink-0 size-5"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"

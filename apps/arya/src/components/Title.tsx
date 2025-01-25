@@ -23,13 +23,13 @@ export const Title = ({
   children
 }: TitleProps) => {
   const colors = {
-    violet: 'bg-gradient-to-b from-[#FF1CF7] to-[#5b4cff]',
-    yellow: 'bg-gradient-to-b from-[#FF705B] to-[#FFB457]',
-    blue: 'bg-gradient-to-b from-[#5EA2EF] to-[#0072F5]',
-    cyan: 'bg-gradient-to-b from-[#00b7fa] to-[#01cfea]',
-    green: 'bg-gradient-to-b from-[#6FEE8D] to-[#17c964]',
-    pink: 'bg-gradient-to-b from-[#FF72E1] to-[#F54C7A]',
-    foreground: 'bg-gradient-to-b from-[#FFFFFF] to-[#4B4B4B]'
+    violet: 'bg-linear-to-b from-[#FF1CF7] to-[#5b4cff]',
+    yellow: 'bg-linear-to-b from-[#FF705B] to-[#FFB457]',
+    blue: 'bg-linear-to-b from-[#5EA2EF] to-[#0072F5]',
+    cyan: 'bg-linear-to-b from-[#00b7fa] to-[#01cfea]',
+    green: 'bg-linear-to-b from-[#6FEE8D] to-[#17c964]',
+    pink: 'bg-linear-to-b from-[#FF72E1] to-[#F54C7A]',
+    foreground: 'bg-linear-to-b from-[#FFFFFF] to-[#4B4B4B]'
   }
 
   return (

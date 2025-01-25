@@ -73,19 +73,19 @@ export default function Home() {
       <div>{user.emailVerified && <h1>E-mail verificado</h1>}</div>
       <button
         onClick={handleLogout}
-        className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none"
+        className="mt-4 px-4 py-2 bg-red-500 text-white rounded-sm hover:bg-red-600 focus:outline-hidden"
       >
         Logout
       </button>
       <button
         onClick={handleSendEmailVerification}
-        className="mt-4 ml-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none"
+        className="mt-4 ml-4 px-4 py-2 bg-blue-500 text-white rounded-sm hover:bg-blue-600 focus:outline-hidden"
       >
         Enviar Confirmação de E-mail
       </button>
       <button
         onClick={handleDeleteAccount}
-        className="mt-4 ml-4 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 focus:outline-none"
+        className="mt-4 ml-4 px-4 py-2 bg-gray-500 text-white rounded-sm hover:bg-gray-600 focus:outline-hidden"
       >
         Deletar Conta
       </button>
