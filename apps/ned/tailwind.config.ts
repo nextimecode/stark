@@ -1,10 +1,6 @@
-/**
- * @type {import('tailwindcss').Config}
- */
-import forms from '@tailwindcss/forms'
-import preline from 'preline/plugin'
+import type { Config } from 'tailwindcss'
 
-export default {
+const config: Config = {
   content: [
     './src/**/*.{js,ts,jsx,tsx,mdx}',
     '../../node_modules/preline/dist/*.js'
@@ -39,6 +35,8 @@ export default {
       },
       colors: {
         primary: {
+          background: 'var(--background)',
+          foreground: 'var(--foreground)',
           DEFAULT: '#BF5AF2',
           50: '#B556E6',
           100: '#AC51DA',
@@ -98,5 +96,6 @@ export default {
       }
     }
   },
-  plugins: [forms, preline]
+  plugins: []
 }
+export default config

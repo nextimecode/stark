@@ -17,7 +17,7 @@ export function Header() {
         <div className="md:col-span-3">
           {/* <!-- Logo --> */}
           {/* <a
-            className="flex-none rounded-xl text-xl inline-block font-semibold focus:outline-none focus:opacity-80"
+            className="flex-none rounded-xl text-xl inline-block font-semibold focus:outline-hidden focus:opacity-80"
             href="../templates/creative-agency/index.html"
             aria-label="Preline"
           >
@@ -72,7 +72,7 @@ export function Header() {
           <Link href={env.NEXT_PUBLIC_NED_URL}>
             <button
               type="button"
-              className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl border border-transparent bg-primary-500 text-black hover:bg-primary-300 transition disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:bg-primary-600"
+              className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl border border-transparent bg-primary-500 text-black hover:bg-primary-300 transition disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-primary-600"
             >
               Conta NeXTIME
             </button>
@@ -87,7 +87,7 @@ export function Header() {
               aria-label="Toggle navigation"
             >
               <svg
-                className="hs-collapse-open:hidden flex-shrink-0 size-4"
+                className="hs-collapse-open:hidden shrink-0 size-4"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -103,7 +103,7 @@ export function Header() {
                 <line x1="3" x2="21" y1="18" y2="18" />
               </svg>
               <svg
-                className="hs-collapse-open:block hidden flex-shrink-0 size-4"
+                className="hs-collapse-open:block hidden shrink-0 size-4"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
                 height="24"
@@ -130,7 +130,7 @@ export function Header() {
           <div className="flex flex-col gap-y-4 gap-x-0 mt-5 md:flex-row md:justify-center md:items-center md:gap-y-0 md:gap-x-7 md:mt-0">
             <div>
               <a
-                className="relative inline-block text-black before:absolute before:bottom-0.5 before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 dark:text-white"
+                className="relative inline-block text-black before:absolute before:bottom-0.5 before:start-0 before:-z-1 before:w-full before:h-1 before:bg-lime-400 dark:text-white"
                 href="#"
                 aria-current="page"
               >

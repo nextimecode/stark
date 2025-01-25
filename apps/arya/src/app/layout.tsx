@@ -21,8 +21,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html className={`${inter.variable} dark`} lang="pt-BR">
-      <body className="bg-white dark:bg-black">
+    <html className={'dark'} lang="pt-BR">
+      <body className={`${inter.variable} bg-white dark:bg-black antialiased`}>
         <div className="relative min-h-screen">{children}</div>
         <PrelineScript />
       </body>

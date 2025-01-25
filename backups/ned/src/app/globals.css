@@ -1,6 +1,0 @@
-@import 'tailwindcss/preflight';
-@import 'tailwindcss/utilities';
-
-body {
-  -webkit-font-smoothing: antialiased;
-}
