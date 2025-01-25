@@ -1,4 +1,4 @@
-import forms from '@tailwindcss/forms'
+// import forms from '@tailwindcss/forms'
 import preline from 'preline/plugin'
 import type { Config } from 'tailwindcss'
 
@@ -98,5 +98,5 @@ export default {
       }
     }
   },
-  plugins: [forms, preline]
+  plugins: [preline]
 } satisfies Config
