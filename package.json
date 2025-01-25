@@ -28,7 +28,7 @@
     "bran:dev": "turbo run dev --filter bran",
     "bran:start:prod": "turbo run start:prod --filter bran",
     "build": "prisma generate && turbo run build --parallel",
-    "clean:all": "turbo run clean && pnpm store prune && rm -rf .next .turbo node_modules tsconfig.tsbuildinfo pnpm-lock.yaml && pnpm i && pnpm build",
+    "clean:all": "turbo run clean && pnpm store prune && rm -rf .next .turbo node_modules tsconfig.tsbuildinfo pnpm-lock.yaml .playwright playwright-report test-results && pnpm i && pnpm build",
     "precommit": "turbo lint",
     "prepush": "turbo typecheck audit test",
     "commit": "cz",
