@@ -1,6 +1,5 @@
 import { Metadata } from 'next'
 
-import { Accordion } from '@/components/Accordion'
 import { BenefitsSection } from '@/components/BenefitsSection'
 import { Footer } from '@/components/Footer'
 import { Hero } from '@/components/Hero'
@@ -15,7 +14,6 @@ export default function Home() {
   return (
     <main>
       <Hero />
-      <Accordion />
       <HowItWorks />
       <TestimonialsSection />
       <BenefitsSection />

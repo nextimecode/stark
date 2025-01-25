@@ -66,6 +66,17 @@ export function Hero() {
         </div>
 
         <div className="relative ms-4">
+          <video
+            className="w-[600px] h-[600px] rounded-md object-cover"
+            src="/movie.mp4"
+            controls
+            autoPlay
+            loop
+            muted
+          ></video>
+        </div>
+
+        {/* <div className="relative ms-4">
           <Image
             className="w-full rounded-md"
             src="https://images.unsplash.com/photo-1665686377065-08ba896d16fd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=700&h=800&q=80"
@@ -163,7 +174,7 @@ export function Hero() {
               <rect x="531" y="49" width="99" height="99" fill="currentColor" />
             </svg>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   )
