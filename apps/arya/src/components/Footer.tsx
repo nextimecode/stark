@@ -18,7 +18,7 @@ export function Footer() {
           </a>
         </div> */}
         {/* End Col */}
-
+        {/* 
         <div className="mt-3">
           <p className="text-gray-500 dark:text-neutral-500">
             Uma relação saudável e satisfatória, seja amorosa, familiar ou
@@ -27,7 +27,7 @@ export function Footer() {
             conexões e a fortalecer os laços por meio de análise de dados e
             feedbacks personalizados.
           </p>
-        </div>
+        </div> */}
 
         <div className="mt-3">
           <p className="text-gray-500 dark:text-neutral-500">
@@ -35,6 +35,7 @@ export function Footer() {
             <a
               className="text-blue-600 decoration-2 hover:underline focus:outline-hidden focus:underline font-medium dark:text-blue-500"
               href="https://www.nextime.com.br/"
+              target="_blank"
             >
               NeXTIME
             </a>
