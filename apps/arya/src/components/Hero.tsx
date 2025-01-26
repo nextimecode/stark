@@ -68,7 +68,7 @@ export function Hero() {
             autoPlay
             loop
             muted
-          ></video>
+          />
         </div>
 
         {/* <div className="relative ms-4">

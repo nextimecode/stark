@@ -56,7 +56,7 @@ export function Header() {
             </svg>
           </a> */}
           <Title color="violet" size="text-3xl">
-            Logo
+            NeXTverso
           </Title>
           {/* <!-- End Logo --> */}
         </div>
