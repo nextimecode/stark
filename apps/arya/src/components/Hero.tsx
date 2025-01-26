@@ -22,7 +22,7 @@ export function Hero() {
 
           <div className="mt-7 grid gap-3 w-full sm:inline-flex">
             <a
-              className="transition-all duration-300 hover:animate-button-glow py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-primary dark:text-white hover:bg-primary-300 disabled:opacity-50 disabled:pointer-events-none"
+              className="transition-all duration-300 hover:animate-button-glow py-3 px-4 inline-flex justify-center items-center gap-x-2 text-md font-semibold rounded-lg border border-transparent bg-primary dark:text-white hover:bg-primary-300 disabled:opacity-50 disabled:pointer-events-none"
               href="/register"
             >
               Use grátis enquanto pode

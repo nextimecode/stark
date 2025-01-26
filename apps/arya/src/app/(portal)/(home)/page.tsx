@@ -13,11 +13,13 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main>
-      <Hero />
-      <HowItWorks />
-      <TestimonialsSection />
-      <BenefitsSection />
-      <Footer />
+      <div className="flex flex-col gap-20 lg:gap-28">
+        <Hero />
+        <HowItWorks />
+        <TestimonialsSection />
+        <BenefitsSection />
+        <Footer />
+      </div>
     </main>
   )
 }

@@ -7,7 +7,7 @@ import { DocumentAndClipboardIcon } from './Icon/DocumentAndClipboardIcon'
 
 export function BenefitsSection() {
   return (
-    <section className="py-16 text-white">
+    <section>
       <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-3xl font-bold sm:text-4xl lg:text-5xl">
@@ -19,7 +19,7 @@ export function BenefitsSection() {
           </p>
           <a
             href="/register"
-            className="mt-6 inline-block px-6 py-3 text-lg font-medium text-white hover:bg-primary-500 rounded-md transition-all duration-300 animate-button-glow"
+            className="mt-6 inline-block px-6 py-3 text-md font-medium text-white hover:bg-primary-500 rounded-md transition-all duration-300 animate-button-glow"
           >
             Aproveite a Gratuidade por Tempo Limitado
           </a>
