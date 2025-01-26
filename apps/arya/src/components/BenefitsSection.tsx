@@ -1,8 +1,13 @@
 import { ReactNode } from 'react'
 
+import { AchievementIcon } from './Icon/AchievementIcon'
+import { BuildingAndSquareIcon } from './Icon/BuidingAndSquareIcon'
+import { DiamondGridIcon } from './Icon/DimongGridIcon'
+import { DocumentAndClipboardIcon } from './Icon/DocumentAndClipboardIcon'
+
 export function BenefitsSection() {
   return (
-    <section className="py-16 text-white">
+    <section>
       <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-3xl font-bold sm:text-4xl lg:text-5xl">
@@ -13,10 +18,10 @@ export function BenefitsSection() {
             em experiências inesquecíveis.
           </p>
           <a
-            href="/get-started"
-            className="mt-6 inline-block px-6 py-3 text-lg font-medium text-white bg-primary-500 rounded-md transition-all duration-300 hover:animate-button-glow"
+            href="/register"
+            className="mt-6 inline-block px-6 py-3 text-md font-medium text-white hover:bg-primary-500 rounded-md transition-all duration-300 animate-button-glow"
           >
-            Comece de Graça
+            Aproveite a Gratuidade por Tempo Limitado
           </a>
         </div>
         <div className="grid grid-cols-12 gap-4 xl:gap-6 mt-12">
@@ -28,57 +33,25 @@ export function BenefitsSection() {
               description="Nosso aplicativo avalia compatibilidade com base em dados científicos, ajudando você a descobrir e fortalecer conexões."
               buttonText="Saiba Mais"
               highlightColor="bg-linear-to-l from-purple-400 to-blue-600"
+              icon={<DiamondGridIcon />}
             />
             <Card
               href="./examples.html"
               title="Resultados Visuais"
               description="Receba análises detalhadas em gráficos interativos e compreenda os pontos fortes e oportunidades de melhoria em suas conexões."
               buttonText="Veja Exemplos"
-              icon={
-                <svg
-                  className="shrink-0 size-10 mb-3"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="46"
-                  height="46"
-                  viewBox="0 0 46 46"
-                  fill="none"
-                >
-                  <path
-                    d="M21 25H32C33.6569 25 35 26.3431 35 28V37C35 38.6569 33.6569 40 32 40H21V25Z"
-                    stroke="#2563EB"
-                    strokeWidth="2"
-                  />
-                  <path
-                    d="M9 11H18C19.6569 11 21 12.3431 21 14V25H6V14C6 12.3431 7.34315 11 9 11Z"
-                    stroke="#2563EB"
-                    strokeWidth="2"
-                  />
-                  <path
-                    d="M6 25H21V40H9C7.34315 40 6 38.6569 6 37V25Z"
-                    stroke="#2563EB"
-                    strokeWidth="2"
-                  />
-                  <rect
-                    x="27"
-                    y="4"
-                    width="14"
-                    height="14"
-                    rx="3"
-                    stroke="#C084FC"
-                    strokeWidth="2"
-                  />
-                </svg>
-              }
+              icon={<BuildingAndSquareIcon />}
             />
           </div>
 
           {/* Segunda coluna */}
           <div className="col-span-12 md:col-span-6 lg:col-span-4 md:order-1 grid gap-4 xl:gap-6">
             <Card
-              href="./test.html"
+              href="https://www.16personalities.com/br/teste-de-personalidade"
               title="Teste de Compatibilidade"
-              description="Descubra o quanto você combina com outra pessoa em termos de personalidade, valores e interesses."
+              description="Baseado no MBTI (Indicador de Tipos de Myers-Briggs), este teste avalia diferentes tipos de personalidade."
               buttonText="Fazer o Teste"
+              icon={<DocumentAndClipboardIcon />}
             />
             <Card
               href="./invite.html"
@@ -95,6 +68,7 @@ export function BenefitsSection() {
               title="Aprimoramento Contínuo"
               description="Nosso algoritmo melhora com o feedback dos usuários. Avalie os resultados para contribuir com a evolução da plataforma."
               buttonText="Enviar Feedback"
+              icon={<AchievementIcon />}
             />
             <Card
               href="./privacy.html"
@@ -123,7 +97,7 @@ export function Card({
   href,
   title,
   description,
-  buttonText = 'Learn more',
+  buttonText,
   highlightText,
   highlightColor,
   icon
@@ -131,7 +105,8 @@ export function Card({
   return (
     <a
       href={href}
-      className="relative focus:outline-hidden before:absolute before:inset-0 before:z-10 before:border before:rounded-xl before:transition before:border-transparent hover:before:animate-border-gradient hover:shadow-lg dark:rounded-xl"
+      className="border border-neutral-800 rounded-lg shadow-md relative focus:outline-hidden before:absolute before:inset-0 before:z-10 before:border before:rounded-xl before:transition before:border-transparent hover:before:animate-border-gradient hover:shadow-lg dark:rounded-xl"
+      target="_blank"
     >
       <div className="relative overflow-hidden p-6 flex flex-col justify-center items-center text-center rounded-xl">
         {icon}
@@ -146,23 +121,25 @@ export function Card({
         <p className="mt-2 text-gray-500 dark:text-neutral-400">
           {description}
         </p>
-        <p className="mt-6 inline-flex items-center gap-x-1 text-blue-600 font-medium dark:text-blue-500">
-          {buttonText}
-          <svg
-            className="shrink-0 size-4"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="m9 18 6-6-6-6" />
-          </svg>
-        </p>
+        {buttonText && (
+          <p className="mt-6 inline-flex items-center gap-x-1 text-blue-600 font-medium dark:text-secondary">
+            {buttonText}
+            <svg
+              className="shrink-0 size-4"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </p>
+        )}
       </div>
     </a>
   )

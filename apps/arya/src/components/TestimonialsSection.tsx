@@ -13,12 +13,12 @@ export const TestimonialCard = ({
     <div className="p-6 border border-neutral-800 rounded-lg shadow-md transition-all duration-300 hover:animate-hover-glow hover:shadow-lg hover:border-primary-500">
       <p className="text-gray-300">{text}</p>
       <div className="mt-4 flex items-center">
-        <img
+        {/* <img
           className="w-10 h-10 rounded-full"
           src="https://via.placeholder.com/40"
           alt={name}
-        />
-        <div className="ml-4">
+        /> */}
+        <div>
           <p className="font-medium text-white">{name}</p>
           <p className="text-gray-500 text-sm">{location}</p>
         </div>
@@ -77,7 +77,7 @@ export function TestimonialsSection() {
   ]
 
   return (
-    <section className="py-16 bg-black text-white">
+    <section>
       <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-3xl font-bold sm:text-4xl lg:text-5xl">

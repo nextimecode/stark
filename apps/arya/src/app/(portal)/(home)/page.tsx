@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 
-import { Accordion } from '@/components/Accordion'
+import { FAQ } from '../../../components/FAQ'
 import { BenefitsSection } from '@/components/BenefitsSection'
 import { Footer } from '@/components/Footer'
 import { Hero } from '@/components/Hero'
@@ -14,12 +14,14 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main>
-      <Hero />
-      <Accordion />
-      <HowItWorks />
-      <TestimonialsSection />
-      <BenefitsSection />
-      <Footer />
+      <div className="flex flex-col gap-20 lg:gap-28">
+        <Hero />
+        <HowItWorks />
+        <TestimonialsSection />
+        <BenefitsSection />
+        <FAQ />
+        <Footer />
+      </div>
     </main>
   )
 }
