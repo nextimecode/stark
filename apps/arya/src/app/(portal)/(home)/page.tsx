@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 
+import { FAQ } from '../../../components/FAQ'
 import { BenefitsSection } from '@/components/BenefitsSection'
 import { Footer } from '@/components/Footer'
 import { Hero } from '@/components/Hero'
@@ -18,6 +19,7 @@ export default function Home() {
         <HowItWorks />
         <TestimonialsSection />
         <BenefitsSection />
+        <FAQ />
         <Footer />
       </div>
     </main>
