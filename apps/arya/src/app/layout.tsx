@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 
+import type { Viewport } from 'next'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
@@ -10,6 +11,13 @@ const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter'
 })
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1.0,
+  maximumScale: 1.0,
+  userScalable: false
+}
 
 export const metadata: Metadata = {
   title: {

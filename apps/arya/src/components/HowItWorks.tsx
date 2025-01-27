@@ -1,11 +1,14 @@
 export function HowItWorks() {
   return (
-    <section>
-      <div className="max-w-[85rem] px-4 sm:px-6 lg:px-8  mx-auto">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 items-center gap-12">
+    <section id="how-it-works">
+      <div className="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 place-items-center gap-12">
           {iconBlocks.map((block, index) => (
-            <div key={index} className="text-center">
-              <div className="relative flex justify-center items-center w-12 h-12 bg-white rounded-xl before:absolute before:-inset-px before:-z-[1] before:bg-gradient-to-br before:from-blue-600 before:via-transparent before:to-violet-600 before:rounded-xl dark:bg-neutral-900 place-self-center">
+            <div
+              key={index}
+              className="flex flex-col justify-center items-center text-center rounded-xl"
+            >
+              <div className="relative flex justify-center items-center w-12 h-12 bg-white rounded-xl before:absolute before:-inset-px before:-z-[1] before:bg-gradient-to-br before:from-blue-600 before:via-transparent before:to-violet-600 before:rounded-xl dark:bg-neutral-900">
                 {block.icon}
               </div>
               <div className="mt-5">
@@ -28,7 +31,7 @@ const iconBlocks = [
   {
     icon: (
       <svg
-        className="shrink-0 w-6 h-6 text-blue-600 dark:text-blue-500"
+        className="shrink-0 w-6 h-6 text-blue-600 dark:text-secondary"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -51,7 +54,7 @@ const iconBlocks = [
   {
     icon: (
       <svg
-        className="shrink-0 w-6 h-6 text-blue-600 dark:text-blue-500"
+        className="shrink-0 w-6 h-6 text-blue-600 dark:text-secondary"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
@@ -75,7 +78,7 @@ const iconBlocks = [
   {
     icon: (
       <svg
-        className="shrink-0 w-6 h-6 text-blue-600 dark:text-blue-500"
+        className="shrink-0 w-6 h-6 text-blue-600 dark:text-secondary"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"

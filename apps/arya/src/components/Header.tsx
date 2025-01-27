@@ -63,19 +63,11 @@ export function Header() {
 
         {/* <!-- Button Group --> */}
         <div className="flex items-center gap-x-2 ms-auto py-1 md:ps-6 md:order-3 md:col-span-3">
-          {/* <button
-            type="button"
-            className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl border border-gray-200 text-black hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:border-neutral-700 dark:hover:bg-white/10 dark:text-white dark:hover:text-white"
+          <Link
+            className="transition-all duration-300 hover:animate-button-glow py-2 px-3 inline-flex items-center gap-x-2 text-sm rounded-xl border border-transparent bg-primary text-white font-semibold disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-primary-600"
+            href={env.NEXT_PUBLIC_NED_URL}
           >
-            Entrar
-          </button> */}
-          <Link href={env.NEXT_PUBLIC_NED_URL}>
-            <button
-              type="button"
-              className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl border border-transparent bg-primary-500 text-black hover:bg-primary-300 transition disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-primary-600"
-            >
-              Conta NeXTIME
-            </button>
+            Conta NeXTIME
           </Link>
 
           <div className="md:hidden">

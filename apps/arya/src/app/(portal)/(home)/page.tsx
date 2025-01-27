@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import Link from 'next/link'
 
 import { FAQ } from '../../../components/FAQ'
 import { BenefitsSection } from '@/components/BenefitsSection'

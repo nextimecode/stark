@@ -1,5 +1,7 @@
 import { ReactNode } from 'react'
 
+import Link from 'next/link'
+
 import { AchievementIcon } from './Icon/AchievementIcon'
 import { BuildingAndSquareIcon } from './Icon/BuidingAndSquareIcon'
 import { DiamondGridIcon } from './Icon/DimongGridIcon'
@@ -17,12 +19,12 @@ export function BenefitsSection() {
             Experimente o NeXTverso gratuitamente e transforme suas interações
             em experiências inesquecíveis.
           </p>
-          <a
+          <Link
             href="/register"
             className="mt-6 inline-block px-6 py-3 text-md font-medium text-white hover:bg-primary-500 rounded-md transition-all duration-300 animate-button-glow"
           >
             Aproveite a Gratuidade por Tempo Limitado
-          </a>
+          </Link>
         </div>
         <div className="grid grid-cols-12 gap-4 xl:gap-6 mt-12">
           {/* Primeira coluna */}
