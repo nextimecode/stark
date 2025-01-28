@@ -67,8 +67,8 @@ const config: Config = {
       },
       animation: {
         'border-gradient': 'border-gradient 2.5s linear infinite',
-        'hover-glow': 'hover-glow 1.5s ease-in-out infinite',
-        'button-glow': 'button-glow 1.5s ease-in-out infinite'
+        'hover-glow': 'hover-glow 2.5s ease-in-out infinite',
+        'button-glow': 'button-glow 2.5s ease-in-out infinite'
       },
       keyframes: {
         'border-gradient': {
