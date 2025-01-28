@@ -22,7 +22,7 @@ export const RadarChart = ({
 }: RadarChartProps) => {
   const { ref, inView } = useInView({
     triggerOnce: true, // Carregar apenas uma vez
-    threshold: 1.0 // 50% do elemento visível para ativar
+    threshold: 0.9 // 50% do elemento visível para ativar
   })
 
   const [chartVisible, setChartVisible] = useState(false)
