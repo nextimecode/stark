@@ -27,6 +27,7 @@
     "apps/*/build": true
   },
   "cSpell.words": [
+    "apexcharts",
     "arya",
     "datatables",
     "prepush",
