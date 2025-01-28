@@ -1,5 +1,7 @@
 import { ReactNode } from 'react'
 
+import Link from 'next/link'
+
 import { AchievementIcon } from './Icon/AchievementIcon'
 import { BuildingAndSquareIcon } from './Icon/BuidingAndSquareIcon'
 import { DiamondGridIcon } from './Icon/DimongGridIcon'
@@ -17,12 +19,12 @@ export function BenefitsSection() {
             Experimente o NeXTverso gratuitamente e transforme suas interações
             em experiências inesquecíveis.
           </p>
-          <a
+          <Link
             href="/register"
-            className="mt-6 inline-block px-6 py-3 text-md font-medium text-white hover:bg-primary-500 rounded-md transition-all duration-300 animate-button-glow"
+            className="mt-6 inline-block px-6 py-3 text-md font-medium text-white hover:bg-primary-500 hover:animate-none rounded-md transition-all duration-300 animate-button-glow"
           >
             Aproveite a Gratuidade por Tempo Limitado
-          </a>
+          </Link>
         </div>
         <div className="grid grid-cols-12 gap-4 xl:gap-6 mt-12">
           {/* Primeira coluna */}
@@ -72,8 +74,8 @@ export function BenefitsSection() {
             />
             <Card
               href="./privacy.html"
-              title="Privacidade Garantida"
-              description="Seus dados são protegidos com criptografia de ponta a ponta e total conformidade com a LGPD."
+              title="Autonomia nas Conexões"
+              description="Fornecemos gráficos e análises para apoiar suas decisões, mas as conexões que você cria estão sempre em suas mãos."
               buttonText="Saiba Mais"
             />
           </div>
@@ -103,10 +105,10 @@ export function Card({
   icon
 }: CardProps) {
   return (
-    <a
-      href={href}
+    <div
+      // href={href}
       className="border border-neutral-800 rounded-lg shadow-md relative focus:outline-hidden before:absolute before:inset-0 before:z-10 before:border before:rounded-xl before:transition before:border-transparent hover:before:animate-border-gradient hover:shadow-lg dark:rounded-xl"
-      target="_blank"
+      // target="_blank"
     >
       <div className="relative overflow-hidden p-6 flex flex-col justify-center items-center text-center rounded-xl">
         {icon}
@@ -121,26 +123,26 @@ export function Card({
         <p className="mt-2 text-gray-500 dark:text-neutral-400">
           {description}
         </p>
-        {buttonText && (
-          <p className="mt-6 inline-flex items-center gap-x-1 text-blue-600 font-medium dark:text-secondary">
-            {buttonText}
-            <svg
-              className="shrink-0 size-4"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="m9 18 6-6-6-6" />
-            </svg>
-          </p>
-        )}
+        {/* {buttonText && (
+        <p className="mt-6 inline-flex items-center gap-x-1 text-blue-600 font-medium dark:text-secondary">
+          {buttonText}
+          <svg
+            className="shrink-0 size-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </p>
+      )} */}
       </div>
-    </a>
+    </div>
   )
 }

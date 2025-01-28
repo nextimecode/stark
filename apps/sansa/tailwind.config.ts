@@ -1,3 +1,5 @@
+// import forms from '@tailwindcss/forms'
+// import preline from 'preline/plugin'
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
@@ -50,17 +52,17 @@ const config: Config = {
           900: '#130918'
         },
         secondary: {
-          DEFAULT: '#5E5CE6',
-          50: '#5957DA',
-          100: '#5553CF',
-          200: '#4240A1',
-          300: '#2F2E73',
-          400: '#26255C',
-          500: '#5E5CE6',
-          600: '#1C1C45',
-          700: '#13122E',
-          800: '#0E0E22',
-          900: '#090917'
+          DEFAULT: '#64D2FF',
+          50: '#E3F7FF',
+          100: '#C5EEFF',
+          200: '#A3E4FF',
+          300: '#82DAFF',
+          400: '#73DBFF',
+          500: '#64D2FF',
+          600: '#4DAACF',
+          700: '#3783A0',
+          800: '#235B70',
+          900: '#133648'
         }
       },
       animation: {

@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 interface TestimonialCardProps {
   text: string
   name: string
@@ -10,7 +12,7 @@ export const TestimonialCard = ({
   location
 }: TestimonialCardProps) => {
   return (
-    <div className="p-6 border border-neutral-800 rounded-lg shadow-md transition-all duration-300 hover:animate-hover-glow hover:shadow-lg hover:border-primary-500">
+    <div className="min-w-[300px] p-6 border border-neutral-800 rounded-lg shadow-md transition-all duration-300 hover:animate-hover-glow hover:shadow-lg hover:border-primary-500">
       <p className="text-gray-300">{text}</p>
       <div className="mt-4 flex items-center">
         {/* <img
@@ -84,12 +86,18 @@ export function TestimonialsSection() {
             Amado por usuários incríveis
           </h2>
           <p className="mt-4 text-lg text-gray-400">
-            Pessoas ao redor do mundo confiam no NeXTverso para criar conexões
-            significativas.
+            Pessoas ao redor do mundo já fazem parte do NeXTverso, criando
+            conexões significativas e transformadoras
           </p>
+          <Link
+            href="/register"
+            className="mt-6 inline-block px-6 py-3 text-md font-medium text-white hover:bg-primary-500 hover:animate-none rounded-md transition-all duration-300 animate-button-glow"
+          >
+            Faça Parte da Comunidade
+          </Link>
         </div>
 
-        <div className="mt-12 grid gap-10 md:grid-cols-3">
+        <div className="flex gap-4 overflow-x-auto mt-12 md:overflow-x-visible md:grid md:gap-10 md:grid-cols-3">
           {testimonials.map((testimonial, index) => (
             <TestimonialCard
               key={index}

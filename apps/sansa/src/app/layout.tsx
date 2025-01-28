@@ -19,8 +19,8 @@ const inter = Inter({
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html className={inter.variable} lang="pt-BR">
-      <body className="bg-gray-100 dark dark:bg-neutral-800">
+    <html data-theme="dark" lang="pt-BR">
+      <body className={`${inter.variable} antialiased dark`}>
         <AuthContextProvider>
           <div className="relative min-h-screen">{children}</div>
         </AuthContextProvider>

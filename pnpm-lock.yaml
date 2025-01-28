@@ -109,6 +109,12 @@ importers:
       react:
         specifier: ^19.0.0
         version: 19.0.0
+      react-apexcharts:
+        specifier: ^1.7.0
+        version: 1.7.0(apexcharts@4.4.0)(react@19.0.0)
+      react-intersection-observer:
+        specifier: ^9.15.1
+        version: 9.15.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react-world-flags:
         specifier: ^1.6.0
         version: 1.6.0(react@19.0.0)
@@ -9390,6 +9396,15 @@ packages:
       }
     hasBin: true
 
+  react-apexcharts@1.7.0:
+    resolution:
+      {
+        integrity: sha512-03oScKJyNLRf0Oe+ihJxFZliBQM9vW3UWwomVn4YVRTN1jsIR58dLWt0v1sb8RwJVHDMbeHiKQueM0KGpn7nOA==
+      }
+    peerDependencies:
+      apexcharts: '>=4.0.0'
+      react: '>=0.13'
+
   react-dom@19.0.0:
     resolution:
       {
@@ -9397,6 +9412,18 @@ packages:
       }
     peerDependencies:
       react: ^19.0.0
+
+  react-intersection-observer@9.15.1:
+    resolution:
+      {
+        integrity: sha512-vGrqYEVWXfH+AGu241uzfUpNK4HAdhCkSAyFdkMb9VWWXs6mxzBLpWCxEy9YcnDNY2g9eO6z7qUtTBdA9hc8pA==
+      }
+    peerDependencies:
+      react: ^17.0.0 || ^18.0.0 || ^19.0.0
+      react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
 
   react-is@16.13.1:
     resolution:
@@ -17635,10 +17662,22 @@ snapshots:
       minimist: 1.2.8
       strip-json-comments: 2.0.1
 
+  react-apexcharts@1.7.0(apexcharts@4.4.0)(react@19.0.0):
+    dependencies:
+      apexcharts: 4.4.0
+      prop-types: 15.8.1
+      react: 19.0.0
+
   react-dom@19.0.0(react@19.0.0):
     dependencies:
       react: 19.0.0
       scheduler: 0.25.0
+
+  react-intersection-observer@9.15.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+    dependencies:
+      react: 19.0.0
+    optionalDependencies:
+      react-dom: 19.0.0(react@19.0.0)
 
   react-is@16.13.1: {}
 

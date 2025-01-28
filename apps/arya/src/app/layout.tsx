@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 
+import type { Viewport } from 'next'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
@@ -11,6 +12,13 @@ const inter = Inter({
   variable: '--font-inter'
 })
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1.0,
+  maximumScale: 1.0,
+  userScalable: false
+}
+
 export const metadata: Metadata = {
   title: {
     template: '%s | stark',
@@ -21,7 +29,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html className={'dark'} lang="pt-BR">
+    <html data-theme="dark" lang="pt-BR">
       <body className={`${inter.variable} antialiased`}>
         <div className="relative min-h-screen">{children}</div>
         <PrelineScript />
