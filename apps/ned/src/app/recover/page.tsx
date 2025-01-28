@@ -91,7 +91,7 @@ export default function Recover() {
             <p className="mt-4 text-sm text-gray-600 dark:text-neutral-400 text-center">
               Lembrou sua senha?{' '}
               <Link
-                href="/login"
+                href="/"
                 className="text-blue-600 decoration-2 hover:underline focus:outline-hidden focus:underline font-medium dark:text-blue-500"
               >
                 Faça login
