@@ -1,5 +1,8 @@
 'use client'
 
+import { useState } from 'react'
+import { useInView } from 'react-intersection-observer'
+
 import { ApexOptions } from 'apexcharts'
 
 import { ApexChart } from './ApexChart'
@@ -17,6 +20,17 @@ export const RadarChart = ({
   series,
   colors
 }: RadarChartProps) => {
+  const { ref, inView } = useInView({
+    triggerOnce: true, // Carregar apenas uma vez
+    threshold: 1.0 // 50% do elemento visível para ativar
+  })
+
+  const [chartVisible, setChartVisible] = useState(false)
+
+  if (inView && !chartVisible) {
+    setChartVisible(true)
+  }
+
   const options: ApexOptions = {
     chart: {
       type: 'radar',
@@ -31,13 +45,22 @@ export const RadarChart = ({
     stroke: { width: 2 },
     markers: { size: 4 },
     fill: { opacity: 0.4 },
-    colors: colors // Adiciona as cores personalizadas
+    colors: colors
   }
 
   return (
     <div style={{ width: '100%', maxWidth: '600px', margin: '0 auto' }}>
-      <h2 className="mb-5 text-2xl font-bold text-center">{title}</h2>
-      <ApexChart options={options} series={series} type="radar" height={350} />
+      <h2 ref={ref} className="mb-5 text-2xl font-bold text-center">
+        {title}
+      </h2>
+      {chartVisible && (
+        <ApexChart
+          options={options}
+          series={series}
+          type="radar"
+          height={350}
+        />
+      )}
     </div>
   )
 }
