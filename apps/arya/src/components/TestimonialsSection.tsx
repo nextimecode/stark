@@ -91,7 +91,7 @@ export function TestimonialsSection() {
           </p>
           <Link
             href="/register"
-            className="mt-6 inline-block px-6 py-3 text-md font-medium text-white hover:bg-primary-500 rounded-md transition-all duration-300 animate-button-glow"
+            className="mt-6 inline-block px-6 py-3 text-md font-medium text-white hover:bg-primary-500 hover:animate-none rounded-md transition-all duration-300 animate-button-glow"
           >
             Faça Parte da Comunidade
           </Link>

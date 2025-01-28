@@ -26,7 +26,7 @@ export function Hero() {
                 className="transition-all duration-300 hover:animate-none animate-button-glow py-3 px-4 inline-flex justify-center items-center gap-x-2 text-md font-semibold rounded-lg border border-transparent bg-primary dark:text-white disabled:opacity-50 disabled:pointer-events-none"
                 href="/register"
               >
-                Experimente Por Tempo Limitado
+                Grátis Por Tempo Limitado
                 <svg
                   className="shrink-0 size-4"
                   xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +62,7 @@ export function Hero() {
           <div>
             <video
               className="md:w-[600px] md:h-[600px] rounded-md object-cover"
-              src="/movie.mp4"
+              src="https://odxuo8kv45bo5dqj.public.blob.vercel-storage.com/movie-Fcux3OofpVpJa2BmSmuT4dBa9R2egn.mp4"
               autoPlay
               loop
               muted
