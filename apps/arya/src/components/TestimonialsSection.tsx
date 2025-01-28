@@ -12,7 +12,7 @@ export const TestimonialCard = ({
   location
 }: TestimonialCardProps) => {
   return (
-    <div className="p-6 border border-neutral-800 rounded-lg shadow-md transition-all duration-300 hover:animate-hover-glow hover:shadow-lg hover:border-primary-500">
+    <div className="min-w-[300px] p-6 border border-neutral-800 rounded-lg shadow-md transition-all duration-300 hover:animate-hover-glow hover:shadow-lg hover:border-primary-500">
       <p className="text-gray-300">{text}</p>
       <div className="mt-4 flex items-center">
         {/* <img
@@ -97,7 +97,7 @@ export function TestimonialsSection() {
           </Link>
         </div>
 
-        <div className="mt-12 grid gap-10 md:grid-cols-3">
+        <div className="flex gap-4 overflow-x-auto mt-12 md:overflow-x-visible md:grid md:gap-10 md:grid-cols-3">
           {testimonials.map((testimonial, index) => (
             <TestimonialCard
               key={index}
