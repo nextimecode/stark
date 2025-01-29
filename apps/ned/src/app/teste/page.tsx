@@ -7,8 +7,7 @@ import Image from 'next/image'
 
 // import { api } from '@/data/api'
 import { HomeProps } from '@/data/types/home'
-
-import { admin } from '../../firebase/admin'
+import { admin } from '@/firebase/admin'
 
 export const metadata: Metadata = {
   title: 'Home Edoras'
