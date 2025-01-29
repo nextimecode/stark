@@ -4,7 +4,9 @@ import { createEnv } from '@t3-oss/env-nextjs'
 import { z } from 'zod'
 
 export const env = createEnv({
-  server: {},
+  server: {
+    VERCEL_URL: z.string().url()
+  },
 
   client: {
     NEXT_PUBLIC_ARYA_URL: z.string().url(),
@@ -17,6 +19,7 @@ export const env = createEnv({
     NEXT_PUBLIC_ARYA_URL: process.env.NEXT_PUBLIC_ARYA_URL,
     NEXT_PUBLIC_BRAN_URL: process.env.NEXT_PUBLIC_BRAN_URL,
     NEXT_PUBLIC_SANSA_URL: process.env.NEXT_PUBLIC_SANSA_URL,
-    NEXT_PUBLIC_NED_URL: process.env.NEXT_PUBLIC_NED_URL
+    NEXT_PUBLIC_NED_URL: process.env.NEXT_PUBLIC_NED_URL,
+    VERCEL_URL: process.env.VERCEL_URL
   }
 })
