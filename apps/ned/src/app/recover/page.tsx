@@ -8,7 +8,7 @@ import { Title } from '@/components/'
 
 import { sendPasswordResetEmail } from 'firebase/auth'
 
-import { auth } from '@/firebase/config'
+import { auth } from '@/firebase/client'
 
 export default function Recover() {
   const [email, setEmail] = useState('')

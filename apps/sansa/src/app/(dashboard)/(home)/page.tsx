@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import { sendEmailVerification, signOut, deleteUser } from 'firebase/auth'
 
 import { useAuthContext } from '@/contexts/auth-context'
-import { auth } from '@/firebase/config'
+import { auth } from '@/firebase/client'
 
 export default function Home() {
   const { user, loading } = useAuthContext()
