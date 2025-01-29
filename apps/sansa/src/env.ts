@@ -3,7 +3,7 @@ import { z } from 'zod'
 
 export const env = createEnv({
   server: {
-    VERCEL_URL: z.string().url().optional(),
+    VERCEL_URL: z.string().optional(),
     FIREBASE_ADMIN_SERVICE_ACCOUNT: z.string()
   },
 
