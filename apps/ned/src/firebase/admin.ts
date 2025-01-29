@@ -11,7 +11,7 @@ if (!env.FIREBASE_ADMIN_SERVICE_ACCOUNT) {
 }
 
 const serviceAccount = JSON.parse(
-  process.env.FIREBASE_SERVICE_ACCOUNT_KEY as string
+  process.env.FIREBASE_SERVICE_ACCOUNT_KEY || ''
 )
 
 if (!admin.apps.length) {
