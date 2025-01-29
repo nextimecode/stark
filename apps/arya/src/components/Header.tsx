@@ -4,9 +4,11 @@ import Link from 'next/link'
 
 import { User } from 'lucide-react'
 
-import { env } from '@/env'
+import { getBaseUrl } from '@/env'
 
 import { Title } from './Title'
+
+const { nedUrl } = getBaseUrl()
 
 export function Header() {
   return (
@@ -25,7 +27,7 @@ export function Header() {
         <div className="flex items-center gap-x-2 ms-auto py-1 md:ps-6 md:order-3 md:col-span-3">
           <Link
             className="transition-all duration-300 hover:animate-button-glow py-2 px-3 inline-flex items-center gap-x-2 text-sm rounded-xl border border-transparent bg-primary text-white font-semibold disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-primary-600"
-            href={env.NEXT_PUBLIC_NED_URL}
+            href={nedUrl}
           >
             <User className="h-4 w-4" />
             Conta NeXTIME

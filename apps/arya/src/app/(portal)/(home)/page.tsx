@@ -6,12 +6,15 @@ import { FAQ } from '@/components/FAQ'
 import { Footer } from '@/components/Footer'
 import { Hero } from '@/components/Hero'
 import { HowItWorks } from '@/components/HowItWorks'
-import { RadarChart } from '@/components/RadarChart'
 import { TestimonialsSection } from '@/components/TestimonialsSection'
 
+import { env } from '@/env'
+
 export const metadata: Metadata = {
-  title: 'Portal'
+  title: 'Home'
 }
+
+console.error('env.VERCEL_URL', env.VERCEL_URL)
 
 export default function Home() {
   return (
