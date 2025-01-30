@@ -6,13 +6,13 @@ if (typeof window !== 'undefined') {
   throw new Error('O Firebase Admin não pode ser executado no cliente.')
 }
 
-if (!env.FIREBASE_ADMIN_SERVICE_ACCOUNT) {
+const serviceAccountKey = env.FIREBASE_ADMIN_SERVICE_ACCOUNT
+
+if (!serviceAccountKey) {
   throw new Error('FIREBASE_ADMIN_SERVICE_ACCOUNT não está definida.')
 }
 
-const serviceAccount = JSON.parse(
-  process.env.FIREBASE_SERVICE_ACCOUNT_KEY || ''
-)
+const serviceAccount = JSON.parse(serviceAccountKey)
 
 if (!admin.apps.length) {
   admin.initializeApp({
