@@ -1,22 +1,19 @@
-import admin from 'firebase-admin'
+// firebase/admin.ts
 
-import { env } from '@/env'
+import admin from 'firebase-admin'
 
 if (typeof window !== 'undefined') {
   throw new Error('O Firebase Admin não pode ser executado no cliente.')
 }
-
-const serviceAccountKey = env.FIREBASE_ADMIN_SERVICE_ACCOUNT
+var serviceAccountKey = require('./serviceAccountKey.json')
 
 if (!serviceAccountKey) {
   throw new Error('FIREBASE_ADMIN_SERVICE_ACCOUNT não está definida.')
 }
 
-const serviceAccount = JSON.parse(serviceAccountKey)
-
 if (!admin.apps.length) {
   admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
+    credential: admin.credential.cert(serviceAccountKey)
   })
 }
 

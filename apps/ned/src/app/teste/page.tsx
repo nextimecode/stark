@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import Image from 'next/image'
 
 import { HomeProps } from '@/data/types/home'
 
@@ -12,7 +11,7 @@ async function getHomeData(): Promise<HomeProps> {
     throw new Error('getHomeData só pode ser chamado no servidor.')
   }
 
-  const { admin } = await import('@/firebase/admin') // Importa dinamicamente no servidor
+  const { admin } = await import('@/firebase/admin')
 
   try {
     const userList = await admin.auth().listUsers(1)
@@ -25,7 +24,7 @@ async function getHomeData(): Promise<HomeProps> {
 }
 
 export default async function Teste() {
-  const { message } = await getHomeData() // Garante que só é chamado no servidor
+  const { message } = await getHomeData()
 
   return (
     <main>
