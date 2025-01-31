@@ -2,11 +2,11 @@ import admin from 'firebase-admin'
 
 export const getFirebaseAdmin = () => {
   const serviceAccountKey = process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT
-  if (!admin.apps.length) {
-    if (!serviceAccountKey) {
-      throw new Error('FIREBASE_ADMIN_SERVICE_ACCOUNT não está definida.')
-    }
+  if (!serviceAccountKey) {
+    throw new Error('FIREBASE_ADMIN_SERVICE_ACCOUNT não está definida.')
+  }
 
+  if (!admin.apps.length) {
     const serviceAccount = JSON.parse(serviceAccountKey)
 
     admin.initializeApp({
