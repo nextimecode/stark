@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: 'Home Edoras'
 }
 
+// 🔥 Força a renderização dinâmica (somente no servidor)
+export const dynamic = 'force-dynamic'
+
 async function getHomeData(): Promise<HomeProps> {
   if (typeof window !== 'undefined') {
     throw new Error('getHomeData só pode ser chamado no servidor.')
