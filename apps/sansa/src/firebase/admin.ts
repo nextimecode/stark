@@ -7,9 +7,9 @@ if (typeof window !== 'undefined') {
 }
 var serviceAccountKey = require('./serviceAccountKey.json')
 
-if (!serviceAccountKey) {
-  throw new Error('FIREBASE_ADMIN_SERVICE_ACCOUNT não está definida.')
-}
+// if (!serviceAccountKey) {
+//   throw new Error('FIREBASE_ADMIN_SERVICE_ACCOUNT não está definida.')
+// }
 
 if (!admin.apps.length) {
   admin.initializeApp({
