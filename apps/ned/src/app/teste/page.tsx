@@ -22,7 +22,7 @@ async function getHomeData(): Promise<HomeProps> {
       message: `🔥 Firebase Admin funcionando! Usuários encontrados: ${userList.users.length}`
     }
   } catch (error) {
-    return { message: `❌ Erro no Firebase Admin: ${error.message}` }
+    return { message: `❌ Erro no Firebase Admin: ${(error as Error).message}` }
   }
 }
 
