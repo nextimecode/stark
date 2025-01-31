@@ -1,9 +1,8 @@
 import admin from 'firebase-admin'
 
 export const getFirebaseAdmin = () => {
+  const serviceAccountKey = process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT
   if (!admin.apps.length) {
-    const serviceAccountKey = process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT
-
     if (!serviceAccountKey) {
       throw new Error('FIREBASE_ADMIN_SERVICE_ACCOUNT não está definida.')
     }
@@ -14,6 +13,7 @@ export const getFirebaseAdmin = () => {
       credential: admin.credential.cert(serviceAccount)
     })
   }
+  const key = serviceAccountKey.slice(5)
 
-  return admin
+  return { admin, key }
 }

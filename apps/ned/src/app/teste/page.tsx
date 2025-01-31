@@ -14,7 +14,7 @@ async function getHomeData(): Promise<HomeProps> {
     throw new Error('getHomeData só pode ser chamado no servidor.')
   }
 
-  const admin = getFirebaseAdmin()
+  const { admin, key } = getFirebaseAdmin()
 
   try {
     const userList = await admin.auth().listUsers(1)
@@ -22,7 +22,9 @@ async function getHomeData(): Promise<HomeProps> {
       message: `🔥 Firebase Admin funcionando! Usuários encontrados: ${userList.users.length}`
     }
   } catch (error) {
-    return { message: `❌ Erro no Firebase Admin: ${(error as Error).message}` }
+    return {
+      message: `❌ Chave${key} e Erro no Firebase Admin: ${(error as Error).message}`
+    }
   }
 }
 
