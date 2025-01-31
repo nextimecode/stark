@@ -1,20 +1,18 @@
 import { Metadata } from 'next'
 
 import { HomeProps } from '@/data/types/home'
+import { admin } from '@/firebase/admin'
 
 export const metadata: Metadata = {
   title: 'Home Edoras'
 }
 
-// 🔥 Força a renderização dinâmica (somente no servidor)
 export const dynamic = 'force-dynamic'
 
 async function getHomeData(): Promise<HomeProps> {
   if (typeof window !== 'undefined') {
     throw new Error('getHomeData só pode ser chamado no servidor.')
   }
-
-  const { admin } = await import('@/firebase/admin')
 
   try {
     const userList = await admin.auth().listUsers(1)
