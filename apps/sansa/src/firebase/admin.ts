@@ -1,16 +1,19 @@
+// firebase/admin.ts
+
 import admin from 'firebase-admin'
 
-// Certifique-se de que a variável de ambiente existe
-if (!process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT) {
+if (typeof window !== 'undefined') {
+  throw new Error('O Firebase Admin não pode ser executado no cliente.')
+}
+var serviceAccountKey = require('./serviceAccountKey.json')
+
+if (!serviceAccountKey) {
   throw new Error('FIREBASE_ADMIN_SERVICE_ACCOUNT não está definida.')
 }
 
-// Parse na string JSON da variável de ambiente
-const serviceAccount = JSON.parse(process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT)
-
 if (!admin.apps.length) {
   admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
+    credential: admin.credential.cert(serviceAccountKey)
   })
 }
 

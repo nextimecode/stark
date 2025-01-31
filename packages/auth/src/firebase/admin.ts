@@ -1,16 +1,19 @@
 import admin from 'firebase-admin'
+import { readFileSync } from 'fs'
+import { join } from 'path'
 
-// Certifique-se de que a variável de ambiente existe
-if (!process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT) {
-  throw new Error('FIREBASE_ADMIN_SERVICE_ACCOUNT não está definida.')
+const serviceAccountKeyPath = join(process.cwd(), 'serviceAccountKey.json')
+const serviceAccountKey = JSON.parse(
+  readFileSync(serviceAccountKeyPath, 'utf8')
+)
+
+if (typeof window !== 'undefined') {
+  throw new Error('O Firebase Admin não pode ser executado no cliente.')
 }
-
-// Parse na string JSON da variável de ambiente
-const serviceAccount = JSON.parse(process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT)
 
 if (!admin.apps.length) {
   admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
+    credential: admin.credential.cert(serviceAccountKey)
   })
 }
 

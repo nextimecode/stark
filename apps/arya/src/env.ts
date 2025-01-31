@@ -3,8 +3,7 @@ import { z } from 'zod'
 
 export const env = createEnv({
   server: {
-    VERCEL_URL: z.string().optional(),
-    FIREBASE_ADMIN_SERVICE_ACCOUNT: z.string().optional()
+    VERCEL_URL: z.string().optional()
   },
 
   client: {
@@ -16,7 +15,6 @@ export const env = createEnv({
   },
 
   runtimeEnv: {
-    FIREBASE_ADMIN_SERVICE_ACCOUNT: process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT,
     NEXT_PUBLIC_VERCEL_URL: process.env.VERCEL_URL
       ? `https://${process.env.VERCEL_URL}`
       : undefined,
