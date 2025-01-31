@@ -5,7 +5,8 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", "dist/**", "types/**"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**", "types/**"],
+      "env": ["FIREBASE_ADMIN_SERVICE_ACCOUNT"]
     },
     "docs:build": {
       "dependsOn": ["^docs:build"]

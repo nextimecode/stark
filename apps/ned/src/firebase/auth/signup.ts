@@ -4,7 +4,7 @@ import {
   signInWithPopup
 } from 'firebase/auth'
 
-import { auth } from '@/firebase/config'
+import { auth } from '@/firebase/client'
 
 export async function signUpWithEmailAndPassword(
   email: string,

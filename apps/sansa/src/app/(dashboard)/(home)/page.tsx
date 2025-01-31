@@ -1,28 +1,94 @@
 'use client'
 
-// import { useEffect } from 'react'
+import { useEffect } from 'react'
 
-// import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
+
+import { sendEmailVerification, signOut, deleteUser } from 'firebase/auth'
 
 import { useAuthContext } from '@/contexts/auth-context'
-// import { env } from '@/env'
+import { auth } from '@/firebase/client'
 
 export default function Home() {
-  const { user } = useAuthContext() as { user: any } // Use 'as' to assert the type as { user: any }
-  console.error(user)
-  // const router = useRouter()
+  const { user, loading } = useAuthContext()
+  const router = useRouter()
 
-  // useEffect(() => {
-  //   // Redirect to the home page if the user is not logged in
-  //   if (user == null) {
-  //     router.push(`${env.NEXT_PUBLIC_ARYA_URL}/`)
-  //   }
-  //   // }, [ user ] );
-  // }, [user, router]) // Include 'router' in the dependency array to resolve eslint warning
+  useEffect(() => {
+    if (!loading && user == null) {
+      router.push('/')
+    }
+  }, [user, loading, router])
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth)
+      router.push('/')
+    } catch (error) {
+      console.error('Erro ao fazer logout:', error)
+    }
+  }
+
+  const handleSendEmailVerification = async () => {
+    if (!user) return
+
+    try {
+      await sendEmailVerification(user)
+      alert(
+        'E-mail de confirmação enviado com sucesso! Verifique sua caixa de entrada.'
+      )
+    } catch (error) {
+      console.error('Erro ao enviar o e-mail de confirmação:', error)
+      alert(
+        'Não foi possível enviar o e-mail de confirmação. Tente novamente mais tarde.'
+      )
+    }
+  }
+
+  const handleDeleteAccount = async () => {
+    if (!user) return
+
+    try {
+      await deleteUser(user)
+      alert('Conta deletada com sucesso.')
+      router.push('/')
+    } catch (error: any) {
+      if (error.code === 'auth/requires-recent-login') {
+        alert(
+          'Você precisa fazer login novamente para deletar sua conta. Por favor, faça logout e login novamente.'
+        )
+      } else {
+        console.error('Erro ao deletar conta:', error)
+        alert('Não foi possível deletar a conta. Tente novamente mais tarde.')
+      }
+    }
+  }
+
+  if (loading || user == null) {
+    return <p>Carregando...</p>
+  }
 
   return (
     <main>
-      <h1>SANSA</h1>
+      <h1>{user.email}</h1>
+      <div>{user.emailVerified && <h1>E-mail verificado</h1>}</div>
+      <button
+        onClick={handleLogout}
+        className="mt-4 px-4 py-2 bg-red-500 text-white rounded-sm hover:bg-red-600 focus:outline-hidden"
+      >
+        Logout
+      </button>
+      <button
+        onClick={handleSendEmailVerification}
+        className="mt-4 ml-4 px-4 py-2 bg-blue-500 text-white rounded-sm hover:bg-blue-600 focus:outline-hidden"
+      >
+        Enviar Confirmação de E-mail
+      </button>
+      <button
+        onClick={handleDeleteAccount}
+        className="mt-4 ml-4 px-4 py-2 bg-gray-500 text-white rounded-sm hover:bg-gray-600 focus:outline-hidden"
+      >
+        Deletar Conta
+      </button>
     </main>
   )
 }

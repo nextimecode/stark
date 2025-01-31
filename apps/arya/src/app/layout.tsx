@@ -21,8 +21,8 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | stark',
-    default: 'stark'
+    template: '%s | NeXTverso',
+    default: 'NeXTverso'
   },
   description: ''
 }
