@@ -16,25 +16,30 @@ async function getHomeData(): Promise<HomeProps> {
 
   const { admin, key } = getFirebaseAdmin()
 
+  console.error(JSON.parse(key))
+
   try {
     const userList = await admin.auth().listUsers(1)
     return {
+      key,
       message: `🔥 Firebase Admin funcionando! Usuários encontrados: ${userList.users.length}`
     }
   } catch (error) {
     return {
-      message: `❌ Chave${key} e Erro no Firebase Admin: ${(error as Error).message}`
+      key,
+      message: `${(error as Error).message}`
     }
   }
 }
 
 export default async function Teste() {
-  const { message } = await getHomeData()
+  const { message, key } = await getHomeData()
 
   return (
     <main>
-      <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
-        <span className="text-blue-600">{message}</span>
+      <div className="max-w-[85rem] mt-12 mx-auto px-4 sm:px-6 lg:px-8">
+        <p className="mb-12">❌{message}</p>
+        <p>{key}</p>
       </div>
     </main>
   )
