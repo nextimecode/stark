@@ -11,10 +11,8 @@ var serviceAccountKey = require('./serviceAccountKey.json')
 //   throw new Error('FIREBASE_ADMIN_SERVICE_ACCOUNT não está definida.')
 // }
 
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccountKey)
-  })
-}
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccountKey)
+})
 
 export { admin }

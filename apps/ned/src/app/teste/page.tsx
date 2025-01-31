@@ -29,10 +29,7 @@ export default async function Teste() {
   return (
     <main>
       <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="block text-3xl font-bold text-gray-800 sm:text-4xl lg:text-6xl lg:leading-tight dark:text-white">
-          Start your journey with{' '}
-          <span className="text-blue-600">{message}</span>
-        </h1>
+        <span className="text-blue-600">{message}</span>
       </div>
     </main>
   )
