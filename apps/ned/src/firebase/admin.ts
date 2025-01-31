@@ -13,7 +13,7 @@ export const getFirebaseAdmin = () => {
       credential: admin.credential.cert(serviceAccount)
     })
   }
-  const key = serviceAccountKey.slice(5)
+  const key = serviceAccountKey
 
   return { admin, key }
 }
