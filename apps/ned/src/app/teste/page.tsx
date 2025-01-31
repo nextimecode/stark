@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 
 import { HomeProps } from '@/data/types/home'
-import { admin } from '@/firebase/admin'
+import { getFirebaseAdmin } from '@/firebase/admin'
 
 export const metadata: Metadata = {
   title: 'Home Edoras'
@@ -14,13 +14,15 @@ async function getHomeData(): Promise<HomeProps> {
     throw new Error('getHomeData só pode ser chamado no servidor.')
   }
 
+  const admin = getFirebaseAdmin()
+
   try {
     const userList = await admin.auth().listUsers(1)
     return {
       message: `🔥 Firebase Admin funcionando! Usuários encontrados: ${userList.users.length}`
     }
   } catch (error) {
-    return { message: `❌ Erro no Firebase Admin: ${error}` }
+    return { message: `❌ Erro no Firebase Admin: ${error.message}` }
   }
 }
 
