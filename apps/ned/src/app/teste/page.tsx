@@ -19,7 +19,7 @@ async function getHomeData(): Promise<HomeProps> {
   console.error(JSON.parse(key))
 
   try {
-    const userList = await admin.auth().listUsers(1)
+    const userList = await admin.auth().listUsers()
     return {
       key,
       message: `🔥 Firebase Admin funcionando! Usuários encontrados: ${userList.users.length}`
