@@ -4,10 +4,11 @@ import { z } from 'zod'
 export const env = createEnv({
   server: {
     VERCEL_URL: z.string().optional(),
-    NEXT_PUBLIC_VERCEL_ENV: z.string().optional()
+    FIREBASE_ADMIN_SERVICE_ACCOUNT: z.string().optional()
   },
 
   client: {
+    NEXT_PUBLIC_VERCEL_ENV: z.string().optional(),
     NEXT_PUBLIC_VERCEL_URL: z.string().url().optional(),
     NEXT_PUBLIC_ARYA_URL: z.string().url().optional(),
     NEXT_PUBLIC_BRAN_URL: z.string().url().optional(),
@@ -16,10 +17,11 @@ export const env = createEnv({
   },
 
   runtimeEnv: {
+    FIREBASE_ADMIN_SERVICE_ACCOUNT: process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT,
+    NEXT_PUBLIC_VERCEL_ENV: process.env.NEXT_PUBLIC_VERCEL_ENV,
     NEXT_PUBLIC_VERCEL_URL: process.env.VERCEL_URL
       ? `https://${process.env.VERCEL_URL}`
       : undefined,
-    NEXT_PUBLIC_VERCEL_ENV: process.env.NEXT_PUBLIC_VERCEL_ENV,
     NEXT_PUBLIC_ARYA_URL: process.env.NEXT_PUBLIC_ARYA_URL,
     NEXT_PUBLIC_BRAN_URL: process.env.NEXT_PUBLIC_BRAN_URL,
     NEXT_PUBLIC_SANSA_URL: process.env.NEXT_PUBLIC_SANSA_URL,

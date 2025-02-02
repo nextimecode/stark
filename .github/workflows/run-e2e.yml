@@ -79,6 +79,9 @@ jobs:
     env:
       BASE_URL: ${{ fromJson(needs.wait-for-vercel.outputs.deployments)[format('{0}', matrix.project)] }}
     steps:
+      - name: Debug Environment Variables
+        run: echo "BASE_URL=${{ env.BASE_URL }}"
+
       - name: Checkout
         uses: actions/checkout@v4
 
