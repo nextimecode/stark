@@ -30,7 +30,7 @@ export function PersonalityCharts() {
         {/* Scroll horizontal para os gráficos */}
         <div className="overflow-x-auto">
           <div className="flex space-x-6">
-            {MBTI_PERSONALITY_TYPES.map(profile => (
+            {MBTI_PERSONALITY_TYPES.Analistas.types.map(profile => (
               <div key={profile.type} className="flex-shrink-0 w-[420px]">
                 <RadarChart
                   title={profile.type}
