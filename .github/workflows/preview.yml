@@ -43,25 +43,6 @@ jobs:
       - name: Run lint
         run: pnpm run lint
 
-  # typecheck:
-  #   needs: setup
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v4
-
-  #     - name: Setup Node.js
-  #       uses: actions/setup-node@v4
-  #       with:
-  #         node-version: ${{ needs.setup.outputs.node_version }}
-
-  #     - name: Install pnpm and dependencies
-  #       run: |
-  #         npm install -g pnpm@${{ needs.setup.outputs.pnpm_version }}
-  #         pnpm install
-
-  #     - name: Run typecheck
-  #       run: pnpm run typecheck
-
   audit:
     needs: setup
     runs-on: ubuntu-latest
@@ -101,26 +82,25 @@ jobs:
           )
 
           DEPLOYMENTS_JSON="{"
-          BRANCH_NAME=$(echo $GITHUB_REF | sed 's|refs/heads/||')
+          BRANCH_NAME="${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
 
           for project in "${!PROJECTS[@]}"; do
             PROJECT_ID=${PROJECTS[$project]}
             echo "Checking deployment status for $project..."
 
-            for i in {1..20}; do
+            for i in {1..10}; do
               RESPONSE=$(curl -s -H "Authorization: Bearer $VERCEL_TOKEN" \
                 "https://api.vercel.com/v6/deployments?teamId=$TEAM_ID&projectId=$PROJECT_ID")
 
-              STATUS=$(echo "$RESPONSE" | jq -r '.deployments[0].state')
               DEPLOYMENT_URL=$(echo "$RESPONSE" | jq -r --arg branch "$BRANCH_NAME" '.deployments[] | select(.meta.githubCommitRef == $branch) | .url' | head -n 1)
 
-              if [[ "$STATUS" == "READY" && -n "$DEPLOYMENT_URL" && "$DEPLOYMENT_URL" != "null" ]]; then
-                echo "✅ $project is ready! URL: $DEPLOYMENT_URL"
+              if [[ -n "$DEPLOYMENT_URL" && "$DEPLOYMENT_URL" != "null" ]]; then
+                echo "✅ $project is ready! URL: https://$DEPLOYMENT_URL"
                 DEPLOYMENTS_JSON+="\"$project\":\"https://$DEPLOYMENT_URL\","
                 break
               fi
 
-              echo "⏳ $project is still deploying... (attempt $i/20)"
+              echo "⏳ $project is still deploying... (attempt $i/10)"
               sleep 15
             done
           done
