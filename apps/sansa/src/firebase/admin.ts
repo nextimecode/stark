@@ -1,20 +1,21 @@
-// firebase/admin.ts
+export const dynamic = 'force-dynamic'
 
-import admin from 'firebase-admin'
+import firebaseAdminLib from 'firebase-admin'
 
-if (typeof window !== 'undefined') {
-  throw new Error('O Firebase Admin não pode ser executado no cliente.')
+const getFirebaseAdmin = () => {
+  const serviceAccountKey = process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT
+  if (!serviceAccountKey) {
+    throw new Error('FIREBASE_ADMIN_SERVICE_ACCOUNT não está definida.')
+  }
+
+  if (!firebaseAdminLib.apps.length) {
+    const serviceAccount = JSON.parse(serviceAccountKey)
+
+    firebaseAdminLib.initializeApp({
+      credential: firebaseAdminLib.credential.cert(serviceAccount)
+    })
+  }
+  return { admin: firebaseAdminLib, key: serviceAccountKey }
 }
-var serviceAccountKey = require('./serviceAccountKey.json')
 
-// if (!serviceAccountKey) {
-//   throw new Error('FIREBASE_ADMIN_SERVICE_ACCOUNT não está definida.')
-// }
-
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccountKey)
-  })
-}
-
-export { admin }
+export const { admin, key } = getFirebaseAdmin()
