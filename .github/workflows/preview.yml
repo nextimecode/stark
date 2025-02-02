@@ -88,7 +88,7 @@ jobs:
             PROJECT_ID=${PROJECTS[$project]}
             echo "Checking deployment status for $project..."
 
-            for i in {1..10}; do
+            for i in {1..5}; do
               RESPONSE=$(curl -s -H "Authorization: Bearer $VERCEL_TOKEN" \
                 "https://api.vercel.com/v6/deployments?teamId=$TEAM_ID&projectId=$PROJECT_ID")
 
