@@ -3,21 +3,23 @@ import { z } from 'zod'
 
 export const env = createEnv({
   server: {
-    VERCEL_URL: z.string().optional()
+    VERCEL_URL: z.string().optional(),
+    NEXT_PUBLIC_VERCEL_ENV: z.string().optional()
   },
 
   client: {
     NEXT_PUBLIC_VERCEL_URL: z.string().url().optional(),
-    NEXT_PUBLIC_ARYA_URL: z.string().url(),
-    NEXT_PUBLIC_BRAN_URL: z.string().url(),
-    NEXT_PUBLIC_SANSA_URL: z.string().url(),
-    NEXT_PUBLIC_NED_URL: z.string().url()
+    NEXT_PUBLIC_ARYA_URL: z.string().url().optional(),
+    NEXT_PUBLIC_BRAN_URL: z.string().url().optional(),
+    NEXT_PUBLIC_SANSA_URL: z.string().url().optional(),
+    NEXT_PUBLIC_NED_URL: z.string().url().optional()
   },
 
   runtimeEnv: {
     NEXT_PUBLIC_VERCEL_URL: process.env.VERCEL_URL
       ? `https://${process.env.VERCEL_URL}`
       : undefined,
+    NEXT_PUBLIC_VERCEL_ENV: process.env.NEXT_PUBLIC_VERCEL_ENV,
     NEXT_PUBLIC_ARYA_URL: process.env.NEXT_PUBLIC_ARYA_URL,
     NEXT_PUBLIC_BRAN_URL: process.env.NEXT_PUBLIC_BRAN_URL,
     NEXT_PUBLIC_SANSA_URL: process.env.NEXT_PUBLIC_SANSA_URL,
@@ -28,9 +30,12 @@ export const env = createEnv({
 
 export const getBaseUrl = () => {
   const vercelUrl = env.NEXT_PUBLIC_VERCEL_URL
-  console.error('vercelUrl', vercelUrl)
+  const isPreview = env.NEXT_PUBLIC_VERCEL_ENV === 'preview'
 
-  if (process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview' && vercelUrl) {
+  console.error('vercelUrl', vercelUrl)
+  console.error('isPreview', isPreview)
+
+  if (isPreview && vercelUrl) {
     return {
       aryaUrl: `https://arya-${vercelUrl}`,
       branUrl: `https://bran-${vercelUrl}`,
@@ -40,9 +45,9 @@ export const getBaseUrl = () => {
   }
 
   return {
-    aryaUrl: env.NEXT_PUBLIC_ARYA_URL,
-    branUrl: env.NEXT_PUBLIC_BRAN_URL,
-    sansaUrl: env.NEXT_PUBLIC_SANSA_URL,
-    nedUrl: env.NEXT_PUBLIC_NED_URL
+    aryaUrl: env.NEXT_PUBLIC_ARYA_URL || '',
+    branUrl: env.NEXT_PUBLIC_BRAN_URL || '',
+    sansaUrl: env.NEXT_PUBLIC_SANSA_URL || '',
+    nedUrl: env.NEXT_PUBLIC_NED_URL || ''
   }
 }
