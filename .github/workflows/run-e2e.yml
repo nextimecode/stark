@@ -43,7 +43,7 @@ jobs:
       - name: Set dynamic BASE_URLs for Preview
         id: set-urls
         run: |
-          VERCEL_URL="${{ github.event.deployment_status.target_url }}"
+          VERCEL_URL="${VERCEL_URL}"
 
           if [[ -n "$VERCEL_URL" ]]; then
             echo "VERCEL_URL=$VERCEL_URL" >> "$GITHUB_OUTPUT"
