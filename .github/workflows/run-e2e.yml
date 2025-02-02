@@ -43,23 +43,23 @@ jobs:
       - name: Set dynamic BASE_URLs for Preview
         id: set-urls
         run: |
-          VERCEL_URL="${VERCEL_URL}"
+          PROJECT_NAME="arya"  # Nome do projeto
+          BRANCH_NAME="${{ github.ref_name }}"  # Nome da branch atual
 
-          if [[ -n "$VERCEL_URL" ]]; then
-            echo "VERCEL_URL=$VERCEL_URL" >> "$GITHUB_OUTPUT"
-            echo "ARYA_BASE_URL=https://arya-$VERCEL_URL" >> "$GITHUB_OUTPUT"
-            echo "SANSA_BASE_URL=https://sansa-$VERCEL_URL" >> "$GITHUB_OUTPUT"
-            echo "BRAN_BASE_URL=https://bran-$VERCEL_URL" >> "$GITHUB_OUTPUT"
-            echo "NED_BASE_URL=https://ned-$VERCEL_URL" >> "$GITHUB_OUTPUT"
-          else
-            echo "ARYA_BASE_URL=http://localhost:3000" >> "$GITHUB_OUTPUT"
-            echo "SANSA_BASE_URL=http://localhost:3001" >> "$GITHUB_OUTPUT"
-            echo "BRAN_BASE_URL=http://localhost:8000" >> "$GITHUB_OUTPUT"
-            echo "NED_BASE_URL=http://localhost:3002" >> "$GITHUB_OUTPUT"
-          fi
+          # Transformar branch para o formato correto da Vercel
+          SANITIZED_BRANCH=$(echo "$BRANCH_NAME" | sed 's|/|-|g')
+
+          VERCEL_URL="https://${PROJECT_NAME}-git-${SANITIZED_BRANCH}-nextimes-projects.vercel.app"
+
+          echo "VERCEL_URL=$VERCEL_URL" >> "$GITHUB_OUTPUT"
+          echo "ARYA_BASE_URL=$VERCEL_URL" >> "$GITHUB_OUTPUT"
+          echo "SANSA_BASE_URL=https://sansa-git-${SANITIZED_BRANCH}-nextimes-projects.vercel.app" >> "$GITHUB_OUTPUT"
+          echo "BRAN_BASE_URL=https://bran-git-${SANITIZED_BRANCH}-nextimes-projects.vercel.app" >> "$GITHUB_OUTPUT"
+          echo "NED_BASE_URL=https://ned-git-${SANITIZED_BRANCH}-nextimes-projects.vercel.app" >> "$GITHUB_OUTPUT"
 
       - name: Debug URLs
         run: |
+          echo "VERCEL_URL=${{ steps.set-urls.outputs.VERCEL_URL }}"
           echo "ARYA_BASE_URL=${{ steps.set-urls.outputs.ARYA_BASE_URL }}"
           echo "SANSA_BASE_URL=${{ steps.set-urls.outputs.SANSA_BASE_URL }}"
           echo "BRAN_BASE_URL=${{ steps.set-urls.outputs.BRAN_BASE_URL }}"
