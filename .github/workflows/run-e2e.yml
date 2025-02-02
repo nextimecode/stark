@@ -17,8 +17,8 @@ jobs:
         run: |
           NODE_VERSION=$(jq -r '.engines.node' package.json)
           PNPM_VERSION=$(jq -r '.packageManager' package.json | cut -d "@" -f 2)
-          echo "node_version=$NODE_VERSION" >> "$GITHUB_OUTPUT"
-          echo "pnpm_version=$PNPM_VERSION" >> "$GITHUB_OUTPUT"
+          echo "node_version=$NODE_VERSION" >> $GITHUB_OUTPUT
+          echo "pnpm_version=$PNPM_VERSION" >> $GITHUB_OUTPUT
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
@@ -40,51 +40,23 @@ jobs:
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
 
-      - name: Set dynamic BASE_URLs for Preview
-        id: set-urls
-        run: |
-          PROJECT_NAME="arya"  # Nome do projeto
-
-          # Captura corretamente o nome da branch
-          BRANCH_NAME="${GITHUB_REF#refs/heads/}"  # Remove 'refs/heads/' para pegar o nome puro
-
-          # Substitui '/' por '-' para formatar corretamente para a Vercel
-          SANITIZED_BRANCH=$(echo "$BRANCH_NAME" | tr '/' '-')
-
-          # Constrói a URL final no formato correto da Vercel
-          VERCEL_URL="https://${PROJECT_NAME}-git-${SANITIZED_BRANCH}-nextimes-projects.vercel.app"
-
-          echo "VERCEL_URL=$VERCEL_URL" >> "$GITHUB_OUTPUT"
-          echo "ARYA_BASE_URL=$VERCEL_URL" >> "$GITHUB_OUTPUT"
-          echo "SANSA_BASE_URL=https://sansa-git-${SANITIZED_BRANCH}-nextimes-projects.vercel.app" >> "$GITHUB_OUTPUT"
-          echo "BRAN_BASE_URL=https://bran-git-${SANITIZED_BRANCH}-nextimes-projects.vercel.app" >> "$GITHUB_OUTPUT"
-          echo "NED_BASE_URL=https://ned-git-${SANITIZED_BRANCH}-nextimes-projects.vercel.app" >> "$GITHUB_OUTPUT"
-
-      - name: Debug URLs
-        run: |
-          echo "VERCEL_URL=${{ steps.set-urls.outputs.VERCEL_URL }}"
-          echo "ARYA_BASE_URL=${{ steps.set-urls.outputs.ARYA_BASE_URL }}"
-          echo "SANSA_BASE_URL=${{ steps.set-urls.outputs.SANSA_BASE_URL }}"
-          echo "BRAN_BASE_URL=${{ steps.set-urls.outputs.BRAN_BASE_URL }}"
-          echo "NED_BASE_URL=${{ steps.set-urls.outputs.NED_BASE_URL }}"
-
       - name: Start all applications
         run: |
           pnpm dev &
           echo $! > dev_pid
         env:
-          ARYA_BASE_URL: ${{ steps.set-urls.outputs.ARYA_BASE_URL }}
-          SANSA_BASE_URL: ${{ steps.set-urls.outputs.SANSA_BASE_URL }}
-          BRAN_BASE_URL: ${{ steps.set-urls.outputs.BRAN_BASE_URL }}
-          NED_BASE_URL: ${{ steps.set-urls.outputs.NED_BASE_URL }}
+          ARYA_BASE_URL: http://localhost:3000
+          SANSA_BASE_URL: http://localhost:3001
+          BRAN_BASE_URL: http://localhost:8000
+          NED_BASE_URL: http://localhost:3002
 
       - name: Wait for applications to be ready
         run: |
           timeout 120s bash -c '
-          until curl -s "${{ steps.set-urls.outputs.ARYA_BASE_URL }}" > /dev/null && \
-                curl -s "${{ steps.set-urls.outputs.SANSA_BASE_URL }}" > /dev/null && \
-                curl -s "${{ steps.set-urls.outputs.BRAN_BASE_URL }}" > /dev/null && \
-                curl -s "${{ steps.set-urls.outputs.NED_BASE_URL }}" > /dev/null; do
+          until curl -s http://localhost:8000 > /dev/null && \
+                curl -s http://localhost:3000 > /dev/null && \
+                curl -s http://localhost:3001 > /dev/null && \
+                curl -s http://localhost:3002 > /dev/null; do
             echo "Waiting for applications to be ready...";
             sleep 5;
           done
@@ -93,12 +65,12 @@ jobs:
       - name: Run Playwright tests for Arya
         run: pnpm run arya:e2e
         env:
-          BASE_URL: ${{ steps.set-urls.outputs.ARYA_BASE_URL }}
+          BASE_URL: http://localhost:3000
 
       - name: Run Playwright tests for Sansa
         run: pnpm run sansa:e2e
         env:
-          BASE_URL: ${{ steps.set-urls.outputs.SANSA_BASE_URL }}
+          BASE_URL: http://localhost:3001
 
       - name: Upload Playwright Report
         if: always()
