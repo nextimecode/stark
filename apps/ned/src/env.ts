@@ -35,25 +35,27 @@ const replaceSubdomain = (url: string, newSubdomain: string) => {
 }
 
 export const getBaseUrl = () => {
-  const vercelUrl = env.NEXT_PUBLIC_VERCEL_URL
-  const isPreview = env.NEXT_PUBLIC_VERCEL_ENV === 'preview'
+  const branchUrl = process.env.VERCEL_BRANCH_URL
+  const projectProductionUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  const isPreview = process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview'
 
-  console.error('vercelUrl', vercelUrl)
+  console.error('branchUrl', branchUrl)
+  console.error('projectProductionUrl', projectProductionUrl)
   console.error('isPreview', isPreview)
 
-  if (isPreview && vercelUrl) {
+  if (isPreview && branchUrl && projectProductionUrl) {
     return {
-      aryaUrl: replaceSubdomain(vercelUrl, 'arya'),
-      branUrl: replaceSubdomain(vercelUrl, 'bran'),
-      sansaUrl: replaceSubdomain(vercelUrl, 'sansa'),
-      nedUrl: replaceSubdomain(vercelUrl, 'ned')
+      aryaUrl: `https://arya-${branchUrl}`,
+      branUrl: `https://bran-${branchUrl}`,
+      sansaUrl: `https://sansa-${branchUrl}`,
+      nedUrl: `https://ned-${branchUrl}`
     }
   }
 
   return {
-    aryaUrl: env.NEXT_PUBLIC_ARYA_URL || '',
-    branUrl: env.NEXT_PUBLIC_BRAN_URL || '',
-    sansaUrl: env.NEXT_PUBLIC_SANSA_URL || '',
-    nedUrl: env.NEXT_PUBLIC_NED_URL || ''
+    aryaUrl: process.env.NEXT_PUBLIC_ARYA_URL || '',
+    branUrl: process.env.NEXT_PUBLIC_BRAN_URL || '',
+    sansaUrl: process.env.NEXT_PUBLIC_SANSA_URL || '',
+    nedUrl: process.env.NEXT_PUBLIC_NED_URL || ''
   }
 }
