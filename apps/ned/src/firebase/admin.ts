@@ -1,21 +1,21 @@
 export const dynamic = 'force-dynamic'
 
-import admin from 'firebase-admin'
+import firebaseAdminLib from 'firebase-admin'
 
-export const getFirebaseAdmin = () => {
+const getFirebaseAdmin = () => {
   const serviceAccountKey = process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT
   if (!serviceAccountKey) {
     throw new Error('FIREBASE_ADMIN_SERVICE_ACCOUNT não está definida.')
   }
 
-  if (!admin.apps.length) {
+  if (!firebaseAdminLib.apps.length) {
     const serviceAccount = JSON.parse(serviceAccountKey)
 
-    admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount)
+    firebaseAdminLib.initializeApp({
+      credential: firebaseAdminLib.credential.cert(serviceAccount)
     })
   }
-  const key = serviceAccountKey
-
-  return { admin, key }
+  return { admin: firebaseAdminLib, key: serviceAccountKey }
 }
+
+export const { admin, key } = getFirebaseAdmin()

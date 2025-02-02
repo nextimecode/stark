@@ -7,22 +7,24 @@ import { useRouter } from 'next/navigation'
 import { sendEmailVerification, signOut, deleteUser } from 'firebase/auth'
 
 import { useAuthContext } from '@/contexts/auth-context'
+import { getBaseUrl } from '@/env'
 import { auth } from '@/firebase/client'
 
 export default function Home() {
   const { user, loading } = useAuthContext()
   const router = useRouter()
+  const { nedUrl, aryaUrl } = getBaseUrl()
 
   useEffect(() => {
     if (!loading && user == null) {
-      router.push('/')
+      router.push(nedUrl)
     }
   }, [user, loading, router])
 
   const handleLogout = async () => {
     try {
       await signOut(auth)
-      router.push('/')
+      router.push(aryaUrl)
     } catch (error) {
       console.error('Erro ao fazer logout:', error)
     }
@@ -50,7 +52,7 @@ export default function Home() {
     try {
       await deleteUser(user)
       alert('Conta deletada com sucesso.')
-      router.push('/')
+      router.push(aryaUrl)
     } catch (error: any) {
       if (error.code === 'auth/requires-recent-login') {
         alert(

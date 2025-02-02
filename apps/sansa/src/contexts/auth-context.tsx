@@ -42,7 +42,9 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    console.error('Iniciando listener de autenticação...')
     const unsubscribe = onAuthStateChanged(auth, firebaseUser => {
+      console.error('Usuário autenticado:', firebaseUser)
       setUser(firebaseUser || null)
       setLoading(false)
     })

@@ -35,6 +35,7 @@
     "prepush",
     "unplugin",
     "unsplash",
+    "vercel",
     "whatwg"
   ],
   "git.ignoreLimitWarning": true,
