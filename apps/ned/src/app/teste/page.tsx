@@ -14,26 +14,33 @@ async function getHomeData(): Promise<HomeProps> {
     throw new Error('getHomeData só pode ser chamado no servidor.')
   }
 
-  const vercelUrl = process.env.VERCEL_URL
+  const vercelUrl = process.env.VERCEL_BRANCH_URL
+  const projectProductionUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  const isPreview = process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview'
 
   try {
     const userList = await admin.auth().listUsers()
     return {
       key,
       message: `🔥 Firebase Admin funcionando! Usuários encontrados: ${userList.users.length}`,
-      vercelUrl
+      vercelUrl,
+      projectProductionUrl,
+      isPreview
     }
   } catch (error) {
     return {
       key,
       message: `${(error as Error).message}`,
-      vercelUrl
+      vercelUrl,
+      projectProductionUrl,
+      isPreview
     }
   }
 }
 
 export default async function Teste() {
-  const { message, key, vercelUrl } = await getHomeData()
+  const { message, key, vercelUrl, projectProductionUrl, isPreview } =
+    await getHomeData()
 
   return (
     <main>
@@ -41,6 +48,8 @@ export default async function Teste() {
         <p className="mb-12">❌{message}</p>
         <p>{key}</p>
         <p>{vercelUrl}</p>
+        <p>{projectProductionUrl}</p>
+        <p>{isPreview}</p>
       </div>
     </main>
   )
