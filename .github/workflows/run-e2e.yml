@@ -23,11 +23,10 @@ jobs:
             ["arya"]="prj_DytZfE86EQiggEoKelCi1bvvH1Q8"
           )
 
-          # Obtendo o nome correto da branch
           BRANCH_NAME="${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
           echo "🔍 Nome da branch detectada: $BRANCH_NAME"
 
-          DEPLOYMENTS_JSON="{"
+          DEPLOYMENTS_JSON=""
 
           for project in "${!PROJECTS[@]}"; do
             PROJECT_ID=${PROJECTS[$project]}
@@ -47,11 +46,6 @@ jobs:
               DEPLOYMENT_URL=$(echo "$DEPLOYMENT_DATA" | jq -r '.[0].meta.branchAlias')
               DEPLOYMENT_STATE=$(echo "$DEPLOYMENT_DATA" | jq -r '.[0].state')
 
-              echo "🔎 [$project] Tentativa $i"
-              echo "🌿 Branch verificada: $BRANCH_NAME"
-              echo "➡️ URL Encontrada: ${DEPLOYMENT_URL:-Nenhuma}"
-              echo "📌 Estado: ${DEPLOYMENT_STATE:-Desconhecido}"
-
               if [[ "$DEPLOYMENT_STATE" == "READY" && -n "$DEPLOYMENT_URL" && "$DEPLOYMENT_URL" != "null" ]]; then
                 echo "✅ $project está pronto! URL: https://$DEPLOYMENT_URL"
                 DEPLOYMENTS_JSON+="\"$project\":\"https://$DEPLOYMENT_URL\","
@@ -60,7 +54,7 @@ jobs:
               fi
 
               echo "⏳ $project ainda está em deployment... (tentativa $i/10)"
-              sleep 20
+              sleep 160
             done
 
             if [[ "$READY" == "false" ]]; then
@@ -69,6 +63,59 @@ jobs:
             fi
           done
 
-          DEPLOYMENTS_JSON="${DEPLOYMENTS_JSON%,}}"
+          DEPLOYMENTS_JSON="${DEPLOYMENTS_JSON%,}"
+          DEPLOYMENTS_JSON="{${DEPLOYMENTS_JSON}}"
+
           echo "deployments=$DEPLOYMENTS_JSON" >> $GITHUB_OUTPUT
           echo "🚀 Deployments finais: $DEPLOYMENTS_JSON"
+
+  run-e2e-tests:
+    needs: wait-for-vercel
+    if: ${{ needs.wait-for-vercel.result == 'success' }}
+    strategy:
+      matrix:
+        project: [arya, sansa, bran, ned]
+    runs-on: ubuntu-latest
+    env:
+      BASE_URL: ${{ fromJson(needs.wait-for-vercel.outputs.deployments)[format('{0}', matrix.project)] }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Extract Node.js and pnpm versions from package.json
+        id: extract-versions
+        run: |
+          NODE_VERSION=$(jq -r '.engines.node' package.json)
+          PNPM_VERSION=$(jq -r '.packageManager' package.json | cut -d "@" -f 2)
+          echo "node_version=$NODE_VERSION" >> $GITHUB_OUTPUT
+          echo "pnpm_version=$PNPM_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ${{ steps.extract-versions.outputs.pnpm_version }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ steps.extract-versions.outputs.node_version }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install --with-deps
+
+      - name: Run Playwright tests for ${{ matrix.project }}
+        run: pnpm run ${{ matrix.project }}:e2e
+        env:
+          BASE_URL: ${{ fromJson(needs.wait-for-vercel.outputs.deployments)[format('{0}', matrix.project)] }}
+
+      - name: Upload Playwright Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-reports-${{ matrix.project }}
+          path: '**/playwright-report/'
+          retention-days: 30

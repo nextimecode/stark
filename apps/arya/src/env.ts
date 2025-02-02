@@ -28,6 +28,7 @@ export const env = createEnv({
 
 export const getBaseUrl = () => {
   const vercelUrl = env.NEXT_PUBLIC_VERCEL_URL
+  console.error('vercelUrl', vercelUrl)
 
   if (process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview' && vercelUrl) {
     return {
