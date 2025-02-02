@@ -1,12 +1,10 @@
 name: Run E2E tests
 
 on:
-  deployment_status:
+  pull_request:
 
 jobs:
   wait-for-vercel:
-    if: ${{ github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success' }}
-    timeout-minutes: 60
     runs-on: ubuntu-latest
     outputs:
       deployments: ${{ steps.set-urls.outputs.deployments }}
