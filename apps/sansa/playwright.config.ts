@@ -23,7 +23,7 @@ export default defineConfig({
   reporter: [['html', { outputFolder: 'playwright-report' }]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    baseURL: 'http://localhost:3001',
+    baseURL: process.env.BASE_URL || 'http://localhost:3001',
     trace: 'on-first-retry'
   },
 
