@@ -9,11 +9,11 @@ export const env = createEnv({
 
   client: {
     NEXT_PUBLIC_VERCEL_ENV: z.string().optional(),
-    NEXT_PUBLIC_VERCEL_URL: z.string().optional(),
-    NEXT_PUBLIC_ARYA_URL: z.string().optional(),
-    NEXT_PUBLIC_BRAN_URL: z.string().optional(),
-    NEXT_PUBLIC_SANSA_URL: z.string().optional(),
-    NEXT_PUBLIC_NED_URL: z.string().optional()
+    NEXT_PUBLIC_VERCEL_URL: z.string().url().optional(),
+    NEXT_PUBLIC_ARYA_URL: z.string().url().optional(),
+    NEXT_PUBLIC_BRAN_URL: z.string().url().optional(),
+    NEXT_PUBLIC_SANSA_URL: z.string().url().optional(),
+    NEXT_PUBLIC_NED_URL: z.string().url().optional()
   },
 
   runtimeEnv: {
@@ -30,6 +30,10 @@ export const env = createEnv({
   }
 })
 
+const replaceSubdomain = (url: string, newSubdomain: string) => {
+  return url.replace(/\/\/[^-]+-/, `//${newSubdomain}-`)
+}
+
 export const getBaseUrl = () => {
   const vercelUrl = env.NEXT_PUBLIC_VERCEL_URL
   const isPreview = env.NEXT_PUBLIC_VERCEL_ENV === 'preview'
@@ -39,17 +43,17 @@ export const getBaseUrl = () => {
 
   if (isPreview && vercelUrl) {
     return {
-      aryaUrl: `https://arya-${vercelUrl}`,
-      branUrl: `https://bran-${vercelUrl}`,
-      sansaUrl: `https://sansa-${vercelUrl}`,
-      nedUrl: `https://ned-${vercelUrl}`
+      aryaUrl: replaceSubdomain(vercelUrl, 'arya'),
+      branUrl: replaceSubdomain(vercelUrl, 'bran'),
+      sansaUrl: replaceSubdomain(vercelUrl, 'sansa'),
+      nedUrl: replaceSubdomain(vercelUrl, 'ned')
     }
   }
 
   return {
-    aryaUrl: env.NEXT_PUBLIC_ARYA_URL || 'http://localhost:3001',
-    branUrl: env.NEXT_PUBLIC_BRAN_URL || 'http://localhost:3002',
-    sansaUrl: env.NEXT_PUBLIC_SANSA_URL || 'http://localhost:3003',
-    nedUrl: env.NEXT_PUBLIC_NED_URL || 'http://localhost:3004'
+    aryaUrl: env.NEXT_PUBLIC_ARYA_URL || '',
+    branUrl: env.NEXT_PUBLIC_BRAN_URL || '',
+    sansaUrl: env.NEXT_PUBLIC_SANSA_URL || '',
+    nedUrl: env.NEXT_PUBLIC_NED_URL || ''
   }
 }

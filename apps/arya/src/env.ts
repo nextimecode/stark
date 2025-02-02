@@ -30,6 +30,10 @@ export const env = createEnv({
   }
 })
 
+const replaceSubdomain = (url: string, newSubdomain: string) => {
+  return url.replace(/\/\/[^-]+-/, `//${newSubdomain}-`)
+}
+
 export const getBaseUrl = () => {
   const vercelUrl = env.NEXT_PUBLIC_VERCEL_URL
   const isPreview = env.NEXT_PUBLIC_VERCEL_ENV === 'preview'
@@ -39,10 +43,10 @@ export const getBaseUrl = () => {
 
   if (isPreview && vercelUrl) {
     return {
-      aryaUrl: `https://arya-${vercelUrl}`,
-      branUrl: `https://bran-${vercelUrl}`,
-      sansaUrl: `https://sansa-${vercelUrl}`,
-      nedUrl: `https://ned-${vercelUrl}`
+      aryaUrl: replaceSubdomain(vercelUrl, 'arya'),
+      branUrl: replaceSubdomain(vercelUrl, 'bran'),
+      sansaUrl: replaceSubdomain(vercelUrl, 'sansa'),
+      nedUrl: replaceSubdomain(vercelUrl, 'ned')
     }
   }
 
