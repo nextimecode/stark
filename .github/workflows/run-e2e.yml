@@ -17,8 +17,8 @@ jobs:
         run: |
           NODE_VERSION=$(jq -r '.engines.node' package.json)
           PNPM_VERSION=$(jq -r '.packageManager' package.json | cut -d "@" -f 2)
-          echo "node_version=$NODE_VERSION" >> $GITHUB_OUTPUT
-          echo "pnpm_version=$PNPM_VERSION" >> $GITHUB_OUTPUT
+          echo "node_version=$NODE_VERSION" >> "$GITHUB_OUTPUT"
+          echo "pnpm_version=$PNPM_VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
@@ -40,23 +40,48 @@ jobs:
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
 
+      - name: Set dynamic BASE_URLs for Preview
+        id: set-urls
+        run: |
+          VERCEL_URL="${{ github.event.deployment_status.target_url }}"
+
+          if [[ -n "$VERCEL_URL" ]]; then
+            echo "VERCEL_URL=$VERCEL_URL" >> "$GITHUB_OUTPUT"
+            echo "ARYA_BASE_URL=https://arya-$VERCEL_URL" >> "$GITHUB_OUTPUT"
+            echo "SANSA_BASE_URL=https://sansa-$VERCEL_URL" >> "$GITHUB_OUTPUT"
+            echo "BRAN_BASE_URL=https://bran-$VERCEL_URL" >> "$GITHUB_OUTPUT"
+            echo "NED_BASE_URL=https://ned-$VERCEL_URL" >> "$GITHUB_OUTPUT"
+          else
+            echo "ARYA_BASE_URL=http://localhost:3000" >> "$GITHUB_OUTPUT"
+            echo "SANSA_BASE_URL=http://localhost:3001" >> "$GITHUB_OUTPUT"
+            echo "BRAN_BASE_URL=http://localhost:8000" >> "$GITHUB_OUTPUT"
+            echo "NED_BASE_URL=http://localhost:3002" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Debug URLs
+        run: |
+          echo "ARYA_BASE_URL=${{ steps.set-urls.outputs.ARYA_BASE_URL }}"
+          echo "SANSA_BASE_URL=${{ steps.set-urls.outputs.SANSA_BASE_URL }}"
+          echo "BRAN_BASE_URL=${{ steps.set-urls.outputs.BRAN_BASE_URL }}"
+          echo "NED_BASE_URL=${{ steps.set-urls.outputs.NED_BASE_URL }}"
+
       - name: Start all applications
         run: |
           pnpm dev &
           echo $! > dev_pid
         env:
-          ARYA_BASE_URL: http://localhost:3000
-          SANSA_BASE_URL: http://localhost:3001
-          BRAN_BASE_URL: http://localhost:8000
-          NED_BASE_URL: http://localhost:3002
+          ARYA_BASE_URL: ${{ steps.set-urls.outputs.ARYA_BASE_URL }}
+          SANSA_BASE_URL: ${{ steps.set-urls.outputs.SANSA_BASE_URL }}
+          BRAN_BASE_URL: ${{ steps.set-urls.outputs.BRAN_BASE_URL }}
+          NED_BASE_URL: ${{ steps.set-urls.outputs.NED_BASE_URL }}
 
       - name: Wait for applications to be ready
         run: |
           timeout 120s bash -c '
-          until curl -s http://localhost:8000 > /dev/null && \
-                curl -s http://localhost:3000 > /dev/null && \
-                curl -s http://localhost:3001 > /dev/null && \
-                curl -s http://localhost:3002 > /dev/null; do
+          until curl -s "${{ steps.set-urls.outputs.ARYA_BASE_URL }}" > /dev/null && \
+                curl -s "${{ steps.set-urls.outputs.SANSA_BASE_URL }}" > /dev/null && \
+                curl -s "${{ steps.set-urls.outputs.BRAN_BASE_URL }}" > /dev/null && \
+                curl -s "${{ steps.set-urls.outputs.NED_BASE_URL }}" > /dev/null; do
             echo "Waiting for applications to be ready...";
             sleep 5;
           done
@@ -65,12 +90,12 @@ jobs:
       - name: Run Playwright tests for Arya
         run: pnpm run arya:e2e
         env:
-          BASE_URL: http://localhost:3000
+          BASE_URL: ${{ steps.set-urls.outputs.ARYA_BASE_URL }}
 
       - name: Run Playwright tests for Sansa
         run: pnpm run sansa:e2e
         env:
-          BASE_URL: http://localhost:3001
+          BASE_URL: ${{ steps.set-urls.outputs.SANSA_BASE_URL }}
 
       - name: Upload Playwright Report
         if: always()
