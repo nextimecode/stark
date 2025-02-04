@@ -62,7 +62,7 @@ export function Hero() {
           <div>
             <video
               className="md:w-[600px] md:h-[600px] rounded-md object-cover"
-              src="https://odxuo8kv45bo5dqj.public.blob.vercel-storage.com/movie-Fcux3OofpVpJa2BmSmuT4dBa9R2egn.mp4"
+              src="movie.mp4"
               autoPlay
               loop
               muted

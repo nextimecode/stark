@@ -11,9 +11,9 @@ import { useAuthContext } from '@/contexts/auth-context'
 import { signInWithGoogle, signInWithEmailAndPassword } from '@/firebase/auth'
 import { GoogleIcon } from '@/icons'
 
-export default function Login() {
+export default function SignIn() {
   const router = useRouter()
-  const { updateUser } = useAuthContext() // Pega o updateUser aqui
+  const { updateUser } = useAuthContext()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')

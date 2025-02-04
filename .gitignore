@@ -65,6 +65,9 @@ yarn-error.log*
 .env
 .env.local
 .env.development
+.env.preview
+.env.staging
+.env.homolog
 .env.production
 .env.test
 **/.env
