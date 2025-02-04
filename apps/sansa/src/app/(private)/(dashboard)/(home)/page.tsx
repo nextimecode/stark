@@ -1,96 +1,28 @@
-'use client'
+import { cookies } from 'next/headers'
 
-import { useEffect } from 'react'
+import { admin } from '@/firebase/admin'
 
-import { useRouter } from 'next/navigation'
+import DashboardClient from './dashboard-client'
 
-import { sendEmailVerification, signOut, deleteUser } from 'firebase/auth'
-
-import { useAuthContext } from '@/contexts/auth-context'
-import { getBaseUrl } from '@/env'
-import { auth } from '@/firebase/client'
-
-export default function Home() {
-  const { user, loading } = useAuthContext()
-  const router = useRouter()
-  const { nedUrl, aryaUrl } = getBaseUrl()
-
-  useEffect(() => {
-    if (!loading && user == null) {
-      router.push(nedUrl)
-    }
-  }, [user, loading, router])
-
-  const handleLogout = async () => {
-    try {
-      await signOut(auth)
-      router.push(aryaUrl)
-    } catch (error) {
-      console.error('Erro ao fazer logout:', error)
-    }
+export default async function DashboardPage() {
+  const cookieStore = await cookies()
+  const token = cookieStore.get('token')?.value
+  if (!token) {
+    return <p>Não autenticado</p>
   }
-
-  const handleSendEmailVerification = async () => {
-    if (!user) return
-
-    try {
-      await sendEmailVerification(user)
-      alert(
-        'E-mail de confirmação enviado com sucesso! Verifique sua caixa de entrada.'
-      )
-    } catch (error) {
-      console.error('Erro ao enviar o e-mail de confirmação:', error)
-      alert(
-        'Não foi possível enviar o e-mail de confirmação. Tente novamente mais tarde.'
-      )
-    }
+  let decodedToken
+  try {
+    decodedToken = await admin.auth().verifySessionCookie(token)
+  } catch {
+    return <p>Erro na autenticação</p>
   }
-
-  const handleDeleteAccount = async () => {
-    if (!user) return
-
-    try {
-      await deleteUser(user)
-      alert('Conta deletada com sucesso.')
-      router.push(aryaUrl)
-    } catch (error: any) {
-      if (error.code === 'auth/requires-recent-login') {
-        alert(
-          'Você precisa fazer login novamente para deletar sua conta. Por favor, faça logout e login novamente.'
-        )
-      } else {
-        console.error('Erro ao deletar conta:', error)
-        alert('Não foi possível deletar a conta. Tente novamente mais tarde.')
-      }
-    }
+  if (!decodedToken.email || typeof decodedToken.email_verified !== 'boolean') {
+    return <p>Erro: dados do usuário inválidos</p>
   }
-
-  if (loading || user == null) {
-    return <p>Carregando...</p>
+  const user = {
+    uid: decodedToken.uid,
+    email: decodedToken.email,
+    emailVerified: decodedToken.email_verified
   }
-
-  return (
-    <main>
-      <h1>{user.email}</h1>
-      <div>{user.emailVerified && <h1>E-mail verificado</h1>}</div>
-      <button
-        onClick={handleLogout}
-        className="mt-4 px-4 py-2 bg-red-500 text-white rounded-sm hover:bg-red-600 focus:outline-hidden"
-      >
-        Logout
-      </button>
-      <button
-        onClick={handleSendEmailVerification}
-        className="mt-4 ml-4 px-4 py-2 bg-blue-500 text-white rounded-sm hover:bg-blue-600 focus:outline-hidden"
-      >
-        Enviar Confirmação de E-mail
-      </button>
-      <button
-        onClick={handleDeleteAccount}
-        className="mt-4 ml-4 px-4 py-2 bg-gray-500 text-white rounded-sm hover:bg-gray-600 focus:outline-hidden"
-      >
-        Deletar Conta
-      </button>
-    </main>
-  )
+  return <DashboardClient user={user} />
 }
