@@ -11,9 +11,9 @@ import { useAuthContext } from '@/contexts/auth-context'
 import { signInWithGoogle, signInWithEmailAndPassword } from '@/firebase/auth'
 import { GoogleIcon } from '@/icons'
 
-export default function Login() {
+export default function SignIn() {
   const router = useRouter()
-  const { updateUser } = useAuthContext() // Pega o updateUser aqui
+  const { updateUser } = useAuthContext()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
@@ -21,14 +21,23 @@ export default function Login() {
 
   const handleGoogleLogin = async () => {
     setIsLoading(true)
-    const { success, error } = await signInWithGoogle()
-
-    if (success) {
-      router.push('/')
+    const { success, error, data } = await signInWithGoogle()
+    if (success && data?.user) {
+      const token = await data.user.getIdToken()
+      const response = await fetch('/api/set-cookie', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token })
+      })
+      if (response.ok) {
+        updateUser(data.user)
+        router.push('/')
+      } else {
+        setErrorMessage('Erro ao configurar o cookie de sessão.')
+      }
     } else {
       setErrorMessage(error || 'Falha ao fazer login com o Google.')
     }
-    setIsLoading(false)
   }
 
   const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -41,10 +50,19 @@ export default function Login() {
     )
 
     if (success && data?.user) {
-      updateUser(data.user)
-      router.push('/')
+      const token = await data.user.getIdToken()
+      const response = await fetch('/api/set-cookie', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token })
+      })
+      if (response.ok) {
+        updateUser(data.user)
+        router.push('/')
+      } else {
+        setErrorMessage('Erro ao configurar o cookie de sessão.')
+      }
     } else {
-      console.error('error', error)
       setErrorMessage(
         error === 'auth/wrong-password'
           ? 'Senha incorreta. Por favor, tente novamente.'

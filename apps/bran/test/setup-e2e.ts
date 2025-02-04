@@ -16,7 +16,8 @@ const prisma = new PrismaClient()
 const redis = new Redis({
   host: env.REDIS_HOST,
   port: env.REDIS_PORT,
-  db: env.REDIS_DB
+  db: env.REDIS_DB,
+  password: env.REDIS_PASSWORD
 })
 
 function generateUniqueDatabaseURL(schemaId: string) {

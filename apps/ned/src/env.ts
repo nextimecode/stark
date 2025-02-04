@@ -30,10 +30,6 @@ export const env = createEnv({
   }
 })
 
-const replaceSubdomain = (url: string, newSubdomain: string) => {
-  return url.replace(/\/\/[^-]+-/, `//${newSubdomain}-`)
-}
-
 export const getBaseUrl = () => {
   const branchUrl = process.env.VERCEL_BRANCH_URL
   const projectProductionUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
