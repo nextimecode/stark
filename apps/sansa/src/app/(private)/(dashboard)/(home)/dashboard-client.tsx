@@ -18,12 +18,17 @@ type DashboardClientProps = {
 
 export default function DashboardClient({ user }: DashboardClientProps) {
   const router = useRouter()
-  const { aryaUrl } = getBaseUrl()
+  const { aryaUrl, nedUrl } = getBaseUrl()
   const [loading, setLoading] = useState(false)
 
   const handleLogout = async () => {
     setLoading(true)
     await signOut(auth)
+    const response = await fetch('/api/logout', {
+      method: 'POST',
+      credentials: 'include'
+    })
+    console.error('Logout', response)
     router.push(aryaUrl)
     setLoading(false)
   }
@@ -41,6 +46,7 @@ export default function DashboardClient({ user }: DashboardClientProps) {
     setLoading(true)
     try {
       await deleteUser(auth.currentUser!)
+      await fetch(`${nedUrl}/api/logout`, { method: 'POST' })
       alert('Conta deletada com sucesso.')
       router.push(aryaUrl)
     } catch (error: any) {
@@ -66,13 +72,15 @@ export default function DashboardClient({ user }: DashboardClientProps) {
       >
         Logout
       </button>
-      <button
-        onClick={handleSendEmailVerification}
-        disabled={loading}
-        className="mt-4 ml-4 px-4 py-2 bg-blue-500 text-white rounded-sm hover:bg-blue-600 focus:outline-hidden"
-      >
-        Enviar Confirmação de E-mail
-      </button>
+      {!user.emailVerified && (
+        <button
+          onClick={handleSendEmailVerification}
+          disabled={loading}
+          className="mt-4 ml-4 px-4 py-2 bg-blue-500 text-white rounded-sm hover:bg-blue-600 focus:outline-hidden"
+        >
+          Enviar Confirmação de E-mail
+        </button>
+      )}
       <button
         onClick={handleDeleteAccount}
         disabled={loading}
