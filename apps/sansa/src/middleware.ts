@@ -23,11 +23,7 @@ export function middleware(request: NextRequest) {
   }
 
   if (!authToken && !publicRoute) {
-    const redirectUrl = request.nextUrl.clone()
-
-    redirectUrl.pathname = REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE
-
-    return NextResponse.redirect(redirectUrl)
+    return NextResponse.redirect(REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE)
   }
 
   if (

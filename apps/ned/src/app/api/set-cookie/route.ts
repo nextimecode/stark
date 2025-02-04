@@ -4,7 +4,7 @@ import { admin } from '@/firebase/admin'
 
 export async function POST(request: Request) {
   const { token } = await request.json()
-  const expiresIn = 60 * 60 * 24 * 30 * 1000 // 30 days
+  const expiresIn = 60 * 60 * 24 * 5 * 1000
   const sessionCookie = await admin
     .auth()
     .createSessionCookie(token, { expiresIn })
