@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 export async function MyMBTI() {
   // Authenticate and retrieve token
   const authResponse = await fetch('http://localhost:3333/sessions', {
