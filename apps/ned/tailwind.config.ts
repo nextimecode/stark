@@ -33,7 +33,8 @@ const config: Config = {
       boxShadow: {
         signUp: '0px 5px 10px rgba(4, 10, 34, 0.2)',
         one: '0px 2px 3px rgba(7, 7, 77, 0.05)',
-        sticky: 'inset 0 -1px 0 0 rgba(0, 0, 0, 0.1)'
+        sticky: 'inset 0 -1px 0 0 rgba(0, 0, 0, 0.1)',
+        card: '0 11px 34px 0 rgba(0, 0, 0, 0.65)'
       },
       colors: {
         primary: {
@@ -63,6 +64,27 @@ const config: Config = {
           700: '#3783A0',
           800: '#235B70',
           900: '#133648'
+        },
+        system: {
+          red: '#FF453A',
+          orange: '#FF9F0A',
+          yellow: '#FFD60A',
+          green: '#30D158',
+          mint: '#63E6E2',
+          teal: '#40CBE0',
+          cyan: '#64D2FF',
+          blue: '#0A84FF',
+          indigo: '#5E5CE6',
+          purple: '#BF5AF2',
+          pink: '#FF375F',
+          brown: '#A2845E',
+          gray: '#8E8E93',
+          gray2: '#636366',
+          gray3: '#48484A',
+          gray4: '#3A3A3C',
+          gray5: '#2C2C2E',
+          gray6: '#1C1C1E',
+          'gray-transparent': 'hsla(0, 0%, 100%, 0.04)'
         }
       },
       animation: {

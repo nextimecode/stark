@@ -75,11 +75,11 @@ export default function SignIn() {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-xl bg-white border border-gray-200 rounded-xl shadow-xs dark:bg-neutral-900 dark:border-neutral-700">
-        <div className="p-4 sm:p-7">
+      <div className="w-full max-w-xl bg-white border border-gray-200 rounded-4xl shadow-card dark:bg-[#1c1c1e] dark:border-neutral-700">
+        <div className="p-7">
           <div>
             <div className="text-center pb-10">
-              <h2 className="text-white text-3xl">
+              <h2 className="text-white text-3xl font-semibold">
                 Inicie sessão com a Conta{' '}
                 <Title color="blue" size="text-3xl">
                   NeXTIME
@@ -88,7 +88,7 @@ export default function SignIn() {
             </div>
             <button
               type="button"
-              className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+              className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg cursor-pointer border border-gray-200 bg-white text-gray-800 shadow-xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-system-gray-transparent dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
               onClick={handleGoogleLogin}
               disabled={isLoading}
             >
@@ -112,7 +112,7 @@ export default function SignIn() {
                       type="email"
                       id="email"
                       name="email"
-                      className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                      className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-system-gray-transparent dark:border-neutral-700 dark:text-white dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                       required
                       placeholder="Ex: @gmail, @outlook, @yahoo, etc."
                       aria-describedby="email-error"
@@ -138,7 +138,7 @@ export default function SignIn() {
                       type="password"
                       id="password"
                       name="password"
-                      className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                      className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-system-gray-transparent dark:border-neutral-700 dark:text-white dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                       required
                       placeholder="Digite a sua senha"
                       aria-describedby="password-error"
@@ -146,20 +146,8 @@ export default function SignIn() {
                     />
                   </div>
                 </div>
-                <div className="flex items-center flex-col gap-4">
-                  <Link
-                    className="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline focus:outline-hidden focus:underline font-medium dark:text-blue-500"
-                    href="/recover"
-                  >
-                    Esqueceu sua senha?
-                  </Link>
-                  <Link
-                    className="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline focus:outline-hidden focus:underline font-medium dark:text-blue-500"
-                    href="/recover"
-                  >
-                    Criar conta NeXTIME
-                  </Link>
-                </div>
+              </div>
+              <div className="mt-5 mb-6">
                 <button
                   type="submit"
                   className="w-full cursor-pointer py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
@@ -167,6 +155,20 @@ export default function SignIn() {
                 >
                   {isLoading ? 'Carregando...' : 'Entrar'}
                 </button>
+              </div>
+              <div className="flex items-center flex-col gap-4 md:gap-2">
+                <Link
+                  className="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline focus:outline-hidden focus:underline font-medium dark:text-blue-500"
+                  href="/recover"
+                >
+                  Esqueceu sua senha?
+                </Link>
+                <Link
+                  className="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline focus:outline-hidden focus:underline font-medium dark:text-blue-500"
+                  href="/register"
+                >
+                  Criar conta NeXTIME
+                </Link>
               </div>
             </form>
           </div>
