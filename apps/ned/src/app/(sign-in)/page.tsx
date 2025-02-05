@@ -75,22 +75,16 @@ export default function SignIn() {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-md bg-white border border-gray-200 rounded-xl shadow-xs dark:bg-neutral-900 dark:border-neutral-700">
+      <div className="w-full max-w-xl bg-white border border-gray-200 rounded-xl shadow-xs dark:bg-neutral-900 dark:border-neutral-700">
         <div className="p-4 sm:p-7">
           <div>
-            <div className="text-center pb-4">
-              <Title color="blue" size="text-3xl">
-                Conta NeXTIME
-              </Title>
-              <p className="mt-2 text-sm text-gray-600 dark:text-neutral-300">
-                Não tem conta?{' '}
-                <Link
-                  className="text-blue-600 decoration-2 hover:underline focus:outline-hidden focus:underline font-medium dark:text-blue-500"
-                  href="/register"
-                >
-                  Criar conta grátis
-                </Link>
-              </p>
+            <div className="text-center pb-10">
+              <h2 className="text-white text-3xl">
+                Inicie sessão com a Conta{' '}
+                <Title color="blue" size="text-3xl">
+                  NeXTIME
+                </Title>
+              </h2>
             </div>
             <button
               type="button"
@@ -138,12 +132,6 @@ export default function SignIn() {
                     >
                       Senha
                     </label>
-                    <Link
-                      className="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline focus:outline-hidden focus:underline font-medium dark:text-blue-500"
-                      href="/recover"
-                    >
-                      Esqueceu sua senha?
-                    </Link>
                   </div>
                   <div className="relative">
                     <input
@@ -157,6 +145,20 @@ export default function SignIn() {
                       onChange={e => setPassword(e.target.value)}
                     />
                   </div>
+                </div>
+                <div className="flex items-center flex-col gap-4">
+                  <Link
+                    className="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline focus:outline-hidden focus:underline font-medium dark:text-blue-500"
+                    href="/recover"
+                  >
+                    Esqueceu sua senha?
+                  </Link>
+                  <Link
+                    className="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline focus:outline-hidden focus:underline font-medium dark:text-blue-500"
+                    href="/recover"
+                  >
+                    Criar conta NeXTIME
+                  </Link>
                 </div>
                 <button
                   type="submit"
