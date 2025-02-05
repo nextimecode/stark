@@ -75,11 +75,11 @@ export default function SignIn() {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-xl bg-white border border-gray-200 rounded-4xl shadow-card dark:bg-[#1c1c1e] dark:border-system-gray2">
+      <div className="w-full max-w-xl bg-white border border-gray-200 rounded-4xl shadow-card dark:bg-system-gray6 dark:border-system-gray2">
         <div className="p-7">
           <div>
-            <div className="text-center pb-10">
-              <h2 className="text-white text-3xl font-semibold">
+            <div className="text-center pb-6">
+              <h2 className="py-4 text-white text-3xl font-semibold">
                 Inicie sessão com a Conta{' '}
                 <Title color="blue" size="text-3xl">
                   NeXTIME
