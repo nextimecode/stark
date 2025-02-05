@@ -51,14 +51,21 @@ export default function Register() {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-md bg-white border border-gray-200 rounded-xl shadow-xs dark:bg-neutral-900 dark:border-neutral-700">
+      <div className="w-full max-w-xl bg-white border border-gray-200 rounded-4xl dark:bg-system-gray6 dark:border-system-gray2 shadow-card">
         <div className="p-4 sm:p-7">
           <div>
-            <div className="text-center pb-4">
-              <Title color="blue" size="text-3xl">
-                Crie sua conta, é grátis
-              </Title>
-              <p className="mt-2 text-sm text-gray-600 dark:text-neutral-400">
+            <div className="text-center pb-6">
+              <h2 className="py-4 text-white text-3xl font-semibold">
+                Crie sua conta,{' '}
+                <Title color="blue" size="text-3xl">
+                  NeXTIME
+                </Title>
+              </h2>
+              <h3 className="text-xl">
+                Uma só conta para todos os produtos.{' '}
+                <span className="font-semibold">É grátis!</span>
+              </h3>
+              <p className="mt-2 text-md text-gray-600 dark:text-white">
                 Já tem conta?{' '}
                 <Link
                   className="text-blue-600 decoration-2 hover:underline focus:outline-hidden focus:underline font-medium dark:text-blue-500"
@@ -70,7 +77,7 @@ export default function Register() {
             </div>
             <button
               type="button"
-              className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+              className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-system-gray-transparent dark:border-system-gray2 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
               onClick={handleGoogleSignUp}
               disabled={isLoading}
             >
@@ -94,7 +101,7 @@ export default function Register() {
                       type="email"
                       id="email"
                       name="email"
-                      className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                      className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-system-gray-transparent dark:border-system-gray2 dark:text-white dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                       required
                       placeholder="Ex: @gmail, @outlook, @yahoo, etc."
                       aria-describedby="email-error"
@@ -118,7 +125,7 @@ export default function Register() {
                       type="password"
                       id="password"
                       name="password"
-                      className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                      className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-system-gray-transparent dark:border-system-gray2 dark:text-white dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                       required
                       placeholder="Digite uma senha forte"
                       aria-describedby="password-error"
