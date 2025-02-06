@@ -7,10 +7,10 @@ export default function Page() {
   return (
     <div>
       <h1>MBTI</h1>
-      {/* <Suspense fallback={<p>Loading...</p>}>
+      <Suspense fallback={<p>Loading...</p>}>
         <MyMBTI />
       </Suspense>
-      <AddMBTI /> */}
+      <AddMBTI />
     </div>
   )
 }
