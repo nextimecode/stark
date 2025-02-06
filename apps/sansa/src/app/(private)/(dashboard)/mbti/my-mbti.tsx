@@ -32,10 +32,6 @@ export async function MyMBTI() {
   const { questions } = await response.json()
 
   return (
-    <ul>
-      {questions.map((item: any) => (
-        <li key={item.id}>{item.slug}</li>
-      ))}
-    </ul>
+    <ul>{questions?.map((item: any) => <li key={item.id}>{item.slug}</li>)}</ul>
   )
 }
