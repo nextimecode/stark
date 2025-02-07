@@ -20,6 +20,16 @@ const setCorsHeaders = (origin: string | null, response: NextResponse) => {
   }
 }
 
+export async function OPTIONS(request: Request) {
+  const response = NextResponse.json({})
+
+  // Configura os headers CORS dinamicamente para preflight requests
+  const origin = request.headers.get('origin')
+  setCorsHeaders(origin, response)
+
+  return response
+}
+
 export async function POST(request: Request) {
   const response = NextResponse.json({ success: true })
 
@@ -30,16 +40,6 @@ export async function POST(request: Request) {
   })
 
   // Configura os headers CORS dinamicamente
-  const origin = request.headers.get('origin')
-  setCorsHeaders(origin, response)
-
-  return response
-}
-
-export async function OPTIONS(request: Request) {
-  const response = NextResponse.json({})
-
-  // Configura os headers CORS dinamicamente para preflight requests
   const origin = request.headers.get('origin')
   setCorsHeaders(origin, response)
 

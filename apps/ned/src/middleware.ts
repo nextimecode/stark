@@ -10,7 +10,7 @@ const sansaUrl = env.NEXT_PUBLIC_SANSA_URL
 const publicRoutes = [
   { path: '/', whenAuthenticated: 'redirect' },
   { path: '/register', whenAuthenticated: 'redirect' },
-  { path: '/pricing', whenAuthenticated: 'next' }
+  { path: '/recover', whenAuthenticated: 'redirect' }
 ] as const
 
 const REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE = '/'

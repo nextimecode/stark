@@ -1,11 +1,11 @@
 'use client'
-
 import { useState, FormEvent } from 'react'
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 import { Title } from '@/components/'
+import { Logo } from '@/components/logo'
 
 import { useAuthContext } from '@/contexts/auth-context'
 import { signInWithGoogle, signInWithEmailAndPassword } from '@/firebase/auth'
@@ -79,6 +79,8 @@ export default function SignIn() {
         <div className="p-7">
           <div>
             <div className="text-center pb-6">
+              <Logo className="mx-auto" width={81} height={100} />
+
               <h2 className="py-4 text-white text-3xl font-semibold">
                 Inicie sessão com a Conta{' '}
                 <Title color="blue" size="text-3xl">

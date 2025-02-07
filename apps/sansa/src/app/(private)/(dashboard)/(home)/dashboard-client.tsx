@@ -23,11 +23,12 @@ export default function DashboardClient({ user }: DashboardClientProps) {
   const handleLogout = async () => {
     setLoading(true)
     await signOut(auth)
-    const response = await fetch('/api/logout', {
+    const response = await fetch(`${env.NEXT_PUBLIC_NED_URL}/api/logout`, {
       method: 'POST',
       credentials: 'include'
     })
     console.error('Logout', response)
+    console.error('env.NEXT_PUBLIC_NED_URL', env.NEXT_PUBLIC_NED_URL)
     router.push(env.NEXT_PUBLIC_ARYA_URL)
     setLoading(false)
   }

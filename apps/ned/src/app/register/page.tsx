@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 import { Title } from '@/components'
+import { Logo } from '@/components/logo'
 
 import { env } from '@/env'
 import { signUpWithGoogle, signUpWithEmailAndPassword } from '@/firebase/auth'
@@ -55,6 +56,8 @@ export default function Register() {
         <div className="p-4 sm:p-7">
           <div>
             <div className="text-center pb-6">
+              <Logo className="mx-auto" width={81} height={100} />
+
               <h2 className="py-4 text-white text-3xl font-semibold">
                 Crie sua conta,{' '}
                 <Title color="blue" size="text-3xl">
