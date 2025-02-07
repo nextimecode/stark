@@ -1,6 +1,14 @@
 import { createEnv } from '@t3-oss/env-nextjs'
 import { z } from 'zod'
 
+const normalizeCommitRef = (commitRef: string) => {
+  return commitRef.replace(/\//g, '-')
+}
+
+const normalizedCommitRef = normalizeCommitRef(
+  process.env.VERCEL_GIT_COMMIT_REF || ''
+)
+
 const replaceProjectName = (url: string, projectName: string) => {
   const replacedUrl = url.replace('name', projectName)
   console.error(`Replaced URL for ${projectName}:`, replacedUrl)
@@ -10,7 +18,6 @@ const replaceProjectName = (url: string, projectName: string) => {
 const getBaseUrl = () => {
   const isPreview = process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview'
   const previewUrl = process.env.NEXT_PUBLIC_VERCEL_PREVIEW_URL as string
-  console.error('Is Preview Environment:', isPreview)
 
   if (isPreview && previewUrl) {
     console.error('Vercel Preview URL:', previewUrl)
@@ -50,8 +57,8 @@ export const env = createEnv({
     FIREBASE_ADMIN_SERVICE_ACCOUNT: process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT,
     NEXT_PUBLIC_VERCEL_ENV: process.env.NEXT_PUBLIC_VERCEL_ENV || 'preview',
     NEXT_PUBLIC_VERCEL_PREVIEW_URL: process.env.VERCEL_GIT_COMMIT_REF
-      ? `https://name-git-${process.env.VERCEL_GIT_COMMIT_REF}-nextimes-projects.vercel.app`
-      : `https://name.nextime.com.br`,
+      ? `https://name-git-${normalizedCommitRef}-nextimes-projects.vercel.app`
+      : '',
     NEXT_PUBLIC_ARYA_URL: process.env.NEXT_PUBLIC_ARYA_URL || aryaUrl,
     NEXT_PUBLIC_BRAN_URL: process.env.NEXT_PUBLIC_BRAN_URL || branUrl,
     NEXT_PUBLIC_SANSA_URL: process.env.NEXT_PUBLIC_SANSA_URL || sansaUrl,

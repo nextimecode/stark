@@ -4,7 +4,8 @@ import {
   type NextRequest
 } from 'next/server'
 
-import { getBaseUrl } from '@/env'
+import { env } from '@/env'
+const sansaUrl = env.NEXT_PUBLIC_SANSA_URL
 
 const publicRoutes = [
   { path: '/', whenAuthenticated: 'redirect' },
@@ -36,7 +37,7 @@ export function middleware(request: NextRequest) {
     publicRoute &&
     publicRoute.whenAuthenticated === 'redirect'
   ) {
-    return NextResponse.redirect(getBaseUrl().sansaUrl)
+    return NextResponse.redirect(sansaUrl)
   }
 
   if (authToken && !publicRoute) {
