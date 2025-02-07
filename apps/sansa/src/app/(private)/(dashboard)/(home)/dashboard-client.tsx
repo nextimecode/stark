@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 
 import { signOut, sendEmailVerification, deleteUser } from 'firebase/auth'
 
-import { getBaseUrl } from '@/env'
+import { env } from '@/env'
 import { auth } from '@/firebase/client'
 
 type DashboardClientProps = {
@@ -18,18 +18,18 @@ type DashboardClientProps = {
 
 export default function DashboardClient({ user }: DashboardClientProps) {
   const router = useRouter()
-  const { aryaUrl, nedUrl } = getBaseUrl()
   const [loading, setLoading] = useState(false)
 
   const handleLogout = async () => {
     setLoading(true)
     await signOut(auth)
-    const response = await fetch('/api/logout', {
+    const response = await fetch(`${env.NEXT_PUBLIC_NED_URL}/api/logout`, {
       method: 'POST',
       credentials: 'include'
     })
     console.error('Logout', response)
-    router.push(aryaUrl)
+    console.error('env.NEXT_PUBLIC_NED_URL', env.NEXT_PUBLIC_NED_URL)
+    router.push(env.NEXT_PUBLIC_ARYA_URL)
     setLoading(false)
   }
 
@@ -46,9 +46,9 @@ export default function DashboardClient({ user }: DashboardClientProps) {
     setLoading(true)
     try {
       await deleteUser(auth.currentUser!)
-      await fetch(`${nedUrl}/api/logout`, { method: 'POST' })
+      await fetch(`${env.NEXT_PUBLIC_NED_URL}/api/logout`, { method: 'POST' })
       alert('Conta deletada com sucesso.')
-      router.push(aryaUrl)
+      router.push(env.NEXT_PUBLIC_ARYA_URL)
     } catch (error: any) {
       if (error.code === 'auth/requires-recent-login') {
         alert(

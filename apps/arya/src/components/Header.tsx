@@ -4,11 +4,11 @@ import Link from 'next/link'
 
 import { User } from 'lucide-react'
 
-import { getBaseUrl } from '@/env'
+import { env } from '@/env'
 
 import { Title } from './Title'
 
-const { nedUrl } = getBaseUrl()
+const nedUrl = env.NEXT_PUBLIC_NED_URL
 
 export function Header() {
   return (

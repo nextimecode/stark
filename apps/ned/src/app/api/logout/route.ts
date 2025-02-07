@@ -1,30 +1,47 @@
 import { NextResponse } from 'next/server'
 
-const allowedOrigin = process.env.NEXT_PUBLIC_ARYA_URL!
+import { env } from '@/env'
 
-export async function OPTIONS() {
-  return NextResponse.json(
-    {},
-    {
-      headers: {
-        'Access-Control-Allow-Origin': allowedOrigin,
-        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Allow-Credentials': 'true'
-      }
-    }
-  )
+// Lista de origens permitidas
+const allowedOrigins = [
+  env.NEXT_PUBLIC_ARYA_URL,
+  env.NEXT_PUBLIC_BRAN_URL,
+  env.NEXT_PUBLIC_SANSA_URL,
+  env.NEXT_PUBLIC_NED_URL
+].filter(Boolean) // Remove valores undefined
+
+// Função para configurar os headers CORS dinamicamente
+const setCorsHeaders = (origin: string | null, response: NextResponse) => {
+  if (origin && allowedOrigins.includes(origin)) {
+    response.headers.set('Access-Control-Allow-Origin', origin)
+    response.headers.set('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+    response.headers.set('Access-Control-Allow-Headers', 'Content-Type')
+    response.headers.set('Access-Control-Allow-Credentials', 'true')
+  }
 }
 
-export async function POST() {
+export async function OPTIONS(request: Request) {
+  const response = NextResponse.json({})
+
+  // Configura os headers CORS dinamicamente para preflight requests
+  const origin = request.headers.get('origin')
+  setCorsHeaders(origin, response)
+
+  return response
+}
+
+export async function POST(request: Request) {
   const response = NextResponse.json({ success: true })
+
+  // Expira o cookie
   response.cookies.set('token', '', {
     maxAge: -1,
     path: '/'
   })
-  response.headers.set('Access-Control-Allow-Origin', allowedOrigin)
-  response.headers.set('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
-  response.headers.set('Access-Control-Allow-Headers', 'Content-Type')
-  response.headers.set('Access-Control-Allow-Credentials', 'true')
+
+  // Configura os headers CORS dinamicamente
+  const origin = request.headers.get('origin')
+  setCorsHeaders(origin, response)
+
   return response
 }

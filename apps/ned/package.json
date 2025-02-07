@@ -16,5 +16,8 @@
     "e2e:codegen": "pnpm exec playwright codegen",
     "e2e:report": "pnpm exec playwright show-report",
     "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "bran": "workspace:*"
   }
 }

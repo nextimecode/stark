@@ -283,9 +283,17 @@ importers:
 
   apps/bran: {}
 
-  apps/ned: {}
+  apps/ned:
+    dependencies:
+      bran:
+        specifier: workspace:*
+        version: link:../bran
 
-  apps/sansa: {}
+  apps/sansa:
+    dependencies:
+      bran:
+        specifier: workspace:*
+        version: link:../bran
 
   packages/auth: {}
 

@@ -1,42 +1,68 @@
 export const dynamic = 'force-dynamic'
 
+import { notFound } from 'next/navigation'
+
 import { api } from '@/data/api'
 
-export async function MyMBTI() {
-  // Authenticate and retrieve token
-  // const authResponse = await api('/sessions', {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json'
-  //   },
-  //   body: JSON.stringify({
-  //     email: 'diego@rocketseat.com.br',
-  //     password: '123456'
-  //   })
-  // })
+interface Question {
+  id: string
+  slug: string
+}
 
-  // const authData = await authResponse.json()
-  // const accessToken = authData.access_token
+const fetchQuestions = async () => {
+  // Autenticação
+  const authResponse = await api('/sessions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      email: 'diego@rocketseat.com.br',
+      password: '123456'
+    })
+  })
 
-  // const response = await api('/questions?page=1', {
-  //   method: 'GET',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //     Authorization: `Bearer ${accessToken}`
-  //   },
-  //   next: {
-  //     tags: ['get-tags']
-  //   }
-  // })
+  if (!authResponse.ok) {
+    throw new Error('Falha na autenticação')
+  }
 
-  // const { questions } = await response.json()
+  const authData = await authResponse.json()
+  const accessToken = authData.access_token
+
+  // Buscar perguntas
+  const response = await api('/questions?page=1', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`
+    }
+  })
+
+  if (!response.ok) {
+    throw new Error('Erro ao buscar perguntas')
+  }
+
+  const questionsData = await response.json()
+  return questionsData.questions
+}
+
+export const MyMBTI = async () => {
+  let questions: Question[] = []
+
+  try {
+    questions = await fetchQuestions()
+  } catch (error) {
+    console.error(error)
+    notFound()
+  }
+
+  if (!questions || questions.length === 0) {
+    return <p>Nenhuma pergunta encontrada.</p>
+  }
 
   return (
     <ul>
-      {/* {questions.map((item: any) => (
+      {questions.map(item => (
         <li key={item.id}>{item.slug}</li>
-      ))} */}
-      // TODO: resolver problema do deploy da api
+      ))}
     </ul>
   )
 }

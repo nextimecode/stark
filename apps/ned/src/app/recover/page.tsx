@@ -5,6 +5,7 @@ import { useState, FormEvent } from 'react'
 import Link from 'next/link'
 
 import { Title } from '@/components/'
+import { Logo } from '@/components/logo'
 
 import { sendPasswordResetEmail } from 'firebase/auth'
 
@@ -39,9 +40,12 @@ export default function Recover() {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-md bg-white border border-gray-200 rounded-xl shadow-xs dark:bg-neutral-900 dark:border-neutral-700">
+      <div className="w-full max-w-xl bg-white border border-gray-200 rounded-xl  dark:bg-system-gray6 dark:border-system-gray2 shadow-card">
         <div className="p-4 sm:p-7">
           <div>
+            <div className="pb-4">
+              <Logo className="mx-auto" width={81} height={100} />
+            </div>
             <div className="text-center pb-4">
               <Title color="blue" size="text-3xl">
                 Recuperar Senha
@@ -65,7 +69,7 @@ export default function Recover() {
                       type="email"
                       id="email"
                       name="email"
-                      className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                      className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-system-gray6 dark:border-system-gray2 dark:text-white dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                       required
                       placeholder="Digite seu e-mail"
                       value={email}

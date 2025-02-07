@@ -4,14 +4,14 @@ import {
   type NextRequest
 } from 'next/server'
 
-import { getBaseUrl } from '@/env'
+import { env } from '@/env'
 
 const publicRoutes = [
   { path: '/register', whenAuthenticated: 'redirect' },
   { path: '/pricing', whenAuthenticated: 'next' }
 ] as const
 
-const REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE = getBaseUrl().nedUrl
+const REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE = env.NEXT_PUBLIC_NED_URL
 
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname
