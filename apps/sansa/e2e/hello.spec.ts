@@ -1,13 +1,11 @@
 import { test, expect } from '@playwright/test'
 
-import { getBaseUrl } from '@/env'
+import { env } from '@/env'
 
 test('redirects unauthenticated users to login and shows dashboard for logged-in users', async ({
   page
 }) => {
-  const { sansaUrl, nedUrl } = getBaseUrl()
-
-  await page.goto(sansaUrl)
+  await page.goto(env.NEXT_PUBLIC_SANSA_URL)
 
   // Espera até que a página não exiba mais "Carregando..."
   await expect(page.locator('text=Carregando...')).not.toBeVisible({
@@ -15,9 +13,9 @@ test('redirects unauthenticated users to login and shows dashboard for logged-in
   })
 
   // Verifica se o usuário foi redirecionado para a página de login (nedUrl)
-  await page.waitForURL(nedUrl, { timeout: 5000 })
+  await page.waitForURL(env.NEXT_PUBLIC_NED_URL, { timeout: 5000 })
 
-  if ((await page.url()) === nedUrl) {
+  if ((await page.url()) === env.NEXT_PUBLIC_NED_URL) {
     console.error(
       'Usuário não autenticado foi corretamente redirecionado para a página de login.'
     )

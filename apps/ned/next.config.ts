@@ -1,5 +1,11 @@
 import type { NextConfig } from 'next'
 
+import dotenv from 'dotenv'
+
+if (process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview') {
+  dotenv.config({ path: '.env.preview', override: true })
+}
+
 const nextConfig: NextConfig = {
   logging: {
     fetches: {
