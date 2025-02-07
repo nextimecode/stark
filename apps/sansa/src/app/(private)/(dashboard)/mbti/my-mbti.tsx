@@ -1,9 +1,16 @@
 export const dynamic = 'force-dynamic'
 
+import { notFound } from 'next/navigation'
+
 import { api } from '@/data/api'
 
-export async function MyMBTI() {
-  // Authenticate and retrieve token
+interface Question {
+  id: string
+  slug: string
+}
+
+const fetchQuestions = async () => {
+  // Autenticação
   const authResponse = await api('/sessions', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -13,17 +20,14 @@ export async function MyMBTI() {
     })
   })
 
-  let authData
-  try {
-    authData = await authResponse.json()
-    console.error('authData', authData)
-  } catch (error) {
-    console.error('Erro ao autenticar:', error)
-    return <p>Erro ao autenticar</p>
+  if (!authResponse.ok) {
+    throw new Error('Falha na autenticação')
   }
 
+  const authData = await authResponse.json()
   const accessToken = authData.access_token
 
+  // Buscar perguntas
   const response = await api('/questions?page=1', {
     method: 'GET',
     headers: {
@@ -31,19 +35,34 @@ export async function MyMBTI() {
       Authorization: `Bearer ${accessToken}`
     }
   })
-  console.error('questionsData', response)
 
-  let questionsData
-  try {
-    questionsData = await response.json()
-  } catch (error) {
-    console.error('Erro ao buscar perguntas:', error)
-    return <p>Erro ao buscar perguntas</p>
+  if (!response.ok) {
+    throw new Error('Erro ao buscar perguntas')
   }
 
-  const { questions } = questionsData
+  const questionsData = await response.json()
+  return questionsData.questions
+}
+
+export const MyMBTI = async () => {
+  let questions: Question[] = []
+
+  try {
+    questions = await fetchQuestions()
+  } catch (error) {
+    console.error(error)
+    notFound()
+  }
+
+  if (!questions || questions.length === 0) {
+    return <p>Nenhuma pergunta encontrada.</p>
+  }
 
   return (
-    <ul>{questions?.map((item: any) => <li key={item.id}>{item.slug}</li>)}</ul>
+    <ul>
+      {questions.map(item => (
+        <li key={item.id}>{item.slug}</li>
+      ))}
+    </ul>
   )
 }
