@@ -1,9 +1,15 @@
 {
   "version": 2,
+  "builds": [
+    {
+      "src": "apps/bran/dist/infra/main.js",
+      "use": "@vercel/node"
+    }
+  ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "dist/infra/main.js"
+      "dest": "apps/bran/dist/infra/main.js"
     }
   ]
 }
