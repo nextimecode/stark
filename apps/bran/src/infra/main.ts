@@ -1,14 +1,15 @@
 import { NestFactory } from '@nestjs/core'
-import { ExpressAdapter } from '@nestjs/platform-express'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
-import * as express from 'express'
 
 import { AppModule } from './app.module'
-
-const server = express()
+import { EnvService } from './env/env.service'
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, new ExpressAdapter(server))
+  const app = await NestFactory.create(AppModule, {
+    // logger: false,
+  })
+
+  // TODO: precisa configurar o Swagger para ficar automático com o zod
 
   const config = new DocumentBuilder()
     .setTitle('Documentação da API')
@@ -17,12 +18,12 @@ async function bootstrap() {
     .addTag('Bran')
     .build()
 
-  const document = SwaggerModule.createDocument(app, config)
-  SwaggerModule.setup('api', app, document)
+  const documentFactory = () => SwaggerModule.createDocument(app, config)
+  SwaggerModule.setup('api', app, documentFactory)
 
-  await app.init()
+  const configService = app.get(EnvService)
+  const port = configService.get('PORT')
+
+  await app.listen(port)
 }
-
 bootstrap()
-
-export default server
