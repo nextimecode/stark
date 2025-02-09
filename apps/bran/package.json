@@ -8,7 +8,7 @@
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "node dist/infra/main.js",
+    "start": "nest start",
     "dev": "nest start --watch",
     "clean": "rm -rf .turbo .next .vercel dist node_modules pnpm-lock.yaml playwright-report test-results",
     "start:debug": "nest start --debug --watch",
