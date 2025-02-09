@@ -3,7 +3,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "apps/bran/dist/infra/main.js"
+      "dest": "dist/infra/main.js"
     }
   ]
 }
