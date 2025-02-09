@@ -1,15 +1,14 @@
 import { NestFactory } from '@nestjs/core'
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
+import { ExpressAdapter } from '@nestjs/platform-express'
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import * as express from 'express'
 
 import { AppModule } from './app.module'
-import { EnvService } from './env/env.service'
+
+const server = express()
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
-    // logger: false,
-  })
-
-  // TODO: precisa configurar o Swagger para ficar automático com o zod
+  const app = await NestFactory.create(AppModule, new ExpressAdapter(server))
 
   const config = new DocumentBuilder()
     .setTitle('Documentação da API')
@@ -18,12 +17,18 @@ async function bootstrap() {
     .addTag('Bran')
     .build()
 
-  const documentFactory = () => SwaggerModule.createDocument(app, config)
-  SwaggerModule.setup('api', app, documentFactory)
+  const document = SwaggerModule.createDocument(app, config)
+  SwaggerModule.setup('api', app, document)
 
-  const configService = app.get(EnvService)
-  const port = configService.get('PORT')
+  await app.init()
 
-  await app.listen(port)
+  if (process.env.VERCEL !== '1') {
+    const port = process.env.PORT || 3000
+    await app.listen(port)
+    console.error(`API rodando na porta ${port}`)
+  }
 }
+
 bootstrap()
+
+export default server
