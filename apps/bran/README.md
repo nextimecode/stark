@@ -483,3 +483,23 @@ A Watched List é uma técnica poderosa para manter o controle de mudanças em c
 - Chat
 
 ### Pub/Sub
+
+```ts
+import { createClient } from '@supabase/supabase-js'
+
+const supabase = createClient()
+
+const { data, error } = await supabase.from('todos').select()
+```
+
+```ts
+const data = await fetch('', {
+  headers: {
+    apikey: ''
+  }
+})
+  .then(res => res.json())
+  .catch(error => {
+    // Handle error
+  })
+```

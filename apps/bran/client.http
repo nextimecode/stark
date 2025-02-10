@@ -1,4 +1,5 @@
-@baseUrl = http://localhost:3333
+# @baseUrl = http://localhost:3333
+@baseUrl = https://bran-k605a9500-nextimes-projects.vercel.app
 @authToken = {{authenticate.response.body.access_token}}
 
 # @name create_account
