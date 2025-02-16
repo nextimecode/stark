@@ -1,18 +1,43 @@
-import { NestFactory } from '@nestjs/core';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { AppModule } from './app.module';
+import { NestFactory } from '@nestjs/core'
+import {
+  ExpressAdapter,
+  NestExpressApplication
+} from '@nestjs/platform-express'
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import express, { Request, Response } from 'express'
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+import { AppModule } from './app.module'
 
-  const config = new DocumentBuilder()
-    .setTitle('Bran')
-    .setDescription('API para o projeto Stark')
-    .setVersion('1.13.4')
-    .build();
-  const documentFactory = () => SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, documentFactory);
+const server = express()
 
-  await app.listen(process.env.PORT ?? 4000);
+let cachedApp: NestExpressApplication | null = null
+
+async function bootstrap(): Promise<NestExpressApplication> {
+  if (!cachedApp) {
+    const app = await NestFactory.create<NestExpressApplication>(
+      AppModule,
+      new ExpressAdapter(server)
+    )
+
+    const config = new DocumentBuilder()
+      .setTitle('Bran')
+      .setDescription('API para o projeto Stark')
+      .setVersion('1.13.4')
+      .build()
+
+    const document = SwaggerModule.createDocument(app, config)
+    SwaggerModule.setup('api', app, document)
+
+    await app.init()
+    cachedApp = app
+  }
+
+  return cachedApp
 }
-bootstrap();
+
+export const handler = async (req: Request, res: Response): Promise<void> => {
+  const app = await bootstrap()
+  const expressInstance = app.getHttpAdapter().getInstance()
+
+  expressInstance(req, res)
+}
