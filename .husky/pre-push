@@ -1,2 +1,1 @@
-pnpm prisma generate
-pnpm typecheck
+pnpm prepush
