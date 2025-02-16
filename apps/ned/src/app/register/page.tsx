@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, FormEvent } from 'react'
+import { FormEvent, useState } from 'react'
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -9,7 +9,7 @@ import { Title } from '@/components'
 import { Logo } from '@/components/logo'
 
 import { env } from '@/env'
-import { signUpWithGoogle, signUpWithEmailAndPassword } from '@/firebase/auth'
+import { signUpWithEmailAndPassword, signUpWithGoogle } from '@/firebase/auth'
 import { GoogleIcon } from '@/icons'
 
 export default function Register() {
@@ -26,7 +26,6 @@ export default function Register() {
     if (success) {
       router.push(`${env.NEXT_PUBLIC_SANSA_URL}/`)
     } else {
-      console.error(error)
       setErrorMessage(error || 'Falha ao se cadastrar com o Google.')
     }
     setIsLoading(false)

@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 import { useRouter } from 'next/navigation'
 
-import { signOut, sendEmailVerification, deleteUser } from 'firebase/auth'
+import { deleteUser, sendEmailVerification, signOut } from 'firebase/auth'
 
 import { env } from '@/env'
 import { auth } from '@/firebase/client'
@@ -27,8 +27,6 @@ export default function DashboardClient({ user }: DashboardClientProps) {
       method: 'POST',
       credentials: 'include'
     })
-    console.error('Logout', response)
-    console.error('env.NEXT_PUBLIC_NED_URL', env.NEXT_PUBLIC_NED_URL)
     router.push(env.NEXT_PUBLIC_ARYA_URL)
     setLoading(false)
   }

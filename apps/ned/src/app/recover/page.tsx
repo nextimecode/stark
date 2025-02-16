@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, FormEvent } from 'react'
+import { FormEvent, useState } from 'react'
 
 import Link from 'next/link'
 
@@ -29,7 +29,6 @@ export default function Recover() {
         'E-mail de redefinição de senha enviado com sucesso. Verifique sua caixa de entrada.'
       )
     } catch (error) {
-      console.error('Error sending password reset email:', error)
       setErrorMessage(
         'Não foi possível enviar o e-mail de redefinição de senha. Verifique se o endereço de e-mail está correto.'
       )

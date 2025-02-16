@@ -50,7 +50,6 @@ export const MyMBTI = async () => {
   try {
     questions = await fetchQuestions()
   } catch (error) {
-    console.error(error)
     notFound()
   }
 

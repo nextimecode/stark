@@ -1,6 +1,10 @@
 {
   "name": "stark",
   "version": "1.13.3",
+  "packageManager": "pnpm@10.4.0",
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "private": true,
   "description": "Stark é uma aplicação para explorar conexões humanas e entender compatibilidade entre indivíduos. Inspirada na força e união da Casa Stark (Game of Thrones), permite que usuários compreendam características pessoais, comparem com outras pessoas e fortaleçam relações em diferentes contextos. Winter is coming",
   "keywords": [],
@@ -31,8 +35,6 @@
     "bran:start:prod": "turbo run start:prod --filter bran",
     "build": "prisma generate && turbo run build --parallel",
     "clean:all": "turbo run clean && pnpm store prune && rm -rf .next .vercel .turbo node_modules tsconfig.tsbuildinfo pnpm-lock.yaml .playwright playwright-report test-results && pnpm install --force && pnpm build",
-    "precommit": "turbo lint",
-    "prepush": "turbo typecheck audit test",
     "commit": "cz",
     "coverage": "turbo run coverage",
     "depcheck": "depcheck",
@@ -100,12 +102,12 @@
     "@radix-ui/react-tabs": "^1.1.3",
     "@t3-oss/env-nextjs": "^0.12.0",
     "@tailwindcss/forms": "^0.5.10",
+    "@vercel/node": "^5.1.7",
     "apexcharts": "^4.4.0",
     "bcryptjs": "^2.4.3",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
     "dotenv": "^16.4.7",
-    "eslint-plugin-unicorn": "^56.0.1",
     "express": "4.18.2",
     "firebase": "^11.3.0",
     "firebase-admin": "^13.1.0",
@@ -159,6 +161,7 @@
     "eslint-plugin-perfectionist": "^4.8.0",
     "eslint-plugin-prettier": "^5.2.3",
     "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-unicorn": "^56.0.1",
     "eslint-plugin-vitest": "^0.5.4",
     "eslint-plugin-vitest-globals": "^1.5.0",
     "globals": "^15.14.0",
@@ -176,10 +179,6 @@
     "unplugin-swc": "^1.5.1",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.0.5"
-  },
-  "packageManager": "pnpm@10.2.1",
-  "engines": {
-    "node": ">=22.0.0"
   },
   "publishConfig": {
     "access": "restricted"

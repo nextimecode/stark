@@ -1,5 +1,5 @@
 'use client'
-import { useState, FormEvent } from 'react'
+import { FormEvent, useState } from 'react'
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -7,13 +7,11 @@ import { useRouter } from 'next/navigation'
 import { Title } from '@/components/'
 import { Logo } from '@/components/logo'
 
-import { useAuthContext } from '@/contexts/auth-context'
-import { signInWithGoogle, signInWithEmailAndPassword } from '@/firebase/auth'
+import { signInWithEmailAndPassword, signInWithGoogle } from '@/firebase/auth'
 import { GoogleIcon } from '@/icons'
 
 export default function SignIn() {
   const router = useRouter()
-  const { updateUser } = useAuthContext()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
@@ -30,7 +28,6 @@ export default function SignIn() {
         body: JSON.stringify({ token })
       })
       if (response.ok) {
-        updateUser(data.user)
         router.push('/')
       } else {
         setErrorMessage('Erro ao configurar o cookie de sessão.')
@@ -57,7 +54,6 @@ export default function SignIn() {
         body: JSON.stringify({ token })
       })
       if (response.ok) {
-        updateUser(data.user)
         router.push('/')
       } else {
         setErrorMessage('Erro ao configurar o cookie de sessão.')

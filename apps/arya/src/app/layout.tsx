@@ -1,10 +1,9 @@
 import { ReactNode } from 'react'
 
-import type { Viewport } from 'next'
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 
-import { PrelineScript } from '../components/PrelineScript'
+import { PrelineScript } from '@/components/PrelineScript'
 import './global.css'
 
 const inter = Inter({
