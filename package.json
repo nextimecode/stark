@@ -35,8 +35,6 @@
     "bran:start:prod": "turbo run start:prod --filter bran",
     "build": "prisma generate && turbo run build --parallel",
     "clean:all": "turbo run clean && pnpm store prune && rm -rf .next .vercel .turbo node_modules tsconfig.tsbuildinfo pnpm-lock.yaml .playwright playwright-report test-results && pnpm install --force && pnpm build",
-    "precommit": "turbo lint",
-    "prepush": "pnpm prisma generate && pnpm typecheck",
     "commit": "cz",
     "coverage": "turbo run coverage",
     "depcheck": "depcheck",
