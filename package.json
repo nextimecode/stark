@@ -1,9 +1,9 @@
 {
   "name": "stark",
   "version": "1.13.3",
-  "packageManager": "pnpm@10.4.0",
+  "packageManager": "pnpm@10.5.0",
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=22"
   },
   "private": true,
   "description": "Stark é uma aplicação para explorar conexões humanas e entender compatibilidade entre indivíduos. Inspirada na força e união da Casa Stark (Game of Thrones), permite que usuários compreendam características pessoais, comparem com outras pessoas e fortaleçam relações em diferentes contextos. Winter is coming",
