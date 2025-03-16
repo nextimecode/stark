@@ -57,7 +57,7 @@ export const FAQ = () => {
       <div className="max-w-4xl px-4 sm:px-6 lg:px-8 mx-auto">
         <div className="mx-auto mb-10 lg:mb-14 text-center">
           <h2 className="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white">
-            Talvez você ainda esteja se perguntando…
+            Talvez você esteja se perguntando…
           </h2>
         </div>
         <div className="mx-auto divide-y divide-gray-200 dark:divide-neutral-700">
