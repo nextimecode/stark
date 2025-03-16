@@ -1,11 +1,9 @@
-import React from 'react'
-
 import packageInfo from '../../../../package.json'
 const version = packageInfo.version
 
 export function Footer() {
   return (
-    <footer className="max-w-[85rem] mb-12">
+    <footer className="mb-12">
       {/* Grid */}
       <div className="text-center">
         {/* <div>
@@ -18,7 +16,7 @@ export function Footer() {
           </a>
         </div> */}
         {/* End Col */}
-        {/* 
+        {/*
         <div className="mt-3">
           <p className="text-gray-500 dark:text-neutral-500">
             Uma relação saudável e satisfatória, seja amorosa, familiar ou

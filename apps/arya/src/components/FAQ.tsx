@@ -1,5 +1,3 @@
-import React from 'react'
-
 type FAQItem = {
   question: string
   answer: string
@@ -56,13 +54,13 @@ const faqData: FAQItem[] = [
 export const FAQ = () => {
   return (
     <section id="faq">
-      <div className="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto">
-        <div className="max-w-2xl mx-auto mb-10 lg:mb-14 text-center">
+      <div className="max-w-4xl px-4 sm:px-6 lg:px-8 mx-auto">
+        <div className="mx-auto mb-10 lg:mb-14 text-center">
           <h2 className="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white">
-            Talvez você esteja se perguntando…
+            Talvez você ainda esteja se perguntando…
           </h2>
         </div>
-        <div className="max-w-2xl mx-auto divide-y divide-gray-200 dark:divide-neutral-700">
+        <div className="mx-auto divide-y divide-gray-200 dark:divide-neutral-700">
           {faqData.map((item, index) => (
             <div key={index} className="py-8 first:pt-0 last:pb-0 flex gap-x-5">
               <svg
