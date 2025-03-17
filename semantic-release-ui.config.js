@@ -7,7 +7,7 @@ module.exports = {
       '@semantic-release/npm',
       {
         npmPublish: true,
-        pkgRoot: 'libs/ui'
+        pkgRoot: 'packages/tracker'
       }
     ]
   ]
