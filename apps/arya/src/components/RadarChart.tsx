@@ -57,7 +57,9 @@ export const RadarChart = ({
 
   return (
     <div className="w-full max-w-full mx-auto">
-      <h2 className="text-2xl font-bold text-center">{title}</h2>
+      <h2 className="dark:text-white text-2xl font-bold text-center">
+        {title}
+      </h2>
       <ApexChart
         options={options}
         series={series}

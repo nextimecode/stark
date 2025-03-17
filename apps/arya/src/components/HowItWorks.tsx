@@ -3,7 +3,7 @@ export function HowItWorks() {
     <section id="how-it-works">
       <div className="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto">
         <div className="text-center">
-          <h2 className="text-3xl font-bold sm:text-4xl lg:text-5xl">
+          <h2 className="dark:text-white text-3xl font-bold sm:text-4xl lg:text-5xl">
             Como Funciona o NeXTverso
           </h2>
           <p className="mt-4 text-lg text-gray-400">
