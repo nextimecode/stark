@@ -77,7 +77,7 @@ export default function SignIn() {
             <div className="text-center pb-6">
               <Logo className="mx-auto" width={81} height={100} />
 
-              <h2 className="py-4 text-white text-3xl font-semibold">
+              <h2 className="py-4 text-white text-2xl font-semibold">
                 Inicie sessão com a Conta{' '}
                 <Title color="blue" size="text-3xl">
                   NeXTIME

@@ -1,7 +1,7 @@
 export function HowItWorks() {
   return (
     <section id="how-it-works">
-      <div className="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto">
+      <div className="px-4 sm:px-6 lg:px-8 mx-auto">
         <div className="text-center">
           <h2 className="dark:text-white text-3xl font-bold sm:text-4xl lg:text-5xl">
             Como Funciona o NeXTverso

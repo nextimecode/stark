@@ -87,43 +87,27 @@ export function Header() {
           <div className="flex flex-col gap-y-4 gap-x-0 mt-5 md:flex-row md:justify-center md:items-center md:gap-y-0 md:gap-x-7 md:mt-0">
             <div>
               <a
-                className="relative inline-block text-black before:absolute before:bottom-0.5 before:start-0 before:-z-1 before:w-full before:h-1 before:bg-secondary dark:text-white"
-                href="#"
+                className="relative inline-block text-black before:absolute before:bottom-0.5 before:start-0 before:-z-1 before:w-full before:h-1 hover:before:bg-secondary dark:text-white"
+                href="#how-it-works"
                 aria-current="page"
               >
-                Work
+                Como funciona?
               </a>
             </div>
             <div>
               <a
-                className="inline-block text-black hover:text-gray-600 dark:text-white dark:hover:text-neutral-300"
-                href="#"
+                className="relative inline-block text-black before:absolute before:bottom-0.5 before:start-0 before:-z-1 before:w-full before:h-1 hover:before:bg-secondary dark:text-white"
+                href="#personality-charts"
               >
-                Services
+                MBTI
               </a>
             </div>
             <div>
               <a
-                className="inline-block text-black hover:text-gray-600 dark:text-white dark:hover:text-neutral-300"
-                href="#"
+                className="relative inline-block text-black before:absolute before:bottom-0.5 before:start-0 before:-z-1 before:w-full before:h-1 hover:before:bg-secondary dark:text-white"
+                href="#faq"
               >
-                About
-              </a>
-            </div>
-            <div>
-              <a
-                className="inline-block text-black hover:text-gray-600 dark:text-white dark:hover:text-neutral-300"
-                href="#"
-              >
-                Careers
-              </a>
-            </div>
-            <div>
-              <a
-                className="inline-block text-black hover:text-gray-600 dark:text-white dark:hover:text-neutral-300"
-                href="#"
-              >
-                Blog
+                FAQ
               </a>
             </div>
           </div>

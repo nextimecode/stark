@@ -57,13 +57,13 @@ export default function Register() {
             <div className="text-center pb-6">
               <Logo className="mx-auto" width={81} height={100} />
 
-              <h2 className="py-4 text-white text-3xl font-semibold">
+              <h2 className="py-4 dark:text-white text-3xl font-semibold">
                 Crie sua conta,{' '}
                 <Title color="blue" size="text-3xl">
                   NeXTIME
                 </Title>
               </h2>
-              <h3 className="text-xl">
+              <h3 className="text-xl font-light dark:text-white">
                 Uma só conta para todos os produtos.{' '}
                 <span className="font-semibold">É grátis!</span>
               </h3>

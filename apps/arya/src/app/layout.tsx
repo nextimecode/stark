@@ -3,6 +3,7 @@ import { ReactNode } from 'react'
 import type { Metadata, Viewport } from 'next'
 import { Inter, Oxanium } from 'next/font/google'
 
+import { PrelineScript } from '@/components/PrelineScript'
 import './global.css'
 
 const oxanium = Oxanium({
@@ -12,7 +13,6 @@ const oxanium = Oxanium({
 })
 
 const inter = Inter({
-  weight: ['400', '500', '600'],
   subsets: ['latin'],
   variable: '--font-inter'
 })
@@ -41,7 +41,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     >
       <body className="bg-white dark:bg-black">
         <div className="relative min-h-screen">{children}</div>
-        {/* <PrelineScript /> */}
+        <PrelineScript />
       </body>
     </html>
   )
