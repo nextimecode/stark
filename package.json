@@ -1,7 +1,7 @@
 {
   "name": "stark",
   "version": "1.13.3",
-  "packageManager": "pnpm@10.6.3",
+  "packageManager": "pnpm@10.6.4",
   "engines": {
     "node": ">=22"
   },
@@ -117,7 +117,7 @@
     "multer": "1.4.5-lts.1",
     "next": "^15.2.2",
     "passport-jwt": "^4.0.1",
-    "preline": "^3.0.0",
+    "preline": "^3.0.1",
     "punycode": "^2.3.1",
     "react": "^19.0.0",
     "react-apexcharts": "^1.7.0",
@@ -135,7 +135,7 @@
     "@nestjs/cli": "^11.0.5",
     "@nestjs/testing": "^11.0.11",
     "@next/eslint-plugin-next": "^15.2.2",
-    "@playwright/test": "^1.51.0",
+    "@playwright/test": "^1.51.1",
     "@rocketseat/eslint-config": "^2.2.2",
     "@tailwindcss/postcss": "^4.0.14",
     "@types/express": "^5.0.0",
@@ -154,7 +154,7 @@
     "depcheck": "^1.4.7",
     "eslint": "^9.22.0",
     "eslint-config-prettier": "^10.1.1",
-    "eslint-import-resolver-typescript": "^3.9.1",
+    "eslint-import-resolver-typescript": "^4.1.1",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-import-helpers": "^2.0.1",
     "eslint-plugin-jsx-a11y": "^6.10.2",
@@ -171,14 +171,14 @@
     "prisma": "^6.5.0",
     "semantic-release": "^24.2.3",
     "supertest": "^7.0.0",
-    "tailwindcss": "4.0.14",
+    "tailwindcss": "^4.0.14",
     "ts-node": "^10.9.2",
     "tsup": "^8.4.0",
     "turbo": "^2.4.4",
     "typescript": "^5.8.2",
     "unplugin-swc": "^1.5.1",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.0.8"
+    "vitest": "^3.0.9"
   },
   "publishConfig": {
     "access": "restricted"
