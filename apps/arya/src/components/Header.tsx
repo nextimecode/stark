@@ -19,9 +19,11 @@ export function Header() {
         aria-label="Global"
       >
         <div className="md:col-span-3">
-          <Title color="violet" size="text-xl lg:text-3xl">
-            NeXTverso
-          </Title>
+          <Link href="/">
+            <Title color="violet" size="text-xl lg:text-3xl">
+              NeXTverso
+            </Title>
+          </Link>
         </div>
 
         <div className="flex items-center gap-x-2 ms-auto py-1 md:ps-6 md:order-3 md:col-span-3">
