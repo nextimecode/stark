@@ -61,8 +61,10 @@ export default function DashboardClient({ user }: DashboardClientProps) {
 
   return (
     <main>
-      <h1>{user.email}</h1>
-      {user.emailVerified && <h1>E-mail verificado</h1>}
+      <h1 className="dark:text-white">{user.email}</h1>
+      {user.emailVerified && (
+        <h1 className="dark:text-white">E-mail verificado</h1>
+      )}
       <button
         onClick={handleLogout}
         disabled={loading}
