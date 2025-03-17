@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main>
-      <div className="flex flex-col gap-20 lg:gap-28">
+      <div className="flex flex-col gap-20 lg:gap-32">
         <Hero />
         <HowItWorks />
         <Charts />

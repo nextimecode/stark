@@ -12,7 +12,7 @@ export const TestimonialCard = ({
   location
 }: TestimonialCardProps) => {
   return (
-    <div className="min-w-[300px] p-6 border border-neutral-800 rounded-lg shadow-md transition-all duration-300 hover:animate-hover-glow hover:shadow-lg hover:border-primary-500">
+    <div className="min-w-[300px] p-6 border border-neutral-800 rounded-lg shadow-md transition-all duration-300 hover:animate-[hover-glow_2.5s_ease-in-out_infinite] hover:shadow-lg hover:border-primary-500">
       <p className="text-gray-300">{text}</p>
       <div className="mt-4 flex items-center">
         {/* <img
@@ -91,7 +91,7 @@ export function TestimonialsSection() {
           </p>
           <Link
             href="/register"
-            className="mt-6 inline-block px-6 py-3 text-md font-medium text-white hover:bg-primary-500 hover:animate-none rounded-md transition-all duration-300 animate-button-glow"
+            className="mt-6 inline-block px-6 py-3 text-md font-medium text-white hover:bg-primary-500 hover:animate-none rounded-md transition-all duration-300 animate-[button-glow_2.5s_ease-in-out_infinite]"
           >
             Faça Parte da Comunidade
           </Link>

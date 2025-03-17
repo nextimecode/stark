@@ -18,12 +18,12 @@ export function Hero() {
               Construa relações mais fortes – seja no amor, no trabalho ou na
               amizade. Nosso sistema inovador analisa compatibilidade com base
               em interesses, valores e personalidades, ajudando você a encontrar
-              as conexões que realmente importam.
+              as conexões que realmente importa.
             </p>
 
             <div className="my-7 grid gap-3 w-full sm:inline-flex">
               <Link
-                className="transition-all duration-300 hover:animate-none animate-button-glow py-3 px-4 inline-flex justify-center items-center gap-x-2 text-md font-semibold rounded-lg border border-transparent bg-primary dark:text-white disabled:opacity-50 disabled:pointer-events-none"
+                className="transition-all duration-300 hover:animate-none animate-[button-glow_2.5s_ease-in-out_infinite] py-3 px-4 inline-flex justify-center items-center gap-x-2 text-md font-semibold rounded-lg border border-transparent bg-primary dark:text-white disabled:opacity-50 disabled:pointer-events-none"
                 href="/register"
               >
                 Grátis Por Tempo Limitado

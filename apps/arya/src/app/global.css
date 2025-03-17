@@ -69,11 +69,6 @@
     var(--tw-gradient-stops)
   );
 
-  /* Animations */
-  --animation-border-gradient: border-gradient 2.5s linear infinite;
-  --animation-hover-glow: hover-glow 2.5s ease-in-out infinite;
-  --animation-button-glow: button-glow 2.5s ease-in-out infinite;
-
   @keyframes border-gradient {
     0% {
       border-color: #ff375f;

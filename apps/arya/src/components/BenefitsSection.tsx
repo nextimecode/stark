@@ -21,7 +21,7 @@ export function BenefitsSection() {
           </p>
           <Link
             href="/register"
-            className="mt-6 inline-block px-6 py-3 text-md font-medium text-white hover:bg-primary-500 hover:animate-none rounded-md transition-all duration-300 animate-button-glow"
+            className="mt-6 inline-block px-6 py-3 text-md font-medium text-white hover:bg-primary-500 hover:animate-none rounded-md transition-all duration-300 animate-[button-glow_2.5s_ease-in-out_infinite]"
           >
             Aproveite a Gratuidade por Tempo Limitado
           </Link>
@@ -107,7 +107,7 @@ export function Card({
   return (
     <div
       // href={href}
-      className="border border-neutral-800 rounded-lg shadow-md relative focus:outline-hidden before:absolute before:inset-0 before:z-10 before:border before:rounded-xl before:transition before:border-transparent hover:before:animate-border-gradient hover:shadow-lg dark:rounded-xl"
+      className="border border-neutral-800 rounded-lg shadow-md relative focus:outline-hidden before:absolute before:inset-0 before:z-10 before:border before:rounded-xl before:transition before:border-transparent hover:before:animate-[border-gradient_2.5s_ease-in-out_infinite] hover:shadow-lg dark:rounded-xl"
       // target="_blank"
     >
       <div className="relative overflow-hidden p-6 flex flex-col justify-center items-center text-center rounded-xl">

@@ -28,7 +28,7 @@ export function Header() {
 
         <div className="flex items-center gap-x-2 ms-auto py-1 md:ps-6 md:order-3 md:col-span-3">
           <Link
-            className="transition-all duration-300 hover:animate-button-glow py-2 px-3 inline-flex items-center gap-x-2 text-sm rounded-xl border border-transparent bg-primary text-white font-semibold disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-primary-600"
+            className="transition-all duration-300 hover:animate-[button-glow_2.5s_ease-in-out_infinite] py-2 px-3 inline-flex items-center gap-x-2 text-sm rounded-xl border border-transparent bg-primary text-white font-semibold disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-primary-600"
             href={nedUrl}
           >
             <User className="h-4 w-4" />

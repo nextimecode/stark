@@ -1,8 +1,8 @@
 import Link from 'next/link'
 
 import {
-  MBTI_PERSONALITY_TYPES,
-  MBTI_CATEGORIES
+  MBTI_CATEGORIES,
+  MBTI_PERSONALITY_TYPES
 } from '@/data/mbti-personality-types'
 
 import { RadarChart } from './RadarChart'
@@ -21,7 +21,7 @@ export function PersonalityCharts() {
           </p>
           <Link
             href="/register"
-            className="mt-6 inline-block px-6 py-3 text-md font-medium text-white hover:bg-primary-500 hover:animate-none rounded-md transition-all duration-300 animate-button-glow"
+            className="mt-6 inline-block px-6 py-3 text-md font-medium text-white hover:bg-primary-500 hover:animate-none rounded-md transition-all duration-300 animate-[button-glow_2.5s_ease-in-out_infinite]"
           >
             Faça o Teste MBTI
           </Link>
