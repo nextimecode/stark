@@ -2,10 +2,10 @@ import { ReactNode } from 'react'
 
 import Link from 'next/link'
 
-import { AchievementIcon } from './Icon/AchievementIcon'
-import { BuildingAndSquareIcon } from './Icon/BuidingAndSquareIcon'
-import { DiamondGridIcon } from './Icon/DimongGridIcon'
-import { DocumentAndClipboardIcon } from './Icon/DocumentAndClipboardIcon'
+import { AchievementIcon } from './icon/AchievementIcon'
+import { BuildingAndSquareIcon } from './icon/BuidingAndSquareIcon'
+import { DiamondGridIcon } from './icon/DimongGridIcon'
+import { DocumentAndClipboardIcon } from './icon/DocumentAndClipboardIcon'
 
 export function BenefitsSection() {
   return (
