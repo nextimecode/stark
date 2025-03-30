@@ -40,7 +40,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       data-theme="dark"
     >
       <body className="bg-white dark:bg-black">
-        <div className="relative min-h-screen">{children}</div>
+        <main className="relative min-h-screen">{children}</main>
         <PrelineScript />
       </body>
     </html>
