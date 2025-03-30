@@ -99,7 +99,7 @@ importers:
         specifier: ^0.485.0
         version: 0.485.0(react@19.1.0)
       multer:
-        specifier: 1.4.5-lts.2
+        specifier: ^1.4.5-lts.2
         version: 1.4.5-lts.2
       next:
         specifier: ^15.2.4
