@@ -6,7 +6,7 @@ import { User } from 'lucide-react'
 
 import { env } from '@/env'
 
-import { Title } from './Title'
+import { Title } from './title'
 
 const nedUrl = env.NEXT_PUBLIC_NED_URL
 
