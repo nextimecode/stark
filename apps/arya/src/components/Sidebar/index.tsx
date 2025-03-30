@@ -1,10 +1,10 @@
 'use client'
 
 import * as Collapsible from '@radix-ui/react-collapsible'
-import { Search, LifeBuoy, Cog, Menu } from 'lucide-react'
+import { Cog, LifeBuoy, Menu, Search } from 'lucide-react'
 
 import { Button } from '../Button'
-import * as Input from '../Form/Input'
+import * as Input from '../form/input'
 import { Logo } from './Logo'
 import { Navigation } from './Navigation'
 import { NavItem } from './Navigation/NavItem'
