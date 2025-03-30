@@ -1,3 +1,5 @@
+// components/button.tsx
+
 import { ButtonHTMLAttributes } from 'react'
 
 import { Slot } from '@radix-ui/react-slot'
