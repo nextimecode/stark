@@ -1,3 +1,5 @@
+// components/preline-script.tsx
+
 'use client'
 
 import { useEffect } from 'react'

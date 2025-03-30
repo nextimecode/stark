@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 import type { Metadata, Viewport } from 'next'
 import { Inter, Oxanium } from 'next/font/google'
 
-import { PrelineScript } from '@/components/PrelineScript'
+import { PrelineScript } from '@/components/preline-script'
 import './global.css'
 
 const oxanium = Oxanium({

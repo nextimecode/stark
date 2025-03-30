@@ -1,4 +1,4 @@
-import { RadarChart } from './RadarChart'
+import { RadarChart } from './radar-chart'
 
 export function Charts() {
   return (
