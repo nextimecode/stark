@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { Title } from '@/components/Title'
+import { Title } from '@/components/title'
 
 export function Hero() {
   return (
