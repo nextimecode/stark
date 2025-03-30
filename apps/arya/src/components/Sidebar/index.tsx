@@ -3,7 +3,7 @@
 import * as Collapsible from '@radix-ui/react-collapsible'
 import { Cog, LifeBuoy, Menu, Search } from 'lucide-react'
 
-import { Button } from '../Button'
+import { Button } from '../button'
 import * as Input from '../form/input'
 import { Logo } from './Logo'
 import { Navigation } from './Navigation'
