@@ -2,7 +2,7 @@
 
 import { ApexOptions } from 'apexcharts'
 
-import { ApexChart } from './ApexChart'
+import { ApexChart } from './apex-chart'
 
 interface RadarChartProps {
   title: string

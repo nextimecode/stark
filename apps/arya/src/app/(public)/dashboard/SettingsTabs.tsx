@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useState } from 'react'
+import { useState } from 'react'
 
-import { TabItem } from '@/components/TabItem'
+import { TabItem } from '@/components/tab-item'
 
 import * as ScrollArea from '@radix-ui/react-scroll-area'
 import * as Tabs from '@radix-ui/react-tabs'

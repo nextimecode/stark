@@ -1,11 +1,11 @@
 import Link from 'next/link'
 
+import { RadarChart } from '@/components/radar-chart'
+
 import {
   MBTI_CATEGORIES,
   MBTI_PERSONALITY_TYPES
 } from '@/data/mbti-personality-types'
-
-import { RadarChart } from './RadarChart'
 
 export function PersonalityCharts() {
   return (
