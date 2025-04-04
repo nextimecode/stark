@@ -4,7 +4,7 @@
   "description": "Autenticação - Ned, inspirado em Ned Stark, simboliza honra, integridade e proteção. Este projeto é responsável por gerenciar o login e cadastro de usuários, garantindo segurança, confiabilidade e um acesso descomplicado ao sistema, mantendo a base sólida para a experiência geral.",
   "private": true,
   "scripts": {
-    "dev": "rm -rf .next && next dev --port 8000",
+    "dev": "rm -rf .next && next dev --port 8000 --turbopack",
     "clean": "rm -rf .turbo .next .vercel dist node_modules pnpm-lock.yaml playwright-report test-results",
     "build": "next build",
     "start": "next start --port 8000",
