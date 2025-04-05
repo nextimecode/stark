@@ -6,6 +6,10 @@ html {
   scroll-behavior: smooth;
 }
 
+body {
+  color: white;
+}
+
 @theme {
   /* Breakpoints */
   --screen-xs: (max-width: 639px);

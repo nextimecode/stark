@@ -1,107 +1,126 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
 generator client {
-  provider      = "prisma-client-js"
-  binaryTargets = ["native", "darwin-arm64"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
-enum UserRole {
-  STUDENT
-  INSTRUCTOR
+  url      = env("POSTGRES_PRISMA_URL")
 }
 
 model User {
-  id       String   @id @default(uuid())
-  name     String
-  email    String   @unique
-  password String
-  role     UserRole @default(STUDENT)
-
-  questions     Question[]
-  answers       Answer[]
-  comment       Comment[]
-  notifications Notification[]
+  id          String       @id @db.Uuid
+  email       String       @unique
+  fullName    String?      @map("full_name")
+  avatarUrl   String?      @map("avatar_url")
+  createdAt   DateTime     @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt   DateTime     @default(now()) @map("updated_at") @db.Timestamptz
+  tests       Test[]
+  invitations Invitation[]
 
   @@map("users")
 }
 
-model Question {
-  id           String    @id @default(uuid())
-  title        String
-  slug         String    @unique
-  content      String
-  createdAt    DateTime  @default(now()) @map("created_at")
-  updatedAt    DateTime? @updatedAt @map("updated_at")
-  authorId     String    @map("author_id")
-  bestAnswerId String?   @unique @map("best_answer_id")
+model RelationshipType {
+  id          Int                        @id @default(autoincrement())
+  name        String                     @unique
+  description String?
+  createdAt   DateTime                   @default(now()) @map("created_at") @db.Timestamptz
+  tests       Test[]
+  invitations Invitation[]
+  questions   QuestionRelationshipType[]
 
-  author      User         @relation(fields: [authorId], references: [id])
-  bestAnswer  Answer?      @relation("bestAnswer", fields: [bestAnswerId], references: [id])
-  answers     Answer[]
-  comments    Comment[]
-  attachments Attachment[]
+  @@map("relationship_types")
+}
+
+model Category {
+  id          Int        @id @default(autoincrement())
+  name        String
+  description String?
+  createdAt   DateTime   @default(now()) @map("created_at") @db.Timestamptz
+  questions   Question[]
+
+  @@map("categories")
+}
+
+model Question {
+  id                Int                        @id @default(autoincrement())
+  categoryId        Int                        @map("category_id")
+  text              String
+  weight            Int                        @default(1)
+  createdAt         DateTime                   @default(now()) @map("created_at") @db.Timestamptz
+  category          Category                   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  answers           Answer[]
+  relationshipTypes QuestionRelationshipType[]
 
   @@map("questions")
 }
 
-model Answer {
-  id         String    @id @default(uuid())
-  content    String
-  createdAt  DateTime  @default(now()) @map("created_at")
-  updatedAt  DateTime? @updatedAt @map("updated_at")
-  authorId   String    @map("author_id")
-  questionId String    @map("question_id")
+model QuestionRelationshipType {
+  questionId         Int              @map("question_id")
+  relationshipTypeId Int              @map("relationship_type_id")
+  weight             Float            @default(1.0)
+  question           Question         @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  relationshipType   RelationshipType @relation(fields: [relationshipTypeId], references: [id], onDelete: Cascade)
 
-  author       User         @relation(fields: [authorId], references: [id])
-  bestAnswerOn Question?    @relation("bestAnswer")
-  question     Question     @relation(fields: [questionId], references: [id])
-  comments     Comment[]
-  attachments  Attachment[]
+  @@id([questionId, relationshipTypeId])
+  @@map("question_relationship_type")
+}
+
+model Answer {
+  id         Int      @id @default(autoincrement())
+  questionId Int      @map("question_id")
+  text       String
+  value      Int
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
 
   @@map("answers")
 }
 
-model Comment {
-  id         String    @id @default(uuid())
-  content    String
-  authorId   String    @map("author_id")
-  questionId String?   @map("question_id")
-  answerId   String?   @map("answer_id")
-  createdAt  DateTime  @default(now()) @map("created_at")
-  updatedAt  DateTime? @updatedAt @map("updated_at")
+model Test {
+  id                 String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId             String           @map("user_id") @db.Uuid
+  relationshipTypeId Int              @map("relationship_type_id")
+  results            Json
+  createdAt          DateTime         @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt          DateTime         @default(now()) @map("updated_at") @db.Timestamptz
+  user               User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  relationshipType   RelationshipType @relation(fields: [relationshipTypeId], references: [id], onDelete: Cascade)
+  comparisonsAsTest1 Comparison[]     @relation("TestOne")
+  comparisonsAsTest2 Comparison[]     @relation("TestTwo")
+  invitations        Invitation[]
 
-  question Question? @relation(fields: [questionId], references: [id])
-  answer   Answer?   @relation(fields: [answerId], references: [id])
-  author   User      @relation(fields: [authorId], references: [id])
-
-  @@map("comments")
+  @@map("tests")
 }
 
-model Attachment {
-  id         String  @id @default(uuid())
-  title      String
-  url        String
-  questionId String? @map("question_id")
-  answerId   String? @map("answer_id")
+model Comparison {
+  id                 String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  testId1            String   @map("test_id_1") @db.Uuid
+  testId2            String   @map("test_id_2") @db.Uuid
+  compatibilityScore Float    @map("compatibility_score")
+  details            Json
+  createdAt          DateTime @default(now()) @map("created_at") @db.Timestamptz
+  test1              Test     @relation("TestOne", fields: [testId1], references: [id], onDelete: Cascade)
+  test2              Test     @relation("TestTwo", fields: [testId2], references: [id], onDelete: Cascade)
 
-  question Question? @relation(fields: [questionId], references: [id])
-  answer   Answer?   @relation(fields: [answerId], references: [id])
-
-  @@map("attachments")
+  @@map("comparisons")
 }
 
-model Notification {
-  id          String    @id @default(uuid())
-  recipientId String    @map("recipient_id")
-  title       String
-  content     String
-  readAt      DateTime? @map("read_at")
-  createdAt   DateTime  @default(now()) @map("created_at")
+model Invitation {
+  id                 String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  senderId           String           @map("sender_id") @db.Uuid
+  email              String
+  relationshipTypeId Int              @map("relationship_type_id")
+  status             String           @default("pending")
+  testId             String?          @map("test_id") @db.Uuid
+  createdAt          DateTime         @default(now()) @map("created_at") @db.Timestamptz
+  expiresAt          DateTime         @default(dbgenerated("NOW() + INTERVAL '7 days'")) @map("expires_at") @db.Timestamptz
+  sender             User             @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  relationshipType   RelationshipType @relation(fields: [relationshipTypeId], references: [id], onDelete: Cascade)
+  test               Test?            @relation(fields: [testId], references: [id], onDelete: Cascade)
 
-  recipient User @relation(fields: [recipientId], references: [id])
-
-  @@map("notifications")
+  @@map("invitations")
 }
