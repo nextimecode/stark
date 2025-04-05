@@ -1,9 +1,10 @@
 'use client'
 
 import type React from 'react'
-
 import { useState } from 'react'
+
 import { useRouter } from 'next/navigation'
+
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -22,6 +23,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
+
 import { Loader2 } from 'lucide-react'
 
 interface Test {
@@ -110,7 +112,9 @@ export function InvitationForm({
               id="email"
               type="email"
               value={email}
-              onChange={e => setEmail(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setEmail(e.target.value)
+              }
               placeholder="Enter recipient's email"
               required
             />
