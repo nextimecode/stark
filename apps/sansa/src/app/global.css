@@ -14,6 +14,7 @@ html {
   --font-heading: var(--font-oxanium);
   --font-sans: var(--font-inter);
   --font-smoothing: antialiased;
+  --color-text: white;
 
   /* Colors */
   --color-primary: #bf5af2;

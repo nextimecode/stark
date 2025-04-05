@@ -13,18 +13,22 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 
+import { signOut } from 'firebase/auth'
 import { User } from 'lucide-react'
 
-import { getSupabaseClient } from '@/lib/supabase/client'
+import { env } from '@/env'
+import { auth } from '@/firebase/client'
 
 export function Navbar() {
   const router = useRouter()
-  const supabase = getSupabaseClient()
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut()
-    router.push('/')
-    router.refresh()
+    await signOut(auth)
+    await fetch(`${env.NEXT_PUBLIC_NED_URL}/api/logout`, {
+      method: 'POST',
+      credentials: 'include'
+    })
+    router.push(env.NEXT_PUBLIC_ARYA_URL)
   }
 
   return (
