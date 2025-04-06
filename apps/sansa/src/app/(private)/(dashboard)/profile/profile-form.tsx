@@ -6,32 +6,23 @@ import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 
 import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card'
-import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+import { Form } from '@/components/ui/form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Save, UserCircle } from 'lucide-react'
+import { Save } from 'lucide-react'
 
+import BasicSection from './basic-section'
+import FamilySection from './family-section'
+import FriendshipSection from './friendship-section'
+import InterestsSection from './interests-section'
+import PersonalitySection from './personality-section'
+import ProfessionalSection from './professional-section'
+import RelationshipSection from './relationship-section'
+import RomanticSection from './romantic-section'
 import { ProfileFormValues, profileFormSchema } from './schema'
+import ValuesSection from './values-section'
 
-export interface ProfileFormProps {}
-
-export function ProfileForm({}: ProfileFormProps) {
+export function ProfileForm() {
   const router = useRouter()
   const [openSections, setOpenSections] = useState({
     basic: true,
@@ -48,25 +39,45 @@ export function ProfileForm({}: ProfileFormProps) {
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
+      name: '',
+      email: '',
+      age: 18,
+      location: '',
+      mbtiType: '',
       introExtroScale: 5,
       communicationStyle: 'mixed',
+      hobbies: '',
+      musicPreference: '',
+      leisureActivities: '',
+      coreValues: '',
+      lifeGoals: '',
+      relationshipExpectations: '',
       relationshipFocus: 'romantic',
       desiredContactFrequency: 'weekly',
       conflictResolutionStyle: 'collaborative',
-      familyImportance: 5,
-      traditionalValues: 5,
+      maritalStatus: '',
+      relationshipDuration: '',
+      communicationExpectation: '',
+      intimacyExpectation: '',
+      technicalSkills: '',
+      professionalExperience: '',
+      workArea: '',
+      currentPosition: '',
       workPreferences: [],
+      careerObjectives: '',
       friendHobbies: [],
+      socializationFrequency: '',
+      communicationPreference: '',
       friendActivities: [],
+      familyContactFrequency: '',
+      familyRole: '',
+      familyTraditionsImportance: '',
       familyDynamics: []
     }
   })
 
   const onSubmit = async (data: ProfileFormValues) => {
     try {
-      // Aqui você faria uma chamada API para salvar os dados
-
-      // Simulando um processo de salvamento
       await new Promise(resolve => setTimeout(resolve, 1000))
       router.push('/dashboard')
     } catch (error) {
@@ -74,106 +85,57 @@ export function ProfileForm({}: ProfileFormProps) {
     }
   }
 
-  const toggleSection = (section: keyof typeof openSections) => {
-    setOpenSections(prev => ({
-      ...prev,
-      [section]: !prev[section]
-    }))
-  }
+  const toggleSection = (section: keyof typeof openSections) =>
+    setOpenSections(prev => ({ ...prev, [section]: !prev[section] }))
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        {/* Seção 1: Dados Básicos */}
-        <Card className="relative">
-          <div
-            className="absolute top-4 right-4 cursor-pointer"
-            onClick={() => toggleSection('basic')}
-          >
-            <button
-              type="button"
-              className="text-muted-foreground hover:text-primary"
-            >
-              {openSections.basic ? 'Fechar' : 'Expandir'}
-            </button>
-          </div>
-          <CardHeader>
-            <CardTitle
-              onClick={() => toggleSection('basic')}
-              className="cursor-pointer flex items-center"
-            >
-              <UserCircle className="mr-2 h-5 w-5" />
-              Dados Básicos
-            </CardTitle>
-            <CardDescription>Informações gerais sobre você</CardDescription>
-          </CardHeader>
-          <Collapsible open={openSections.basic}>
-            <CollapsibleContent>
-              <CardContent className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Nome</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Seu nome completo" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="email"
-                          placeholder="seu.email@exemplo.com"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <FormField
-                    control={form.control}
-                    name="age"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Idade</FormLabel>
-                        <FormControl>
-                          <Input type="number" placeholder="25" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="location"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Localização</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Cidade, Estado" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              </CardContent>
-            </CollapsibleContent>
-          </Collapsible>
-        </Card>
-
-        {/* Botão de Submissão */}
+        <BasicSection
+          form={form}
+          open={openSections.basic}
+          toggle={() => toggleSection('basic')}
+        />
+        <PersonalitySection
+          form={form}
+          open={openSections.personality}
+          toggle={() => toggleSection('personality')}
+        />
+        <InterestsSection
+          form={form}
+          open={openSections.interests}
+          toggle={() => toggleSection('interests')}
+        />
+        <ValuesSection
+          form={form}
+          open={openSections.values}
+          toggle={() => toggleSection('values')}
+        />
+        <RelationshipSection
+          form={form}
+          open={openSections.relationship}
+          toggle={() => toggleSection('relationship')}
+        />
+        <RomanticSection
+          form={form}
+          open={openSections.romantic}
+          toggle={() => toggleSection('romantic')}
+        />
+        <ProfessionalSection
+          form={form}
+          open={openSections.professional}
+          toggle={() => toggleSection('professional')}
+        />
+        <FriendshipSection
+          form={form}
+          open={openSections.friendship}
+          toggle={() => toggleSection('friendship')}
+        />
+        <FamilySection
+          form={form}
+          open={openSections.family}
+          toggle={() => toggleSection('family')}
+        />
         <div className="flex justify-end pt-6">
           <Button type="submit" className="flex items-center gap-2">
             <Save className="h-4 w-4" />
@@ -184,3 +146,5 @@ export function ProfileForm({}: ProfileFormProps) {
     </Form>
   )
 }
+
+export default ProfileForm
