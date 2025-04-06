@@ -1,10 +1,13 @@
+// app/(sign-in)/page.tsx
+
 'use client'
+
 import { FormEvent, useState } from 'react'
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
-import { Title } from '@/components/'
+import { Title } from '@/components'
 import { Logo } from '@/components/logo'
 
 import { signInWithEmailAndPassword, signInWithGoogle } from '@/firebase/auth'
@@ -19,50 +22,89 @@ export default function SignIn() {
 
   const handleGoogleLogin = async () => {
     setIsLoading(true)
-    const { success, error, data } = await signInWithGoogle()
-    if (success && data?.user) {
-      const token = await data.user.getIdToken()
-      const response = await fetch('/api/set-cookie', {
+
+    const response = await signInWithGoogle()
+
+    if (response.error === null) {
+      const user = response.data
+
+      await fetch('/api/register-user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          uid: user.uid,
+          displayName: user.displayName,
+          email: user.email,
+          emailVerified: user.emailVerified,
+          photoURL: user.photoURL,
+          providerId: user.providerId,
+          creationTime: user.metadata?.creationTime
+        })
+      })
+
+      const token = await response.data.getIdToken()
+
+      const res = await fetch('/api/set-cookie', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token })
       })
-      if (response.ok) {
-        router.push('/')
-      } else {
-        setErrorMessage('Erro ao configurar o cookie de sessão.')
-      }
-    } else {
-      setErrorMessage(error || 'Falha ao fazer login com o Google.')
-    }
-  }
 
-  const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setIsLoading(true)
-
-    const { success, error, data } = await signInWithEmailAndPassword(
-      email,
-      password
-    )
-
-    if (success && data?.user) {
-      const token = await data.user.getIdToken()
-      const response = await fetch('/api/set-cookie', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token })
-      })
-      if (response.ok) {
+      if (res.ok) {
         router.push('/')
       } else {
         setErrorMessage('Erro ao configurar o cookie de sessão.')
       }
     } else {
       setErrorMessage(
-        error === 'auth/wrong-password'
+        response.error.details || 'Falha ao fazer login com o Google.'
+      )
+    }
+
+    setIsLoading(false)
+  }
+
+  const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setIsLoading(true)
+
+    const response = await signInWithEmailAndPassword(email, password)
+
+    if (response.error === null) {
+      const user = response.data
+
+      await fetch('/api/register-user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          uid: user.uid,
+          displayName: user.displayName,
+          email: user.email,
+          emailVerified: user.emailVerified,
+          photoURL: user.photoURL,
+          providerId: user.providerId,
+          creationTime: user.metadata?.creationTime
+        })
+      })
+
+      const token = await response.data.getIdToken()
+
+      const res = await fetch('/api/set-cookie', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token })
+      })
+
+      if (res.ok) {
+        router.push('/')
+      } else {
+        setErrorMessage('Erro ao configurar o cookie de sessão.')
+      }
+    } else {
+      setErrorMessage(
+        response.error.code === 'auth/wrong-password'
           ? 'Senha incorreta. Por favor, tente novamente.'
-          : 'Falha ao fazer login. Tente novamente.'
+          : response.error.details || 'Falha ao fazer login. Tente novamente.'
       )
     }
 
@@ -84,6 +126,7 @@ export default function SignIn() {
                 </Title>
               </h2>
             </div>
+
             <button
               type="button"
               className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg cursor-pointer border border-gray-200 bg-white text-gray-800 shadow-xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-system-gray-transparent dark:border-system-gray2 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
@@ -93,9 +136,11 @@ export default function SignIn() {
               <GoogleIcon />
               {isLoading ? 'Carregando...' : 'Entrar com Google'}
             </button>
+
             <div className="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-1 before:border-t before:border-gray-200 before:me-6 after:flex-1 after:border-t after:border-gray-200 after:ms-6 dark:text-neutral-500 dark:before:border-neutral-600 dark:after:border-neutral-600">
               Ou
             </div>
+
             <form onSubmit={handleFormSubmit}>
               <div className="grid gap-y-4">
                 <div>
@@ -113,24 +158,22 @@ export default function SignIn() {
                       className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-system-gray-transparent dark:border-system-gray2 dark:text-white dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                       required
                       placeholder="Ex: @gmail, @outlook, @yahoo, etc."
-                      aria-describedby="email-error"
                       onChange={e => setEmail(e.target.value)}
                     />
                   </div>
                 </div>
+
                 {errorMessage && (
                   <p className="text-red-500 text-sm">{errorMessage}</p>
                 )}
 
                 <div>
-                  <div className="flex justify-between items-center">
-                    <label
-                      htmlFor="password"
-                      className="block text-sm mb-2 dark:text-white"
-                    >
-                      Senha
-                    </label>
-                  </div>
+                  <label
+                    htmlFor="password"
+                    className="block text-sm mb-2 dark:text-white"
+                  >
+                    Senha
+                  </label>
                   <div className="relative">
                     <input
                       type="password"
@@ -139,12 +182,12 @@ export default function SignIn() {
                       className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-system-gray-transparent dark:border-system-gray2 dark:text-white dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                       required
                       placeholder="Digite a sua senha"
-                      aria-describedby="password-error"
                       onChange={e => setPassword(e.target.value)}
                     />
                   </div>
                 </div>
               </div>
+
               <div className="mt-5 mb-6">
                 <button
                   type="submit"
@@ -154,6 +197,7 @@ export default function SignIn() {
                   {isLoading ? 'Carregando...' : 'Entrar'}
                 </button>
               </div>
+
               <div className="flex items-center flex-col gap-4 md:gap-2">
                 <Link
                   className="inline-flex items-center gap-x-1 text-sm text-blue-600 decoration-2 hover:underline focus:outline-hidden focus:underline font-medium dark:text-blue-500"

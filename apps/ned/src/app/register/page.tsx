@@ -1,3 +1,5 @@
+// app/register/page.tsx
+
 'use client'
 
 import { FormEvent, useState } from 'react'
@@ -21,13 +23,33 @@ export default function Register() {
 
   const handleGoogleSignUp = async () => {
     setIsLoading(true)
-    const { success, error } = await signUpWithGoogle()
 
-    if (success) {
+    const response = await signUpWithGoogle()
+
+    if (response.error === null) {
+      await fetch('/api/register-user', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          uid: response.data.uid,
+          displayName: response.data.displayName,
+          email: response.data.email,
+          emailVerified: response.data.emailVerified,
+          photoURL: response.data.photoURL,
+          providerId: response.data.providerId,
+          creationTime: response.data.metadata?.creationTime
+        })
+      })
+
       router.push(`${env.NEXT_PUBLIC_SANSA_URL}/`)
     } else {
-      setErrorMessage(error || 'Falha ao se cadastrar com o Google.')
+      setErrorMessage(
+        response.error.details || 'Falha ao se cadastrar com o Google.'
+      )
     }
+
     setIsLoading(false)
   }
 
@@ -35,17 +57,33 @@ export default function Register() {
     event.preventDefault()
     setIsLoading(true)
 
-    const { success, error } = await signUpWithEmailAndPassword(email, password)
+    const response = await signUpWithEmailAndPassword(email, password)
 
-    if (success) {
+    if (response.error === null) {
+      await fetch('/api/register-user', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          uid: response.data.uid,
+          displayName: response.data.displayName,
+          email: response.data.email,
+          emailVerified: response.data.emailVerified,
+          photoURL: response.data.photoURL,
+          providerId: response.data.providerId,
+          creationTime: response.data.metadata?.creationTime
+        })
+      })
       router.push(`${env.NEXT_PUBLIC_SANSA_URL}/`)
     } else {
       setErrorMessage(
-        error === 'auth/email-already-in-use'
+        response.error.code === 'auth/email-already-in-use'
           ? 'Este email já está em uso. Por favor, tente outro.'
-          : 'Falha ao se cadastrar. Tente novamente.'
+          : response.error.details || 'Falha ao se cadastrar. Tente novamente.'
       )
     }
+
     setIsLoading(false)
   }
 

@@ -1,99 +1,115 @@
 generator client {
-  provider = "prisma-client-js"
+  provider = \"prisma-client-js\"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("POSTGRES_URL_NON_POOLING")
+  provider = \"postgresql\"
+  url      = env(\"POSTGRES_URL_NON_POOLING\")
 }
 
 model User {
-  id            Int       @id @default(autoincrement())
-  uid           String    @unique @default(uuid())
-  firebaseId    String    @unique @map("firebase_id")
-  username      String
-  name          String
-  email         String    @unique
-  emailVerified Boolean   @map("email_verified")
-  picture       String?
-  provider      String
-  authTime      DateTime? @map("auth_time")
-  createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime  @default(now()) @map("updated_at")
+  id       Int     @id @default(autoincrement())
+  uid      String  @unique @default(uuid()) @db.Uuid
+  firebaseId    String    @unique @map(\"firebase_id\")
+  username String
+  name     String
+  email    String  @unique
+  emailVerified Boolean   @map(\"email_verified\")
+  picture  String?
+  provider String
+  authTime      DateTime? @map(\"auth_time\")
+  createdAt     DateTime  @default(now()) @map(\"created_at\")
+  updatedAt     DateTime  @default(now()) @map(\"updated_at\")
 
   answers       Answer[]
-  comments      comments[]
-  notifications notifications[]
+  comments      Comment[]
+  notifications Notification[]
   questions     Question[]
 
-  @@map("users")
+  @@map(\"users\")
 }
 
 model Question {
-  id                                        String        @id
-  title                                     String
-  slug                                      String        @unique
-  content                                   String
-  createdAt                                 DateTime      @default(now()) @map("created_at")
-  updated_at                                DateTime?
-  author_id                                 Int
-  best_answer_id                            String?       @unique
-  answers                                   Answer[]
-  attachments                               attachments[]
-  comments                                  comments[]
-  users                                     User          @relation(fields: [author_id], references: [id])
-  answers_questions_best_answer_idToanswers Answer?       @relation("questions_best_answer_idToanswers", fields: [best_answer_id], references: [id])
+  id      Int    @id @default(autoincrement())
+  uid     String @unique @default(uuid()) @db.Uuid
+  title   String
+  slug    String @unique
+  content String
+  createdAt    DateTime  @default(now()) @map(\"created_at\")
+  updatedAt    DateTime? @map(\"updated_at\")
+  authorId     Int       @map(\"author_id\")
+  bestAnswerId Int?      @unique @map(\"best_answer_id\")
 
-  @@map("questions")
+  author      User         @relation(fields: [authorId], references: [id])
+  bestAnswer  Answer?      @relation(\"BestAnswer\", fields: [bestAnswerId], references: [id])
+  answers     Answer[]
+  attachments Attachment[]
+  comments    Comment[]
+
+  @@map(\"questions\")
 }
 
 model Answer {
-  id                                          String        @id
-  content                                     String
-  createdAt                                   DateTime      @default(now()) @map("created_at")
-  updated_at                                  DateTime?
-  author_id                                   Int
-  questionId                                  String        @map("question_id")
-  users                                       User          @relation(fields: [author_id], references: [id])
-  question                                    Question      @relation(fields: [questionId], references: [id])
-  attachments                                 attachments[]
-  comments                                    comments[]
-  questions_questions_best_answer_idToanswers Question?     @relation("questions_best_answer_idToanswers")
+  id      Int    @id @default(autoincrement())
+  uid     String @unique @default(uuid()) @db.Uuid
+  content String
+  createdAt  DateTime  @default(now()) @map(\"created_at\")
+  updatedAt  DateTime? @map(\"updated_at\")
+  authorId   Int       @map(\"author_id\")
+  questionId Int       @map(\"question_id\")
 
-  @@map("answers")
+  author      User         @relation(fields: [authorId], references: [id])
+  question    Question     @relation(fields: [questionId], references: [id])
+  chosenAsBest Question?    @relation(\"BestAnswer\")
+  attachments Attachment[]
+  comments    Comment[]
+
+  @@map(\"answers\")
 }
 
-model attachments {
-  id          String    @id
-  title       String
-  url         String
-  question_id String?
-  answer_id   String?
-  answers     Answer?   @relation(fields: [answer_id], references: [id])
-  questions   Question? @relation(fields: [question_id], references: [id])
+model Attachment {
+  id    Int    @id @default(autoincrement())
+  uid   String @unique @default(uuid()) @db.Uuid
+  title String
+  url   String
+  questionId Int?   @map(\"question_id\")
+  answerId   Int?   @map(\"answer_id\")
+
+  question Question? @relation(fields: [questionId], references: [id])
+  answer   Answer?   @relation(fields: [answerId], references: [id])
+
+  @@map(\"attachments\")
 }
 
-model comments {
-  id          String    @id
-  content     String
-  author_id   Int
-  question_id String?
-  answer_id   String?
-  created_at  DateTime  @default(now())
-  updated_at  DateTime?
-  answers     Answer?   @relation(fields: [answer_id], references: [id])
-  users       User      @relation(fields: [author_id], references: [id])
-  questions   Question? @relation(fields: [question_id], references: [id])
+model Comment {
+  id      Int    @id @default(autoincrement())
+  uid     String @unique @default(uuid()) @db.Uuid
+  content String
+  authorId   Int       @map(\"author_id\")
+  questionId Int?      @map(\"question_id\")
+  answerId   Int?      @map(\"answer_id\")
+  createdAt  DateTime  @default(now()) @map(\"created_at\")
+  updatedAt  DateTime? @map(\"updated_at\")
+
+  author   User      @relation(fields: [authorId], references: [id])
+  question Question? @relation(fields: [questionId], references: [id])
+  answer   Answer?   @relation(fields: [answerId], references: [id])
+
+  @@map(\"comments\")
 }
 
-model notifications {
-  id           String    @id
-  recipient_id Int
-  title        String
-  content      String
-  read_at      DateTime?
-  created_at   DateTime  @default(now())
-  users        User      @relation(fields: [recipient_id], references: [id])
+model Notification {
+  id      Int    @id @default(autoincrement())
+  uid     String @unique @default(uuid()) @db.Uuid
+  recipientId Int       @map(\"recipient_id\")
+  title   String
+  content String
+  readAt      DateTime? @map(\"read_at\")
+  createdAt   DateTime  @default(now()) @map(\"created_at\")
+
+  recipient User @relation(fields: [recipientId], references: [id])
+
+  @@map(\"notifications\")
 }
 
 enum UserRole {
