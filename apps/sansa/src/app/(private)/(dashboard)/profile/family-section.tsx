@@ -178,7 +178,10 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
                               ])
                             } else {
                               field.onChange(
-                                field.value?.filter(v => v !== 'constant') || []
+                                field.value?.filter(
+                                  (selectedOption: string) =>
+                                    selectedOption !== 'constant'
+                                ) || []
                               )
                             }
                           }}
@@ -198,7 +201,10 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
                               ])
                             } else {
                               field.onChange(
-                                field.value?.filter(v => v !== 'balanced') || []
+                                field.value?.filter(
+                                  (selectedOption: string) =>
+                                    selectedOption !== 'balanced'
+                                ) || []
                               )
                             }
                           }}
@@ -218,7 +224,10 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
                               ])
                             } else {
                               field.onChange(
-                                field.value?.filter(v => v !== 'privacy') || []
+                                field.value?.filter(
+                                  (selectedOption: string) =>
+                                    selectedOption !== 'privacy'
+                                ) || []
                               )
                             }
                           }}
@@ -235,7 +244,10 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
                               field.onChange([...(field.value || []), 'casual'])
                             } else {
                               field.onChange(
-                                field.value?.filter(v => v !== 'casual') || []
+                                field.value?.filter(
+                                  (selectedOption: string) =>
+                                    selectedOption !== 'casual'
+                                ) || []
                               )
                             }
                           }}
@@ -255,8 +267,10 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
                               ])
                             } else {
                               field.onChange(
-                                field.value?.filter(v => v !== 'activities') ||
-                                  []
+                                field.value?.filter(
+                                  (selectedOption: string) =>
+                                    selectedOption !== 'activities'
+                                ) || []
                               )
                             }
                           }}
@@ -276,8 +290,10 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
                               ])
                             } else {
                               field.onChange(
-                                field.value?.filter(v => v !== 'emotional') ||
-                                  []
+                                field.value?.filter(
+                                  (selectedOption: string) =>
+                                    selectedOption !== 'emotional'
+                                ) || []
                               )
                             }
                           }}
