@@ -10,6 +10,7 @@ import DashboardClient from './dashboard-client'
 export default async function DashboardPage() {
   const cookieStore = await cookies()
   const token = cookieStore.get('token')?.value
+
   if (!token) {
     return <p>Não autenticado</p>
   }

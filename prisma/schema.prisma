@@ -1,126 +1,101 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("POSTGRES_PRISMA_URL")
+  url      = env("POSTGRES_URL_NON_POOLING")
 }
 
 model User {
-  id          String       @id @db.Uuid
-  email       String       @unique
-  fullName    String?      @map("full_name")
-  avatarUrl   String?      @map("avatar_url")
-  createdAt   DateTime     @default(now()) @map("created_at") @db.Timestamptz
-  updatedAt   DateTime     @default(now()) @map("updated_at") @db.Timestamptz
-  tests       Test[]
-  invitations Invitation[]
+  id             String    @id
+  uid            String    @unique
+  username       String
+  name           String
+  email          String    @unique
+  email_verified Boolean
+  picture        String?
+  provider       String
+  auth_time      DateTime?
+  created_at     DateTime  @default(now())
+  updated_at     DateTime  @default(now())
+
+  answers       Answer[]
+  comments      comments[]
+  notifications notifications[]
+  questions     Question[]
 
   @@map("users")
 }
 
-model RelationshipType {
-  id          Int                        @id @default(autoincrement())
-  name        String                     @unique
-  description String?
-  createdAt   DateTime                   @default(now()) @map("created_at") @db.Timestamptz
-  tests       Test[]
-  invitations Invitation[]
-  questions   QuestionRelationshipType[]
-
-  @@map("relationship_types")
-}
-
-model Category {
-  id          Int        @id @default(autoincrement())
-  name        String
-  description String?
-  createdAt   DateTime   @default(now()) @map("created_at") @db.Timestamptz
-  questions   Question[]
-
-  @@map("categories")
-}
-
 model Question {
-  id                Int                        @id @default(autoincrement())
-  categoryId        Int                        @map("category_id")
-  text              String
-  weight            Int                        @default(1)
-  createdAt         DateTime                   @default(now()) @map("created_at") @db.Timestamptz
-  category          Category                   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  answers           Answer[]
-  relationshipTypes QuestionRelationshipType[]
+  id                                        String        @id
+  title                                     String
+  slug                                      String        @unique
+  content                                   String
+  createdAt                                 DateTime      @default(now()) @map("created_at")
+  updated_at                                DateTime?
+  author_id                                 String
+  best_answer_id                            String?       @unique
+  answers                                   Answer[]
+  attachments                               attachments[]
+  comments                                  comments[]
+  users                                     User          @relation(fields: [author_id], references: [id])
+  answers_questions_best_answer_idToanswers Answer?       @relation("questions_best_answer_idToanswers", fields: [best_answer_id], references: [id])
 
   @@map("questions")
 }
 
-model QuestionRelationshipType {
-  questionId         Int              @map("question_id")
-  relationshipTypeId Int              @map("relationship_type_id")
-  weight             Float            @default(1.0)
-  question           Question         @relation(fields: [questionId], references: [id], onDelete: Cascade)
-  relationshipType   RelationshipType @relation(fields: [relationshipTypeId], references: [id], onDelete: Cascade)
-
-  @@id([questionId, relationshipTypeId])
-  @@map("question_relationship_type")
-}
-
 model Answer {
-  id         Int      @id @default(autoincrement())
-  questionId Int      @map("question_id")
-  text       String
-  value      Int
-  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz
-  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  id                                          String        @id
+  content                                     String
+  createdAt                                   DateTime      @default(now()) @map("created_at")
+  updated_at                                  DateTime?
+  author_id                                   String
+  questionId                                  String        @map("question_id")
+  users                                       User          @relation(fields: [author_id], references: [id])
+  question                                    Question      @relation(fields: [questionId], references: [id])
+  attachments                                 attachments[]
+  comments                                    comments[]
+  questions_questions_best_answer_idToanswers Question?     @relation("questions_best_answer_idToanswers")
 
   @@map("answers")
 }
 
-model Test {
-  id                 String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  userId             String           @map("user_id") @db.Uuid
-  relationshipTypeId Int              @map("relationship_type_id")
-  results            Json
-  createdAt          DateTime         @default(now()) @map("created_at") @db.Timestamptz
-  updatedAt          DateTime         @default(now()) @map("updated_at") @db.Timestamptz
-  user               User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-  relationshipType   RelationshipType @relation(fields: [relationshipTypeId], references: [id], onDelete: Cascade)
-  comparisonsAsTest1 Comparison[]     @relation("TestOne")
-  comparisonsAsTest2 Comparison[]     @relation("TestTwo")
-  invitations        Invitation[]
-
-  @@map("tests")
+model attachments {
+  id          String    @id
+  title       String
+  url         String
+  question_id String?
+  answer_id   String?
+  answers     Answer?   @relation(fields: [answer_id], references: [id])
+  questions   Question? @relation(fields: [question_id], references: [id])
 }
 
-model Comparison {
-  id                 String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  testId1            String   @map("test_id_1") @db.Uuid
-  testId2            String   @map("test_id_2") @db.Uuid
-  compatibilityScore Float    @map("compatibility_score")
-  details            Json
-  createdAt          DateTime @default(now()) @map("created_at") @db.Timestamptz
-  test1              Test     @relation("TestOne", fields: [testId1], references: [id], onDelete: Cascade)
-  test2              Test     @relation("TestTwo", fields: [testId2], references: [id], onDelete: Cascade)
-
-  @@map("comparisons")
+model comments {
+  id          String    @id
+  content     String
+  author_id   String
+  question_id String?
+  answer_id   String?
+  created_at  DateTime  @default(now())
+  updated_at  DateTime?
+  answers     Answer?   @relation(fields: [answer_id], references: [id])
+  users       User      @relation(fields: [author_id], references: [id])
+  questions   Question? @relation(fields: [question_id], references: [id])
 }
 
-model Invitation {
-  id                 String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  senderId           String           @map("sender_id") @db.Uuid
-  email              String
-  relationshipTypeId Int              @map("relationship_type_id")
-  status             String           @default("pending")
-  testId             String?          @map("test_id") @db.Uuid
-  createdAt          DateTime         @default(now()) @map("created_at") @db.Timestamptz
-  expiresAt          DateTime         @default(dbgenerated("NOW() + INTERVAL '7 days'")) @map("expires_at") @db.Timestamptz
-  sender             User             @relation(fields: [senderId], references: [id], onDelete: Cascade)
-  relationshipType   RelationshipType @relation(fields: [relationshipTypeId], references: [id], onDelete: Cascade)
-  test               Test?            @relation(fields: [testId], references: [id], onDelete: Cascade)
+model notifications {
+  id           String    @id
+  recipient_id String
+  title        String
+  content      String
+  read_at      DateTime?
+  created_at   DateTime  @default(now())
+  users        User      @relation(fields: [recipient_id], references: [id])
+}
 
-  @@map("invitations")
+enum UserRole {
+  STUDENT
+  INSTRUCTOR
 }
