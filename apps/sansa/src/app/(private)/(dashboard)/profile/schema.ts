@@ -4,7 +4,7 @@ export const profileFormSchema = z.object({
   // Dados básicos
   name: z.string().min(2, { message: 'Nome deve ter pelo menos 2 caracteres' }),
   email: z.string().email({ message: 'Email inválido' }),
-  age: z.string().refine(val => !isNaN(Number(val)) && Number(val) >= 18, {
+  age: z.number().refine(val => !isNaN(Number(val)) && Number(val) >= 18, {
     message: 'Idade deve ser um número maior que 18'
   }),
   location: z.string().min(2, { message: 'Localização é obrigatória' }),
