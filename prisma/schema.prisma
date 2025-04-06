@@ -8,8 +8,9 @@ datasource db {
 }
 
 model User {
-  id             String    @id
-  uid            String    @unique
+  id             Int       @id @default(autoincrement())
+  uid            String    @unique @default(uuid())
+  firebase_id    String    @unique
   username       String
   name           String
   email          String    @unique
@@ -35,7 +36,7 @@ model Question {
   content                                   String
   createdAt                                 DateTime      @default(now()) @map("created_at")
   updated_at                                DateTime?
-  author_id                                 String
+  author_id                                 Int
   best_answer_id                            String?       @unique
   answers                                   Answer[]
   attachments                               attachments[]
@@ -51,7 +52,7 @@ model Answer {
   content                                     String
   createdAt                                   DateTime      @default(now()) @map("created_at")
   updated_at                                  DateTime?
-  author_id                                   String
+  author_id                                   Int
   questionId                                  String        @map("question_id")
   users                                       User          @relation(fields: [author_id], references: [id])
   question                                    Question      @relation(fields: [questionId], references: [id])
@@ -75,7 +76,7 @@ model attachments {
 model comments {
   id          String    @id
   content     String
-  author_id   String
+  author_id   Int
   question_id String?
   answer_id   String?
   created_at  DateTime  @default(now())
@@ -87,7 +88,7 @@ model comments {
 
 model notifications {
   id           String    @id
-  recipient_id String
+  recipient_id Int
   title        String
   content      String
   read_at      DateTime?

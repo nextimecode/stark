@@ -1,10 +1,7 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
-import { InvitationForm } from '@/components/invitations/invitation-form'
-
 import { admin } from '@/firebase/admin'
-import { prisma } from '@/lib/prisma'
 
 interface NewInvitationPageProps {
   searchParams: {
@@ -30,37 +27,37 @@ export default async function NewInvitationPage({
   }
 
   const userId = decodedToken.uid
-  const testId = searchParams.testId
+  // const testId = searchParams.testId
 
   let selectedTest = null
 
-  if (testId) {
-    selectedTest = await prisma.test.findUnique({
-      where: {
-        id: testId,
-        userId
-      },
-      include: {
-        relationshipType: true
-      }
-    })
+  // if (testId) {
+  //   selectedTest = await prisma.test.findUnique({
+  //     where: {
+  //       id: testId,
+  //       userId
+  //     },
+  //     include: {
+  //       relationshipType: true
+  //     }
+  //   })
 
-    if (!selectedTest) {
-      redirect('/dashboard')
-    }
-  }
+  //   if (!selectedTest) {
+  //     redirect('/dashboard')
+  //   }
+  // }
 
-  const tests = await prisma.test.findMany({
-    where: {
-      userId
-    },
-    include: {
-      relationshipType: true
-    },
-    orderBy: {
-      createdAt: 'desc'
-    }
-  })
+  // const tests = await prisma.test.findMany({
+  //   where: {
+  //     userId
+  //   },
+  //   include: {
+  //     relationshipType: true
+  //   },
+  //   orderBy: {
+  //     createdAt: 'desc'
+  //   }
+  // })
 
   return (
     <div className="space-y-6">
@@ -71,11 +68,11 @@ export default async function NewInvitationPage({
         </p>
       </div>
 
-      <InvitationForm
+      {/* <InvitationForm
         userId={userId}
         tests={tests}
         selectedTest={selectedTest}
-      />
+      /> */}
     </div>
   )
 }
