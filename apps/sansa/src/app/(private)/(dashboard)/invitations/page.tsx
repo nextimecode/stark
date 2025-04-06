@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation'
 
 import { env } from '@/env'
 import { admin } from '@/firebase/admin'
-import { prisma } from '@/lib/prisma'
+// import { prisma } from '@/lib/prisma'
 
 const REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE = env.NEXT_PUBLIC_NED_URL
 
@@ -42,23 +42,23 @@ export default async function NewInvitationPage({
 }: NewInvitationPageProps) {
   const user = await getUser()
   const userId = user.uid
-  const testId = searchParams.testId
+  // const testId = searchParams.testId
 
-  let selectedTest = null
-  if (testId) {
-    selectedTest = await prisma.test.findUnique({
-      where: { id: testId, userId },
-      include: { relationshipType: true }
-    })
+  // let selectedTest = null
+  // if (testId) {
+  //   selectedTest = await prisma.test.findUnique({
+  //     where: { id: testId, userId },
+  //     include: { relationshipType: true }
+  //   })
 
-    if (!selectedTest) redirect('/dashboard')
-  }
+  //   if (!selectedTest) redirect('/dashboard')
+  // }
 
-  const tests = await prisma.test.findMany({
-    where: { userId },
-    include: { relationshipType: true },
-    orderBy: { createdAt: 'desc' }
-  })
+  // const tests = await prisma.test.findMany({
+  //   where: { userId },
+  //   include: { relationshipType: true },
+  //   orderBy: { createdAt: 'desc' }
+  // })
 
   return (
     <div className="space-y-6">
