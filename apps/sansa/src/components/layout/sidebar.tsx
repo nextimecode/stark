@@ -28,7 +28,7 @@ export function Sidebar({ items }: SidebarNavProps) {
 
   const defaultItems = [
     {
-      href: '/dashboard',
+      href: '/',
       title: 'Dashboard',
       icon: <LayoutDashboard className="mr-2 h-4 w-4" />
     },

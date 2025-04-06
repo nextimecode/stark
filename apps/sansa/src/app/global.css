@@ -7,7 +7,7 @@ html {
 }
 
 body {
-  color: white;
+  color: #f5f5f7;
 }
 
 @theme {
@@ -18,7 +18,7 @@ body {
   --font-heading: var(--font-oxanium);
   --font-sans: var(--font-inter);
   --font-smoothing: antialiased;
-  --color-text: white;
+  --color-text: #f5f5f7;
 
   /* Colors */
   --color-primary: #bf5af2;
@@ -64,6 +64,7 @@ body {
   --color-system-gray5: #2c2c2e;
   --color-system-gray6: #1c1c1e;
   --color-system-gray-transparent: hsla(0, 0%, 100%, 0.04);
+  --color-system-light: #f5f5f7;
 
   /* Shadows */
   --shadow-sign-up: 0px 5px 10px rgba(4, 10, 34, 0.2);

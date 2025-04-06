@@ -40,7 +40,7 @@ export function Navbar() {
         </Link>
         <nav className="flex items-center space-x-4 lg:space-x-6 mx-6">
           <Link
-            href="/dashboard"
+            href="/"
             className="text-sm font-medium transition-colors hover:text-primary"
           >
             Dashboard
