@@ -161,8 +161,10 @@ export function ProfessionalSection({
                               ])
                             } else {
                               field.onChange(
-                                field.value?.filter(v => v !== 'individual') ||
-                                  []
+                                field.value?.filter(
+                                  (selectedOption: string) =>
+                                    selectedOption !== 'individual'
+                                ) || []
                               )
                             }
                           }}
@@ -177,7 +179,10 @@ export function ProfessionalSection({
                               field.onChange([...(field.value || []), 'team'])
                             } else {
                               field.onChange(
-                                field.value?.filter(v => v !== 'team') || []
+                                field.value?.filter(
+                                  (selectedOption: string) =>
+                                    selectedOption !== 'team'
+                                ) || []
                               )
                             }
                           }}
@@ -195,8 +200,10 @@ export function ProfessionalSection({
                               ])
                             } else {
                               field.onChange(
-                                field.value?.filter(v => v !== 'structured') ||
-                                  []
+                                field.value?.filter(
+                                  (selectedOption: string) =>
+                                    selectedOption !== 'structured'
+                                ) || []
                               )
                             }
                           }}
@@ -214,7 +221,10 @@ export function ProfessionalSection({
                               ])
                             } else {
                               field.onChange(
-                                field.value?.filter(v => v !== 'flexible') || []
+                                field.value?.filter(
+                                  (selectedOption: string) =>
+                                    selectedOption !== 'flexible'
+                                ) || []
                               )
                             }
                           }}
@@ -229,7 +239,10 @@ export function ProfessionalSection({
                               field.onChange([...(field.value || []), 'remote'])
                             } else {
                               field.onChange(
-                                field.value?.filter(v => v !== 'remote') || []
+                                field.value?.filter(
+                                  (selectedOption: string) =>
+                                    selectedOption !== 'remote'
+                                ) || []
                               )
                             }
                           }}
@@ -247,8 +260,10 @@ export function ProfessionalSection({
                               ])
                             } else {
                               field.onChange(
-                                field.value?.filter(v => v !== 'presential') ||
-                                  []
+                                field.value?.filter(
+                                  (selectedOption: string) =>
+                                    selectedOption !== 'presential'
+                                ) || []
                               )
                             }
                           }}
@@ -263,7 +278,10 @@ export function ProfessionalSection({
                               field.onChange([...(field.value || []), 'hybrid'])
                             } else {
                               field.onChange(
-                                field.value?.filter(v => v !== 'hybrid') || []
+                                field.value?.filter(
+                                  (selectedOption: string) =>
+                                    selectedOption !== 'hybrid'
+                                ) || []
                               )
                             }
                           }}
