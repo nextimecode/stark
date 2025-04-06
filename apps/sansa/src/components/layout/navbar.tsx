@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
@@ -62,6 +63,13 @@ export function Navbar() {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="rounded-full">
                 <User className="h-5 w-5" />
+                <Image
+                  src="https://github.com/diego3g.png"
+                  className="h-6 w-6 rounded-full"
+                  width={24}
+                  height={24}
+                  alt=""
+                />
                 <span className="sr-only">Toggle user menu</span>
               </Button>
             </DropdownMenuTrigger>
