@@ -1,91 +1,79 @@
 generator client {
-  provider      = "prisma-client-js"
-  binaryTargets = ["native", "darwin-arm64"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
-enum UserRole {
-  STUDENT
-  INSTRUCTOR
+  url      = env("POSTGRES_URL_NON_POOLING")
 }
 
 model User {
-  id       String   @id @default(uuid())
-  name     String
-  email    String   @unique
-  password String
-  role     UserRole @default(STUDENT)
+  id            Int       @id @default(autoincrement())
+  uid           String    @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  firebaseId    String    @unique @map("firebase_id")
+  username      String
+  name          String
+  email         String    @unique
+  emailVerified Boolean   @map("email_verified")
+  picture       String?
+  provider      String
+  authTime      DateTime? @map("auth_time")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @default(now()) @map("updated_at")
 
-  questions     Question[]
   answers       Answer[]
-  comment       Comment[]
+  comments      Comment[]
   notifications Notification[]
+  questions     Question[]
 
   @@map("users")
 }
 
 model Question {
-  id           String    @id @default(uuid())
+  id           Int       @id @default(autoincrement())
+  uid          String    @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   title        String
   slug         String    @unique
   content      String
   createdAt    DateTime  @default(now()) @map("created_at")
-  updatedAt    DateTime? @updatedAt @map("updated_at")
-  authorId     String    @map("author_id")
-  bestAnswerId String?   @unique @map("best_answer_id")
+  updatedAt    DateTime? @map("updated_at")
+  authorId     Int       @map("author_id")
+  bestAnswerId Int?      @unique @map("best_answer_id")
 
   author      User         @relation(fields: [authorId], references: [id])
-  bestAnswer  Answer?      @relation("bestAnswer", fields: [bestAnswerId], references: [id])
+  bestAnswer  Answer?      @relation("BestAnswer", fields: [bestAnswerId], references: [id])
   answers     Answer[]
-  comments    Comment[]
   attachments Attachment[]
+  comments    Comment[]
 
   @@map("questions")
 }
 
 model Answer {
-  id         String    @id @default(uuid())
+  id         Int       @id @default(autoincrement())
+  uid        String    @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   content    String
   createdAt  DateTime  @default(now()) @map("created_at")
-  updatedAt  DateTime? @updatedAt @map("updated_at")
-  authorId   String    @map("author_id")
-  questionId String    @map("question_id")
+  updatedAt  DateTime? @map("updated_at")
+  authorId   Int       @map("author_id")
+  questionId Int       @map("question_id")
 
   author       User         @relation(fields: [authorId], references: [id])
-  bestAnswerOn Question?    @relation("bestAnswer")
   question     Question     @relation(fields: [questionId], references: [id])
-  comments     Comment[]
+  chosenAsBest Question?    @relation("BestAnswer")
   attachments  Attachment[]
+  comments     Comment[]
 
   @@map("answers")
 }
 
-model Comment {
-  id         String    @id @default(uuid())
-  content    String
-  authorId   String    @map("author_id")
-  questionId String?   @map("question_id")
-  answerId   String?   @map("answer_id")
-  createdAt  DateTime  @default(now()) @map("created_at")
-  updatedAt  DateTime? @updatedAt @map("updated_at")
-
-  question Question? @relation(fields: [questionId], references: [id])
-  answer   Answer?   @relation(fields: [answerId], references: [id])
-  author   User      @relation(fields: [authorId], references: [id])
-
-  @@map("comments")
-}
-
 model Attachment {
-  id         String  @id @default(uuid())
+  id         Int    @id @default(autoincrement())
+  uid        String @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   title      String
   url        String
-  questionId String? @map("question_id")
-  answerId   String? @map("answer_id")
+  questionId Int?   @map("question_id")
+  answerId   Int?   @map("answer_id")
 
   question Question? @relation(fields: [questionId], references: [id])
   answer   Answer?   @relation(fields: [answerId], references: [id])
@@ -93,9 +81,27 @@ model Attachment {
   @@map("attachments")
 }
 
+model Comment {
+  id         Int       @id @default(autoincrement())
+  uid        String    @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  content    String
+  authorId   Int       @map("author_id")
+  questionId Int?      @map("question_id")
+  answerId   Int?      @map("answer_id")
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime? @map("updated_at")
+
+  author   User      @relation(fields: [authorId], references: [id])
+  question Question? @relation(fields: [questionId], references: [id])
+  answer   Answer?   @relation(fields: [answerId], references: [id])
+
+  @@map("comments")
+}
+
 model Notification {
-  id          String    @id @default(uuid())
-  recipientId String    @map("recipient_id")
+  id          Int       @id @default(autoincrement())
+  uid         String    @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  recipientId Int       @map("recipient_id")
   title       String
   content     String
   readAt      DateTime? @map("read_at")
@@ -104,4 +110,9 @@ model Notification {
   recipient User @relation(fields: [recipientId], references: [id])
 
   @@map("notifications")
+}
+
+enum UserRole {
+  STUDENT
+  INSTRUCTOR
 }

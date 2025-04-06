@@ -1,10 +1,16 @@
 import { ReactNode } from 'react'
 
 import type { Metadata, Viewport } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Oxanium } from 'next/font/google'
 
-import { PrelineScript } from '@/components/PrelineScript'
+import { PrelineScript } from '@/components/preline-script'
 import './global.css'
+
+const oxanium = Oxanium({
+  weight: ['500', '600'],
+  subsets: ['latin'],
+  variable: '--font-oxanium'
+})
 
 const inter = Inter({
   subsets: ['latin'],
@@ -28,9 +34,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html data-theme="dark" lang="pt-BR">
-      <body className={`${inter.variable} antialiased`}>
-        <div className="relative min-h-screen">{children}</div>
+    <html
+      lang="pt-BR"
+      className={`${oxanium.variable} ${inter.variable}`}
+      data-theme="dark"
+    >
+      <body className="bg-white dark:bg-black">
+        <main className="relative min-h-screen">{children}</main>
         <PrelineScript />
       </body>
     </html>

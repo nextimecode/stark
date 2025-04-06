@@ -17,13 +17,13 @@ O Projeto Stark é um aplicativo que conecta pessoas através da análise de com
 
 ## 🌟 Características Principais
 
-    •	Teste de Personalidade: Um quiz interativo e gamificado que coleta informações sobre traços de personalidade e preferências.
+    • Teste de Personalidade: Um quiz interativo e gamificado que coleta informações sobre traços de personalidade e preferências.
 
-    •	Análise de Compatibilidade: Comparação de perfis, apresentando um índice de compatibilidade e gráficos detalhados.
+    • Análise de Compatibilidade: Comparação de perfis, apresentando um índice de compatibilidade e gráficos detalhados.
 
-    •	Compartilhamento e Convites: Os usuários podem convidar outras pessoas para participar e comparar resultados.
+    • Compartilhamento e Convites: Os usuários podem convidar outras pessoas para participar e comparar resultados.
 
-    •	Feedback Contínuo: O aplicativo coleta opiniões dos usuários sobre a precisão dos resultados, ajudando a melhorar os algoritmos.
+    • Feedback Contínuo: O aplicativo coleta opiniões dos usuários sobre a precisão dos resultados, ajudando a melhorar os algoritmos.
 
 ## 🧱 Estrutura do Projeto
 
@@ -149,3 +149,25 @@ export default function Page() {
 Adotando essa abordagem, você consegue manter parte da sua página sendo renderizada estaticamente, enquanto manipula os parâmetros de pesquisa de maneira eficaz no lado do cliente.
 
 Configura no host 127.0.0.1 local.nextverso.com.br para conseguir fazer login no firebase
+
+## Atualizando as Tabelas do Banco de Dados
+
+Siga os passos abaixo para atualizar as tabelas do banco de dados utilizando as migrations do Prisma:
+
+1. Faça as alterações necessárias no arquivo `schema.prisma` e salve o arquivo.
+
+2. Gere uma nova migration e atualize o banco com o comando:
+
+```bash
+npx prisma migrate dev --name update_user_table
+```
+
+## Gerando Todas as Tabelas a Partir das Migrations
+
+Para criar todas as tabelas no banco de dados com base nas migrations existentes, execute:
+
+```bash
+npx prisma migrate deploy
+```
+
+Esse comando aplica todas as migrations pendentes e configura o banco conforme o schema definido.

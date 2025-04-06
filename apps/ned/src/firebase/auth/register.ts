@@ -1,44 +1,47 @@
+import { FirebaseError } from 'firebase/app'
+import type { User } from 'firebase/auth'
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup
 } from 'firebase/auth'
 
+import { FirebaseAuthError } from '@/core/errors/erros/firebase-auth-error'
+import type { UseCaseResponse } from '@/core/types/use-case-response'
+import { failure, success } from '@/core/types/use-case-response-helpers'
 import { auth } from '@/firebase/client'
 
 export async function signUpWithEmailAndPassword(
   email: string,
   password: string
-) {
+): Promise<UseCaseResponse<User>> {
   try {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       email,
       password
     )
-    const user = userCredential.user
-
-    return { success: true, user }
-  } catch (error) {
-    console.error('Error signup:', (error as Error).message)
-    return {
-      success: false,
-      error:
-        (error as Error).message || 'Erro desconhecido ao registrar o usuário.'
-    }
+    return success(userCredential.user)
+  } catch (err: any) {
+    const firebaseError = err as FirebaseError
+    return failure(new FirebaseAuthError(firebaseError), {
+      status: 400,
+      statusText: 'Erro ao registrar com e-mail'
+    })
   }
 }
 
-export async function signUpWithGoogle() {
+export async function signUpWithGoogle(): Promise<UseCaseResponse<User>> {
   const provider = new GoogleAuthProvider()
 
   try {
     const result = await signInWithPopup(auth, provider)
-    const user = result.user
-
-    return { success: true, user }
-  } catch (error) {
-    console.error('Error signup:', (error as Error).message)
-    return { success: false, error: (error as Error).message }
+    return success(result.user)
+  } catch (err: any) {
+    const firebaseError = err as FirebaseError
+    return failure(new FirebaseAuthError(firebaseError), {
+      status: 400,
+      statusText: 'Erro ao registrar com Google'
+    })
   }
 }

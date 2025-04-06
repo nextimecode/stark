@@ -2,20 +2,123 @@
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
-@config '../../tailwind.config.ts';
-
-:root {
-  --background: #1c1c1e;
-  --foreground: #ededed;
-}
-
 html {
   scroll-behavior: smooth;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
+@theme {
+  /* Breakpoints */
+  --screen-xs: (max-width: 639px);
+
+  /* Font */
+  --font-heading: var(--font-oxanium);
+  --font-sans: var(--font-inter);
+  --font-smoothing: antialiased;
+
+  /* Colors */
+  --color-primary: #bf5af2;
+  --color-primary-50: #b556e6;
+  --color-primary-100: #ac51da;
+  --color-primary-200: #863fa9;
+  --color-primary-300: #602d79;
+  --color-primary-400: #4c2461;
+  --color-primary-500: #bf5af2;
+  --color-primary-600: #391b49;
+  --color-primary-700: #261230;
+  --color-primary-800: #1d0e24;
+  --color-primary-900: #130918;
+
+  --color-secondary: #64d2ff;
+  --color-secondary-50: #e3f7ff;
+  --color-secondary-100: #c5eeff;
+  --color-secondary-200: #a3e4ff;
+  --color-secondary-300: #82daff;
+  --color-secondary-400: #73dbff;
+  --color-secondary-500: #64d2ff;
+  --color-secondary-600: #4daacf;
+  --color-secondary-700: #3783a0;
+  --color-secondary-800: #235b70;
+  --color-secondary-900: #133648;
+
+  --color-system-red: #ff453a;
+  --color-system-orange: #ff9f0a;
+  --color-system-yellow: #ffd60a;
+  --color-system-green: #30d158;
+  --color-system-mint: #63e6e2;
+  --color-system-teal: #40cbe0;
+  --color-system-cyan: #64d2ff;
+  --color-system-blue: #0a84ff;
+  --color-system-indigo: #5e5ce6;
+  --color-system-purple: #bf5af2;
+  --color-system-pink: #ff375f;
+  --color-system-brown: #a2845e;
+  --color-system-gray: #8e8e93;
+  --color-system-gray2: #636366;
+  --color-system-gray3: #48484a;
+  --color-system-gray4: #3a3a3c;
+  --color-system-gray5: #2c2c2e;
+  --color-system-gray6: #1c1c1e;
+  --color-system-gray-transparent: hsla(0, 0%, 100%, 0.04);
+
+  /* Shadows */
+  --shadow-sign-up: 0px 5px 10px rgba(4, 10, 34, 0.2);
+  --shadow-one: 0px 2px 3px rgba(7, 7, 77, 0.05);
+  --shadow-sticky: inset 0 -1px 0 0 rgba(0, 0, 0, 0.1);
+  --shadow-card: 0 11px 34px 0 rgba(0, 0, 0, 0.65);
+
+  /* Backgrounds */
+  --background-gradient-radial: radial-gradient(var(--tw-gradient-stops));
+  --background-gradient-conic: conic-gradient(
+    from 180deg at 50% 50%,
+    var(--tw-gradient-stops)
+  );
+
+  @keyframes border-gradient {
+    0% {
+      border-color: #ff375f;
+    }
+    15% {
+      border-color: #bf5af2;
+    }
+    30% {
+      border-color: #5e5ce6;
+    }
+    45% {
+      border-color: #0a84ff;
+    }
+    60% {
+      border-color: #64d2ff;
+    }
+    75% {
+      border-color: #30d158;
+    }
+    90% {
+      border-color: #ffd60a;
+    }
+    100% {
+      border-color: #ff9f0a;
+    }
+  }
+
+  @keyframes hover-glow {
+    0%,
+    100% {
+      box-shadow: 0 0 10px 2px #bf5af2;
+    }
+    50% {
+      box-shadow: 0 0 20px 4px #5e5ce6;
+    }
+  }
+
+  @keyframes button-glow {
+    0%,
+    100% {
+      background-color: #bf5af2;
+      box-shadow: 0 0 10px 2px #bf5af2;
+    }
+    50% {
+      background-color: #5e5ce6;
+      box-shadow: 0 0 20px 4px #5e5ce6;
+    }
+  }
 }

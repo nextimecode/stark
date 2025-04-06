@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 import { LogOut } from 'lucide-react'
 
-import { Button } from '../Button'
+import { Button } from '../button'
 
 export function Profile() {
   return (

@@ -33,11 +33,23 @@
     "arya",
     "datatables",
     "mbti",
+    "oxanium",
+    "Oxanium",
     "prepush",
     "unplugin",
     "unsplash",
     "vercel",
     "whatwg"
+  ],
+  "cSpell.ignorePaths": [
+    "**/.env.local",
+    "**/node_modules/**",
+    "**/vscode-extension/**",
+    "**/.git/**",
+    ".vscode",
+    "package-lock.json",
+    "yarn.lock",
+    "pnpm-lock.yaml"
   ],
   "git.ignoreLimitWarning": true,
   "js/ts.implicitProjectConfig.checkJs": true,

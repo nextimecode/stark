@@ -44,7 +44,10 @@ export default function DashboardClient({ user }: DashboardClientProps) {
     setLoading(true)
     try {
       await deleteUser(auth.currentUser!)
-      await fetch(`${env.NEXT_PUBLIC_NED_URL}/api/logout`, { method: 'POST' })
+      await fetch(`${env.NEXT_PUBLIC_NED_URL}/api/logout`, {
+        method: 'POST',
+        credentials: 'include'
+      })
       alert('Conta deletada com sucesso.')
       router.push(env.NEXT_PUBLIC_ARYA_URL)
     } catch (error: any) {
@@ -61,8 +64,10 @@ export default function DashboardClient({ user }: DashboardClientProps) {
 
   return (
     <main>
-      <h1>{user.email}</h1>
-      {user.emailVerified && <h1>E-mail verificado</h1>}
+      <h1 className="dark:text-white">{user.email}</h1>
+      {user.emailVerified && (
+        <h1 className="dark:text-white">E-mail verificado</h1>
+      )}
       <button
         onClick={handleLogout}
         disabled={loading}

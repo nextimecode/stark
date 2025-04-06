@@ -3,13 +3,12 @@ import { NextResponse } from 'next/server'
 import { env } from '@/env'
 import { admin } from '@/firebase/admin'
 
-// Lista de origens permitidas
 const allowedOrigins = [
   env.NEXT_PUBLIC_ARYA_URL,
   env.NEXT_PUBLIC_BRAN_URL,
   env.NEXT_PUBLIC_SANSA_URL,
   env.NEXT_PUBLIC_NED_URL
-].filter(Boolean) // Remove valores undefined caso alguma env não esteja setada
+].filter(Boolean)
 
 const setCorsHeaders = (origin: string | null, response: NextResponse) => {
   if (origin && allowedOrigins.includes(origin)) {
@@ -36,7 +35,6 @@ export async function POST(request: Request) {
     maxAge: expiresIn / 1000
   })
 
-  // Configura CORS dinamicamente
   const origin = request.headers.get('origin')
   setCorsHeaders(origin, response)
 
@@ -46,7 +44,6 @@ export async function POST(request: Request) {
 export async function OPTIONS(request: Request) {
   const response = NextResponse.json({})
 
-  // Configura CORS dinamicamente para preflight requests
   const origin = request.headers.get('origin')
   setCorsHeaders(origin, response)
 

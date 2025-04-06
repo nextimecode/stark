@@ -1,13 +1,14 @@
 import { Metadata } from 'next'
 
-import { Charts } from '../../../components/Charts'
-import { PersonalityCharts } from '../../../components/PersonalityCharts'
-import { BenefitsSection } from '@/components/BenefitsSection'
-import { FAQ } from '@/components/FAQ'
-import { Footer } from '@/components/Footer'
-import { Hero } from '@/components/Hero'
-import { HowItWorks } from '@/components/HowItWorks'
-import { TestimonialsSection } from '@/components/TestimonialsSection'
+import { Charts } from '@/components/charts'
+
+import { BenefitsSection } from './benefits-section'
+import { FAQ } from './faq'
+import { Footer } from './footer'
+import { Hero } from './hero'
+import { HowItWorks } from './how-it-works'
+import { PersonalityCharts } from './personality-charts'
+import { TestimonialsSection } from './testimonials-section'
 
 export const metadata: Metadata = {
   title: 'Home'
@@ -15,17 +16,15 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main>
-      <div className="flex flex-col gap-20 lg:gap-28">
-        <Hero />
-        <HowItWorks />
-        <Charts />
-        <PersonalityCharts />
-        <TestimonialsSection />
-        <BenefitsSection />
-        <FAQ />
-        <Footer />
-      </div>
-    </main>
+    <div className="flex flex-col gap-20 lg:gap-32">
+      <Hero />
+      <HowItWorks />
+      <Charts />
+      <PersonalityCharts />
+      <TestimonialsSection />
+      <BenefitsSection />
+      <FAQ />
+      <Footer />
+    </div>
   )
 }
