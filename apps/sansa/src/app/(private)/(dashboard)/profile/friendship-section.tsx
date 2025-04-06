@@ -81,7 +81,10 @@ export function FriendshipSection({
                               field.onChange([...(field.value || []), 'sports'])
                             } else {
                               field.onChange(
-                                field.value?.filter(v => v !== 'sports') || []
+                                field.value?.filter(
+                                  (selectedOption: string) =>
+                                    selectedOption !== 'sports'
+                                ) || []
                               )
                             }
                           }}
@@ -99,7 +102,10 @@ export function FriendshipSection({
                               ])
                             } else {
                               field.onChange(
-                                field.value?.filter(v => v !== 'fitness') || []
+                                field.value?.filter(
+                                  (selectedOption: string) =>
+                                    selectedOption !== 'fitness'
+                                ) || []
                               )
                             }
                           }}
@@ -114,7 +120,10 @@ export function FriendshipSection({
                               field.onChange([...(field.value || []), 'games'])
                             } else {
                               field.onChange(
-                                field.value?.filter(v => v !== 'games') || []
+                                field.value?.filter(
+                                  (selectedOption: string) =>
+                                    selectedOption !== 'games'
+                                ) || []
                               )
                             }
                           }}
@@ -132,7 +141,10 @@ export function FriendshipSection({
                               ])
                             } else {
                               field.onChange(
-                                field.value?.filter(v => v !== 'reading') || []
+                                field.value?.filter(
+                                  (selectedOption: string) =>
+                                    selectedOption !== 'reading'
+                                ) || []
                               )
                             }
                           }}
@@ -147,7 +159,10 @@ export function FriendshipSection({
                               field.onChange([...(field.value || []), 'movies'])
                             } else {
                               field.onChange(
-                                field.value?.filter(v => v !== 'movies') || []
+                                field.value?.filter(
+                                  (selectedOption: string) =>
+                                    selectedOption !== 'movies'
+                                ) || []
                               )
                             }
                           }}
@@ -162,7 +177,10 @@ export function FriendshipSection({
                               field.onChange([...(field.value || []), 'music'])
                             } else {
                               field.onChange(
-                                field.value?.filter(v => v !== 'music') || []
+                                field.value?.filter(
+                                  (selectedOption: string) =>
+                                    selectedOption !== 'music'
+                                ) || []
                               )
                             }
                           }}
@@ -272,7 +290,8 @@ export function FriendshipSection({
                             } else {
                               field.onChange(
                                 field.value?.filter(
-                                  v => v !== 'home-gatherings'
+                                  (selectedOption: string) =>
+                                    selectedOption !== 'home-gatherings'
                                 ) || []
                               )
                             }
@@ -292,7 +311,8 @@ export function FriendshipSection({
                             } else {
                               field.onChange(
                                 field.value?.filter(
-                                  v => v !== 'outdoor-activities'
+                                  (selectedOption: string) =>
+                                    selectedOption !== 'outdoor-activities'
                                 ) || []
                               )
                             }
@@ -313,7 +333,10 @@ export function FriendshipSection({
                               ])
                             } else {
                               field.onChange(
-                                field.value?.filter(v => v !== 'parties') || []
+                                field.value?.filter(
+                                  (selectedOption: string) =>
+                                    selectedOption !== 'parties'
+                                ) || []
                               )
                             }
                           }}
@@ -332,7 +355,8 @@ export function FriendshipSection({
                             } else {
                               field.onChange(
                                 field.value?.filter(
-                                  v => v !== 'group-sports'
+                                  (selectedOption: string) =>
+                                    selectedOption !== 'group-sports'
                                 ) || []
                               )
                             }
@@ -350,7 +374,10 @@ export function FriendshipSection({
                               field.onChange([...(field.value || []), 'trips'])
                             } else {
                               field.onChange(
-                                field.value?.filter(v => v !== 'trips') || []
+                                field.value?.filter(
+                                  (selectedOption: string) =>
+                                    selectedOption !== 'trips'
+                                ) || []
                               )
                             }
                           }}
@@ -368,8 +395,10 @@ export function FriendshipSection({
                               ])
                             } else {
                               field.onChange(
-                                field.value?.filter(v => v !== 'restaurants') ||
-                                  []
+                                field.value?.filter(
+                                  (selectedOption: string) =>
+                                    selectedOption !== 'restaurants'
+                                ) || []
                               )
                             }
                           }}
@@ -390,7 +419,8 @@ export function FriendshipSection({
                             } else {
                               field.onChange(
                                 field.value?.filter(
-                                  v => v !== 'cultural-events'
+                                  (selectedOption: string) =>
+                                    selectedOption !== 'cultural-events'
                                 ) || []
                               )
                             }
