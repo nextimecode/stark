@@ -5,6 +5,7 @@ import {
 } from 'firebase/auth'
 
 import { auth } from '@/firebase/client'
+import { prisma } from '@/lib/prisma'
 
 export async function signUpWithEmailAndPassword(
   email: string,
@@ -17,6 +18,21 @@ export async function signUpWithEmailAndPassword(
       password
     )
     const user = userCredential.user
+
+    await prisma.user.create({
+      data: {
+        firebaseId: user.uid,
+        username: user.email?.split('@')[0] || '',
+        name: user.displayName || '',
+        email: user.email || '',
+        emailVerified: user.emailVerified,
+        picture: user.photoURL,
+        provider: user.providerId,
+        authTime: user.metadata.creationTime
+          ? new Date(user.metadata.creationTime)
+          : null
+      }
+    })
 
     return { success: true, user }
   } catch (error) {
@@ -35,6 +51,21 @@ export async function signUpWithGoogle() {
   try {
     const result = await signInWithPopup(auth, provider)
     const user = result.user
+
+    await prisma.user.create({
+      data: {
+        firebaseId: user.uid,
+        username: '',
+        name: user.displayName || '',
+        email: user.email || '',
+        emailVerified: user.emailVerified,
+        picture: user.photoURL,
+        provider: user.providerId,
+        authTime: user.metadata.creationTime
+          ? new Date(user.metadata.creationTime)
+          : null
+      }
+    })
 
     return { success: true, user }
   } catch (error) {

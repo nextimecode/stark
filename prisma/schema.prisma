@@ -8,18 +8,18 @@ datasource db {
 }
 
 model User {
-  id             Int       @id @default(autoincrement())
-  uid            String    @unique @default(uuid())
-  firebase_id    String    @unique
-  username       String
-  name           String
-  email          String    @unique
-  email_verified Boolean
-  picture        String?
-  provider       String
-  auth_time      DateTime?
-  created_at     DateTime  @default(now())
-  updated_at     DateTime  @default(now())
+  id            Int       @id @default(autoincrement())
+  uid           String    @unique @default(uuid())
+  firebaseId    String    @unique @map("firebase_id")
+  username      String
+  name          String
+  email         String    @unique
+  emailVerified Boolean   @map("email_verified")
+  picture       String?
+  provider      String
+  authTime      DateTime? @map("auth_time")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @default(now()) @map("updated_at")
 
   answers       Answer[]
   comments      comments[]
