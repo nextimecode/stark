@@ -36,7 +36,7 @@ export default [
       unicorn: unicornPlugin,
       'import-helpers': importHelpersPlugin,
       perfectionist: perfectionistPlugin,
-      next: nextPlugin
+      '@next/next': nextPlugin
     },
     ignores: [
       'node_modules/',
