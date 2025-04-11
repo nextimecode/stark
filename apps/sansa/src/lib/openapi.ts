@@ -5,7 +5,7 @@ import { subscriptionSchema } from '@/app/api/subscriptions/route'
 export const openApiDocument = createDocument({
   openapi: '3.0.0',
   info: {
-    title: 'Minha API',
+    title: 'Stark API',
     version: '1.0.0'
   },
   paths: {
