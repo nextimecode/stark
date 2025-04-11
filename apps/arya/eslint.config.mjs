@@ -1,4 +1,3 @@
-import nextPlugin from '@next/eslint-plugin-next'
 import tsPlugin from '@typescript-eslint/eslint-plugin'
 import tsParser from '@typescript-eslint/parser'
 import importHelpersPlugin from 'eslint-plugin-import-helpers'
@@ -35,8 +34,7 @@ export default [
       prettier: prettierPlugin,
       unicorn: unicornPlugin,
       'import-helpers': importHelpersPlugin,
-      perfectionist: perfectionistPlugin,
-      '@next/next': nextPlugin
+      perfectionist: perfectionistPlugin
     },
     ignores: [
       'node_modules/',
