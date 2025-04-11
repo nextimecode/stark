@@ -8,7 +8,8 @@ import { env } from '@/env'
 
 const publicRoutes = [
   { path: '/register', whenAuthenticated: 'redirect' },
-  { path: '/pricing', whenAuthenticated: 'next' }
+  { path: '/pricing', whenAuthenticated: 'next' },
+  { path: '/docs', whenAuthenticated: 'next' }
 ] as const
 
 const REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE = env.NEXT_PUBLIC_NED_URL
