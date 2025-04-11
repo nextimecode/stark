@@ -124,6 +124,7 @@
     "lucide-react": "^0.487.0",
     "multer": "1.4.5-lts.2",
     "next": "^15.2.4",
+    "next-swagger-doc": "^0.4.1",
     "passport-jwt": "^4.0.1",
     "preline": "^3.0.1",
     "punycode": "^2.3.1",
@@ -133,9 +134,11 @@
     "react-intersection-observer": "^9.16.0",
     "react-world-flags": "^1.6.0",
     "serverless-http": "^3.2.0",
+    "swagger-ui-react": "^5.20.8",
     "tailwind-merge": "^3.1.0",
     "tailwind-variants": "^1.0.0",
     "zod": "^3.24.2",
+    "zod-to-openapi": "^0.2.1",
     "zod-validation-error": "^3.4.0"
   },
   "devDependencies": {
@@ -154,6 +157,7 @@
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.1",
     "@types/react-world-flags": "^1.6.0",
+    "@types/swagger-ui-react": "^5.18.0",
     "@typescript-eslint/eslint-plugin": "^8.29.0",
     "@typescript-eslint/parser": "^8.29.0",
     "@vitest/eslint-plugin": "^1.1.39",
