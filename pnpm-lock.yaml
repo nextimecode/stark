@@ -138,7 +138,7 @@ importers:
         specifier: ^2.3.1
         version: 2.3.1
       react:
-        specifier: ^19.0.0
+        specifier: ^19.1.0
         version: 19.1.0
       react-apexcharts:
         specifier: ^1.7.0
@@ -156,8 +156,8 @@ importers:
         specifier: ^3.2.0
         version: 3.2.0
       swagger-ui-react:
-        specifier: ^5.20.8
-        version: 5.20.8(@types/react@19.1.1)(react-dom@18.3.1(react@19.1.0))(react@19.1.0)
+        specifier: ^5.21.0
+        version: 5.21.0(@types/react@19.1.1)(react-dom@18.3.1(react@19.1.0))(react@19.1.0)
       tailwind-merge:
         specifier: ^3.2.0
         version: 3.2.0
@@ -211,10 +211,10 @@ importers:
         specifier: ^4.0.1
         version: 4.0.1
       '@types/react':
-        specifier: ^19.0.8
+        specifier: ^19.1.1
         version: 19.1.1
       '@types/react-dom':
-        specifier: ^19.0.3
+        specifier: ^19.1.2
         version: 19.1.2(@types/react@19.1.1)
       '@types/react-world-flags':
         specifier: ^1.6.0
@@ -7443,8 +7443,8 @@ packages:
   swagger-ui-dist@5.20.8:
     resolution: {integrity: sha512-VXVhdRh5vuKVpkegw0n0wCXuFFG+pxNmXa0vDcf76r1yP2cYKqcpOE5g8l5crbtLGx+j2EiDnG4/EU5T0jyN1w==}
 
-  swagger-ui-react@5.20.8:
-    resolution: {integrity: sha512-bMEm4i0brXuSoXa5oHHZfees3eXVkZk1VwKZbfDOre3p63hoMFexA/IERycVamqsWxZzMqo954ApDlqeT8FN8A==}
+  swagger-ui-react@5.21.0:
+    resolution: {integrity: sha512-lS5paITM1kkcBb/BTTSMHKelh8elHfcuUP4T3R3mO80tDR0AYJL2HR5UdQD6nV1LwdvekzRM8gKjJA6hVayi0A==}
     peerDependencies:
       react: '>=16.8.0 <19'
       react-dom: '>=16.8.0 <19'
@@ -16677,7 +16677,7 @@ snapshots:
     dependencies:
       '@scarf/scarf': 1.4.0
 
-  swagger-ui-react@5.20.8(@types/react@19.1.1)(react-dom@18.3.1(react@19.1.0))(react@19.1.0):
+  swagger-ui-react@5.21.0(@types/react@19.1.1)(react-dom@18.3.1(react@19.1.0))(react@19.1.0):
     dependencies:
       '@babel/runtime-corejs3': 7.27.0
       '@scarf/scarf': 1.4.0
