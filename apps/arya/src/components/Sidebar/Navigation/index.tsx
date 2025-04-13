@@ -4,7 +4,7 @@ import {
   SquareStack,
   CheckSquare,
   Flag,
-  Users
+  Users,
 } from 'lucide-react'
 
 import { NavItem } from './NavItem'

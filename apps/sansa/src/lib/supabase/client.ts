@@ -10,9 +10,9 @@ export const createClient = () => {
       global: {
         headers: {
           // https://supabase.com/docs/guides/platform/read-replicas#experimental-routing
-          'sb-lb-routing-mode': 'alpha-all-services'
-        }
-      }
+          'sb-lb-routing-mode': 'alpha-all-services',
+        },
+      },
     }
   )
 }

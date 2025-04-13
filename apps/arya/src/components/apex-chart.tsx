@@ -20,7 +20,7 @@ export const ApexChart = ({
   options,
   series,
   type,
-  height
+  height,
 }: ApexChartProps) => {
   return <Chart options={options} series={series} type={type} height={height} />
 }

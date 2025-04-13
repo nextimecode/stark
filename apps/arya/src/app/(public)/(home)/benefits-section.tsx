@@ -102,7 +102,7 @@ export function Card({
   buttonText,
   highlightText,
   highlightColor,
-  icon
+  icon,
 }: CardProps) {
   return (
     <div

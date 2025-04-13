@@ -1,5 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { test, expect, type Page } from '@playwright/test'
+import { type Page, expect, test } from '@playwright/test'
+
+interface Todo {
+  title: string
+  completed: boolean
+}
 
 test.beforeEach(async ({ page }) => {
   await page.goto('https://demo.playwright.dev/todomvc')
@@ -26,14 +30,14 @@ test.describe('New Todo', () => {
     // Make sure the list now has two todo items.
     await expect(page.getByTestId('todo-title')).toHaveText([
       ITEMS[0],
-      ITEMS[1]
+      ITEMS[1],
     ])
 
     await checkNumberOfTodosInLocalStorage(page, 2)
   })
 
   test('should clear text input field when an item is added', async ({
-    page
+    page,
   }) => {
     // create a new todo locator
     const newTodo = page.getByPlaceholder('What needs to be done?')
@@ -48,7 +52,7 @@ test.describe('New Todo', () => {
   })
 
   test('should append new items to the bottom of the list', async ({
-    page
+    page,
   }) => {
     // Create 3 items.
     await createDefaultTodos(page)
@@ -86,13 +90,13 @@ test.describe('Mark all as completed', () => {
     await expect(page.getByTestId('todo-item')).toHaveClass([
       'completed',
       'completed',
-      'completed'
+      'completed',
     ])
     await checkNumberOfCompletedTodosInLocalStorage(page, 3)
   })
 
   test('should allow me to clear the complete state of all items', async ({
-    page
+    page,
   }) => {
     const toggleAll = page.getByLabel('Mark all as complete')
     // Check and then immediately uncheck.
@@ -104,7 +108,7 @@ test.describe('Mark all as completed', () => {
   })
 
   test('complete all checkbox should update state when items are completed / cleared', async ({
-    page
+    page,
   }) => {
     const toggleAll = page.getByLabel('Mark all as complete')
     await toggleAll.check()
@@ -195,7 +199,7 @@ test.describe('Item', () => {
     await expect(todoItems).toHaveText([
       ITEMS[0],
       'buy some sausages',
-      ITEMS[2]
+      ITEMS[2],
     ])
     await checkTodosInLocalStorage(page, 'buy some sausages')
   })
@@ -213,7 +217,7 @@ test.describe('Editing', () => {
     await expect(todoItem.getByRole('checkbox')).not.toBeVisible()
     await expect(
       todoItem.locator('label', {
-        hasText: ITEMS[1]
+        hasText: ITEMS[1],
       })
     ).not.toBeVisible()
     await checkNumberOfTodosInLocalStorage(page, 3)
@@ -234,7 +238,7 @@ test.describe('Editing', () => {
     await expect(todoItems).toHaveText([
       ITEMS[0],
       'buy some sausages',
-      ITEMS[2]
+      ITEMS[2],
     ])
     await checkTodosInLocalStorage(page, 'buy some sausages')
   })
@@ -251,13 +255,13 @@ test.describe('Editing', () => {
     await expect(todoItems).toHaveText([
       ITEMS[0],
       'buy some sausages',
-      ITEMS[2]
+      ITEMS[2],
     ])
     await checkTodosInLocalStorage(page, 'buy some sausages')
   })
 
   test('should remove the item if an empty text string was entered', async ({
-    page
+    page,
   }) => {
     const todoItems = page.getByTestId('todo-item')
     await todoItems.nth(1).dblclick()
@@ -324,7 +328,7 @@ test.describe('Clear completed button', () => {
   })
 
   test('should be hidden when there are no items that are completed', async ({
-    page
+    page,
   }) => {
     await page.locator('.todo-list li .toggle').first().check()
     await page.getByRole('button', { name: 'Clear completed' }).click()
@@ -453,8 +457,9 @@ async function createDefaultTodos(page: Page) {
 }
 
 async function checkNumberOfTodosInLocalStorage(page: Page, expected: number) {
-  return await page.waitForFunction(e => {
-    return JSON.parse(localStorage['react-todos']).length === e
+  return await page.waitForFunction((e: number) => {
+    const todos = JSON.parse(localStorage['react-todos']) as Todo[]
+    return todos.length === e
   }, expected)
 }
 
@@ -462,19 +467,15 @@ async function checkNumberOfCompletedTodosInLocalStorage(
   page: Page,
   expected: number
 ) {
-  return await page.waitForFunction(e => {
-    return (
-      JSON.parse(localStorage['react-todos']).filter(
-        (todo: any) => todo.completed
-      ).length === e
-    )
+  return await page.waitForFunction((e: number) => {
+    const todos = JSON.parse(localStorage['react-todos']) as Todo[]
+    return todos.filter(todo => todo.completed).length === e
   }, expected)
 }
 
 async function checkTodosInLocalStorage(page: Page, title: string) {
-  return await page.waitForFunction(t => {
-    return JSON.parse(localStorage['react-todos'])
-      .map((todo: any) => todo.title)
-      .includes(t)
+  return await page.waitForFunction((t: string) => {
+    const todos = JSON.parse(localStorage['react-todos']) as Todo[]
+    return todos.map(todo => todo.title).includes(t)
   }, title)
 }

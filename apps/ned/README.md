@@ -11,7 +11,6 @@ This is a starter template for building Next.js 13 applications with Firebase. I
 - Dynamic Routing: Create dynamic routes for handling different pages and content.
 - Hot Module Replacement: Enjoy a fast development experience with hot module replacement for instant code changes.
 - Environment Variables: Safely manage environment-specific configuration values using environment variables.
-- ESLint and Prettier: Maintain code quality and consistency with the help of ESLint and Prettier.
 
 ## Prerequisites
 

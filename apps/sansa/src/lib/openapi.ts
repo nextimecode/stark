@@ -6,7 +6,7 @@ export const openApiDocument = createDocument({
   openapi: '3.0.0',
   info: {
     title: 'Stark API',
-    version: '1.0.0'
+    version: '1.0.0',
   },
   paths: {
     '/api/subscription': {
@@ -14,19 +14,19 @@ export const openApiDocument = createDocument({
         requestBody: {
           content: {
             'application/json': {
-              schema: subscriptionSchema
-            }
-          }
+              schema: subscriptionSchema,
+            },
+          },
         },
         responses: {
           201: {
-            description: 'Inscrição criada com sucesso'
+            description: 'Inscrição criada com sucesso',
           },
           400: {
-            description: 'Erro de validação'
-          }
-        }
-      }
-    }
-  }
+            description: 'Erro de validação',
+          },
+        },
+      },
+    },
+  },
 })

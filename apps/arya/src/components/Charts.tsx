@@ -21,7 +21,7 @@ export function Charts() {
               'Valores e Objetivos',
               'Estilo de Vida',
               'Interesses e Hobbies',
-              'Linguagem do Amor'
+              'Linguagem do Amor',
             ]}
             series={[{ name: 'Amizade', data: [20, 15, 10, 25, 30] }]}
             colors={['#64D2FF', '#BF5AF2']}
@@ -33,7 +33,7 @@ export function Charts() {
               'Personalidade e Estilo Social ',
               'Valores e Ética',
               'Estilo de Vida',
-              'Conexão'
+              'Conexão',
             ]}
             series={[{ name: 'Parceria', data: [25, 20, 30, 15, 10] }]}
             colors={['#FF9F0A', '#30D158']}
@@ -45,7 +45,7 @@ export function Charts() {
               'Estilo de Trabalho',
               'Valores',
               'Horários',
-              'Objetivos de Carreira'
+              'Objetivos de Carreira',
             ]}
             series={[{ name: 'Equipe', data: [30, 25, 20, 15, 10] }]}
             colors={['#FF375F', '#0A84FF']}

@@ -26,7 +26,7 @@ export default async function DashboardPage() {
   const user = {
     uid: decodedToken.uid,
     email: decodedToken.email,
-    emailVerified: decodedToken.email_verified
+    emailVerified: decodedToken.email_verified,
   }
   return <DashboardClient user={user} />
 }

@@ -10,7 +10,7 @@ import {
   ClipboardCheck,
   LayoutDashboard,
   UserCircle,
-  Users
+  Users,
 } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
@@ -30,28 +30,28 @@ export function Sidebar({ items }: SidebarNavProps) {
     {
       href: '/',
       title: 'Dashboard',
-      icon: <LayoutDashboard className="mr-2 h-4 w-4" />
+      icon: <LayoutDashboard className="mr-2 h-4 w-4" />,
     },
     {
       href: '/test',
       title: 'Take Test',
-      icon: <ClipboardCheck className="mr-2 h-4 w-4" />
+      icon: <ClipboardCheck className="mr-2 h-4 w-4" />,
     },
     {
       href: '/comparison',
       title: 'Comparisons',
-      icon: <BarChart2 className="mr-2 h-4 w-4" />
+      icon: <BarChart2 className="mr-2 h-4 w-4" />,
     },
     {
       href: '/profile',
       title: 'Profile',
-      icon: <UserCircle className="mr-2 h-4 w-4" />
+      icon: <UserCircle className="mr-2 h-4 w-4" />,
     },
     {
       href: '/invitations',
       title: 'Invitations',
-      icon: <Users className="mr-2 h-4 w-4" />
-    }
+      icon: <Users className="mr-2 h-4 w-4" />,
+    },
   ]
 
   const navItems = items || defaultItems

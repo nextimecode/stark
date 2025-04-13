@@ -5,7 +5,7 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
@@ -15,14 +15,14 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
 } from '@/components/ui/form'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from '@/components/ui/select'
 
 import { Home } from 'lucide-react'
@@ -174,7 +174,7 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'constant'
+                                'constant',
                               ])
                             } else {
                               field.onChange(
@@ -197,7 +197,7 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'balanced'
+                                'balanced',
                               ])
                             } else {
                               field.onChange(
@@ -220,7 +220,7 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'privacy'
+                                'privacy',
                               ])
                             } else {
                               field.onChange(
@@ -263,7 +263,7 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'activities'
+                                'activities',
                               ])
                             } else {
                               field.onChange(
@@ -286,7 +286,7 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'emotional'
+                                'emotional',
                               ])
                             } else {
                               field.onChange(

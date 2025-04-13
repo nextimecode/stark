@@ -16,8 +16,8 @@ const fetchQuestions = async () => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       email: 'diego@rocketseat.com.br',
-      password: '123456'
-    })
+      password: '123456',
+    }),
   })
 
   if (!authResponse.ok) {
@@ -32,8 +32,8 @@ const fetchQuestions = async () => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${accessToken}`
-    }
+      Authorization: `Bearer ${accessToken}`,
+    },
   })
 
   if (!response.ok) {

@@ -9,7 +9,7 @@ import {
   GoogleAuthProvider,
   signInWithEmailAndPassword as firebaseSignInWithEmailAndPassword,
   signInWithPopup,
-  type User
+  type User,
 } from 'firebase/auth'
 
 import { FirebaseAuthError } from '@/core/errors/erros/firebase-auth-error'
@@ -32,7 +32,7 @@ export async function signInWithEmailAndPassword(
     const firebaseError = err as FirebaseError
     return failure(new FirebaseAuthError(firebaseError), {
       status: 401,
-      statusText: 'Erro ao autenticar com e-mail'
+      statusText: 'Erro ao autenticar com e-mail',
     })
   }
 }
@@ -47,7 +47,7 @@ export async function signInWithGoogle(): Promise<UseCaseResponse<User>> {
     const firebaseError = err as FirebaseError
     return failure(new FirebaseAuthError(firebaseError), {
       status: 401,
-      statusText: 'Erro ao autenticar com Google'
+      statusText: 'Erro ao autenticar com Google',
     })
   }
 }

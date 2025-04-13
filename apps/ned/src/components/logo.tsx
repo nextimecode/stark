@@ -9,7 +9,7 @@ export const Logo = ({
   width = 1885,
   height = 2319,
   fill = 'white',
-  className
+  className,
 }: LogoProps) => {
   return (
     <svg

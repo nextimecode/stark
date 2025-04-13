@@ -1,7 +1,7 @@
 import {
   NextResponse,
   type MiddlewareConfig,
-  type NextRequest
+  type NextRequest,
 } from 'next/server'
 
 import { env } from '@/env'
@@ -9,7 +9,7 @@ import { env } from '@/env'
 const publicRoutes = [
   { path: '/register', whenAuthenticated: 'redirect' },
   { path: '/pricing', whenAuthenticated: 'next' },
-  { path: '/docs', whenAuthenticated: 'next' }
+  { path: '/docs', whenAuthenticated: 'next' },
 ] as const
 
 const REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE = env.NEXT_PUBLIC_NED_URL
@@ -54,6 +54,6 @@ export const config: MiddlewareConfig = {
      * - _next/image (image optimization files)
      * - favicon.ico, sitemap.xml, robots.txt (metadata files)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)'
-  ]
+    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
+  ],
 }

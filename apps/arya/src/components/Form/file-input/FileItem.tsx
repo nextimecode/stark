@@ -9,27 +9,27 @@ const fileItem = tv({
   slots: {
     base: 'group flex items-start gap-4 rounded-lg border border-zinc-200 p-4',
     icon: 'relative rounded-full border-4 border-violet-100 bg-violet-200 p-2 text-violet-600 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-500',
-    deleteButton: 'text-zinc-500 hover:text-violet-500'
+    deleteButton: 'text-zinc-500 hover:text-violet-500',
   },
   variants: {
     state: {
       progress: {
-        base: 'dark:border-zinc-700'
+        base: 'dark:border-zinc-700',
       },
       complete: {
-        base: 'border-violet-500 dark:border-violet-300/20'
+        base: 'border-violet-500 dark:border-violet-300/20',
       },
       error: {
         base: 'bg-error-25 border-error-300 dark:bg-error-500/5 dark:border-error-500/30',
         icon: 'border-error-50 bg-error-100 text-error-600 dark:bg-error-500/5 dark:border-error-500/30 dark:text-error-400',
         deleteButton:
-          'text-error-700 hover:text-error-900 dark:text-error-400 dark:hover:text-error-300'
-      }
-    }
+          'text-error-700 hover:text-error-900 dark:text-error-400 dark:hover:text-error-300',
+      },
+    },
   },
   defaultVariants: {
-    state: 'progress'
-  }
+    state: 'progress',
+  },
 })
 
 export interface FileItemProps extends VariantProps<typeof fileItem> {

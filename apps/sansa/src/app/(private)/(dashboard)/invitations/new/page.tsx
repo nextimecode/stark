@@ -10,7 +10,7 @@ interface NewInvitationPageProps {
 }
 
 export default async function NewInvitationPage({
-  searchParams
+  searchParams,
 }: NewInvitationPageProps) {
   const cookieStore = await cookies()
   const token = cookieStore.get('token')?.value

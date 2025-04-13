@@ -29,8 +29,8 @@ export default function Register() {
         emailVerified: user.emailVerified,
         photoURL: user.photoURL,
         providerId: user.providerId,
-        creationTime: user.metadata?.creationTime
-      })
+        creationTime: user.metadata?.creationTime,
+      }),
     })
 
     const token = await user.getIdToken()
@@ -38,7 +38,7 @@ export default function Register() {
     const res = await fetch('/api/set-cookie', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token })
+      body: JSON.stringify({ token }),
     })
 
     if (res.ok) {
