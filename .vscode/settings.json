@@ -14,5 +14,9 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports.biome": "explicit"
   },
-  "WillLuke.nextjs.hasPrompted": true
+  "WillLuke.nextjs.hasPrompted": true,
+  "cSpell.words": [
+    "arya",
+    "unplugin"
+  ]
 }
