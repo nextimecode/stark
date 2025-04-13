@@ -164,6 +164,9 @@ importers:
       zod:
         specifier: ^3.24.2
         version: 3.24.2
+      zod-openapi:
+        specifier: ^4.2.4
+        version: 4.2.4(zod@3.24.2)
       zod-validation-error:
         specifier: ^3.4.0
         version: 3.4.0(zod@3.24.2)
@@ -8267,6 +8270,12 @@ packages:
 
   zenscroll@4.0.2:
     resolution: {integrity: sha512-jEA1znR7b4C/NnaycInCU6h/d15ZzCd1jmsruqOKnZP6WXQSMH3W2GL+OXbkruslU4h+Tzuos0HdswzRUk/Vgg==}
+
+  zod-openapi@4.2.4:
+    resolution: {integrity: sha512-tsrQpbpqFCXqVXUzi3TPwFhuMtLN3oNZobOtYnK6/5VkXsNdnIgyNr4r8no4wmYluaxzN3F7iS+8xCW8BmMQ8g==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^3.21.4
 
   zod-validation-error@3.4.0:
     resolution: {integrity: sha512-ZOPR9SVY6Pb2qqO5XHt+MkkTRxGXb4EVtnjc9JpXUOtUB1T9Ru7mZOT361AN3MsetVe7R0a1KZshJDZdgp9miQ==}
@@ -17665,6 +17674,10 @@ snapshots:
   yoctocolors@2.1.1: {}
 
   zenscroll@4.0.2: {}
+
+  zod-openapi@4.2.4(zod@3.24.2):
+    dependencies:
+      zod: 3.24.2
 
   zod-validation-error@3.4.0(zod@3.24.2):
     dependencies:
