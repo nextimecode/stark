@@ -219,6 +219,9 @@ importers:
       '@types/react-world-flags':
         specifier: ^1.6.0
         version: 1.6.0
+      '@types/swagger-ui-react':
+        specifier: ^5.18.0
+        version: 5.18.0
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.23.0
         version: 8.29.1(@typescript-eslint/parser@8.29.1(eslint@9.24.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.24.0(jiti@2.4.2))(typescript@5.8.3)
@@ -3048,6 +3051,9 @@ packages:
 
   '@types/serve-static@1.15.7':
     resolution: {integrity: sha512-W8Ym+h8nhuRwaKPaDw34QUkwsGi6Rc4yYqvKFo5rm2FUEhCFbzVWrxXUxuKK8TASjWsysJY0nsmNCGhCOIsrOw==}
+
+  '@types/swagger-ui-react@5.18.0':
+    resolution: {integrity: sha512-c2M9adVG7t28t1pq19K9Jt20VLQf0P/fwJwnfcmsVVsdkwCWhRmbKDu+tIs0/NGwJ/7GY8lBx+iKZxuDI5gDbw==}
 
   '@types/tough-cookie@4.0.5':
     resolution: {integrity: sha512-/Ad8+nIOV7Rl++6f1BdKxFSMgmoqEoYbHRpPcx3JEfv8VRsQe9Z4mCXeJBzxs7mbHY/XOZZuXlRNfhpVPbs6ZA==}
@@ -11913,6 +11919,10 @@ snapshots:
       '@types/http-errors': 2.0.4
       '@types/node': 22.14.1
       '@types/send': 0.17.4
+
+  '@types/swagger-ui-react@5.18.0':
+    dependencies:
+      '@types/react': 19.1.1
 
   '@types/tough-cookie@4.0.5':
     optional: true
