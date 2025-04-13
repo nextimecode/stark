@@ -214,10 +214,10 @@ importers:
         specifier: ^4.0.1
         version: 4.0.1
       '@types/react':
-        specifier: ^19.1.1
+        specifier: ^19.1.0
         version: 19.1.1
       '@types/react-dom':
-        specifier: ^19.1.2
+        specifier: ^19.1.0
         version: 19.1.2(@types/react@19.1.1)
       '@types/react-world-flags':
         specifier: ^1.6.0

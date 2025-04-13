@@ -5,9 +5,7 @@ import { FormEvent, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
-import { Title } from '@/components'
-import { Logo } from '@/components/logo'
-import { Spinner } from '@/components/ui/spinner'
+import { Logo, Spinner, Title } from '@/components'
 
 import { signUpWithEmailAndPassword, signUpWithGoogle } from '@/firebase/auth'
 import { GoogleIcon } from '@/icons'
