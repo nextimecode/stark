@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { env } from '@/env'
 
 const delay = (ms: number): Promise<void> =>

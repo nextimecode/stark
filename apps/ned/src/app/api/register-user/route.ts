@@ -11,7 +11,7 @@ const userSchema = z.object({
   emailVerified: z.boolean(),
   photoURL: z.string().nullable().optional(),
   providerId: z.string(),
-  creationTime: z.string().optional()
+  creationTime: z.string().optional(),
 })
 
 export async function POST(req: Request) {
@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     emailVerified,
     photoURL,
     providerId,
-    creationTime
+    creationTime,
   } = result.data
 
   try {
@@ -39,7 +39,7 @@ export async function POST(req: Request) {
         authTime: creationTime ? new Date(creationTime) : null,
         emailVerified,
         picture: photoURL,
-        provider: providerId
+        provider: providerId,
       },
       create: {
         firebaseId: uid,
@@ -49,8 +49,8 @@ export async function POST(req: Request) {
         emailVerified,
         picture: photoURL,
         provider: providerId,
-        authTime: creationTime ? new Date(creationTime) : null
-      }
+        authTime: creationTime ? new Date(creationTime) : null,
+      },
     })
 
     return NextResponse.json({ success: true })

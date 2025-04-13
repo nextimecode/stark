@@ -25,7 +25,7 @@ export default function DashboardClient({ user }: DashboardClientProps) {
     await signOut(auth)
     const response = await fetch(`${env.NEXT_PUBLIC_NED_URL}/api/logout`, {
       method: 'POST',
-      credentials: 'include'
+      credentials: 'include',
     })
     router.push(env.NEXT_PUBLIC_ARYA_URL)
     setLoading(false)
@@ -46,7 +46,7 @@ export default function DashboardClient({ user }: DashboardClientProps) {
       await deleteUser(auth.currentUser!)
       await fetch(`${env.NEXT_PUBLIC_NED_URL}/api/logout`, {
         method: 'POST',
-        credentials: 'include'
+        credentials: 'include',
       })
       alert('Conta deletada com sucesso.')
       router.push(env.NEXT_PUBLIC_ARYA_URL)

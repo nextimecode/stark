@@ -9,7 +9,7 @@ import { BadgeCheck, Medal, MousePointerClick } from 'lucide-react'
 import {
   getSubscriberInviteClicks,
   getSubscriberInviteCount,
-  getSubscriberRankingPosition
+  getSubscriberRankingPosition,
 } from '@/mocks/api'
 
 interface StatsProps {

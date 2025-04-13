@@ -17,5 +17,5 @@ export const SYSTEM_COLORS = {
   SystemGray4: '#3A3A3C', // Cinza Profundo
   SystemGray5: '#2C2C2E', // Quase Preto
   SystemGray6: '#1C1C1E', // Preto Sólido
-  SystemWhite: '#FFFFFF' // Branco Puro
+  SystemWhite: '#FFFFFF', // Branco Puro
 }

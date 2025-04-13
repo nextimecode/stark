@@ -5,7 +5,7 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from '@/components/ui/card'
 import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
 import {
@@ -13,7 +13,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
 } from '@/components/ui/form'
 import { Textarea } from '@/components/ui/textarea'
 
@@ -26,7 +26,7 @@ interface InterestsSectionProps {
 export function InterestsSection({
   form,
   open,
-  toggle
+  toggle,
 }: InterestsSectionProps) {
   return (
     <Card className="relative">

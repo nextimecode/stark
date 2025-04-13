@@ -12,7 +12,7 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -21,7 +21,7 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from '@/components/ui/select'
 
 import { Loader2 } from 'lucide-react'
@@ -43,7 +43,7 @@ interface InvitationFormProps {
 export function InvitationForm({
   userId,
   tests,
-  selectedTest
+  selectedTest,
 }: InvitationFormProps) {
   const router = useRouter()
   const [email, setEmail] = useState('')
@@ -66,14 +66,14 @@ export function InvitationForm({
       const response = await fetch('/api/invitations', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           senderId: userId,
           email,
           relationshipTypeId: selectedTest.relationshipType.id,
-          testId
-        })
+          testId,
+        }),
       })
 
       if (!response.ok) {

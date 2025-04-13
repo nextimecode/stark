@@ -5,7 +5,7 @@ export const profileFormSchema = z.object({
   name: z.string().min(2, { message: 'Nome deve ter pelo menos 2 caracteres' }),
   email: z.string().email({ message: 'Email inválido' }),
   age: z.number().refine(val => !isNaN(Number(val)) && Number(val) >= 18, {
-    message: 'Idade deve ser um número maior que 18'
+    message: 'Idade deve ser um número maior que 18',
   }),
   location: z.string().min(2, { message: 'Localização é obrigatória' }),
 
@@ -29,14 +29,14 @@ export const profileFormSchema = z.object({
     'romantic',
     'professional',
     'friendship',
-    'family'
+    'family',
   ]),
   desiredContactFrequency: z.enum(['daily', 'weekly', 'monthly', 'occasional']),
   conflictResolutionStyle: z.enum([
     'confrontational',
     'compromising',
     'avoiding',
-    'collaborative'
+    'collaborative',
   ]),
 
   // Extras específicos de contexto
@@ -69,7 +69,7 @@ export const profileFormSchema = z.object({
   familyContactFrequency: z.string().optional(),
   familyRole: z.string().optional(),
   familyTraditionsImportance: z.string().optional(),
-  familyDynamics: z.array(z.string()).optional()
+  familyDynamics: z.array(z.string()).optional(),
 })
 
 export type ProfileFormValues = z.infer<typeof profileFormSchema>

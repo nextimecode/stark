@@ -12,7 +12,7 @@ const getFirebaseAdmin = () => {
     const serviceAccount = JSON.parse(serviceAccountKey)
 
     firebaseAdminLib.initializeApp({
-      credential: firebaseAdminLib.credential.cert(serviceAccount)
+      credential: firebaseAdminLib.credential.cert(serviceAccount),
     })
   }
   return { admin: firebaseAdminLib, key: serviceAccountKey }

@@ -247,7 +247,7 @@ export const countries = {
   YE: 'Yemen',
   ZM: 'Zambia',
   ZW: 'Zimbabwe',
-  AX: 'Åland Islands'
+  AX: 'Åland Islands',
 }
 
 // Country names object using 3-letter country codes to reference country name
@@ -502,5 +502,5 @@ export const countryListAlpha3 = {
   YEM: 'Yemen',
   ZMB: 'Zambia',
   ZWE: 'Zimbabwe',
-  ALA: 'Åland Islands'
+  ALA: 'Åland Islands',
 }

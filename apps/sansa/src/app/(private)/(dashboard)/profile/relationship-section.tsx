@@ -5,7 +5,7 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from '@/components/ui/card'
 import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
 import {
@@ -13,14 +13,14 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
 } from '@/components/ui/form'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from '@/components/ui/select'
 
 interface RelationshipSectionProps {
@@ -32,7 +32,7 @@ interface RelationshipSectionProps {
 export function RelationshipSection({
   form,
   open,
-  toggle
+  toggle,
 }: RelationshipSectionProps) {
   return (
     <Card className="relative">

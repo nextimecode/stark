@@ -5,7 +5,7 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
@@ -15,7 +15,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
 } from '@/components/ui/form'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import {
@@ -23,7 +23,7 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from '@/components/ui/select'
 
 import { Users } from 'lucide-react'
@@ -37,7 +37,7 @@ interface FriendshipSectionProps {
 export function FriendshipSection({
   form,
   open,
-  toggle
+  toggle,
 }: FriendshipSectionProps) {
   return (
     <Card className="relative">
@@ -98,7 +98,7 @@ export function FriendshipSection({
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'fitness'
+                                'fitness',
                               ])
                             } else {
                               field.onChange(
@@ -137,7 +137,7 @@ export function FriendshipSection({
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'reading'
+                                'reading',
                               ])
                             } else {
                               field.onChange(
@@ -285,7 +285,7 @@ export function FriendshipSection({
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'home-gatherings'
+                                'home-gatherings',
                               ])
                             } else {
                               field.onChange(
@@ -306,7 +306,7 @@ export function FriendshipSection({
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'outdoor-activities'
+                                'outdoor-activities',
                               ])
                             } else {
                               field.onChange(
@@ -329,7 +329,7 @@ export function FriendshipSection({
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'parties'
+                                'parties',
                               ])
                             } else {
                               field.onChange(
@@ -350,7 +350,7 @@ export function FriendshipSection({
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'group-sports'
+                                'group-sports',
                               ])
                             } else {
                               field.onChange(
@@ -391,7 +391,7 @@ export function FriendshipSection({
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'restaurants'
+                                'restaurants',
                               ])
                             } else {
                               field.onChange(
@@ -414,7 +414,7 @@ export function FriendshipSection({
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'cultural-events'
+                                'cultural-events',
                               ])
                             } else {
                               field.onChange(

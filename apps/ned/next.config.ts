@@ -9,23 +9,23 @@ if (process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview') {
 const nextConfig: NextConfig = {
   logging: {
     fetches: {
-      fullUrl: true
-    }
+      fullUrl: true,
+    },
   },
   images: {
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'github.com',
-        pathname: '**'
+        pathname: '**',
       },
       {
         protocol: 'https',
         hostname: 'images.unsplash.com',
-        pathname: '**'
-      }
-    ]
-  }
+        pathname: '**',
+      },
+    ],
+  },
 }
 
 export default nextConfig

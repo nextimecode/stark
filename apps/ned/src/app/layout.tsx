@@ -3,33 +3,33 @@ import { ReactNode } from 'react'
 import type { Metadata, Viewport } from 'next'
 import { Inter, Oxanium } from 'next/font/google'
 
-import { PrelineScript } from '@/components/PrelineScript'
+import { PrelineScript } from '@/components'
 import './global.css'
 
 const oxanium = Oxanium({
   weight: ['500', '600'],
   subsets: ['latin'],
-  variable: '--font-oxanium'
+  variable: '--font-oxanium',
 })
 
 const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-inter'
+  variable: '--font-inter',
 })
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1.0,
   maximumScale: 1.0,
-  userScalable: false
+  userScalable: false,
 }
 
 export const metadata: Metadata = {
   title: {
     template: '%s | NeXTIME',
-    default: 'NeXTIME'
+    default: 'NeXTIME',
   },
-  description: ''
+  description: '',
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { cookies, headers } from 'next/headers'
 
 import { type CookieOptions, createServerClient } from '@supabase/ssr'
@@ -9,7 +8,7 @@ const conWarn = console.warn
 const conLog = console.log
 
 const IGNORE_WARNINGS = [
-  'Using the user object as returned from supabase.auth.getSession()'
+  'Using the user object as returned from supabase.auth.getSession()',
 ]
 
 console.warn = (...args) => {
@@ -52,7 +51,7 @@ export const createClient = async (options?: CreateClientOptions) => {
     ? {
         persistSession: false,
         autoRefreshToken: false,
-        detectSessionInUrl: false
+        detectSessionInUrl: false,
       }
     : {}
 
@@ -74,7 +73,7 @@ export const createClient = async (options?: CreateClientOptions) => {
           try {
             cookieStore.set({ name, value: '', ...options })
           } catch (error) {}
-        }
+        },
       },
       auth,
       global: {
@@ -82,9 +81,9 @@ export const createClient = async (options?: CreateClientOptions) => {
           // Pass user agent from browser
           'user-agent': (await headers()).get('user-agent') as string,
           // https://supabase.com/docs/guides/platform/read-replicas#experimental-routing
-          'sb-lb-routing-mode': 'alpha-all-services'
-        }
-      }
+          'sb-lb-routing-mode': 'alpha-all-services',
+        },
+      },
     }
   )
 }

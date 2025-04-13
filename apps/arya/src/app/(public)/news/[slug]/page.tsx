@@ -8,11 +8,11 @@ interface NewsProps {
 }
 
 export async function generateMetadata({
-  params
+  params,
 }: NewsProps): Promise<Metadata> {
   const slug = (await params).slug
   return {
-    title: slug
+    title: slug,
   }
 }
 

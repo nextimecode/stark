@@ -18,12 +18,12 @@ export function AddMBTI() {
     const authResponse = await fetch('http://localhost:3333/sessions', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         email: 'diego@rocketseat.com.br',
-        password: '123456'
-      })
+        password: '123456',
+      }),
     })
 
     const authData = await authResponse.json()
@@ -33,13 +33,13 @@ export function AddMBTI() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`
+        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify({
         title,
         content: 'Teste',
-        attachments: []
-      })
+        attachments: [],
+      }),
     })
 
     revalidateTag('get-tags')
