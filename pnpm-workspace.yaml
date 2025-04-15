@@ -2,12 +2,12 @@ packages:
   - apps/*
   - packages/*
 onlyBuiltDependencies:
-  - '@firebase/util'
-  - '@nestjs/core'
-  - '@prisma/client'
-  - '@prisma/engines'
-  - '@scarf/scarf'
-  - '@swc/core'
+  - "@firebase/util"
+  - "@nestjs/core"
+  - "@prisma/client"
+  - "@prisma/engines"
+  - "@scarf/scarf"
+  - "@swc/core"
   - esbuild
   - prisma
   - protobufjs

@@ -1,27 +1,27 @@
-'use client'
+"use client";
 
-import { FormEvent, useState } from 'react'
+import { FormEvent, useState } from "react";
 
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-import { Logo, Spinner, Title } from '@/components'
+import { Logo, Spinner, Title } from "@/components";
 
-import { signUpWithEmailAndPassword, signUpWithGoogle } from '@/firebase/auth'
-import { GoogleIcon } from '@/icons'
+import { signUpWithEmailAndPassword, signUpWithGoogle } from "@/firebase/auth";
+import { GoogleIcon } from "@/icons";
 
 export default function Register() {
-  const router = useRouter()
+  const router = useRouter();
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [errorMessage, setErrorMessage] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const registerUserOnBackend = async (user: any) => {
-    await fetch('/api/register-user', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    await fetch("/api/register-user", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         uid: user.uid,
         displayName: user.displayName,
@@ -31,57 +31,57 @@ export default function Register() {
         providerId: user.providerId,
         creationTime: user.metadata?.creationTime,
       }),
-    })
+    });
 
-    const token = await user.getIdToken()
+    const token = await user.getIdToken();
 
-    const res = await fetch('/api/set-cookie', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const res = await fetch("/api/set-cookie", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token }),
-    })
+    });
 
     if (res.ok) {
-      router.push('/')
+      router.push("/");
     } else {
-      setErrorMessage('Erro ao configurar o cookie de sessão.')
+      setErrorMessage("Erro ao configurar o cookie de sessão.");
     }
-  }
+  };
 
   const handleGoogleSignUp = async () => {
-    setIsLoading(true)
+    setIsLoading(true);
 
-    const response = await signUpWithGoogle()
+    const response = await signUpWithGoogle();
 
     if (response.error === null) {
-      await registerUserOnBackend(response.data)
+      await registerUserOnBackend(response.data);
     } else {
       setErrorMessage(
-        response.error.details || 'Falha ao se cadastrar com o Google.'
-      )
+        response.error.details || "Falha ao se cadastrar com o Google.",
+      );
     }
 
-    setIsLoading(false)
-  }
+    setIsLoading(false);
+  };
 
   const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setIsLoading(true)
+    event.preventDefault();
+    setIsLoading(true);
 
-    const response = await signUpWithEmailAndPassword(email, password)
+    const response = await signUpWithEmailAndPassword(email, password);
 
     if (response.error === null) {
-      await registerUserOnBackend(response.data)
+      await registerUserOnBackend(response.data);
     } else {
       setErrorMessage(
-        response.error.code === 'auth/email-already-in-use'
-          ? 'Este email já está em uso. Por favor, tente outro.'
-          : response.error.details || 'Falha ao se cadastrar. Tente novamente.'
-      )
+        response.error.code === "auth/email-already-in-use"
+          ? "Este email já está em uso. Por favor, tente outro."
+          : response.error.details || "Falha ao se cadastrar. Tente novamente.",
+      );
     }
 
-    setIsLoading(false)
-  }
+    setIsLoading(false);
+  };
 
   return (
     <div className="relative min-h-screen flex items-center justify-center">
@@ -96,17 +96,17 @@ export default function Register() {
           <div className="text-center pb-6">
             <Logo className="mx-auto" width={81} height={100} />
             <h2 className="py-4 dark:text-white text-3xl font-semibold">
-              Crie sua conta,{' '}
+              Crie sua conta,{" "}
               <Title color="blue" size="text-3xl">
                 NeXTIME
               </Title>
             </h2>
             <h3 className="text-xl font-light dark:text-white">
-              Uma só conta para todos os produtos.{' '}
+              Uma só conta para todos os produtos.{" "}
               <span className="font-semibold">É grátis!</span>
             </h3>
             <p className="mt-2 text-md text-gray-600 dark:text-white">
-              Já tem conta?{' '}
+              Já tem conta?{" "}
               <Link
                 className="text-blue-600 decoration-2 hover:underline focus:outline-hidden focus:underline font-medium dark:text-blue-500"
                 href="/"
@@ -146,7 +146,7 @@ export default function Register() {
                   className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-system-gray-transparent dark:border-system-gray2 dark:text-white dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                   required
                   placeholder="Ex: @gmail, @outlook, @yahoo, etc."
-                  onChange={e => setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
 
@@ -168,7 +168,7 @@ export default function Register() {
                   className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-system-gray-transparent dark:border-system-gray2 dark:text-white dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                   required
                   placeholder="Digite uma senha forte"
-                  onChange={e => setPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
 
@@ -184,5 +184,5 @@ export default function Register() {
         </div>
       </div>
     </div>
-  )
+  );
 }

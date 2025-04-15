@@ -1,18 +1,18 @@
-import * as z from 'zod'
+import * as z from "zod";
 
 export const profileFormSchema = z.object({
   // Dados básicos
-  name: z.string().min(2, { message: 'Nome deve ter pelo menos 2 caracteres' }),
-  email: z.string().email({ message: 'Email inválido' }),
-  age: z.number().refine(val => !isNaN(Number(val)) && Number(val) >= 18, {
-    message: 'Idade deve ser um número maior que 18',
+  name: z.string().min(2, { message: "Nome deve ter pelo menos 2 caracteres" }),
+  email: z.string().email({ message: "Email inválido" }),
+  age: z.number().refine((val) => !isNaN(Number(val)) && Number(val) >= 18, {
+    message: "Idade deve ser um número maior que 18",
   }),
-  location: z.string().min(2, { message: 'Localização é obrigatória' }),
+  location: z.string().min(2, { message: "Localização é obrigatória" }),
 
   // Personalidade
   mbtiType: z.string(),
   introExtroScale: z.number().min(1).max(10),
-  communicationStyle: z.enum(['direct', 'indirect', 'mixed']),
+  communicationStyle: z.enum(["direct", "indirect", "mixed"]),
 
   // Interesses
   hobbies: z.string(),
@@ -26,17 +26,17 @@ export const profileFormSchema = z.object({
 
   // Configurações de relacionamento
   relationshipFocus: z.enum([
-    'romantic',
-    'professional',
-    'friendship',
-    'family',
+    "romantic",
+    "professional",
+    "friendship",
+    "family",
   ]),
-  desiredContactFrequency: z.enum(['daily', 'weekly', 'monthly', 'occasional']),
+  desiredContactFrequency: z.enum(["daily", "weekly", "monthly", "occasional"]),
   conflictResolutionStyle: z.enum([
-    'confrontational',
-    'compromising',
-    'avoiding',
-    'collaborative',
+    "confrontational",
+    "compromising",
+    "avoiding",
+    "collaborative",
   ]),
 
   // Extras específicos de contexto
@@ -70,6 +70,6 @@ export const profileFormSchema = z.object({
   familyRole: z.string().optional(),
   familyTraditionsImportance: z.string().optional(),
   familyDynamics: z.array(z.string()).optional(),
-})
+});
 
-export type ProfileFormValues = z.infer<typeof profileFormSchema>
+export type ProfileFormValues = z.infer<typeof profileFormSchema>;

@@ -15,8 +15,5 @@
     "source.organizeImports.biome": "explicit"
   },
   "WillLuke.nextjs.hasPrompted": true,
-  "cSpell.words": [
-    "arya",
-    "unplugin"
-  ]
+  "cSpell.words": ["arya", "unplugin"]
 }

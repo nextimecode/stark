@@ -27,56 +27,56 @@ A solução será dividida em 4 etapas principais:
 
   ```javascript
   // lib/firebaseClient.ts
-  import { initializeApp } from 'firebase/app'
-  import { getAuth } from 'firebase/auth'
+  import { initializeApp } from "firebase/app";
+  import { getAuth } from "firebase/auth";
 
   const firebaseConfig = {
-    apiKey: 'YOUR_API_KEY',
-    authDomain: 'YOUR_AUTH_DOMAIN',
-    projectId: 'YOUR_PROJECT_ID',
-    storageBucket: 'YOUR_STORAGE_BUCKET',
-    messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
-    appId: 'YOUR_APP_ID'
-  }
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_STORAGE_BUCKET",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    appId: "YOUR_APP_ID",
+  };
 
-  const app = initializeApp(firebaseConfig)
-  export const auth = getAuth(app)
+  const app = initializeApp(firebaseConfig);
+  export const auth = getAuth(app);
   ```
 
 - Gere o token após o login:
 
   ```javascript
   // pages/api/login.ts
-  import { auth } from '@/lib/firebaseClient'
-  import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
-  import { setCookie } from 'cookies-next'
+  import { auth } from "@/lib/firebaseClient";
+  import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+  import { setCookie } from "cookies-next";
 
   export default async function handler(req, res) {
-    if (req.method !== 'POST') return res.status(405).end()
+    if (req.method !== "POST") return res.status(405).end();
 
-    const { email, password } = req.body
+    const { email, password } = req.body;
 
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
-        password
-      )
-      const idToken = await userCredential.user.getIdToken()
+        password,
+      );
+      const idToken = await userCredential.user.getIdToken();
 
       // Armazena o token no cookie (SameSite=None)
-      setCookie('authToken', idToken, {
+      setCookie("authToken", idToken, {
         req,
         res,
         httpOnly: true,
         secure: true,
-        sameSite: 'None',
-        maxAge: 60 * 60 * 24 // 1 dia
-      })
+        sameSite: "None",
+        maxAge: 60 * 60 * 24, // 1 dia
+      });
 
-      res.status(200).json({ message: 'Login successful' })
+      res.status(200).json({ message: "Login successful" });
     } catch (error) {
-      res.status(401).json({ error: 'Invalid credentials' })
+      res.status(401).json({ error: "Invalid credentials" });
     }
   }
   ```
@@ -91,31 +91,31 @@ A solução será dividida em 4 etapas principais:
 
   ```javascript
   // pages/api/syncToken.ts
-  import { verifyIdToken } from '@/lib/firebaseAdmin' // Admin SDK para verificar tokens
-  import { setCookie } from 'cookies-next'
+  import { verifyIdToken } from "@/lib/firebaseAdmin"; // Admin SDK para verificar tokens
+  import { setCookie } from "cookies-next";
 
   export default async function handler(req, res) {
-    if (req.method !== 'POST') return res.status(405).end()
+    if (req.method !== "POST") return res.status(405).end();
 
-    const { token } = req.body
+    const { token } = req.body;
 
     try {
       // Verifica o token recebido
-      const decodedToken = await verifyIdToken(token)
+      const decodedToken = await verifyIdToken(token);
 
       // Armazena o token no domínio atual
-      setCookie('authToken', token, {
+      setCookie("authToken", token, {
         req,
         res,
         httpOnly: true,
         secure: true,
-        sameSite: 'None',
-        maxAge: 60 * 60 * 24 // 1 dia
-      })
+        sameSite: "None",
+        maxAge: 60 * 60 * 24, // 1 dia
+      });
 
-      res.status(200).json({ message: 'Token synchronized' })
+      res.status(200).json({ message: "Token synchronized" });
     } catch (error) {
-      res.status(401).json({ error: 'Invalid token' })
+      res.status(401).json({ error: "Invalid token" });
     }
   }
   ```
@@ -124,19 +124,19 @@ A solução será dividida em 4 etapas principais:
 
   ```javascript
   // lib/firebaseAdmin.ts
-  import admin from 'firebase-admin'
+  import admin from "firebase-admin";
 
-  const serviceAccount = require('/path/to/your-service-account-key.json')
+  const serviceAccount = require("/path/to/your-service-account-key.json");
 
   if (!admin.apps.length) {
     admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount)
-    })
+      credential: admin.credential.cert(serviceAccount),
+    });
   }
 
-  export const verifyIdToken = async token => {
-    return admin.auth().verifyIdToken(token)
-  }
+  export const verifyIdToken = async (token) => {
+    return admin.auth().verifyIdToken(token);
+  };
   ```
 
 ---
@@ -149,27 +149,27 @@ Utilize o middleware para verificar se o token armazenado no cookie é válido a
 
 ```javascript
 // middleware.ts
-import { NextResponse } from 'next/server'
-import { verifyIdToken } from '@/lib/firebaseAdmin'
+import { NextResponse } from "next/server";
+import { verifyIdToken } from "@/lib/firebaseAdmin";
 
 export async function middleware(req) {
-  const token = req.cookies.get('authToken')
+  const token = req.cookies.get("authToken");
 
   if (!token) {
-    return NextResponse.redirect(new URL('/login', req.url))
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 
   try {
-    await verifyIdToken(token)
-    return NextResponse.next()
+    await verifyIdToken(token);
+    return NextResponse.next();
   } catch (error) {
-    return NextResponse.redirect(new URL('/login', req.url))
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 }
 
 export const config = {
-  matcher: ['/protected/:path*']
-}
+  matcher: ["/protected/:path*"],
+};
 ```
 
 #### Armazenamento no Lado do Cliente
@@ -179,15 +179,15 @@ Ao obter o token no login, salve-o no cookie para reutilização em requisiçõe
 ```javascript
 // Após o login no cliente
 const login = async (email, password) => {
-  const res = await fetch('/api/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, password })
-  })
+  const res = await fetch("/api/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
+  });
 
-  if (!res.ok) throw new Error('Login failed')
-  return await res.json()
-}
+  if (!res.ok) throw new Error("Login failed");
+  return await res.json();
+};
 ```
 
 ---
@@ -241,21 +241,21 @@ Sim, você está absolutamente certo! Nunca devemos expor informações sensíve
 
      ```javascript
      // lib/firebaseAdmin.ts
-     import admin from 'firebase-admin'
+     import admin from "firebase-admin";
 
      if (!admin.apps.length) {
        const serviceAccount = JSON.parse(
-         process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT
-       )
+         process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT,
+       );
 
        admin.initializeApp({
-         credential: admin.credential.cert(serviceAccount)
-       })
+         credential: admin.credential.cert(serviceAccount),
+       });
      }
 
-     export const verifyIdToken = async token => {
-       return admin.auth().verifyIdToken(token)
-     }
+     export const verifyIdToken = async (token) => {
+       return admin.auth().verifyIdToken(token);
+     };
      ```
 
 3. **Segurança da variável de ambiente:**

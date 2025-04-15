@@ -32,4 +32,4 @@ export const BuildingAndSquareIcon = () => (
       strokeWidth="2"
     />
   </svg>
-)
+);

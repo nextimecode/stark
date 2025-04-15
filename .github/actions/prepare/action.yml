@@ -1,20 +1,20 @@
 # github/actions/prepare/action.yml
 
-name: 'prepare'
-description: 'Install project dependencies'
+name: "prepare"
+description: "Install project dependencies"
 inputs:
   install:
-    description: 'Whether to install dependencies'
+    description: "Whether to install dependencies"
     required: false
-    default: 'true'
+    default: "true"
 outputs:
   node_version:
-    description: 'The Node.js version extracted from package.json'
+    description: "The Node.js version extracted from package.json"
   pnpm_version:
-    description: 'The pnpm version extracted from package.json'
+    description: "The pnpm version extracted from package.json"
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - uses: actions/checkout@v4
       with:
@@ -38,7 +38,7 @@ runs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ steps.versions.outputs.node_version }}
-        cache: 'pnpm'
+        cache: "pnpm"
 
     - name: Install dependencies
       if: ${{ inputs.install == 'true' }}
@@ -50,7 +50,7 @@ runs:
       if: always() && inputs.install == 'true'
       uses: actions/cache@v4
       with:
-        path: '**/node_modules'
+        path: "**/node_modules"
         key: ${{ runner.os }}-node-modules-${{ hashFiles('pnpm-lock.yaml', '.npmrc', 'pnpm-workspace.yaml') }}
         restore-keys: |
           ${{ runner.os }}-node-modules-

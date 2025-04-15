@@ -25,7 +25,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ steps.prepare.outputs.node_version }}
-          cache: 'pnpm'
+          cache: "pnpm"
 
       - name: Install pnpm
         run: npm install -g pnpm@${{ steps.prepare.outputs.pnpm_version }}
@@ -59,9 +59,9 @@ jobs:
         id: create_pr
         uses: peter-evans/create-pull-request@v5
         with:
-          commit-message: 'chore: atualiza versão para ${{ steps.get_tag.outputs.tag }}'
-          branch: 'update-version/${{ steps.get_tag.outputs.tag }}'
-          title: 'chore: atualiza versão para ${{ steps.get_tag.outputs.tag }}'
+          commit-message: "chore: atualiza versão para ${{ steps.get_tag.outputs.tag }}"
+          branch: "update-version/${{ steps.get_tag.outputs.tag }}"
+          title: "chore: atualiza versão para ${{ steps.get_tag.outputs.tag }}"
           body: |
             Atualização automática do arquivo `package.json` para a versão `${{ steps.get_tag.outputs.tag }}`.
             Aprovação necessária para mesclar as mudanças na branch `main`.

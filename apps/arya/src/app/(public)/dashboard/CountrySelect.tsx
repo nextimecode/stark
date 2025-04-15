@@ -1,21 +1,21 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import Flag from 'react-world-flags'
+import { useState } from "react";
+import Flag from "react-world-flags";
 
-import * as Select from '@/components/form/select'
+import * as Select from "@/components/form/select";
 
-import { countries } from '@/lib/countries'
+import { countries } from "@/lib/countries";
 
 export interface CountrySelectProps {}
 
-type CountryCode = keyof typeof countries
+type CountryCode = keyof typeof countries;
 
 export function CountrySelect(props: CountrySelectProps) {
-  const [value, setValue] = useState<CountryCode | undefined>()
+  const [value, setValue] = useState<CountryCode | undefined>();
 
   function handleCountrySelected(value: string) {
-    setValue(value as CountryCode)
+    setValue(value as CountryCode);
   }
 
   return (
@@ -51,9 +51,9 @@ export function CountrySelect(props: CountrySelectProps) {
               </Select.ItemPrefix>
               <Select.ItemText>{title}</Select.ItemText>
             </Select.Item>
-          )
+          );
         })}
       </Select.Content>
     </Select.Root>
-  )
+  );
 }

@@ -109,27 +109,27 @@ Para reduzir a porção da rota que é renderizada no lado do cliente, você pod
 
 ```tsx
 // app/dashboard/search-bar.tsx
-'use client'
+"use client";
 
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams } from "next/navigation";
 
 export default function SearchBar() {
-  const searchParams = useSearchParams()
-  const search = searchParams.get('search')
+  const searchParams = useSearchParams();
+  const search = searchParams.get("search");
 
-  return <>Search: {search}</>
+  return <>Search: {search}</>;
 }
 ```
 
 ```tsx
-import { Suspense } from 'react'
-import SearchBar from './search-bar'
+import { Suspense } from "react";
+import SearchBar from "./search-bar";
 
 // Este componente será renderizado como um placeholder para a barra de pesquisa no HTML inicial.
 // Quando o valor estiver disponível durante a hidratação do React, o fallback
 // será substituído pelo componente `<SearchBar>`.
 function SearchBarFallback() {
-  return <>placeholder</>
+  return <>placeholder</>;
 }
 
 export default function Page() {
@@ -142,7 +142,7 @@ export default function Page() {
       </nav>
       <h1>Dashboard</h1>
     </>
-  )
+  );
 }
 ```
 
