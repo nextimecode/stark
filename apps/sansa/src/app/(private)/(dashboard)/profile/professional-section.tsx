@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import {
   Card,
@@ -6,9 +6,9 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
+} from '@/components/ui/card'
+import { Checkbox } from '@/components/ui/checkbox'
+import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
 import {
   FormControl,
   FormDescription,
@@ -16,23 +16,23 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
+} from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
 
-import { Briefcase } from "lucide-react";
+import { Briefcase } from 'lucide-react'
 
 interface ProfessionalSectionProps {
-  form: any;
-  open: boolean;
-  toggle: () => void;
+  form: any
+  open: boolean
+  toggle: () => void
 }
 
 export function ProfessionalSection({
@@ -47,7 +47,7 @@ export function ProfessionalSection({
           type="button"
           className="text-muted-foreground hover:text-primary"
         >
-          {open ? "Fechar" : "Expandir"}
+          {open ? 'Fechar' : 'Expandir'}
         </button>
       </div>
       <CardHeader>
@@ -152,20 +152,20 @@ export function ProfessionalSection({
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2">
                         <Checkbox
-                          checked={field.value?.includes("individual")}
-                          onCheckedChange={(checked) => {
+                          checked={field.value?.includes('individual')}
+                          onCheckedChange={checked => {
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                "individual",
-                              ]);
+                                'individual',
+                              ])
                             } else {
                               field.onChange(
                                 field.value?.filter(
                                   (selectedOption: string) =>
-                                    selectedOption !== "individual",
-                                ) || [],
-                              );
+                                    selectedOption !== 'individual'
+                                ) || []
+                              )
                             }
                           }}
                         />
@@ -173,17 +173,17 @@ export function ProfessionalSection({
                       </div>
                       <div className="flex items-center space-x-2">
                         <Checkbox
-                          checked={field.value?.includes("team")}
-                          onCheckedChange={(checked) => {
+                          checked={field.value?.includes('team')}
+                          onCheckedChange={checked => {
                             if (checked) {
-                              field.onChange([...(field.value || []), "team"]);
+                              field.onChange([...(field.value || []), 'team'])
                             } else {
                               field.onChange(
                                 field.value?.filter(
                                   (selectedOption: string) =>
-                                    selectedOption !== "team",
-                                ) || [],
-                              );
+                                    selectedOption !== 'team'
+                                ) || []
+                              )
                             }
                           }}
                         />
@@ -191,20 +191,20 @@ export function ProfessionalSection({
                       </div>
                       <div className="flex items-center space-x-2">
                         <Checkbox
-                          checked={field.value?.includes("structured")}
-                          onCheckedChange={(checked) => {
+                          checked={field.value?.includes('structured')}
+                          onCheckedChange={checked => {
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                "structured",
-                              ]);
+                                'structured',
+                              ])
                             } else {
                               field.onChange(
                                 field.value?.filter(
                                   (selectedOption: string) =>
-                                    selectedOption !== "structured",
-                                ) || [],
-                              );
+                                    selectedOption !== 'structured'
+                                ) || []
+                              )
                             }
                           }}
                         />
@@ -212,20 +212,20 @@ export function ProfessionalSection({
                       </div>
                       <div className="flex items-center space-x-2">
                         <Checkbox
-                          checked={field.value?.includes("flexible")}
-                          onCheckedChange={(checked) => {
+                          checked={field.value?.includes('flexible')}
+                          onCheckedChange={checked => {
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                "flexible",
-                              ]);
+                                'flexible',
+                              ])
                             } else {
                               field.onChange(
                                 field.value?.filter(
                                   (selectedOption: string) =>
-                                    selectedOption !== "flexible",
-                                ) || [],
-                              );
+                                    selectedOption !== 'flexible'
+                                ) || []
+                              )
                             }
                           }}
                         />
@@ -233,20 +233,17 @@ export function ProfessionalSection({
                       </div>
                       <div className="flex items-center space-x-2">
                         <Checkbox
-                          checked={field.value?.includes("remote")}
-                          onCheckedChange={(checked) => {
+                          checked={field.value?.includes('remote')}
+                          onCheckedChange={checked => {
                             if (checked) {
-                              field.onChange([
-                                ...(field.value || []),
-                                "remote",
-                              ]);
+                              field.onChange([...(field.value || []), 'remote'])
                             } else {
                               field.onChange(
                                 field.value?.filter(
                                   (selectedOption: string) =>
-                                    selectedOption !== "remote",
-                                ) || [],
-                              );
+                                    selectedOption !== 'remote'
+                                ) || []
+                              )
                             }
                           }}
                         />
@@ -254,20 +251,20 @@ export function ProfessionalSection({
                       </div>
                       <div className="flex items-center space-x-2">
                         <Checkbox
-                          checked={field.value?.includes("presential")}
-                          onCheckedChange={(checked) => {
+                          checked={field.value?.includes('presential')}
+                          onCheckedChange={checked => {
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                "presential",
-                              ]);
+                                'presential',
+                              ])
                             } else {
                               field.onChange(
                                 field.value?.filter(
                                   (selectedOption: string) =>
-                                    selectedOption !== "presential",
-                                ) || [],
-                              );
+                                    selectedOption !== 'presential'
+                                ) || []
+                              )
                             }
                           }}
                         />
@@ -275,20 +272,17 @@ export function ProfessionalSection({
                       </div>
                       <div className="flex items-center space-x-2">
                         <Checkbox
-                          checked={field.value?.includes("hybrid")}
-                          onCheckedChange={(checked) => {
+                          checked={field.value?.includes('hybrid')}
+                          onCheckedChange={checked => {
                             if (checked) {
-                              field.onChange([
-                                ...(field.value || []),
-                                "hybrid",
-                              ]);
+                              field.onChange([...(field.value || []), 'hybrid'])
                             } else {
                               field.onChange(
                                 field.value?.filter(
                                   (selectedOption: string) =>
-                                    selectedOption !== "hybrid",
-                                ) || [],
-                              );
+                                    selectedOption !== 'hybrid'
+                                ) || []
+                              )
                             }
                           }}
                         />
@@ -335,7 +329,7 @@ export function ProfessionalSection({
         </CollapsibleContent>
       </Collapsible>
     </Card>
-  );
+  )
 }
 
-export default ProfessionalSection;
+export default ProfessionalSection

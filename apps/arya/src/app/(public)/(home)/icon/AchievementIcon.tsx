@@ -30,4 +30,4 @@ export const AchievementIcon = () => (
       strokeLinecap="round"
     ></path>
   </svg>
-);
+)

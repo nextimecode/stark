@@ -1,19 +1,19 @@
-import { Metadata } from "next";
-import Image from "next/image";
+import { Metadata } from 'next'
+import Image from 'next/image'
 
 interface NewsProps {
   params: Promise<{
-    slug: string;
-  }>;
+    slug: string
+  }>
 }
 
 export async function generateMetadata({
   params,
 }: NewsProps): Promise<Metadata> {
-  const slug = (await params).slug;
+  const slug = (await params).slug
   return {
     title: slug,
-  };
+  }
 }
 
 // export async function generateStaticParams() {
@@ -36,7 +36,7 @@ export default function NewsPage() {
           height={630}
         />
         <p className="mb-4">
-          Data de publicação:{" "}
+          Data de publicação:{' '}
           <time dateTime="2023-01-01">1 de Janeiro de 2023</time>
         </p>
         <div className="text-gray-700 text-lg leading-relaxed">
@@ -45,5 +45,5 @@ export default function NewsPage() {
         </div>
       </article>
     </div>
-  );
+  )
 }

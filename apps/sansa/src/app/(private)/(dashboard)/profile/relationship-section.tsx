@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import {
   Card,
@@ -6,27 +6,27 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
+} from '@/components/ui/card'
+import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from '@/components/ui/form'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select'
 
 interface RelationshipSectionProps {
-  form: any;
-  open: boolean;
-  toggle: () => void;
+  form: any
+  open: boolean
+  toggle: () => void
 }
 
 export function RelationshipSection({
@@ -41,7 +41,7 @@ export function RelationshipSection({
           type="button"
           className="text-muted-foreground hover:text-primary"
         >
-          {open ? "Fechar" : "Expandir"}
+          {open ? 'Fechar' : 'Expandir'}
         </button>
       </div>
       <CardHeader>
@@ -143,7 +143,7 @@ export function RelationshipSection({
         </CollapsibleContent>
       </Collapsible>
     </Card>
-  );
+  )
 }
 
-export default RelationshipSection;
+export default RelationshipSection

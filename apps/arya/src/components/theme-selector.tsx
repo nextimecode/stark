@@ -70,5 +70,5 @@ export function ThemeSelector() {
         </button>
       </div>
     </div>
-  );
+  )
 }

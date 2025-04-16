@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import {
   Card,
@@ -6,23 +6,23 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
+} from '@/components/ui/card'
+import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
 
-import { UserCircle } from "lucide-react";
+import { UserCircle } from 'lucide-react'
 
 interface BasicSectionProps {
-  form: any;
-  open: boolean;
-  toggle: () => void;
+  form: any
+  open: boolean
+  toggle: () => void
 }
 
 export function BasicSection({ form, open, toggle }: BasicSectionProps) {
@@ -33,7 +33,7 @@ export function BasicSection({ form, open, toggle }: BasicSectionProps) {
           type="button"
           className="text-muted-foreground hover:text-primary"
         >
-          {open ? "Fechar" : "Expandir"}
+          {open ? 'Fechar' : 'Expandir'}
         </button>
       </div>
       <CardHeader>
@@ -111,7 +111,7 @@ export function BasicSection({ form, open, toggle }: BasicSectionProps) {
         </CollapsibleContent>
       </Collapsible>
     </Card>
-  );
+  )
 }
 
-export default BasicSection;
+export default BasicSection

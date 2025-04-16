@@ -1,4 +1,4 @@
-import { ProfileForm } from "./profile-form";
+import { ProfileForm } from './profile-form'
 
 export default function ProfilePage() {
   return (
@@ -15,5 +15,5 @@ export default function ProfilePage() {
         <ProfileForm />
       </div>
     </div>
-  );
+  )
 }

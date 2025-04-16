@@ -1,23 +1,23 @@
-"use client";
+'use client'
 
-import { useState } from "react";
+import { useState } from 'react'
 
-import { IconButton } from "@/components/icon-button";
-import { InputField, InputIcon, InputRoot } from "@/components/input";
+import { IconButton } from '@/components/icon-button'
+import { InputField, InputIcon, InputRoot } from '@/components/input'
 
-import { Copy, Link } from "lucide-react";
+import { Copy, Link } from 'lucide-react'
 
 interface InviteLinkInputProps {
-  inviteLink: string;
+  inviteLink: string
 }
 
 export function InviteLinkInput({ inviteLink }: InviteLinkInputProps) {
-  const [tooltipVisible, setTooltipVisible] = useState(false);
+  const [tooltipVisible, setTooltipVisible] = useState(false)
 
   function copyInviteLink() {
-    navigator.clipboard.writeText(inviteLink);
-    setTooltipVisible(true);
-    setTimeout(() => setTooltipVisible(false), 2000);
+    navigator.clipboard.writeText(inviteLink)
+    setTooltipVisible(true)
+    setTimeout(() => setTooltipVisible(false), 2000)
   }
 
   return (
@@ -39,5 +39,5 @@ export function InviteLinkInput({ inviteLink }: InviteLinkInputProps) {
         )}
       </div>
     </InputRoot>
-  );
+  )
 }
