@@ -7,8 +7,8 @@ import { ThemeSelector } from '@/components/theme-selector'
 
 import { Bold, Italic, Link, List, ListOrdered, Mail } from 'lucide-react'
 
-import { CountrySelect } from './CountrySelect'
-import { SettingsTabs } from './SettingsTabs'
+import { CountrySelect } from './country-select'
+import { SettingsTabs } from './settings-tabs'
 
 export default function Dashboard() {
   return (
