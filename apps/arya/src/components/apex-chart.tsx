@@ -1,20 +1,20 @@
-"use client";
+'use client'
 
-import dynamic from "next/dynamic";
+import dynamic from 'next/dynamic'
 
-import { ApexOptions } from "apexcharts";
+import { ApexOptions } from 'apexcharts'
 
-const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
 type ApexChartProps = {
-  options: ApexOptions;
+  options: ApexOptions
   series: Array<{
-    name: string;
-    data: number[];
-  }>;
-  type: "line" | "bar" | "pie" | "area" | "radar";
-  height: number;
-};
+    name: string
+    data: number[]
+  }>
+  type: 'line' | 'bar' | 'pie' | 'area' | 'radar'
+  height: number
+}
 
 export const ApexChart = ({
   options,
@@ -22,7 +22,5 @@ export const ApexChart = ({
   type,
   height,
 }: ApexChartProps) => {
-  return (
-    <Chart options={options} series={series} type={type} height={height} />
-  );
-};
+  return <Chart options={options} series={series} type={type} height={height} />
+}

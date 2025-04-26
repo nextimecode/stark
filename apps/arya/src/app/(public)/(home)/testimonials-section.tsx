@@ -1,9 +1,9 @@
-import Link from "next/link";
+import Link from 'next/link'
 
 interface TestimonialCardProps {
-  text: string;
-  name: string;
-  location: string;
+  text: string
+  name: string
+  location: string
 }
 
 export const TestimonialCard = ({
@@ -26,57 +26,57 @@ export const TestimonialCard = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export function TestimonialsSection() {
   const testimonials = [
     {
-      text: "O NeXTverso mudou completamente como vejo minhas conexões. Agora, consigo entender melhor como me relaciono com amigos e colegas.",
-      name: "Maria Silva",
-      location: "São Paulo, Brasil",
+      text: 'O NeXTverso mudou completamente como vejo minhas conexões. Agora, consigo entender melhor como me relaciono com amigos e colegas.',
+      name: 'Maria Silva',
+      location: 'São Paulo, Brasil',
     },
     {
-      text: "Foi incrível descobrir a compatibilidade com meus amigos de forma tão intuitiva. Recomendo a todos!",
-      name: "João Oliveira",
-      location: "Rio de Janeiro, Brasil",
+      text: 'Foi incrível descobrir a compatibilidade com meus amigos de forma tão intuitiva. Recomendo a todos!',
+      name: 'João Oliveira',
+      location: 'Rio de Janeiro, Brasil',
     },
     {
-      text: "O teste de compatibilidade foi super divertido e útil. Adorei os gráficos e as análises detalhadas!",
-      name: "Ana Costa",
-      location: "Belo Horizonte, Brasil",
+      text: 'O teste de compatibilidade foi super divertido e útil. Adorei os gráficos e as análises detalhadas!',
+      name: 'Ana Costa',
+      location: 'Belo Horizonte, Brasil',
     },
     {
-      text: "Com o NeXTverso, finalmente consegui entender melhor as dinâmicas no meu ambiente de trabalho. Um verdadeiro divisor de águas!",
-      name: "Carlos Almeida",
-      location: "Curitiba, Brasil",
+      text: 'Com o NeXTverso, finalmente consegui entender melhor as dinâmicas no meu ambiente de trabalho. Um verdadeiro divisor de águas!',
+      name: 'Carlos Almeida',
+      location: 'Curitiba, Brasil',
     },
     {
-      text: "Eu não acreditava que um teste pudesse ser tão preciso. É ótimo ver como o NeXTverso facilita nossas interações.",
-      name: "Beatriz Rocha",
-      location: "Porto Alegre, Brasil",
+      text: 'Eu não acreditava que um teste pudesse ser tão preciso. É ótimo ver como o NeXTverso facilita nossas interações.',
+      name: 'Beatriz Rocha',
+      location: 'Porto Alegre, Brasil',
     },
     {
-      text: "A funcionalidade de convidar amigos para o teste é incrível! Eu e meus amigos tivemos insights valiosos sobre nossas relações.",
-      name: "Lucas Moreira",
-      location: "Fortaleza, Brasil",
+      text: 'A funcionalidade de convidar amigos para o teste é incrível! Eu e meus amigos tivemos insights valiosos sobre nossas relações.',
+      name: 'Lucas Moreira',
+      location: 'Fortaleza, Brasil',
     },
     {
-      text: "A experiência com o NeXTverso foi fantástica! Descobri muito sobre como me conecto com as pessoas ao meu redor.",
+      text: 'A experiência com o NeXTverso foi fantástica! Descobri muito sobre como me conecto com as pessoas ao meu redor.',
       name: "Liam O'Connor",
-      location: "Dublin, Irlanda",
+      location: 'Dublin, Irlanda',
     },
     {
-      text: "Uma ferramenta incrível para explorar relações pessoais. O design é intuitivo e os insights são valiosos.",
-      name: "Sofia Martínez",
-      location: "Madrid, Espanha",
+      text: 'Uma ferramenta incrível para explorar relações pessoais. O design é intuitivo e os insights são valiosos.',
+      name: 'Sofia Martínez',
+      location: 'Madrid, Espanha',
     },
     {
-      text: "O NeXTverso é revolucionário! Senti que meus relacionamentos melhoraram graças aos insights oferecidos.",
-      name: "Mateo Fernández",
-      location: "Buenos Aires, Argentina",
+      text: 'O NeXTverso é revolucionário! Senti que meus relacionamentos melhoraram graças aos insights oferecidos.',
+      name: 'Mateo Fernández',
+      location: 'Buenos Aires, Argentina',
     },
-  ];
+  ]
 
   return (
     <section>
@@ -109,5 +109,5 @@ export function TestimonialsSection() {
         </div>
       </div>
     </section>
-  );
+  )
 }

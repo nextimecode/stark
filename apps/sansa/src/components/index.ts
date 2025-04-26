@@ -1,2 +1,2 @@
-export { PrelineScript } from "./preline-script";
-export { Title } from "./title";
+export { Title } from './title';
+

@@ -1,4 +1,4 @@
-import { RadarChart } from "./radar-chart";
+import { RadarChart } from './radar-chart'
 
 export function Charts() {
   return (
@@ -17,41 +17,41 @@ export function Charts() {
           <RadarChart
             title="Compatibilidade"
             categories={[
-              "Personalidade",
-              "Valores e Objetivos",
-              "Estilo de Vida",
-              "Interesses e Hobbies",
-              "Linguagem do Amor",
+              'Personalidade',
+              'Valores e Objetivos',
+              'Estilo de Vida',
+              'Interesses e Hobbies',
+              'Linguagem do Amor',
             ]}
-            series={[{ name: "Amizade", data: [20, 15, 10, 25, 30] }]}
-            colors={["#64D2FF", "#BF5AF2"]}
+            series={[{ name: 'Amizade', data: [20, 15, 10, 25, 30] }]}
+            colors={['#64D2FF', '#BF5AF2']}
           />
           <RadarChart
             title="Amizade"
             categories={[
-              "Interesses e Hobbies",
-              "Personalidade e Estilo Social ",
-              "Valores e Ética",
-              "Estilo de Vida",
-              "Conexão",
+              'Interesses e Hobbies',
+              'Personalidade e Estilo Social ',
+              'Valores e Ética',
+              'Estilo de Vida',
+              'Conexão',
             ]}
-            series={[{ name: "Parceria", data: [25, 20, 30, 15, 10] }]}
-            colors={["#FF9F0A", "#30D158"]}
+            series={[{ name: 'Parceria', data: [25, 20, 30, 15, 10] }]}
+            colors={['#FF9F0A', '#30D158']}
           />
           <RadarChart
             title="Trabalho"
             categories={[
-              "Habilidades Técnicas",
-              "Estilo de Trabalho",
-              "Valores",
-              "Horários",
-              "Objetivos de Carreira",
+              'Habilidades Técnicas',
+              'Estilo de Trabalho',
+              'Valores',
+              'Horários',
+              'Objetivos de Carreira',
             ]}
-            series={[{ name: "Equipe", data: [30, 25, 20, 15, 10] }]}
-            colors={["#FF375F", "#0A84FF"]}
+            series={[{ name: 'Equipe', data: [30, 25, 20, 15, 10] }]}
+            colors={['#FF375F', '#0A84FF']}
           />
         </div>
       </div>
     </section>
-  );
+  )
 }

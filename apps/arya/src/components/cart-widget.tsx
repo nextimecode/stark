@@ -1,6 +1,6 @@
-"use client";
+'use client'
 
-import { ShoppingBag } from "lucide-react";
+import { ShoppingBag } from 'lucide-react'
 
 export function CartWidget() {
   return (
@@ -8,5 +8,5 @@ export function CartWidget() {
       <ShoppingBag className="h-4 w-4" />
       <span className="text-sm">Cart</span>
     </div>
-  );
+  )
 }

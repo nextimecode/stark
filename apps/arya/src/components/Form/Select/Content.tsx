@@ -1,9 +1,9 @@
-"use client";
+'use client'
 
-import { ComponentProps } from "react";
+import { ComponentProps } from 'react'
 
-import * as ScrollArea from "@radix-ui/react-scroll-area";
-import * as Select from "@radix-ui/react-select";
+import * as ScrollArea from '@radix-ui/react-scroll-area'
+import * as Select from '@radix-ui/react-select'
 
 export interface ContentProps extends ComponentProps<typeof Select.Content> {}
 
@@ -33,5 +33,5 @@ export function Content({ children, ...props }: ContentProps) {
         </ScrollArea.Root>
       </Select.Content>
     </Select.Portal>
-  );
+  )
 }

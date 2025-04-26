@@ -1,6 +1,6 @@
-import type { ComponentProps } from "react";
+import type { ComponentProps } from 'react'
 
-interface ButtonProps extends ComponentProps<"button"> {}
+interface ButtonProps extends ComponentProps<'button'> {}
 
 export function Button(props: ButtonProps) {
   return (
@@ -8,5 +8,5 @@ export function Button(props: ButtonProps) {
       className="flex justify-between items-center px-5 h-12 bg-gray-500 text-secondary font-semibold rounded-xl w-full cursor-pointer transition-colors duration-300 hover:bg-primary hover:text-gray-900"
       {...props}
     />
-  );
+  )
 }

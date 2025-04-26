@@ -48,4 +48,4 @@ export const DiamondGridIcon = () => (
       strokeWidth="2"
     />
   </svg>
-);
+)

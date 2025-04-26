@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import {
   Card,
@@ -6,8 +6,8 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
+} from '@/components/ui/card'
+import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
 import {
   FormControl,
   FormDescription,
@@ -15,22 +15,22 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+} from '@/components/ui/form'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select'
 
-import { Heart } from "lucide-react";
+import { Heart } from 'lucide-react'
 
 interface RomanticSectionProps {
-  form: any;
-  open: boolean;
-  toggle: () => void;
+  form: any
+  open: boolean
+  toggle: () => void
 }
 
 export function RomanticSection({ form, open, toggle }: RomanticSectionProps) {
@@ -41,7 +41,7 @@ export function RomanticSection({ form, open, toggle }: RomanticSectionProps) {
           type="button"
           className="text-muted-foreground hover:text-primary"
         >
-          {open ? "Fechar" : "Expandir"}
+          {open ? 'Fechar' : 'Expandir'}
         </button>
       </div>
       <CardHeader>
@@ -251,7 +251,7 @@ export function RomanticSection({ form, open, toggle }: RomanticSectionProps) {
         </CollapsibleContent>
       </Collapsible>
     </Card>
-  );
+  )
 }
 
-export default RomanticSection;
+export default RomanticSection
