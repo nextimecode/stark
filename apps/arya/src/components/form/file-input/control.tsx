@@ -2,7 +2,7 @@
 
 import { ChangeEvent, InputHTMLAttributes } from 'react'
 
-import { useFileInput } from './Root'
+import { useFileInput } from './root'
 
 export interface ControlProps extends InputHTMLAttributes<HTMLInputElement> {}
 

@@ -1,7 +1,7 @@
 'use client'
 
-import { FileItem } from './FileItem'
-import { useFileInput } from './Root'
+import { FileItem } from './file-item'
+import { useFileInput } from './root'
 
 export interface FileListProps {}
 

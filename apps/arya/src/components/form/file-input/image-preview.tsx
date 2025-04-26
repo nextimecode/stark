@@ -6,7 +6,7 @@ import Image from 'next/image'
 
 import { User } from 'lucide-react'
 
-import { useFileInput } from './Root'
+import { useFileInput } from './root'
 
 export interface ImagePreviewProps {}
 
