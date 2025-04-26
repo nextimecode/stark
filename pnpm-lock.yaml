@@ -136,6 +136,9 @@ importers:
       passport-jwt:
         specifier: ^4.0.1
         version: 4.0.1
+      prisma:
+        specifier: ^6.6.0
+        version: 6.6.0(typescript@5.8.3)
       punycode:
         specifier: ^2.3.1
         version: 2.3.1
@@ -248,9 +251,6 @@ importers:
       prettier:
         specifier: ^3.5.3
         version: 3.5.3
-      prisma:
-        specifier: ^6.6.0
-        version: 6.6.0(typescript@5.8.3)
       semantic-release:
         specifier: ^24.2.3
         version: 24.2.3(typescript@5.8.3)
