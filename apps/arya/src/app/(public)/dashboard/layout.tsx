@@ -4,7 +4,7 @@ import { ReactNode } from 'react'
 
 import { Inter } from 'next/font/google'
 
-import { Sidebar } from '@/components/sidebar'
+import { Sidebar } from '@/components-test/sidebar'
 
 const inter = Inter({ subsets: ['latin'] })
 

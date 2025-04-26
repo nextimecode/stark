@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 
-import { Charts } from '@/components/charts'
+import { Charts } from '@/components-test/charts'
 
 import { BenefitsSection } from './benefits-section'
 import { FAQ } from './faq'
