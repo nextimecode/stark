@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   Card,
@@ -6,9 +6,9 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { Checkbox } from '@/components/ui/checkbox'
-import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
+} from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
 import {
   FormControl,
   FormDescription,
@@ -16,22 +16,22 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+} from "@/components/ui/form";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from "@/components/ui/select";
 
-import { Users } from 'lucide-react'
+import { Users } from "lucide-react";
 
 interface FriendshipSectionProps {
-  form: any
-  open: boolean
-  toggle: () => void
+  form: any;
+  open: boolean;
+  toggle: () => void;
 }
 
 export function FriendshipSection({
@@ -46,7 +46,7 @@ export function FriendshipSection({
           type="button"
           className="text-muted-foreground hover:text-primary"
         >
-          {open ? 'Fechar' : 'Expandir'}
+          {open ? "Fechar" : "Expandir"}
         </button>
       </div>
       <CardHeader>
@@ -75,17 +75,20 @@ export function FriendshipSection({
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                       <div className="flex items-center space-x-2">
                         <Checkbox
-                          checked={field.value?.includes('sports')}
-                          onCheckedChange={checked => {
+                          checked={field.value?.includes("sports")}
+                          onCheckedChange={(checked) => {
                             if (checked) {
-                              field.onChange([...(field.value || []), 'sports'])
+                              field.onChange([
+                                ...(field.value || []),
+                                "sports",
+                              ]);
                             } else {
                               field.onChange(
                                 field.value?.filter(
                                   (selectedOption: string) =>
-                                    selectedOption !== 'sports'
-                                ) || []
-                              )
+                                    selectedOption !== "sports",
+                                ) || [],
+                              );
                             }
                           }}
                         />
@@ -93,20 +96,20 @@ export function FriendshipSection({
                       </div>
                       <div className="flex items-center space-x-2">
                         <Checkbox
-                          checked={field.value?.includes('fitness')}
-                          onCheckedChange={checked => {
+                          checked={field.value?.includes("fitness")}
+                          onCheckedChange={(checked) => {
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'fitness',
-                              ])
+                                "fitness",
+                              ]);
                             } else {
                               field.onChange(
                                 field.value?.filter(
                                   (selectedOption: string) =>
-                                    selectedOption !== 'fitness'
-                                ) || []
-                              )
+                                    selectedOption !== "fitness",
+                                ) || [],
+                              );
                             }
                           }}
                         />
@@ -114,17 +117,17 @@ export function FriendshipSection({
                       </div>
                       <div className="flex items-center space-x-2">
                         <Checkbox
-                          checked={field.value?.includes('games')}
-                          onCheckedChange={checked => {
+                          checked={field.value?.includes("games")}
+                          onCheckedChange={(checked) => {
                             if (checked) {
-                              field.onChange([...(field.value || []), 'games'])
+                              field.onChange([...(field.value || []), "games"]);
                             } else {
                               field.onChange(
                                 field.value?.filter(
                                   (selectedOption: string) =>
-                                    selectedOption !== 'games'
-                                ) || []
-                              )
+                                    selectedOption !== "games",
+                                ) || [],
+                              );
                             }
                           }}
                         />
@@ -132,20 +135,20 @@ export function FriendshipSection({
                       </div>
                       <div className="flex items-center space-x-2">
                         <Checkbox
-                          checked={field.value?.includes('reading')}
-                          onCheckedChange={checked => {
+                          checked={field.value?.includes("reading")}
+                          onCheckedChange={(checked) => {
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'reading',
-                              ])
+                                "reading",
+                              ]);
                             } else {
                               field.onChange(
                                 field.value?.filter(
                                   (selectedOption: string) =>
-                                    selectedOption !== 'reading'
-                                ) || []
-                              )
+                                    selectedOption !== "reading",
+                                ) || [],
+                              );
                             }
                           }}
                         />
@@ -153,17 +156,20 @@ export function FriendshipSection({
                       </div>
                       <div className="flex items-center space-x-2">
                         <Checkbox
-                          checked={field.value?.includes('movies')}
-                          onCheckedChange={checked => {
+                          checked={field.value?.includes("movies")}
+                          onCheckedChange={(checked) => {
                             if (checked) {
-                              field.onChange([...(field.value || []), 'movies'])
+                              field.onChange([
+                                ...(field.value || []),
+                                "movies",
+                              ]);
                             } else {
                               field.onChange(
                                 field.value?.filter(
                                   (selectedOption: string) =>
-                                    selectedOption !== 'movies'
-                                ) || []
-                              )
+                                    selectedOption !== "movies",
+                                ) || [],
+                              );
                             }
                           }}
                         />
@@ -171,17 +177,17 @@ export function FriendshipSection({
                       </div>
                       <div className="flex items-center space-x-2">
                         <Checkbox
-                          checked={field.value?.includes('music')}
-                          onCheckedChange={checked => {
+                          checked={field.value?.includes("music")}
+                          onCheckedChange={(checked) => {
                             if (checked) {
-                              field.onChange([...(field.value || []), 'music'])
+                              field.onChange([...(field.value || []), "music"]);
                             } else {
                               field.onChange(
                                 field.value?.filter(
                                   (selectedOption: string) =>
-                                    selectedOption !== 'music'
-                                ) || []
-                              )
+                                    selectedOption !== "music",
+                                ) || [],
+                              );
                             }
                           }}
                         />
@@ -280,20 +286,20 @@ export function FriendshipSection({
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2">
                         <Checkbox
-                          checked={field.value?.includes('home-gatherings')}
-                          onCheckedChange={checked => {
+                          checked={field.value?.includes("home-gatherings")}
+                          onCheckedChange={(checked) => {
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'home-gatherings',
-                              ])
+                                "home-gatherings",
+                              ]);
                             } else {
                               field.onChange(
                                 field.value?.filter(
                                   (selectedOption: string) =>
-                                    selectedOption !== 'home-gatherings'
-                                ) || []
-                              )
+                                    selectedOption !== "home-gatherings",
+                                ) || [],
+                              );
                             }
                           }}
                         />
@@ -301,20 +307,20 @@ export function FriendshipSection({
                       </div>
                       <div className="flex items-center space-x-2">
                         <Checkbox
-                          checked={field.value?.includes('outdoor-activities')}
-                          onCheckedChange={checked => {
+                          checked={field.value?.includes("outdoor-activities")}
+                          onCheckedChange={(checked) => {
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'outdoor-activities',
-                              ])
+                                "outdoor-activities",
+                              ]);
                             } else {
                               field.onChange(
                                 field.value?.filter(
                                   (selectedOption: string) =>
-                                    selectedOption !== 'outdoor-activities'
-                                ) || []
-                              )
+                                    selectedOption !== "outdoor-activities",
+                                ) || [],
+                              );
                             }
                           }}
                         />
@@ -324,20 +330,20 @@ export function FriendshipSection({
                       </div>
                       <div className="flex items-center space-x-2">
                         <Checkbox
-                          checked={field.value?.includes('parties')}
-                          onCheckedChange={checked => {
+                          checked={field.value?.includes("parties")}
+                          onCheckedChange={(checked) => {
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'parties',
-                              ])
+                                "parties",
+                              ]);
                             } else {
                               field.onChange(
                                 field.value?.filter(
                                   (selectedOption: string) =>
-                                    selectedOption !== 'parties'
-                                ) || []
-                              )
+                                    selectedOption !== "parties",
+                                ) || [],
+                              );
                             }
                           }}
                         />
@@ -345,20 +351,20 @@ export function FriendshipSection({
                       </div>
                       <div className="flex items-center space-x-2">
                         <Checkbox
-                          checked={field.value?.includes('group-sports')}
-                          onCheckedChange={checked => {
+                          checked={field.value?.includes("group-sports")}
+                          onCheckedChange={(checked) => {
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'group-sports',
-                              ])
+                                "group-sports",
+                              ]);
                             } else {
                               field.onChange(
                                 field.value?.filter(
                                   (selectedOption: string) =>
-                                    selectedOption !== 'group-sports'
-                                ) || []
-                              )
+                                    selectedOption !== "group-sports",
+                                ) || [],
+                              );
                             }
                           }}
                         />
@@ -368,17 +374,17 @@ export function FriendshipSection({
                       </div>
                       <div className="flex items-center space-x-2">
                         <Checkbox
-                          checked={field.value?.includes('trips')}
-                          onCheckedChange={checked => {
+                          checked={field.value?.includes("trips")}
+                          onCheckedChange={(checked) => {
                             if (checked) {
-                              field.onChange([...(field.value || []), 'trips'])
+                              field.onChange([...(field.value || []), "trips"]);
                             } else {
                               field.onChange(
                                 field.value?.filter(
                                   (selectedOption: string) =>
-                                    selectedOption !== 'trips'
-                                ) || []
-                              )
+                                    selectedOption !== "trips",
+                                ) || [],
+                              );
                             }
                           }}
                         />
@@ -386,20 +392,20 @@ export function FriendshipSection({
                       </div>
                       <div className="flex items-center space-x-2">
                         <Checkbox
-                          checked={field.value?.includes('restaurants')}
-                          onCheckedChange={checked => {
+                          checked={field.value?.includes("restaurants")}
+                          onCheckedChange={(checked) => {
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'restaurants',
-                              ])
+                                "restaurants",
+                              ]);
                             } else {
                               field.onChange(
                                 field.value?.filter(
                                   (selectedOption: string) =>
-                                    selectedOption !== 'restaurants'
-                                ) || []
-                              )
+                                    selectedOption !== "restaurants",
+                                ) || [],
+                              );
                             }
                           }}
                         />
@@ -409,20 +415,20 @@ export function FriendshipSection({
                       </div>
                       <div className="flex items-center space-x-2">
                         <Checkbox
-                          checked={field.value?.includes('cultural-events')}
-                          onCheckedChange={checked => {
+                          checked={field.value?.includes("cultural-events")}
+                          onCheckedChange={(checked) => {
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'cultural-events',
-                              ])
+                                "cultural-events",
+                              ]);
                             } else {
                               field.onChange(
                                 field.value?.filter(
                                   (selectedOption: string) =>
-                                    selectedOption !== 'cultural-events'
-                                ) || []
-                              )
+                                    selectedOption !== "cultural-events",
+                                ) || [],
+                              );
                             }
                           }}
                         />
@@ -440,7 +446,7 @@ export function FriendshipSection({
         </CollapsibleContent>
       </Collapsible>
     </Card>
-  )
+  );
 }
 
-export default FriendshipSection
+export default FriendshipSection;

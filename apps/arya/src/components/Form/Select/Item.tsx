@@ -1,9 +1,9 @@
-'use client'
+"use client";
 
-import { ComponentProps } from 'react'
+import { ComponentProps } from "react";
 
-import * as Select from '@radix-ui/react-select'
-import { Check } from 'lucide-react'
+import * as Select from "@radix-ui/react-select";
+import { Check } from "lucide-react";
 
 export interface ItemProps extends ComponentProps<typeof Select.Item> {}
 
@@ -19,5 +19,5 @@ export function Item({ children, ...props }: ItemProps) {
         <Check className="h-4 w-4 text-violet-500 dark:text-violet-300" />
       </Select.ItemIndicator>
     </Select.Item>
-  )
+  );
 }

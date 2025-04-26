@@ -1,6 +1,6 @@
-import Link from 'next/link'
+import Link from "next/link";
 
-import { Title } from '@/components/title'
+import { Title } from "@/components/title";
 
 export function Hero() {
   return (
@@ -9,7 +9,7 @@ export function Hero() {
         <div className="grid md:grid-cols-2 gap-4 md:gap-8 xl:gap-20 md:items-center">
           <div>
             <h1 className="font-heading block text-3xl font-bold text-gray-800 sm:text-4xl lg:text-6xl lg:leading-tight dark:text-white">
-              Descubra conexões que fazem sentido com o{' '}
+              Descubra conexões que fazem sentido com o{" "}
               <Title color="violet" size="text-6xl">
                 NeXTverso
               </Title>
@@ -72,5 +72,5 @@ export function Hero() {
         </div>
       </div>
     </section>
-  )
+  );
 }

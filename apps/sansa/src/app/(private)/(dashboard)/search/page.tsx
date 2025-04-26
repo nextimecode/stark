@@ -1,8 +1,8 @@
-'use client'
+"use client";
 
 // import Image from 'next/image'
 // import Link from 'next/link'
-import { redirect } from 'next/navigation'
+import { redirect } from "next/navigation";
 // import { api } from '../../../data/api'
 // import { Product } from '../../../data/types/product'
 
@@ -23,13 +23,13 @@ import { redirect } from 'next/navigation'
 export default async function Search({
   searchParams,
 }: {
-  searchParams: Promise<Record<string, string | string[] | undefined>>
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  const params = await searchParams
-  const query = Array.isArray(params.q) ? params.q[0] : params.q
+  const params = await searchParams;
+  const query = Array.isArray(params.q) ? params.q[0] : params.q;
 
   if (!query) {
-    redirect('/')
+    redirect("/");
   }
 
   // const products = await searchProducts(query)
@@ -70,5 +70,5 @@ export default async function Search({
         ))} */}
       </div>
     </div>
-  )
+  );
 }

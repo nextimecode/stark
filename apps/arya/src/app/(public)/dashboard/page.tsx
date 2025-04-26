@@ -1,14 +1,14 @@
-import { Button } from '@/components/button'
-import * as FileInput from '@/components/form/file-input'
-import * as Input from '@/components/form/input'
-import * as Select from '@/components/form/select'
-import { Textarea } from '@/components/form/textarea'
-import { ThemeSelector } from '@/components/theme-selector'
+import { Button } from "@/components/button";
+import * as FileInput from "@/components/form/file-input";
+import * as Input from "@/components/form/input";
+import * as Select from "@/components/form/select";
+import { Textarea } from "@/components/form/textarea";
+import { ThemeSelector } from "@/components/theme-selector";
 
-import { Bold, Italic, Link, List, ListOrdered, Mail } from 'lucide-react'
+import { Bold, Italic, Link, List, ListOrdered, Mail } from "lucide-react";
 
-import { CountrySelect } from './CountrySelect'
-import { SettingsTabs } from './SettingsTabs'
+import { CountrySelect } from "./CountrySelect";
+import { SettingsTabs } from "./SettingsTabs";
 
 export default function Dashboard() {
   return (
@@ -239,5 +239,5 @@ export default function Dashboard() {
         </div>
       </form>
     </>
-  )
+  );
 }

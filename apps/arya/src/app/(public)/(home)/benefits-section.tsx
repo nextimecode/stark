@@ -1,11 +1,11 @@
-import { ReactNode } from 'react'
+import { ReactNode } from "react";
 
-import Link from 'next/link'
+import Link from "next/link";
 
-import { AchievementIcon } from './icon/AchievementIcon'
-import { BuildingAndSquareIcon } from './icon/BuidingAndSquareIcon'
-import { DiamondGridIcon } from './icon/DimongGridIcon'
-import { DocumentAndClipboardIcon } from './icon/DocumentAndClipboardIcon'
+import { AchievementIcon } from "./icon/AchievementIcon";
+import { BuildingAndSquareIcon } from "./icon/BuidingAndSquareIcon";
+import { DiamondGridIcon } from "./icon/DimongGridIcon";
+import { DocumentAndClipboardIcon } from "./icon/DocumentAndClipboardIcon";
 
 export function BenefitsSection() {
   return (
@@ -82,17 +82,17 @@ export function BenefitsSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 interface CardProps {
-  href: string
-  title: string
-  description: string
-  buttonText?: string
-  highlightText?: string
-  highlightColor?: string
-  icon?: ReactNode
+  href: string;
+  title: string;
+  description: string;
+  buttonText?: string;
+  highlightText?: string;
+  highlightColor?: string;
+  icon?: ReactNode;
 }
 
 export function Card({
@@ -144,5 +144,5 @@ export function Card({
       )} */}
       </div>
     </div>
-  )
+  );
 }

@@ -243,5 +243,5 @@ export function Logo() {
       </svg>
       <span className="sr-only lg:not-sr-only">Untitled UI</span>
     </strong>
-  )
+  );
 }

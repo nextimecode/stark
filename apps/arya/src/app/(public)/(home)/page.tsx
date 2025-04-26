@@ -1,18 +1,18 @@
-import { Metadata } from 'next'
+import { Metadata } from "next";
 
-import { Charts } from '@/components/charts'
+import { Charts } from "@/components/charts";
 
-import { BenefitsSection } from './benefits-section'
-import { FAQ } from './faq'
-import { Footer } from './footer'
-import { Hero } from './hero'
-import { HowItWorks } from './how-it-works'
-import { PersonalityCharts } from './personality-charts'
-import { TestimonialsSection } from './testimonials-section'
+import { BenefitsSection } from "./benefits-section";
+import { FAQ } from "./faq";
+import { Footer } from "./footer";
+import { Hero } from "./hero";
+import { HowItWorks } from "./how-it-works";
+import { PersonalityCharts } from "./personality-charts";
+import { TestimonialsSection } from "./testimonials-section";
 
 export const metadata: Metadata = {
-  title: 'Home',
-}
+  title: "Home",
+};
 
 export default function Home() {
   return (
@@ -26,5 +26,5 @@ export default function Home() {
       <FAQ />
       <Footer />
     </div>
-  )
+  );
 }

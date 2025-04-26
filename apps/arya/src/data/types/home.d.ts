@@ -1,3 +1,3 @@
 export interface HomeProps {
-  message: string
+  message: string;
 }

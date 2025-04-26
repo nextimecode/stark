@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   Card,
@@ -6,21 +6,21 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
+} from "@/components/ui/card";
+import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Textarea } from '@/components/ui/textarea'
+} from "@/components/ui/form";
+import { Textarea } from "@/components/ui/textarea";
 
 interface ValuesSectionProps {
-  form: any
-  open: boolean
-  toggle: () => void
+  form: any;
+  open: boolean;
+  toggle: () => void;
 }
 
 export function ValuesSection({ form, open, toggle }: ValuesSectionProps) {
@@ -31,7 +31,7 @@ export function ValuesSection({ form, open, toggle }: ValuesSectionProps) {
           type="button"
           className="text-muted-foreground hover:text-primary"
         >
-          {open ? 'Fechar' : 'Expandir'}
+          {open ? "Fechar" : "Expandir"}
         </button>
       </div>
       <CardHeader>
@@ -95,7 +95,7 @@ export function ValuesSection({ form, open, toggle }: ValuesSectionProps) {
         </CollapsibleContent>
       </Collapsible>
     </Card>
-  )
+  );
 }
 
-export default ValuesSection
+export default ValuesSection;

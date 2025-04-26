@@ -1,13 +1,13 @@
-'use client'
+"use client";
 
-import React, { useState } from 'react'
+import React, { useState } from "react";
 
 export const CookieBanner = () => {
-  const [showBanner, setShowBanner] = useState(false)
+  const [showBanner, setShowBanner] = useState(false);
 
   const dismissBanner = () => {
-    setShowBanner(false) // Atualiza o estado para não mostrar o banner
-  }
+    setShowBanner(false); // Atualiza o estado para não mostrar o banner
+  };
   return (
     <div>
       {showBanner && (
@@ -54,5 +54,5 @@ export const CookieBanner = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
