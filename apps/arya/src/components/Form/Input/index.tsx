@@ -1,4 +1,5 @@
-export { Control, type ControlProps } from './Control'
+export { Control, type ControlProps } from './control'
 
-export { Prefix, type PrefixProps } from './Prefix'
-export { Root, type RootProps } from './Root'
+export { Prefix, type PrefixProps } from './prefix'
+export { Root, type RootProps } from './root'
+
