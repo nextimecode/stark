@@ -1,5 +1,5 @@
 import { Button } from '@/components/button'
-import * as FileInput from '@/components/form/file-input'
+import * as FileInput from '@/components/form/file-input-test'
 import * as Input from '@/components/form/input'
 import * as Select from '@/components/form/select'
 import { Textarea } from '@/components/form/textarea'
