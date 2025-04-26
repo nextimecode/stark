@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Flag from 'react-world-flags'
 
-import * as Select from '@/components/form/select-teste'
+import * as Select from '@/components/form/select'
 
 import { countries } from '@/lib/countries'
 
