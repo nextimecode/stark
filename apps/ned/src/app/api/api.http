@@ -1,0 +1,13 @@
+### Criar usuário
+POST http://localhost:8000/api/register-user
+Content-Type: application/json
+
+{
+  "uid": "test-uid-123",
+  "displayName": "Pedro Silva",
+  "email": "pedro.silva@example.com",
+  "emailVerified": true,
+  "photoURL": "https://example.com/avatar.jpg",
+  "providerId": "google.com",
+  "creationTime": "2025-04-27T18:00:00.000Z"
+}

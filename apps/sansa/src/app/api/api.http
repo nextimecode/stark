@@ -1,114 +1,34 @@
-@host = http://localhost:3001/api
-@inviteId =
-@testId =
-@userId =
+@createBase = http://localhost:8000
+@compatBase = http://localhost:3001
+@userId      = 123e4567-e89b-12d3-a456-426614174000
 
-###
-# ▶️ 1. Listar todos os convites
-GET {{host}}/invites
-
-###
-
-# ▶️ 2. Criar um convite e salvar inviteId
-POST {{host}}/invites
+### Criar usuário (upsert)
+POST {{createBase}}/api/register-user
 Content-Type: application/json
 
 {
-  "senderId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-  "recipientId": "f1e2d3c4-b5a6-0987-zyxw-vu654321fedc"
+  "uid": "test-uid-123",
+  "displayName": "Pedro Silva",
+  "email": "pedro.silva@example.com",
+  "emailVerified": true,
+  "photoURL": "https://example.com/avatar.jpg",
+  "providerId": "google.com",
+  "creationTime": "2025-04-27T18:00:00.000Z"
 }
 
-> {%
-const data = JSON.parse(response.body);
-client.environment.set("inviteId", data.id);
-%}
+### Preflight CORS CompatibilityAttributes
+OPTIONS {{compatBase}}/api/users/{{userId}}/compatibility-attributes
+Origin: {{compatBase}}
 
-###
+### Obter atributos de compatibilidade (GET)
+GET {{compatBase}}/api/users/{{userId}}/compatibility-attributes
+Origin: {{compatBase}}
 
-# ▶️ 3. Buscar convite por ID
-GET {{host}}/invites/{{inviteId}}
-
-###
-
-# ▶️ 4. Deletar convite por ID
-DELETE {{host}}/invites/{{inviteId}}
-
-###
-
-# ▶️ 5. Aceitar convite por ID
-POST {{host}}/invites/{{inviteId}}/accept
-
-###
-
-# ▶️ 6. Rejeitar convite por ID
-POST {{host}}/invites/{{inviteId}}/reject
-
-###
-
-# ▶️ 7. Buscar atributos de compatibilidade
-GET {{host}}/compatibility-attributes/{{userId}}
-
-###
-
-# ▶️ 8. Upsert de atributos de compatibilidade
-PUT {{host}}/compatibility-attributes/{{userId}}
+### Atualizar/Inserir atributos de compatibilidade (PUT)
+PUT {{compatBase}}/api/users/{{userId}}/compatibility-attributes
 Content-Type: application/json
+Origin: {{compatBase}}
 
 {
-  "openness": 0.85,
-  "conscientiousness": 0.76
+  "mbtiType": "INTJ-A"
 }
-
-###
-
-# ▶️ 9. Listar todos os testes de compatibilidade
-GET {{host}}/compatibility-tests
-
-###
-
-# ▶️ 10. Criar teste de compatibilidade e salvar testId
-POST {{host}}/compatibility-tests
-Content-Type: application/json
-
-{
-  "user1Id": "123e4567-e89b-12d3-a456-426614174000",
-  "user2Id": "987f6543-e21b-34c5-d678-426614174111",
-  "prompt": "Compare as personalidades dos dois perfis...",
-  "result": "Os perfis apresentam altos níveis de empatia...",
-  "model": "gpt-4o-mini"
-}
-
-> {%
-const data = JSON.parse(response.body);
-client.environment.set("testId", data.id);
-%}
-
-###
-
-# ▶️ 11. Buscar teste de compatibilidade por ID
-GET {{host}}/compatibility-tests/{{testId}}
-
-###
-
-# ▶️ 12. Buscar usuário por ID
-GET {{host}}/users/{{userId}}
-
-###
-
-# ▶️ 13. Atualizar usuário por ID
-PUT {{host}}/users/{{userId}}
-Content-Type: application/json
-
-{
-  "email": "novo.email@example.com",
-  "name": "Pedro",
-  "fullName": "Pedro Duarte",
-  "birthDate": "1990-01-01T00:00:00.000Z",
-  "gender": "male",
-  "mbtiType": "INTJ"
-}
-
-###
-
-# ▶️ 14. Deletar usuário por ID
-DELETE {{host}}/users/{{userId}}
