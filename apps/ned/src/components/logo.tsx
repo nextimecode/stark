@@ -1,14 +1,14 @@
 interface LogoProps {
-  width?: number
-  height?: number
-  fill?: string
-  className?: string
+  width?: number;
+  height?: number;
+  fill?: string;
+  className?: string;
 }
 
 export const Logo = ({
   width = 1885,
   height = 2319,
-  fill = 'white',
+  fill = "white",
   className,
 }: LogoProps) => {
   return (
@@ -27,5 +27,5 @@ export const Logo = ({
         fill={fill}
       />
     </svg>
-  )
-}
+  );
+};

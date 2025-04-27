@@ -1,7 +1,7 @@
 export interface IconProps {
-  title: string
+  title: string;
 }
 
 export function Icon({ title }: IconProps) {
-  return <div>{title}</div>
+  return <div>{title}</div>;
 }

@@ -1,32 +1,32 @@
-import { createDocument } from 'zod-openapi'
+import { createDocument } from "zod-openapi";
 
-import { subscriptionSchema } from '@/app/api/subscriptions/route'
+import { subscriptionSchema } from "@/app/api/subscriptions/route";
 
 export const openApiDocument = createDocument({
-  openapi: '3.0.0',
+  openapi: "3.0.0",
   info: {
-    title: 'Stark API',
-    version: '1.0.0',
+    title: "Stark API",
+    version: "1.0.0",
   },
   paths: {
-    '/api/subscription': {
+    "/api/subscription": {
       post: {
         requestBody: {
           content: {
-            'application/json': {
+            "application/json": {
               schema: subscriptionSchema,
             },
           },
         },
         responses: {
           201: {
-            description: 'Inscrição criada com sucesso',
+            description: "Inscrição criada com sucesso",
           },
           400: {
-            description: 'Erro de validação',
+            description: "Erro de validação",
           },
         },
       },
     },
   },
-})
+});

@@ -1,35 +1,35 @@
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
-import { admin } from '@/firebase/admin'
+import { admin } from "@/firebase/admin";
 
 interface NewInvitationPageProps {
   searchParams: {
-    testId?: string
-  }
+    testId?: string;
+  };
 }
 
 export default async function NewInvitationPage({
   searchParams,
 }: NewInvitationPageProps) {
-  const cookieStore = await cookies()
-  const token = cookieStore.get('token')?.value
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
 
   if (!token) {
-    redirect('/auth')
+    redirect("/auth");
   }
 
-  let decodedToken
+  let decodedToken;
   try {
-    decodedToken = await admin.auth().verifyIdToken(token)
+    decodedToken = await admin.auth().verifyIdToken(token);
   } catch (error) {
-    redirect('/auth')
+    redirect("/auth");
   }
 
-  const userId = decodedToken.uid
+  const userId = decodedToken.uid;
   // const testId = searchParams.testId
 
-  let selectedTest = null
+  let selectedTest = null;
 
   // if (testId) {
   //   selectedTest = await prisma.test.findUnique({
@@ -74,5 +74,5 @@ export default async function NewInvitationPage({
         selectedTest={selectedTest}
       /> */}
     </div>
-  )
+  );
 }

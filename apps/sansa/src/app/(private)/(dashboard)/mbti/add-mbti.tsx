@@ -1,48 +1,48 @@
-import { revalidateTag } from 'next/cache'
+import { revalidateTag } from "next/cache";
 
-import { AddMBTIButton } from './add-mbti-button'
+import { AddMBTIButton } from "./add-mbti-button";
 
 export function AddMBTI() {
   async function handleCreateTag(form: FormData) {
-    'use server'
+    "use server";
 
-    const title = form.get('title')
+    const title = form.get("title");
 
     if (!title) {
-      return
+      return;
     }
 
     // delay
-    await new Promise(resolve => setTimeout(resolve, 3000))
+    await new Promise((resolve) => setTimeout(resolve, 3000));
 
-    const authResponse = await fetch('http://localhost:3333/sessions', {
-      method: 'POST',
+    const authResponse = await fetch("http://localhost:3333/sessions", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: 'diego@rocketseat.com.br',
-        password: '123456',
+        email: "diego@rocketseat.com.br",
+        password: "123456",
       }),
-    })
+    });
 
-    const authData = await authResponse.json()
-    const accessToken = authData.access_token
+    const authData = await authResponse.json();
+    const accessToken = authData.access_token;
 
-    await fetch('http://localhost:3333/questions', {
-      method: 'POST',
+    await fetch("http://localhost:3333/questions", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify({
         title,
-        content: 'Teste',
+        content: "Teste",
         attachments: [],
       }),
-    })
+    });
 
-    revalidateTag('get-tags')
+    revalidateTag("get-tags");
   }
 
   return (
@@ -50,5 +50,5 @@ export function AddMBTI() {
       <input type="text" name="title" placeholder="title do mbti" />
       <AddMBTIButton />
     </form>
-  )
+  );
 }

@@ -5,9 +5,9 @@ import {
   Home,
   SquareStack,
   Users,
-} from 'lucide-react'
+} from "lucide-react";
 
-import { NavItem } from './nav-item'
+import { NavItem } from "./nav-item";
 
 export interface NavigationProps {}
 
@@ -21,5 +21,5 @@ export function Navigation(props: NavigationProps) {
       <NavItem icon={Flag} title="Reporting" />
       <NavItem icon={Users} title="Users" />
     </nav>
-  )
+  );
 }
