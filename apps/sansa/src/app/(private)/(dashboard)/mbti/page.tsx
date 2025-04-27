@@ -1,7 +1,7 @@
-import { Suspense } from "react";
+import { Suspense } from 'react'
 
-import { AddMBTI } from "./add-mbti";
-import { MyMBTI } from "./my-mbti";
+import { AddMBTI } from './add-mbti'
+import { MyMBTI } from './my-mbti'
 
 export default function Page() {
   return (
@@ -12,5 +12,5 @@ export default function Page() {
       </Suspense>
       <AddMBTI />
     </div>
-  );
+  )
 }

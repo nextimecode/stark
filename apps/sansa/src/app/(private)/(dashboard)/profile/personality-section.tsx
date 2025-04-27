@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import {
   Card,
@@ -6,29 +6,29 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
+} from '@/components/ui/card'
+import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+} from '@/components/ui/form'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Slider } from "@/components/ui/slider";
+} from '@/components/ui/select'
+import { Slider } from '@/components/ui/slider'
 
 interface PersonalitySectionProps {
-  form: any;
-  open: boolean;
-  toggle: () => void;
+  form: any
+  open: boolean
+  toggle: () => void
 }
 
 export function PersonalitySection({
@@ -43,7 +43,7 @@ export function PersonalitySection({
           type="button"
           className="text-muted-foreground hover:text-primary"
         >
-          {open ? "Fechar" : "Expandir"}
+          {open ? 'Fechar' : 'Expandir'}
         </button>
       </div>
       <CardHeader>
@@ -112,7 +112,7 @@ export function PersonalitySection({
                         max={10}
                         min={1}
                         step={1}
-                        onValueChange={(vals) => field.onChange(vals[0])}
+                        onValueChange={vals => field.onChange(vals[0])}
                       />
                       <div className="text-center text-sm text-muted-foreground">
                         Valor: {field.value}
@@ -163,7 +163,7 @@ export function PersonalitySection({
         </CollapsibleContent>
       </Collapsible>
     </Card>
-  );
+  )
 }
 
-export default PersonalitySection;
+export default PersonalitySection

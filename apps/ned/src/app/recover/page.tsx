@@ -1,41 +1,41 @@
-"use client";
+'use client'
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useState } from 'react'
 
-import Link from "next/link";
+import Link from 'next/link'
 
-import { Title } from "@/components/";
-import { Logo } from "@/components/logo";
+import { Title } from '@/components/'
+import { Logo } from '@/components/logo'
 
-import { sendPasswordResetEmail } from "firebase/auth";
+import { sendPasswordResetEmail } from 'firebase/auth'
 
-import { auth } from "@/firebase/client";
+import { auth } from '@/firebase/client'
 
 export default function Recover() {
-  const [email, setEmail] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
+  const [successMessage, setSuccessMessage] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const handlePasswordReset = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setIsLoading(true);
-    setErrorMessage("");
-    setSuccessMessage("");
+    event.preventDefault()
+    setIsLoading(true)
+    setErrorMessage('')
+    setSuccessMessage('')
 
     try {
-      await sendPasswordResetEmail(auth, email);
+      await sendPasswordResetEmail(auth, email)
       setSuccessMessage(
-        "E-mail de redefinição de senha enviado com sucesso. Verifique sua caixa de entrada.",
-      );
+        'E-mail de redefinição de senha enviado com sucesso. Verifique sua caixa de entrada.'
+      )
     } catch (error) {
       setErrorMessage(
-        "Não foi possível enviar o e-mail de redefinição de senha. Verifique se o endereço de e-mail está correto.",
-      );
+        'Não foi possível enviar o e-mail de redefinição de senha. Verifique se o endereço de e-mail está correto.'
+      )
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center">
@@ -72,7 +72,7 @@ export default function Recover() {
                       required
                       placeholder="Digite seu e-mail"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={e => setEmail(e.target.value)}
                     />
                   </div>
                 </div>
@@ -87,12 +87,12 @@ export default function Recover() {
                   className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
                   disabled={isLoading}
                 >
-                  {isLoading ? "Enviando..." : "Enviar"}
+                  {isLoading ? 'Enviando...' : 'Enviar'}
                 </button>
               </div>
             </form>
             <p className="mt-4 text-sm text-gray-600 dark:text-neutral-400 text-center">
-              Lembrou sua senha?{" "}
+              Lembrou sua senha?{' '}
               <Link
                 href="/"
                 className="text-blue-600 decoration-2 hover:underline focus:outline-hidden focus:underline font-medium dark:text-blue-500"
@@ -104,5 +104,5 @@ export default function Recover() {
         </div>
       </div>
     </div>
-  );
+  )
 }

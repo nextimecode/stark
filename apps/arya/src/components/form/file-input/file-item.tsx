@@ -1,59 +1,59 @@
-import { useMemo } from "react";
+import { useMemo } from 'react'
 
-import { Button } from "@/components/button";
+import { Button } from '@/components/button'
 
-import { CheckCircle2, Image as ImageIcon, Trash2 } from "lucide-react";
-import { tv, VariantProps } from "tailwind-variants";
+import { CheckCircle2, Image as ImageIcon, Trash2 } from 'lucide-react'
+import { tv, VariantProps } from 'tailwind-variants'
 
 const fileItem = tv({
   slots: {
-    base: "group flex items-start gap-4 rounded-lg border border-zinc-200 p-4",
-    icon: "relative rounded-full border-4 border-violet-100 bg-violet-200 p-2 text-violet-600 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-500",
-    deleteButton: "text-zinc-500 hover:text-violet-500",
+    base: 'group flex items-start gap-4 rounded-lg border border-zinc-200 p-4',
+    icon: 'relative rounded-full border-4 border-violet-100 bg-violet-200 p-2 text-violet-600 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-500',
+    deleteButton: 'text-zinc-500 hover:text-violet-500',
   },
   variants: {
     state: {
       progress: {
-        base: "dark:border-zinc-700",
+        base: 'dark:border-zinc-700',
       },
       complete: {
-        base: "border-violet-500 dark:border-violet-300/20",
+        base: 'border-violet-500 dark:border-violet-300/20',
       },
       error: {
-        base: "bg-error-25 border-error-300 dark:bg-error-500/5 dark:border-error-500/30",
-        icon: "border-error-50 bg-error-100 text-error-600 dark:bg-error-500/5 dark:border-error-500/30 dark:text-error-400",
+        base: 'bg-error-25 border-error-300 dark:bg-error-500/5 dark:border-error-500/30',
+        icon: 'border-error-50 bg-error-100 text-error-600 dark:bg-error-500/5 dark:border-error-500/30 dark:text-error-400',
         deleteButton:
-          "text-error-700 hover:text-error-900 dark:text-error-400 dark:hover:text-error-300",
+          'text-error-700 hover:text-error-900 dark:text-error-400 dark:hover:text-error-300',
       },
     },
   },
   defaultVariants: {
-    state: "progress",
+    state: 'progress',
   },
-});
+})
 
 export interface FileItemProps extends VariantProps<typeof fileItem> {
-  name: string;
-  size: number;
-  type: string;
+  name: string
+  size: number
+  type: string
 }
 
 export function FileItem({ state, name, size }: FileItemProps) {
-  const uploadProgress = state === "complete" ? "100%" : "25%";
+  const uploadProgress = state === 'complete' ? '100%' : '25%'
 
   const fileSize = useMemo(() => {
-    const fileSizeInKB = size / 1024;
+    const fileSizeInKB = size / 1024
 
     if (fileSizeInKB > 1024) {
-      const fileSizeInMB = fileSizeInKB / 1024;
+      const fileSizeInMB = fileSizeInKB / 1024
 
-      return [...fileSizeInMB.toFixed(1), " MB"];
+      return [...fileSizeInMB.toFixed(1), ' MB']
     }
 
-    return [...fileSizeInKB.toFixed(1), " KB"];
-  }, [size]);
+    return [...fileSizeInKB.toFixed(1), ' KB']
+  }, [size])
 
-  const { base, icon, deleteButton } = fileItem({ state });
+  const { base, icon, deleteButton } = fileItem({ state })
 
   return (
     <div className={base()}>
@@ -61,7 +61,7 @@ export function FileItem({ state, name, size }: FileItemProps) {
         <ImageIcon className="h-4 w-4" />
       </span>
 
-      {state === "error" ? (
+      {state === 'error' ? (
         <div className="flex flex-1 flex-col items-start gap-1">
           <div className="flex flex-col leading-relaxed">
             <span className="text-sm font-medium text-error-700 dark:text-error-400">
@@ -104,7 +104,7 @@ export function FileItem({ state, name, size }: FileItemProps) {
         </div>
       )}
 
-      {state === "complete" ? (
+      {state === 'complete' ? (
         <CheckCircle2 className="h-5 w-5 fill-violet-600 text-white dark:fill-violet-300 dark:text-zinc-900" />
       ) : (
         <Button type="button" variant="ghost" className={deleteButton()}>
@@ -112,5 +112,5 @@ export function FileItem({ state, name, size }: FileItemProps) {
         </Button>
       )}
     </div>
-  );
+  )
 }

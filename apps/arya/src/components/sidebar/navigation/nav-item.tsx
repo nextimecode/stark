@@ -1,10 +1,10 @@
-import { ElementType } from "react";
+import { ElementType } from 'react'
 
-import { ChevronDown } from "lucide-react";
+import { ChevronDown } from 'lucide-react'
 
 interface NavItemProps {
-  title: string;
-  icon: ElementType;
+  title: string
+  icon: ElementType
 }
 
 export function NavItem({ title, icon: Icon }: NavItemProps) {
@@ -19,5 +19,5 @@ export function NavItem({ title, icon: Icon }: NavItemProps) {
       </span>
       <ChevronDown className="ml-auto h-5 w-5 text-zinc-400 dark:text-zinc-600" />
     </a>
-  );
+  )
 }

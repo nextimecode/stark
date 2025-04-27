@@ -1,13 +1,13 @@
-"use client";
+'use client'
 
-import { UploadCloud } from "lucide-react";
+import { UploadCloud } from 'lucide-react'
 
-import { useFileInput } from "./root";
+import { useFileInput } from './root'
 
 export interface TriggerProps {}
 
 export function Trigger(props: TriggerProps) {
-  const { id } = useFileInput();
+  const { id } = useFileInput()
 
   return (
     <label
@@ -23,12 +23,12 @@ export function Trigger(props: TriggerProps) {
         <span className="text-sm">
           <span className="font-semibold text-violet-700 dark:text-violet-300">
             Click to upload
-          </span>{" "}
+          </span>{' '}
           or drag and drop
         </span>
 
         <span className="text-xs">SVG, PNG, JPG or GIF (max. 800x400px)</span>
       </div>
     </label>
-  );
+  )
 }

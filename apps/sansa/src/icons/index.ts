@@ -1,1 +1,1 @@
-export { GoogleIcon } from "./GoogleIcon";
+export { GoogleIcon } from './GoogleIcon'

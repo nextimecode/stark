@@ -1,12 +1,12 @@
-"use client";
+'use client'
 
-import { useFormStatus } from "react-dom";
+import { useFormStatus } from 'react-dom'
 
 export function AddMBTIButton() {
-  const { pending } = useFormStatus();
+  const { pending } = useFormStatus()
   return (
     <button type="submit" disabled={pending}>
-      {pending ? "carregando" : "Salvar MBTI"}
+      {pending ? 'carregando' : 'Salvar MBTI'}
     </button>
-  );
+  )
 }
