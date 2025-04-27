@@ -6,7 +6,7 @@ const allowedOrigins = [
   env.NEXT_PUBLIC_ARYA_URL,
   env.NEXT_PUBLIC_BRAN_URL,
   env.NEXT_PUBLIC_SANSA_URL,
-  env.NEXT_PUBLIC_NED_URL
+  env.NEXT_PUBLIC_NED_URL,
 ].filter(Boolean)
 
 const setCorsHeaders = (origin: string | null, response: NextResponse) => {
@@ -36,7 +36,7 @@ export async function POST(request: Request) {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'strict',
-    expires: new Date(0)
+    expires: new Date(0),
   })
 
   const origin = request.headers.get('origin')

@@ -9,7 +9,7 @@ interface TestimonialCardProps {
 export const TestimonialCard = ({
   text,
   name,
-  location
+  location,
 }: TestimonialCardProps) => {
   return (
     <div className="min-w-[300px] p-6 border border-neutral-800 rounded-lg shadow-md transition-all duration-300 hover:animate-[hover-glow_2.5s_ease-in-out_infinite] hover:shadow-lg hover:border-primary-500">
@@ -34,48 +34,48 @@ export function TestimonialsSection() {
     {
       text: 'O NeXTverso mudou completamente como vejo minhas conexões. Agora, consigo entender melhor como me relaciono com amigos e colegas.',
       name: 'Maria Silva',
-      location: 'São Paulo, Brasil'
+      location: 'São Paulo, Brasil',
     },
     {
       text: 'Foi incrível descobrir a compatibilidade com meus amigos de forma tão intuitiva. Recomendo a todos!',
       name: 'João Oliveira',
-      location: 'Rio de Janeiro, Brasil'
+      location: 'Rio de Janeiro, Brasil',
     },
     {
       text: 'O teste de compatibilidade foi super divertido e útil. Adorei os gráficos e as análises detalhadas!',
       name: 'Ana Costa',
-      location: 'Belo Horizonte, Brasil'
+      location: 'Belo Horizonte, Brasil',
     },
     {
       text: 'Com o NeXTverso, finalmente consegui entender melhor as dinâmicas no meu ambiente de trabalho. Um verdadeiro divisor de águas!',
       name: 'Carlos Almeida',
-      location: 'Curitiba, Brasil'
+      location: 'Curitiba, Brasil',
     },
     {
       text: 'Eu não acreditava que um teste pudesse ser tão preciso. É ótimo ver como o NeXTverso facilita nossas interações.',
       name: 'Beatriz Rocha',
-      location: 'Porto Alegre, Brasil'
+      location: 'Porto Alegre, Brasil',
     },
     {
       text: 'A funcionalidade de convidar amigos para o teste é incrível! Eu e meus amigos tivemos insights valiosos sobre nossas relações.',
       name: 'Lucas Moreira',
-      location: 'Fortaleza, Brasil'
+      location: 'Fortaleza, Brasil',
     },
     {
       text: 'A experiência com o NeXTverso foi fantástica! Descobri muito sobre como me conecto com as pessoas ao meu redor.',
       name: "Liam O'Connor",
-      location: 'Dublin, Irlanda'
+      location: 'Dublin, Irlanda',
     },
     {
       text: 'Uma ferramenta incrível para explorar relações pessoais. O design é intuitivo e os insights são valiosos.',
       name: 'Sofia Martínez',
-      location: 'Madrid, Espanha'
+      location: 'Madrid, Espanha',
     },
     {
       text: 'O NeXTverso é revolucionário! Senti que meus relacionamentos melhoraram graças aos insights oferecidos.',
       name: 'Mateo Fernández',
-      location: 'Buenos Aires, Argentina'
-    }
+      location: 'Buenos Aires, Argentina',
+    },
   ]
 
   return (

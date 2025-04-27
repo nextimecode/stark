@@ -1,5 +1,3 @@
-// components/title.tsx
-
 import { ReactNode } from 'react'
 
 import clsx from 'clsx'
@@ -22,7 +20,7 @@ export const Title = ({
   color = 'violet',
   size = 'text-6xl',
   fullWidth = false,
-  children
+  children,
 }: TitleProps) => {
   const colors = {
     violet: 'bg-linear-to-b from-[#FF1CF7] to-[#5b4cff]',
@@ -31,7 +29,7 @@ export const Title = ({
     cyan: 'bg-linear-to-b from-[#00b7fa] to-[#01cfea]',
     green: 'bg-linear-to-b from-[#6FEE8D] to-[#17c964]',
     pink: 'bg-linear-to-b from-[#FF72E1] to-[#F54C7A]',
-    foreground: 'bg-linear-to-b from-[#FFFFFF] to-[#4B4B4B]'
+    foreground: 'bg-linear-to-b from-[#FFFFFF] to-[#4B4B4B]',
   }
 
   return (

@@ -4,7 +4,7 @@ import { RadarChart } from '@/components/radar-chart'
 
 import {
   MBTI_CATEGORIES,
-  MBTI_PERSONALITY_TYPES
+  MBTI_PERSONALITY_TYPES,
 } from '@/data/mbti-personality-types'
 
 export function PersonalityCharts() {

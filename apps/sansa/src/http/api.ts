@@ -25,7 +25,7 @@ export type AccessInviteLink301 =
   | null
 
 export const AccessInviteLink301 = {
-  null: 'null'
+  null: 'null',
 } as const
 
 export type GetRanking200RankingItem = {
@@ -66,7 +66,7 @@ export const subscribeToEvent = async (
     ...options,
     method: 'POST',
     headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(subscribeToEventBody)
+    body: JSON.stringify(subscribeToEventBody),
   })
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
@@ -88,7 +88,7 @@ export const accessInviteLink = async (
 ): Promise<unknown> => {
   const res = await fetch(getAccessInviteLinkUrl(subscriberId), {
     ...options,
-    method: 'GET'
+    method: 'GET',
   })
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
@@ -109,7 +109,7 @@ export const getRanking = async (
 ): Promise<GetRanking200> => {
   const res = await fetch(getGetRankingUrl(), {
     ...options,
-    method: 'GET'
+    method: 'GET',
   })
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
@@ -131,7 +131,7 @@ export const getSubscriberInviteCount = async (
 ): Promise<GetSubscriberInviteCount200> => {
   const res = await fetch(getGetSubscriberInviteCountUrl(subscriberId), {
     ...options,
-    method: 'GET'
+    method: 'GET',
   })
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
@@ -153,7 +153,7 @@ export const getSubscriberInviteClicks = async (
 ): Promise<GetSubscriberInviteClicks200> => {
   const res = await fetch(getGetSubscriberInviteClicksUrl(subscriberId), {
     ...options,
-    method: 'GET'
+    method: 'GET',
   })
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()
@@ -175,7 +175,7 @@ export const getSubscriberRankingPosition = async (
 ): Promise<GetSubscriberRankingPosition200> => {
   const res = await fetch(getGetSubscriberRankingPositionUrl(subscriberId), {
     ...options,
-    method: 'GET'
+    method: 'GET',
   })
 
   const body = [204, 205, 304].includes(res.status) ? null : await res.text()

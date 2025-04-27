@@ -58,7 +58,7 @@ const iconBlocks = [
     ),
     title: 'Crie Seu Perfil',
     description:
-      'Responda perguntas sobre seus interesses, valores e personalidade para criar seu perfil exclusivo.'
+      'Responda perguntas sobre seus interesses, valores e personalidade para criar seu perfil exclusivo.',
   },
   {
     icon: (
@@ -82,7 +82,7 @@ const iconBlocks = [
     ),
     title: 'Convide e Compare',
     description:
-      'Convide amigos, familiares ou parceiros para participar do teste e compare os resultados em tempo real.'
+      'Convide amigos, familiares ou parceiros para participar do teste e compare os resultados em tempo real.',
   },
   {
     icon: (
@@ -104,6 +104,6 @@ const iconBlocks = [
     ),
     title: 'Visualize a Compatibilidade',
     description:
-      'Receba gráficos detalhados de compatibilidade para entender como você se conecta com os outros.'
-  }
+      'Receba gráficos detalhados de compatibilidade para entender como você se conecta com os outros.',
+  },
 ]

@@ -5,11 +5,11 @@ import { Cog, LifeBuoy, Menu, Search } from 'lucide-react'
 
 import { Button } from '../button'
 import * as Input from '../form/input'
-import { Logo } from './Logo'
-import { Navigation } from './Navigation'
-import { NavItem } from './Navigation/NavItem'
-import { Profile } from './Profile'
-import { UsedSpaceWidget } from './UsedSpaceWidget'
+import { Logo } from './logo'
+import { Navigation } from './navigation'
+import { NavItem } from './navigation/nav-item'
+import { Profile } from './profile'
+import { UsedSpaceWidget } from './used-space-widget'
 
 export function Sidebar() {
   return (

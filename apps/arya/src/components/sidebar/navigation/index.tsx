@@ -1,13 +1,13 @@
 import {
-  Home,
   BarChart,
-  SquareStack,
   CheckSquare,
   Flag,
-  Users
+  Home,
+  SquareStack,
+  Users,
 } from 'lucide-react'
 
-import { NavItem } from './NavItem'
+import { NavItem } from './nav-item'
 
 export interface NavigationProps {}
 

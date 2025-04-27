@@ -5,7 +5,7 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
@@ -15,7 +15,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import {
@@ -23,7 +23,7 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 
@@ -38,7 +38,7 @@ interface ProfessionalSectionProps {
 export function ProfessionalSection({
   form,
   open,
-  toggle
+  toggle,
 }: ProfessionalSectionProps) {
   return (
     <Card className="relative">
@@ -157,7 +157,7 @@ export function ProfessionalSection({
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'individual'
+                                'individual',
                               ])
                             } else {
                               field.onChange(
@@ -196,7 +196,7 @@ export function ProfessionalSection({
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'structured'
+                                'structured',
                               ])
                             } else {
                               field.onChange(
@@ -217,7 +217,7 @@ export function ProfessionalSection({
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'flexible'
+                                'flexible',
                               ])
                             } else {
                               field.onChange(
@@ -256,7 +256,7 @@ export function ProfessionalSection({
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'presential'
+                                'presential',
                               ])
                             } else {
                               field.onChange(

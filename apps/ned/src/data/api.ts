@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { env } from '@/env'
 
 export function api(path: string, init?: RequestInit) {

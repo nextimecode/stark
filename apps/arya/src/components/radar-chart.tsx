@@ -17,15 +17,15 @@ export const RadarChart = ({
   categories,
   series,
   colors,
-  height = 350
+  height = 350,
 }: RadarChartProps) => {
   const options: ApexOptions = {
     chart: {
       type: 'radar',
-      toolbar: { show: false }
+      toolbar: { show: false },
     },
     grid: {
-      padding: { top: -30, bottom: -30, left: 0, right: 0 }
+      padding: { top: -30, bottom: -30, left: 0, right: 0 },
     },
     xaxis: {
       categories,
@@ -40,19 +40,19 @@ export const RadarChart = ({
             '#fff',
             '#fff',
             '#fff',
-            '#fff'
+            '#fff',
           ],
-          fontSize: '12px'
-        }
-      }
+          fontSize: '12px',
+        },
+      },
     },
     yaxis: {
-      show: false
+      show: false,
     },
     stroke: { width: 2 },
     markers: { size: 4 },
     fill: { opacity: 0.5 },
-    colors
+    colors,
   }
 
   return (

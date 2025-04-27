@@ -33,12 +33,12 @@ async function getUser() {
   return {
     uid: decodedToken.uid,
     email: decodedToken.email,
-    emailVerified: decodedToken.email_verified
+    emailVerified: decodedToken.email_verified,
   }
 }
 
 export default async function NewInvitationPage({
-  searchParams
+  searchParams,
 }: NewInvitationPageProps) {
   const user = await getUser()
   const userId = user.uid

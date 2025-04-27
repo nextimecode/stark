@@ -11,7 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger
+  DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
 import { signOut } from 'firebase/auth'
@@ -27,7 +27,7 @@ export function Navbar() {
     await signOut(auth)
     await fetch(`${env.NEXT_PUBLIC_NED_URL}/api/logout`, {
       method: 'POST',
-      credentials: 'include'
+      credentials: 'include',
     })
     router.push(env.NEXT_PUBLIC_ARYA_URL)
   }

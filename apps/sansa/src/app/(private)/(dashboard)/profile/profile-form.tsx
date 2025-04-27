@@ -33,7 +33,7 @@ export function ProfileForm() {
     romantic: false,
     professional: false,
     friendship: false,
-    family: false
+    family: false,
   })
 
   const form = useForm<ProfileFormValues>({
@@ -72,8 +72,8 @@ export function ProfileForm() {
       familyContactFrequency: '',
       familyRole: '',
       familyTraditionsImportance: '',
-      familyDynamics: []
-    }
+      familyDynamics: [],
+    },
   })
 
   const onSubmit = async (data: ProfileFormValues) => {
