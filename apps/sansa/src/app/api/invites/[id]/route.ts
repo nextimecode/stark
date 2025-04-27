@@ -3,9 +3,10 @@ import { NextResponse } from 'next/server'
 
 export const GET = async ({ params }: { params: { id: string } }) => {
   const invite = await prisma.invite.findUnique({
-    where: { id: params.id }
+    where: { id: params.id },
   })
-  if (!invite) return NextResponse.json({ error: 'Invite not found' }, { status: 404 })
+  if (!invite)
+    return NextResponse.json({ error: 'Invite not found' }, { status: 404 })
   return NextResponse.json(invite)
 }
 

@@ -9,7 +9,7 @@ export const GET = async () => {
 export const POST = async (request: Request) => {
   const { senderId, recipientId } = await request.json()
   const invite = await prisma.invite.create({
-    data: { senderId, recipientId }
+    data: { senderId, recipientId },
   })
   return NextResponse.json(invite, { status: 201 })
 }

@@ -9,7 +9,7 @@ export const GET = async () => {
 export const POST = async (request: Request) => {
   const { email } = await request.json()
   const user = await prisma.user.create({
-    data: { email }
+    data: { email },
   })
   return NextResponse.json(user, { status: 201 })
 }

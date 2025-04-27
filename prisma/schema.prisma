@@ -8,10 +8,17 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id            String    @id @default(uuid())
+  firebaseId    String    @unique
+  username      String
+  name          String
+  email         String    @unique
+  emailVerified Boolean
+  picture       String?
+  provider      String
+  authTime      DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
   compatibilityAttributes CompatibilityAttributes?
 
