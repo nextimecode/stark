@@ -1,55 +1,55 @@
 type FAQItem = {
-  question: string;
-  answer: string;
-};
+  question: string
+  answer: string
+}
 
 const faqData: FAQItem[] = [
   {
-    question: "O que é o NeXTverso?",
+    question: 'O que é o NeXTverso?',
     answer:
-      "O NeXTverso é uma plataforma que analisa compatibilidade com base em interesses, valores e personalidades, ajudando a fortalecer conexões no amor, trabalho ou amizade.",
+      'O NeXTverso é uma plataforma que analisa compatibilidade com base em interesses, valores e personalidades, ajudando a fortalecer conexões no amor, trabalho ou amizade.',
   },
   {
-    question: "Como funciona o teste de compatibilidade?",
+    question: 'Como funciona o teste de compatibilidade?',
     answer:
-      "O teste utiliza perguntas específicas para avaliar traços de personalidade, valores e interesses. Com base nas respostas, geramos gráficos e um índice de compatibilidade personalizado.",
+      'O teste utiliza perguntas específicas para avaliar traços de personalidade, valores e interesses. Com base nas respostas, geramos gráficos e um índice de compatibilidade personalizado.',
   },
   {
-    question: "Posso convidar outra pessoa para fazer o teste?",
+    question: 'Posso convidar outra pessoa para fazer o teste?',
     answer:
-      "Sim! Você pode convidar amigos, familiares ou parceiros para participar do teste e comparar os resultados em tempo real.",
+      'Sim! Você pode convidar amigos, familiares ou parceiros para participar do teste e comparar os resultados em tempo real.',
   },
   {
-    question: "Quais dados o NeXTverso coleta?",
+    question: 'Quais dados o NeXTverso coleta?',
     answer:
-      "Coletamos informações sobre interesses, valores e traços de personalidade para gerar análises de compatibilidade.",
+      'Coletamos informações sobre interesses, valores e traços de personalidade para gerar análises de compatibilidade.',
   },
   {
-    question: "É possível usar o NeXTverso gratuitamente?",
+    question: 'É possível usar o NeXTverso gratuitamente?',
     answer:
-      "Sim, você pode usar o NeXTverso gratuitamente por tempo limitado. Aproveite essa oportunidade para descobrir suas conexões!",
+      'Sim, você pode usar o NeXTverso gratuitamente por tempo limitado. Aproveite essa oportunidade para descobrir suas conexões!',
   },
   {
-    question: "Como os resultados são calculados?",
+    question: 'Como os resultados são calculados?',
     answer:
-      "Os resultados são baseados em modelos científicos, como o MBTI e análise de interesses compartilhados. Nosso algoritmo avalia os dados e gera um índice de compatibilidade.",
+      'Os resultados são baseados em modelos científicos, como o MBTI e análise de interesses compartilhados. Nosso algoritmo avalia os dados e gera um índice de compatibilidade.',
   },
   {
-    question: "Os resultados são 100% precisos?",
+    question: 'Os resultados são 100% precisos?',
     answer:
-      "Os resultados são sugestões baseadas nos dados fornecidos e em modelos analíticos. Eles ajudam a identificar padrões, mas não garantem precisão absoluta.",
+      'Os resultados são sugestões baseadas nos dados fornecidos e em modelos analíticos. Eles ajudam a identificar padrões, mas não garantem precisão absoluta.',
   },
   {
-    question: "Como faço para enviar feedback sobre o aplicativo?",
+    question: 'Como faço para enviar feedback sobre o aplicativo?',
     answer:
-      "Você pode enviar feedback para o email contato@nextime.com.br. Suas opiniões são fundamentais para melhorar nossa plataforma.",
+      'Você pode enviar feedback para o email contato@nextime.com.br. Suas opiniões são fundamentais para melhorar nossa plataforma.',
   },
   {
-    question: "Posso acessar os testes que já fiz?",
+    question: 'Posso acessar os testes que já fiz?',
     answer:
-      "Sim, todos os testes realizados ficam armazenados no seu perfil para que você possa consultá-los sempre que quiser.",
+      'Sim, todos os testes realizados ficam armazenados no seu perfil para que você possa consultá-los sempre que quiser.',
   },
-];
+]
 
 export const FAQ = () => {
   return (
@@ -92,5 +92,5 @@ export const FAQ = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}

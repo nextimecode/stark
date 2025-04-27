@@ -1,66 +1,66 @@
-"use client";
-import { useState } from "react";
+'use client'
+import { useState } from 'react'
 
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation'
 
-import { deleteUser, sendEmailVerification, signOut } from "firebase/auth";
+import { deleteUser, sendEmailVerification, signOut } from 'firebase/auth'
 
-import { env } from "@/env";
-import { auth } from "@/firebase/client";
+import { env } from '@/env'
+import { auth } from '@/firebase/client'
 
 type DashboardClientProps = {
   user: {
-    uid: string;
-    email: string;
-    emailVerified: boolean;
-  };
-};
+    uid: string
+    email: string
+    emailVerified: boolean
+  }
+}
 
 export default function DashboardClient({ user }: DashboardClientProps) {
-  const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const router = useRouter()
+  const [loading, setLoading] = useState(false)
 
   const handleLogout = async () => {
-    setLoading(true);
-    await signOut(auth);
+    setLoading(true)
+    await signOut(auth)
     const response = await fetch(`${env.NEXT_PUBLIC_NED_URL}/api/logout`, {
-      method: "POST",
-      credentials: "include",
-    });
-    router.push(env.NEXT_PUBLIC_ARYA_URL);
-    setLoading(false);
-  };
+      method: 'POST',
+      credentials: 'include',
+    })
+    router.push(env.NEXT_PUBLIC_ARYA_URL)
+    setLoading(false)
+  }
 
   const handleSendEmailVerification = async () => {
-    setLoading(true);
-    await sendEmailVerification(auth.currentUser!);
+    setLoading(true)
+    await sendEmailVerification(auth.currentUser!)
     alert(
-      "E-mail de confirmação enviado com sucesso! Verifique sua caixa de entrada.",
-    );
-    setLoading(false);
-  };
+      'E-mail de confirmação enviado com sucesso! Verifique sua caixa de entrada.'
+    )
+    setLoading(false)
+  }
 
   const handleDeleteAccount = async () => {
-    setLoading(true);
+    setLoading(true)
     try {
-      await deleteUser(auth.currentUser!);
+      await deleteUser(auth.currentUser!)
       await fetch(`${env.NEXT_PUBLIC_NED_URL}/api/logout`, {
-        method: "POST",
-        credentials: "include",
-      });
-      alert("Conta deletada com sucesso.");
-      router.push(env.NEXT_PUBLIC_ARYA_URL);
+        method: 'POST',
+        credentials: 'include',
+      })
+      alert('Conta deletada com sucesso.')
+      router.push(env.NEXT_PUBLIC_ARYA_URL)
     } catch (error: any) {
-      if (error.code === "auth/requires-recent-login") {
+      if (error.code === 'auth/requires-recent-login') {
         alert(
-          "Você precisa fazer login novamente para deletar sua conta. Por favor, faça logout e login novamente.",
-        );
+          'Você precisa fazer login novamente para deletar sua conta. Por favor, faça logout e login novamente.'
+        )
       } else {
-        alert("Não foi possível deletar a conta. Tente novamente mais tarde.");
+        alert('Não foi possível deletar a conta. Tente novamente mais tarde.')
       }
     }
-    setLoading(false);
-  };
+    setLoading(false)
+  }
 
   return (
     <main>
@@ -92,5 +92,5 @@ export default function DashboardClient({ user }: DashboardClientProps) {
         Deletar Conta
       </button>
     </main>
-  );
+  )
 }

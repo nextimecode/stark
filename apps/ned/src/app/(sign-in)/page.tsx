@@ -1,29 +1,29 @@
-"use client";
+'use client'
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useState } from 'react'
 
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
-import { Title } from "@/components";
-import { Logo } from "@/components/logo";
-import { Spinner } from "@/components/ui/spinner";
+import { Title } from '@/components'
+import { Logo } from '@/components/logo'
+import { Spinner } from '@/components/ui/spinner'
 
-import { signInWithEmailAndPassword, signInWithGoogle } from "@/firebase/auth";
-import { GoogleIcon } from "@/icons";
+import { signInWithEmailAndPassword, signInWithGoogle } from '@/firebase/auth'
+import { GoogleIcon } from '@/icons'
 
 export default function SignIn() {
-  const router = useRouter();
+  const router = useRouter()
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const registerUserOnBackend = async (user: any) => {
-    await fetch("/api/register-user", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    await fetch('/api/register-user', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         uid: user.uid,
         displayName: user.displayName,
@@ -33,57 +33,57 @@ export default function SignIn() {
         providerId: user.providerId,
         creationTime: user.metadata?.creationTime,
       }),
-    });
+    })
 
-    const token = await user.getIdToken();
+    const token = await user.getIdToken()
 
-    const res = await fetch("/api/set-cookie", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    const res = await fetch('/api/set-cookie', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ token }),
-    });
+    })
 
     if (res.ok) {
-      router.push("/");
+      router.push('/')
     } else {
-      setErrorMessage("Erro ao configurar o cookie de sessão.");
+      setErrorMessage('Erro ao configurar o cookie de sessão.')
     }
-  };
+  }
 
   const handleGoogleLogin = async () => {
-    setIsLoading(true);
+    setIsLoading(true)
 
-    const response = await signInWithGoogle();
+    const response = await signInWithGoogle()
 
     if (response.error === null) {
-      await registerUserOnBackend(response.data);
+      await registerUserOnBackend(response.data)
     } else {
       setErrorMessage(
-        response.error.details || "Falha ao fazer login com o Google.",
-      );
+        response.error.details || 'Falha ao fazer login com o Google.'
+      )
     }
 
-    setIsLoading(false);
-  };
+    setIsLoading(false)
+  }
 
   const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setIsLoading(true);
+    event.preventDefault()
+    setIsLoading(true)
 
-    const response = await signInWithEmailAndPassword(email, password);
+    const response = await signInWithEmailAndPassword(email, password)
 
     if (response.error === null) {
-      await registerUserOnBackend(response.data);
+      await registerUserOnBackend(response.data)
     } else {
       setErrorMessage(
-        response.error.code === "auth/wrong-password"
-          ? "Senha incorreta. Por favor, tente novamente."
-          : response.error.details || "Falha ao fazer login. Tente novamente.",
-      );
+        response.error.code === 'auth/wrong-password'
+          ? 'Senha incorreta. Por favor, tente novamente.'
+          : response.error.details || 'Falha ao fazer login. Tente novamente.'
+      )
     }
 
-    setIsLoading(false);
-  };
+    setIsLoading(false)
+  }
 
   return (
     <div className="relative min-h-screen flex items-center justify-center">
@@ -98,7 +98,7 @@ export default function SignIn() {
           <div className="text-center pb-6">
             <Logo className="mx-auto" width={81} height={100} />
             <h2 className="py-4 text-white text-2xl font-semibold">
-              Inicie sessão com a Conta{" "}
+              Inicie sessão com a Conta{' '}
               <Title color="blue" size="text-3xl">
                 NeXTIME
               </Title>
@@ -135,7 +135,7 @@ export default function SignIn() {
                   className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-system-gray-transparent dark:border-system-gray2 dark:text-white dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                   required
                   placeholder="Ex: @gmail, @outlook, @yahoo, etc."
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={e => setEmail(e.target.value)}
                 />
               </div>
 
@@ -157,7 +157,7 @@ export default function SignIn() {
                   className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-system-gray-transparent dark:border-system-gray2 dark:text-white dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                   required
                   placeholder="Digite a sua senha"
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={e => setPassword(e.target.value)}
                 />
               </div>
             </div>
@@ -190,5 +190,5 @@ export default function SignIn() {
         </div>
       </div>
     </div>
-  );
+  )
 }

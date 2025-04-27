@@ -1,5 +1,5 @@
-import packageInfo from "../../../../package.json";
-const version = packageInfo.version;
+import packageInfo from '../../../../package.json'
+const version = packageInfo.version
 
 export function Footer() {
   return (
@@ -29,7 +29,7 @@ export function Footer() {
 
         <div className="mt-3">
           <p className="text-gray-500 dark:text-neutral-500">
-            Mais um produto da{" "}
+            Mais um produto da{' '}
             <a
               className="text-blue-600 decoration-2 hover:underline focus:outline-hidden focus:underline font-medium dark:text-blue-500"
               href="https://www.nextime.com.br/"
@@ -81,5 +81,5 @@ export function Footer() {
       </div>
       {/* End Grid */}
     </footer>
-  );
+  )
 }

@@ -1,31 +1,31 @@
-"use client";
+'use client'
 
-import { useMemo } from "react";
+import { useMemo } from 'react'
 
-import Image from "next/image";
+import Image from 'next/image'
 
-import { User } from "lucide-react";
+import { User } from 'lucide-react'
 
-import { useFileInput } from "./root";
+import { useFileInput } from './root'
 
 export interface ImagePreviewProps {}
 
 export function ImagePreview(props: ImagePreviewProps) {
-  const { multiple, files } = useFileInput();
+  const { multiple, files } = useFileInput()
 
   if (multiple) {
     throw new Error(
-      "Cannot use <ImagePreview /> component alongside multiple file upload input.",
-    );
+      'Cannot use <ImagePreview /> component alongside multiple file upload input.'
+    )
   }
 
   const previewURL = useMemo(() => {
     if (files.length === 0) {
-      return null;
+      return null
     }
 
-    return URL.createObjectURL(files[0]);
-  }, [files]);
+    return URL.createObjectURL(files[0])
+  }, [files])
 
   return previewURL === null ? (
     <div
@@ -42,5 +42,5 @@ export function ImagePreview(props: ImagePreviewProps) {
       src={previewURL}
       alt=""
     />
-  );
+  )
 }

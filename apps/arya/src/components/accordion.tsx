@@ -226,5 +226,5 @@ export function Accordion() {
         </button>
       </div>
     </>
-  );
+  )
 }
