@@ -9,13 +9,10 @@ extendZodWithOpenApi(z)
 
 const inviteParamsSchema = z
   .object({
-    id: z
-      .string()
-      .uuid()
-      .openapi({
-        description: 'ID do convite',
-        example: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
-      }),
+    id: z.string().uuid().openapi({
+      description: 'ID do convite',
+      example: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+    }),
   })
   .openapi({
     ref: 'InviteParams',
@@ -33,10 +30,7 @@ export const GET = async (
   })
 
   if (!invite) {
-    return NextResponse.json(
-      { error: 'Invite not found' },
-      { status: 404 }
-    )
+    return NextResponse.json({ error: 'Invite not found' }, { status: 404 })
   }
 
   const response = NextResponse.json(invite, { status: 200 })

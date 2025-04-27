@@ -10,20 +10,14 @@ extendZodWithOpenApi(z)
 // Schema para criação de convite
 const createInviteBodySchema = z
   .object({
-    senderId: z
-      .string()
-      .uuid()
-      .openapi({
-        description: 'ID do usuário que envia o convite',
-        example: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
-      }),
-    recipientId: z
-      .string()
-      .uuid()
-      .openapi({
-        description: 'ID do usuário que recebe o convite',
-        example: 'f1e2d3c4-b5a6-0987-zyxw-vu654321fedc',
-      }),
+    senderId: z.string().uuid().openapi({
+      description: 'ID do usuário que envia o convite',
+      example: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+    }),
+    recipientId: z.string().uuid().openapi({
+      description: 'ID do usuário que recebe o convite',
+      example: 'f1e2d3c4-b5a6-0987-zyxw-vu654321fedc',
+    }),
   })
   .openapi({
     ref: 'CreateInvite',
@@ -39,7 +33,10 @@ export const GET = async (request: Request) => {
     return response
   } catch (error) {
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Erro ao listar convites' },
+      {
+        error:
+          error instanceof Error ? error.message : 'Erro ao listar convites',
+      },
       { status: 500 }
     )
   }

@@ -9,26 +9,21 @@ extendZodWithOpenApi(z)
 
 const compatibilityAttributesParamsSchema = z
   .object({
-    userId: z
-      .string()
-      .uuid()
-      .openapi({
-        description: 'ID do usuário',
-        example: '123e4567-e89b-12d3-a456-426614174000',
-      }),
+    userId: z.string().uuid().openapi({
+      description: 'ID do usuário',
+      example: '123e4567-e89b-12d3-a456-426614174000',
+    }),
   })
   .openapi({
     ref: 'CompatibilityAttributesParams',
     description: 'Parâmetros para operações em CompatibilityAttributes',
   })
 
-const compatibilityAttributesBodySchema = z
-  .object({})
-  .passthrough()
-  .openapi({
-    ref: 'CompatibilityAttributesBody',
-    description: 'Dados para criação ou atualização de atributos de compatibilidade',
-  })
+const compatibilityAttributesBodySchema = z.object({}).passthrough().openapi({
+  ref: 'CompatibilityAttributesBody',
+  description:
+    'Dados para criação ou atualização de atributos de compatibilidade',
+})
 
 export const GET = async (
   request: Request,
@@ -41,10 +36,7 @@ export const GET = async (
   })
 
   if (!attrs) {
-    return NextResponse.json(
-      { error: 'Not found' },
-      { status: 404 }
-    )
+    return NextResponse.json({ error: 'Not found' }, { status: 404 })
   }
 
   const response = NextResponse.json(attrs, { status: 200 })

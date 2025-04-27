@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  output   = "./node_modules/.prisma/client"
 }
 
 datasource db {
@@ -7,6 +8,9 @@ datasource db {
   url      = env("POSTGRES_PRISMA_URL")
 }
 
+/**
+ * ---------- User ----------
+ */
 model User {
   id            String    @id @default(uuid())
   firebaseId    String    @unique
@@ -28,6 +32,9 @@ model User {
   testsReceived   CompatibilityTest[] @relation("TestsReceived")
 }
 
+/**
+ * ---------- Compatibility Attributes (perfil psicométrico) ----------
+ */
 model CompatibilityAttributes {
   userId   String  @id
   mbtiType String?
@@ -35,6 +42,9 @@ model CompatibilityAttributes {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+/**
+ * ---------- Invite ----------
+ */
 model Invite {
   id          String       @id @default(uuid())
   senderId    String
@@ -49,26 +59,40 @@ model Invite {
   @@index([senderId, recipientId])
 }
 
+/**
+ * ---------- Compatibility Test ----------
+ */
 model CompatibilityTest {
-  id        String   @id @default(uuid())
-  user1Id   String
-  user2Id   String
-  prompt    String
-  result    Json
-  model     String?
-  createdAt DateTime @default(now())
+  id               String           @id @default(uuid())
+  user1Id          String
+  user2Id          String
+  relationshipType RelationshipType
+  prompt           String // prompt usado para gerar o resultado
+  result           Json
+  model            String? // ex.: 'gpt-4o-mini'
+  createdAt        DateTime         @default(now())
 
   user1 User @relation("TestsInitiated", fields: [user1Id], references: [id])
   user2 User @relation("TestsReceived", fields: [user2Id], references: [id])
 
-  @@unique([user1Id, user2Id, createdAt])
+  @@unique([user1Id, user2Id, relationshipType, createdAt])
   @@index([user1Id])
   @@index([user2Id])
 }
 
+/**
+ * ---------- Enums ----------
+ */
 enum InviteStatus {
   PENDING
   ACCEPTED
   EXPIRED
   REJECTED
+}
+
+enum RelationshipType {
+  LOVE
+  FRIENDSHIP
+  WORK
+  FAMILY
 }

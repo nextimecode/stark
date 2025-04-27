@@ -9,13 +9,10 @@ extendZodWithOpenApi(z)
 
 const userParamsSchema = z
   .object({
-    id: z
-      .string()
-      .uuid()
-      .openapi({
-        description: 'ID do usuário',
-        example: '123e4567-e89b-12d3-a456-426614174000',
-      }),
+    id: z.string().uuid().openapi({
+      description: 'ID do usuário',
+      example: '123e4567-e89b-12d3-a456-426614174000',
+    }),
   })
   .openapi({
     ref: 'UserParams',
@@ -27,7 +24,10 @@ const updateUserBodySchema = z
     email: z
       .string()
       .email()
-      .openapi({ description: 'Novo email do usuário', example: 'pedro@example.com' })
+      .openapi({
+        description: 'Novo email do usuário',
+        example: 'pedro@example.com',
+      })
       .optional(),
     name: z
       .string()
@@ -35,7 +35,10 @@ const updateUserBodySchema = z
       .optional(),
     fullName: z
       .string()
-      .openapi({ description: 'Nome completo do usuário', example: 'Pedro Duarte' })
+      .openapi({
+        description: 'Nome completo do usuário',
+        example: 'Pedro Duarte',
+      })
       .optional(),
     birthDate: z
       .string()
