@@ -2,7 +2,13 @@ import { PrismaClient } from '@prisma/client'
 import { NextResponse } from 'next/server'
 import OpenAI from 'openai'
 import { z } from 'zod'
-import { familyPrompt, friendshipPrompt, lovePrompt, UserData, workPrompt } from './compatibility-prompts'
+import {
+  familyPrompt,
+  friendshipPrompt,
+  lovePrompt,
+  UserData,
+  workPrompt,
+} from './compatibility-prompts'
 
 const prisma = new PrismaClient()
 
@@ -43,14 +49,20 @@ export const POST = async (request: Request) => {
     const user2 = users.find(u => u.id === user2Id)
 
     if (!user1 || !user2) {
-      return NextResponse.json({ error: 'Usuário não encontrado' }, { status: 404 })
+      return NextResponse.json(
+        { error: 'Usuário não encontrado' },
+        { status: 404 }
+      )
     }
 
     const attrs1 = user1.compatibilityAttributes
     const attrs2 = user2.compatibilityAttributes
 
     if (!attrs1 || !attrs2) {
-      return NextResponse.json({ error: 'Atributos de compatibilidade não encontrados' }, { status: 400 })
+      return NextResponse.json(
+        { error: 'Atributos de compatibilidade não encontrados' },
+        { status: 400 }
+      )
     }
 
     const userData1: UserData = {
@@ -112,6 +124,9 @@ export const POST = async (request: Request) => {
       headers: { 'Access-Control-Allow-Origin': '*' },
     })
   } catch (error: any) {
-    return NextResponse.json({ error: error.message || 'Erro interno no servidor' }, { status: 500 })
+    return NextResponse.json(
+      { error: error.message || 'Erro interno no servidor' },
+      { status: 500 }
+    )
   }
 }
