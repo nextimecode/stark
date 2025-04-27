@@ -7,7 +7,8 @@ export const GET = async () => {
 }
 
 export const POST = async (request: Request) => {
-  const { uid, email, displayName, emailVerified, providerId } = await request.json()
+  const { uid, email, displayName, emailVerified, providerId } =
+    await request.json()
 
   const user = await prisma.user.create({
     data: {
