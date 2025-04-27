@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { RadarChart } from '@/components-test/radar-chart'
+import { RadarChart } from '@/components/radar-chart'
 
 import {
     MBTI_CATEGORIES,

@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 
-import { CookieBanner } from '@/components-test/cookie-banner'
-import { Header } from '@/components-test/header'
+import { CookieBanner } from '@/components/cookie-banner'
+import { Header } from '@/components/header'
 
 export default function PortalLayout({ children }: { children: ReactNode }) {
   return (

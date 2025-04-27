@@ -1,9 +1,9 @@
-import { Button } from '@/components-test/button'
-import * as FileInput from '@/components-test/form-teste/file-input-test'
-import * as Input from '@/components-test/form-teste/input'
-import * as Select from '@/components-test/form-teste/select'
-import { Textarea } from '@/components-test/form-teste/textarea'
-import { ThemeSelector } from '@/components-test/theme-selector'
+import { Button } from '@/components/button'
+import * as FileInput from '@/components/form/file-input-test'
+import * as Input from '@/components/form/input'
+import * as Select from '@/components/form/select'
+import { Textarea } from '@/components/form/textarea'
+import { ThemeSelector } from '@/components/theme-selector'
 
 import { Bold, Italic, Link, List, ListOrdered, Mail } from 'lucide-react'
 

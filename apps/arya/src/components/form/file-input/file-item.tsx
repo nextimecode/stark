@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { Button } from '@/components-test/button'
+import { Button } from '@/components/button'
 
 import { CheckCircle2, Image as ImageIcon, Trash2 } from 'lucide-react'
 import { tv, VariantProps } from 'tailwind-variants'
