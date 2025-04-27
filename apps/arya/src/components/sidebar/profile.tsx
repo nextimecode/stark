@@ -1,8 +1,8 @@
-import Image from 'next/image'
+import Image from "next/image";
 
-import { LogOut } from 'lucide-react'
+import { LogOut } from "lucide-react";
 
-import { Button } from '../button'
+import { Button } from "../button";
 
 export function Profile() {
   return (
@@ -27,5 +27,5 @@ export function Profile() {
         <LogOut className="h-5 w-5 text-zinc-500 dark:text-zinc-400" />
       </Button>
     </div>
-  )
+  );
 }

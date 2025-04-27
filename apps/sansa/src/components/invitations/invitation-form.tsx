@@ -1,11 +1,11 @@
-'use client'
+"use client";
 
-import type React from 'react'
-import { useState } from 'react'
+import type React from "react";
+import { useState } from "react";
 
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
-import { Button } from '@/components/ui/button'
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -13,31 +13,31 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from "@/components/ui/select";
 
-import { Loader2 } from 'lucide-react'
+import { Loader2 } from "lucide-react";
 
 interface Test {
-  id: string
+  id: string;
   relationshipType: {
-    id: number
-    name: string
-  }
+    id: number;
+    name: string;
+  };
 }
 
 interface InvitationFormProps {
-  userId: string
-  tests: Test[]
-  selectedTest: Test | null
+  userId: string;
+  tests: Test[];
+  selectedTest: Test | null;
 }
 
 export function InvitationForm({
@@ -45,28 +45,28 @@ export function InvitationForm({
   tests,
   selectedTest,
 }: InvitationFormProps) {
-  const router = useRouter()
-  const [email, setEmail] = useState('')
-  const [testId, setTestId] = useState(selectedTest?.id || '')
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [testId, setTestId] = useState(selectedTest?.id || "");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setError(null)
+    e.preventDefault();
+    setIsSubmitting(true);
+    setError(null);
 
     try {
-      const selectedTest = tests.find(test => test.id === testId)
+      const selectedTest = tests.find((test) => test.id === testId);
 
       if (!selectedTest) {
-        throw new Error('Please select a test')
+        throw new Error("Please select a test");
       }
 
-      const response = await fetch('/api/invitations', {
-        method: 'POST',
+      const response = await fetch("/api/invitations", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           senderId: userId,
@@ -74,21 +74,21 @@ export function InvitationForm({
           relationshipTypeId: selectedTest.relationshipType.id,
           testId,
         }),
-      })
+      });
 
       if (!response.ok) {
-        const data = await response.json()
-        throw new Error(data.error || 'Failed to create invitation')
+        const data = await response.json();
+        throw new Error(data.error || "Failed to create invitation");
       }
 
-      router.push('/invitations')
-      router.refresh()
+      router.push("/invitations");
+      router.refresh();
     } catch (err: any) {
-      setError(err.message)
+      setError(err.message);
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   return (
     <Card>
@@ -127,10 +127,10 @@ export function InvitationForm({
                 <SelectValue placeholder="Select a test" />
               </SelectTrigger>
               <SelectContent>
-                {tests.map(test => (
+                {tests.map((test) => (
                   <SelectItem key={test.id} value={test.id}>
                     {test.relationshipType.name.charAt(0).toUpperCase() +
-                      test.relationshipType.name.slice(1)}{' '}
+                      test.relationshipType.name.slice(1)}{" "}
                     Test
                   </SelectItem>
                 ))}
@@ -151,10 +151,10 @@ export function InvitationForm({
               Sending Invitation...
             </>
           ) : (
-            'Send Invitation'
+            "Send Invitation"
           )}
         </Button>
       </CardFooter>
     </Card>
-  )
+  );
 }

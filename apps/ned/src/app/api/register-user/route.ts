@@ -1,8 +1,8 @@
-import { NextResponse } from 'next/server'
+import { NextResponse } from "next/server";
 
-import { z } from 'zod'
+import { z } from "zod";
 
-import { prisma } from '@/lib/prisma'
+import { prisma } from "@/lib/prisma";
 
 const userSchema = z.object({
   uid: z.string(),
@@ -12,14 +12,14 @@ const userSchema = z.object({
   photoURL: z.string().nullable().optional(),
   providerId: z.string(),
   creationTime: z.string().optional(),
-})
+});
 
 export async function POST(req: Request) {
-  const body = await req.json()
-  const result = userSchema.safeParse(body)
+  const body = await req.json();
+  const result = userSchema.safeParse(body);
 
   if (!result.success) {
-    return NextResponse.json({ error: 'Dados inválidos' }, { status: 400 })
+    return NextResponse.json({ error: "Dados inválidos" }, { status: 400 });
   }
 
   const {
@@ -30,7 +30,7 @@ export async function POST(req: Request) {
     photoURL,
     providerId,
     creationTime,
-  } = result.data
+  } = result.data;
 
   try {
     await prisma.user.upsert({
@@ -43,21 +43,21 @@ export async function POST(req: Request) {
       },
       create: {
         firebaseId: uid,
-        username: '',
-        name: displayName || '',
+        username: "",
+        name: displayName || "",
         email,
         emailVerified,
         picture: photoURL,
         provider: providerId,
         authTime: creationTime ? new Date(creationTime) : null,
       },
-    })
+    });
 
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ success: true });
   } catch (err) {
     return NextResponse.json(
-      { error: 'Erro ao salvar ou atualizar usuário' },
-      { status: 500 }
-    )
+      { error: "Erro ao salvar ou atualizar usuário" },
+      { status: 500 },
+    );
   }
 }

@@ -1,14 +1,14 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
+import Link from "next/link";
 
-import { User } from 'lucide-react'
+import { User } from "lucide-react";
 
-import { env } from '@/env'
+import { env } from "@/env";
 
-import { Title } from './title'
+import { Title } from "./title";
 
-const nedUrl = env.NEXT_PUBLIC_NED_URL
+const nedUrl = env.NEXT_PUBLIC_NED_URL;
 
 export function Header() {
   return (
@@ -116,5 +116,5 @@ export function Header() {
       </nav>
     </header>
     // <!-- ========== END HEADER ========== -->
-  )
+  );
 }

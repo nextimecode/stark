@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import {
   Card,
@@ -6,9 +6,9 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { Checkbox } from '@/components/ui/checkbox'
-import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
+} from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
 import {
   FormControl,
   FormDescription,
@@ -16,21 +16,21 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
+} from "@/components/ui/form";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from "@/components/ui/select";
 
-import { Home } from 'lucide-react'
+import { Home } from "lucide-react";
 
 interface FamilySectionProps {
-  form: any
-  open: boolean
-  toggle: () => void
+  form: any;
+  open: boolean;
+  toggle: () => void;
 }
 
 export function FamilySection({ form, open, toggle }: FamilySectionProps) {
@@ -41,7 +41,7 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
           type="button"
           className="text-muted-foreground hover:text-primary"
         >
-          {open ? 'Fechar' : 'Expandir'}
+          {open ? "Fechar" : "Expandir"}
         </button>
       </div>
       <CardHeader>
@@ -169,20 +169,20 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
                     <div className="space-y-2">
                       <div className="flex items-center space-x-2">
                         <Checkbox
-                          checked={field.value?.includes('constant')}
-                          onCheckedChange={checked => {
+                          checked={field.value?.includes("constant")}
+                          onCheckedChange={(checked) => {
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'constant',
-                              ])
+                                "constant",
+                              ]);
                             } else {
                               field.onChange(
                                 field.value?.filter(
                                   (selectedOption: string) =>
-                                    selectedOption !== 'constant'
-                                ) || []
-                              )
+                                    selectedOption !== "constant",
+                                ) || [],
+                              );
                             }
                           }}
                         />
@@ -192,20 +192,20 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
                       </div>
                       <div className="flex items-center space-x-2">
                         <Checkbox
-                          checked={field.value?.includes('balanced')}
-                          onCheckedChange={checked => {
+                          checked={field.value?.includes("balanced")}
+                          onCheckedChange={(checked) => {
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'balanced',
-                              ])
+                                "balanced",
+                              ]);
                             } else {
                               field.onChange(
                                 field.value?.filter(
                                   (selectedOption: string) =>
-                                    selectedOption !== 'balanced'
-                                ) || []
-                              )
+                                    selectedOption !== "balanced",
+                                ) || [],
+                              );
                             }
                           }}
                         />
@@ -215,20 +215,20 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
                       </div>
                       <div className="flex items-center space-x-2">
                         <Checkbox
-                          checked={field.value?.includes('privacy')}
-                          onCheckedChange={checked => {
+                          checked={field.value?.includes("privacy")}
+                          onCheckedChange={(checked) => {
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'privacy',
-                              ])
+                                "privacy",
+                              ]);
                             } else {
                               field.onChange(
                                 field.value?.filter(
                                   (selectedOption: string) =>
-                                    selectedOption !== 'privacy'
-                                ) || []
-                              )
+                                    selectedOption !== "privacy",
+                                ) || [],
+                              );
                             }
                           }}
                         />
@@ -238,17 +238,20 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
                       </div>
                       <div className="flex items-center space-x-2">
                         <Checkbox
-                          checked={field.value?.includes('casual')}
-                          onCheckedChange={checked => {
+                          checked={field.value?.includes("casual")}
+                          onCheckedChange={(checked) => {
                             if (checked) {
-                              field.onChange([...(field.value || []), 'casual'])
+                              field.onChange([
+                                ...(field.value || []),
+                                "casual",
+                              ]);
                             } else {
                               field.onChange(
                                 field.value?.filter(
                                   (selectedOption: string) =>
-                                    selectedOption !== 'casual'
-                                ) || []
-                              )
+                                    selectedOption !== "casual",
+                                ) || [],
+                              );
                             }
                           }}
                         />
@@ -258,20 +261,20 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
                       </div>
                       <div className="flex items-center space-x-2">
                         <Checkbox
-                          checked={field.value?.includes('activities')}
-                          onCheckedChange={checked => {
+                          checked={field.value?.includes("activities")}
+                          onCheckedChange={(checked) => {
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'activities',
-                              ])
+                                "activities",
+                              ]);
                             } else {
                               field.onChange(
                                 field.value?.filter(
                                   (selectedOption: string) =>
-                                    selectedOption !== 'activities'
-                                ) || []
-                              )
+                                    selectedOption !== "activities",
+                                ) || [],
+                              );
                             }
                           }}
                         />
@@ -281,20 +284,20 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
                       </div>
                       <div className="flex items-center space-x-2">
                         <Checkbox
-                          checked={field.value?.includes('emotional')}
-                          onCheckedChange={checked => {
+                          checked={field.value?.includes("emotional")}
+                          onCheckedChange={(checked) => {
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'emotional',
-                              ])
+                                "emotional",
+                              ]);
                             } else {
                               field.onChange(
                                 field.value?.filter(
                                   (selectedOption: string) =>
-                                    selectedOption !== 'emotional'
-                                ) || []
-                              )
+                                    selectedOption !== "emotional",
+                                ) || [],
+                              );
                             }
                           }}
                         />
@@ -312,7 +315,7 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
         </CollapsibleContent>
       </Collapsible>
     </Card>
-  )
+  );
 }
 
-export default FamilySection
+export default FamilySection;

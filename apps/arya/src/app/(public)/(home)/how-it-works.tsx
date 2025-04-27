@@ -33,7 +33,7 @@ export function HowItWorks() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 const iconBlocks = [
@@ -56,9 +56,9 @@ const iconBlocks = [
         <path d="M8 18h.01" />
       </svg>
     ),
-    title: 'Crie Seu Perfil',
+    title: "Crie Seu Perfil",
     description:
-      'Responda perguntas sobre seus interesses, valores e personalidade para criar seu perfil exclusivo.',
+      "Responda perguntas sobre seus interesses, valores e personalidade para criar seu perfil exclusivo.",
   },
   {
     icon: (
@@ -80,9 +80,9 @@ const iconBlocks = [
         <circle cx="7" cy="7" r="3" />
       </svg>
     ),
-    title: 'Convide e Compare',
+    title: "Convide e Compare",
     description:
-      'Convide amigos, familiares ou parceiros para participar do teste e compare os resultados em tempo real.',
+      "Convide amigos, familiares ou parceiros para participar do teste e compare os resultados em tempo real.",
   },
   {
     icon: (
@@ -102,8 +102,8 @@ const iconBlocks = [
         <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
       </svg>
     ),
-    title: 'Visualize a Compatibilidade',
+    title: "Visualize a Compatibilidade",
     description:
-      'Receba gráficos detalhados de compatibilidade para entender como você se conecta com os outros.',
+      "Receba gráficos detalhados de compatibilidade para entender como você se conecta com os outros.",
   },
-]
+];

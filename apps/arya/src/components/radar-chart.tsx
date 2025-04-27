@@ -1,15 +1,15 @@
-'use client'
+"use client";
 
-import { ApexOptions } from 'apexcharts'
+import { ApexOptions } from "apexcharts";
 
-import { ApexChart } from './apex-chart'
+import { ApexChart } from "./apex-chart";
 
 interface RadarChartProps {
-  title: string
-  categories: string[]
-  series: { name: string; data: number[] }[]
-  colors?: string[]
-  height?: number
+  title: string;
+  categories: string[];
+  series: { name: string; data: number[] }[];
+  colors?: string[];
+  height?: number;
 }
 
 export const RadarChart = ({
@@ -21,7 +21,7 @@ export const RadarChart = ({
 }: RadarChartProps) => {
   const options: ApexOptions = {
     chart: {
-      type: 'radar',
+      type: "radar",
       toolbar: { show: false },
     },
     grid: {
@@ -33,16 +33,16 @@ export const RadarChart = ({
         show: true,
         style: {
           colors: [
-            '#fff',
-            '#fff',
-            '#fff',
-            '#fff',
-            '#fff',
-            '#fff',
-            '#fff',
-            '#fff',
+            "#fff",
+            "#fff",
+            "#fff",
+            "#fff",
+            "#fff",
+            "#fff",
+            "#fff",
+            "#fff",
           ],
-          fontSize: '12px',
+          fontSize: "12px",
         },
       },
     },
@@ -53,7 +53,7 @@ export const RadarChart = ({
     markers: { size: 4 },
     fill: { opacity: 0.5 },
     colors,
-  }
+  };
 
   return (
     <div className="w-full max-w-full mx-auto">
@@ -67,5 +67,5 @@ export const RadarChart = ({
         height={height}
       />
     </div>
-  )
-}
+  );
+};

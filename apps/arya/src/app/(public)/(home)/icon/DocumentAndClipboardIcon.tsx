@@ -40,4 +40,4 @@ export const DocumentAndClipboardIcon = () => (
       strokeLinecap="round"
     />
   </svg>
-)
+);
