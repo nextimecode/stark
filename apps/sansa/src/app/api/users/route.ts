@@ -7,9 +7,20 @@ export const GET = async () => {
 }
 
 export const POST = async (request: Request) => {
-  const { email } = await request.json()
+  const { uid, email, displayName, emailVerified, providerId } = await request.json()
+
   const user = await prisma.user.create({
-    data: { email },
+    data: {
+      firebaseId: uid,
+      username: '',
+      name: displayName || '',
+      email,
+      emailVerified,
+      picture: null,
+      provider: providerId,
+      authTime: null,
+    },
   })
+
   return NextResponse.json(user, { status: 201 })
 }
