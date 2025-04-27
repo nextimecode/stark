@@ -164,7 +164,6 @@
     "globals": "^16.0.0",
     "husky": "^9.1.7",
     "postcss": "^8.5.3",
-    "prettier": "^3.5.3",
     "semantic-release": "^24.2.3",
     "supertest": "^7.1.0",
     "tailwindcss": "4.1.4",
