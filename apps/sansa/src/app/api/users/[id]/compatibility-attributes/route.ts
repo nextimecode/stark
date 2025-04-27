@@ -29,7 +29,7 @@ export async function GET(
   request: NextRequest,
   context: { params: Promise<{ id: string }> } // params é Promise!
 ) {
-  const params = await context.params                    // <- aguarda
+  const params = await context.params // <- aguarda
   const { id } = paramsSchema.parse(params)
   const attrs = await prisma.compatibilityAttributes.findUnique({
     where: { userId: id },
@@ -47,12 +47,12 @@ export async function PUT(
   request: NextRequest,
   context: { params: Promise<{ id: string }> }
 ) {
-  const params = await context.params                    // <- aguarda
+  const params = await context.params // <- aguarda
   const { id } = paramsSchema.parse(params)
   const data = bodySchema.parse(await request.json())
 
   const attrs = await prisma.compatibilityAttributes.upsert({
-    where:  { userId: id },
+    where: { userId: id },
     update: data,
     create: { userId: id, ...data },
   })
