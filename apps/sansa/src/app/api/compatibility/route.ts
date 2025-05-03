@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client'
 import { NextResponse } from 'next/server'
 import OpenAI from 'openai'
 import { z } from 'zod'
+import { extendZodWithOpenApi } from 'zod-openapi'
 import {
   type UserData,
   familyPrompt,
@@ -10,16 +11,33 @@ import {
   workPrompt,
 } from './compatibility-prompts'
 
+extendZodWithOpenApi(z)
+
 const prisma = new PrismaClient()
 
-const BodySchema = z.object({
-  user1Id: z.string(),
-  user2Id: z.string(),
-  relationshipType: z.enum(['LOVE', 'FRIENDSHIP', 'WORK', 'FAMILY']),
-})
+export const compatibilityTestSchema = z
+  .object({
+    user1Id: z
+      .string()
+      .openapi({
+        description: 'ID do primeiro usuário',
+        example: 'user1-uuid',
+      }),
+    user2Id: z
+      .string()
+      .openapi({ description: 'ID do segundo usuário', example: 'user2-uuid' }),
+    relationshipType: z.enum(['LOVE', 'FRIENDSHIP', 'WORK', 'FAMILY']).openapi({
+      description: 'Tipo de relacionamento a ser analisado',
+      example: 'LOVE',
+    }),
+  })
+  .openapi({
+    ref: 'CompatibilityTest',
+    description: 'Dados para análise de compatibilidade entre dois usuários',
+  })
 
-export const OPTIONS = async () => {
-  return new Response(null, {
+export const OPTIONS = async () =>
+  new Response(null, {
     status: 204,
     headers: {
       'Access-Control-Allow-Origin': '*',
@@ -27,12 +45,11 @@ export const OPTIONS = async () => {
       'Access-Control-Allow-Headers': 'Content-Type',
     },
   })
-}
 
 export const POST = async (request: Request) => {
   try {
     const json = await request.json()
-    const parsed = BodySchema.safeParse(json)
+    const parsed = compatibilityTestSchema.safeParse(json)
 
     if (!parsed.success) {
       return NextResponse.json({ error: parsed.error.errors }, { status: 400 })
@@ -45,8 +62,8 @@ export const POST = async (request: Request) => {
       include: { compatibilityAttributes: true },
     })
 
-    const user1 = users.find(u => u.id === user1Id)
-    const user2 = users.find(u => u.id === user2Id)
+    const user1 = users.find(user => user.id === user1Id)
+    const user2 = users.find(user => user.id === user2Id)
 
     if (!user1 || !user2) {
       return NextResponse.json(
@@ -74,21 +91,15 @@ export const POST = async (request: Request) => {
       mbti: attrs2.mbtiType ?? '',
     }
 
-    let prompt = ''
-    switch (relationshipType) {
-      case 'LOVE':
-        prompt = lovePrompt(userData1, userData2)
-        break
-      case 'FRIENDSHIP':
-        prompt = friendshipPrompt(userData1, userData2)
-        break
-      case 'WORK':
-        prompt = workPrompt(userData1, userData2)
-        break
-      case 'FAMILY':
-        prompt = familyPrompt(userData1, userData2)
-        break
+    const prompts = {
+      LOVE: lovePrompt,
+      FRIENDSHIP: friendshipPrompt,
+      WORK: workPrompt,
+      FAMILY: familyPrompt,
     }
+
+    const promptFn = prompts[relationshipType]
+    const prompt = promptFn(userData1, userData2)
 
     const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
     const completion = await openai.chat.completions.create({
