@@ -12,9 +12,9 @@ extendZodWithOpenApi(z)
 /* ---------- Schemas ---------- */
 const paramsSchema = z
   .object({
-    id: z.string().uuid().openapi({
+    id: z.number().openapi({
       description: 'ID do usuário',
-      example: '123e4567-e89b-12d3-a456-426614174000',
+      example: 1,
     }),
   })
   .openapi({ ref: 'CompatibilityAttributesParams' })
