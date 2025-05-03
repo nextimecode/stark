@@ -17,13 +17,13 @@ const prisma = new PrismaClient()
 
 export const compatibilityTestSchema = z
   .object({
-    user1Id: z.string().openapi({
+    user1Id: z.number().openapi({
       description: 'ID do primeiro usuário',
-      example: 'user1-uuid',
+      example: 1,
     }),
     user2Id: z
-      .string()
-      .openapi({ description: 'ID do segundo usuário', example: 'user2-uuid' }),
+      .number()
+      .openapi({ description: 'ID do segundo usuário', example: 2 }),
     relationshipType: z.enum(['LOVE', 'FRIENDSHIP', 'WORK', 'FAMILY']).openapi({
       description: 'Tipo de relacionamento a ser analisado',
       example: 'LOVE',
