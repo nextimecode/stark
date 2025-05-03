@@ -1,6 +1,6 @@
 @createBase = http://localhost:8000
 @compatBase = http://localhost:3001
-@userId      = 123e4567-e89b-12d3-a456-426614174000
+@userId = 7f297b2a-625c-41d8-8aea-96e6228e35be
 
 ### Criar usuário (upsert)
 POST {{createBase}}/api/register-user
@@ -12,8 +12,7 @@ Content-Type: application/json
   "email": "pedro.silva@example.com",
   "emailVerified": true,
   "photoURL": "https://example.com/avatar.jpg",
-  "providerId": "google.com",
-  "creationTime": "2025-04-27T18:00:00.000Z"
+  "providerId": "google.com"
 }
 
 ### Preflight CORS CompatibilityAttributes
