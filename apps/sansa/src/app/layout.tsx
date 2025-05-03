@@ -39,7 +39,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       data-theme="dark"
     >
       <body>
-        <main className="bg-white dark:bg-black text-black dark:text-white">{children}</main>
+        <main className="bg-white dark:bg-black text-black dark:text-white">
+          {children}
+        </main>
       </body>
     </html>
   )
