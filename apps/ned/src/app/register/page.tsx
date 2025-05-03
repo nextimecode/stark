@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 
 import { Logo, Spinner, Title } from '@/components'
 
+import { env } from '@/env'
 import { signUpWithEmailAndPassword, signUpWithGoogle } from '@/firebase/auth'
 import { GoogleIcon } from '@/icons'
 import type { User } from 'firebase/auth'
@@ -46,7 +47,7 @@ export default function Register() {
     })
 
     if (res.ok) {
-      router.push('/')
+      router.push(env.NEXT_PUBLIC_SANSA_URL)
     } else {
       setErrorMessage('Erro ao configurar o cookie de sessão.')
     }
