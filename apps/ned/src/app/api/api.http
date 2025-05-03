@@ -3,7 +3,7 @@ POST http://localhost:8000/api/register-user
 Content-Type: application/json
 
 {
-  "uid": "test-uid-123",
+  "firebaseId": "test-uid-123",
   "displayName": "Pedro Silva",
   "email": "pedro.silva@example.com",
   "emailVerified": true,

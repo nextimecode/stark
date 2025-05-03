@@ -23,7 +23,7 @@ export default function Register() {
 
   const registerUserOnBackend = async (user: User) => {
     const userPayload: UserRegisterBodySchema = {
-      uid: user.uid,
+      firebaseId: user.uid,
       displayName: user.displayName ?? undefined,
       email: user.email ?? '',
       emailVerified: user.emailVerified,

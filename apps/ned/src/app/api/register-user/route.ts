@@ -5,7 +5,7 @@ import { z } from 'zod'
 import { prisma } from '@/lib/prisma'
 
 const userRegisterBodySchema = z.object({
-  uid: z.string(),
+  firebaseId: z.string(),
   displayName: z.string().optional(),
   email: z.string().email(),
   emailVerified: z.boolean(),
@@ -25,7 +25,7 @@ export async function POST(req: Request) {
   }
 
   const {
-    uid,
+    firebaseId,
     displayName,
     email,
     emailVerified,
@@ -36,7 +36,7 @@ export async function POST(req: Request) {
 
   try {
     await prisma.user.upsert({
-      where: { firebaseId: uid },
+      where: { firebaseId },
       update: {
         authTime: creationTime ? new Date(creationTime) : null,
         emailVerified,
@@ -44,7 +44,7 @@ export async function POST(req: Request) {
         provider: providerId,
       },
       create: {
-        firebaseId: uid,
+        firebaseId,
         username: '',
         name: displayName || '',
         email,
