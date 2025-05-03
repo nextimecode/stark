@@ -7,9 +7,6 @@ datasource db {
   url      = env("POSTGRES_PRISMA_URL")
 }
 
-/**
- * ---------- User ----------
- */
 model User {
   id            Int       @id @default(autoincrement())
   uid           String    @unique @default(uuid())
@@ -32,21 +29,18 @@ model User {
   testsReceived   CompatibilityTest[] @relation("TestsReceived")
 }
 
-/**
- * ---------- Compatibility Attributes (perfil psicométrico) ----------
- */
 model CompatibilityAttributes {
-  userId   Int     @id
+  id       Int     @id @default(autoincrement())
+  uid      String  @unique @default(uuid())
+  userId   Int     @unique
   mbtiType String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-/**
- * ---------- Invite ----------
- */
 model Invite {
-  id          String       @id @default(uuid())
+  id          Int          @id @default(autoincrement())
+  uid         String       @unique @default(uuid())
   senderId    Int
   recipientId Int?
   status      InviteStatus @default(PENDING)
@@ -59,17 +53,15 @@ model Invite {
   @@index([senderId, recipientId])
 }
 
-/**
- * ---------- Compatibility Test ----------
- */
 model CompatibilityTest {
-  id               String           @id @default(uuid())
+  id               Int              @id @default(autoincrement())
+  uid              String           @unique @default(uuid())
   user1Id          Int
   user2Id          Int
   relationshipType RelationshipType
-  prompt           String // prompt usado para gerar o resultado
+  prompt           String
   result           Json
-  model            String? // ex.: 'gpt-4o-mini'
+  model            String?
   createdAt        DateTime         @default(now())
 
   user1 User @relation("TestsInitiated", fields: [user1Id], references: [id])
@@ -80,9 +72,6 @@ model CompatibilityTest {
   @@index([user2Id])
 }
 
-/**
- * ---------- Enums ----------
- */
 enum InviteStatus {
   PENDING
   ACCEPTED
