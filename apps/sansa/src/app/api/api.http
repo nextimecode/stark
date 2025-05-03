@@ -1,13 +1,15 @@
 @createBase = http://localhost:8000
 @compatBase = http://localhost:3001
 @userId = 1
+@senderId = 1
+@recipientId = 2
 
 ### Criar usuário (upsert)
 POST {{createBase}}/api/register-user
 Content-Type: application/json
 
 {
-  "uid": "test-uid-123",
+  "firebaseId": "test-uid-123",
   "displayName": "Pedro Silva",
   "email": "pedro.silva@example.com",
   "emailVerified": true,
@@ -30,4 +32,22 @@ Origin: {{compatBase}}
 
 {
   "mbtiType": "INTJ-F"
+}
+
+### Preflight CORS Invites
+OPTIONS {{compatBase}}/api/invites
+Origin: {{compatBase}}
+
+### Listar convites (GET)
+GET {{compatBase}}/api/invites
+Origin: {{compatBase}}
+
+### Criar convite (POST)
+POST {{compatBase}}/api/invites
+Content-Type: application/json
+Origin: {{compatBase}}
+
+{
+  "senderId": {{senderId}},
+  "recipientId": {{recipientId}}
 }

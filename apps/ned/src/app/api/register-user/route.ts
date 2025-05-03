@@ -38,7 +38,7 @@ export async function POST(req: Request) {
     await prisma.user.upsert({
       where: { firebaseId },
       update: {
-        authTime: creationTime ? new Date(creationTime) : null,
+        authTime: creationTime ? creationTime : new Date(),
         emailVerified,
         picture: photoURL,
         provider: providerId,
@@ -51,7 +51,7 @@ export async function POST(req: Request) {
         emailVerified,
         picture: photoURL,
         provider: providerId,
-        authTime: creationTime ? new Date(creationTime) : null,
+        authTime: creationTime ? creationTime : new Date(),
       },
     })
 
