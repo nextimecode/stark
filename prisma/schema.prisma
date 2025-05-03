@@ -11,7 +11,8 @@ datasource db {
  * ---------- User ----------
  */
 model User {
-  id            String    @id @default(uuid())
+  id            Int       @id @default(autoincrement())
+  uid           String    @unique @default(uuid())
   firebaseId    String    @unique
   username      String
   name          String
@@ -35,7 +36,7 @@ model User {
  * ---------- Compatibility Attributes (perfil psicométrico) ----------
  */
 model CompatibilityAttributes {
-  userId   String  @id
+  userId   Int     @id
   mbtiType String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -46,8 +47,8 @@ model CompatibilityAttributes {
  */
 model Invite {
   id          String       @id @default(uuid())
-  senderId    String
-  recipientId String?
+  senderId    Int
+  recipientId Int?
   status      InviteStatus @default(PENDING)
   createdAt   DateTime     @default(now())
   acceptedAt  DateTime?
@@ -63,8 +64,8 @@ model Invite {
  */
 model CompatibilityTest {
   id               String           @id @default(uuid())
-  user1Id          String
-  user2Id          String
+  user1Id          Int
+  user2Id          Int
   relationshipType RelationshipType
   prompt           String // prompt usado para gerar o resultado
   result           Json
