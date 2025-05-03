@@ -38,8 +38,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       className={`${oxanium.variable} ${inter.variable}`}
       data-theme="dark"
     >
-      <body className="bg-white dark:bg-black">
-        <main>{children}</main>
+      <body>
+        <main className="bg-white dark:bg-black text-black dark:text-white">{children}</main>
       </body>
     </html>
   )
