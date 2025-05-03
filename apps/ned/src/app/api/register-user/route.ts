@@ -4,7 +4,7 @@ import { z } from 'zod'
 
 import { prisma } from '@/lib/prisma'
 
-const userSchema = z.object({
+const userRegisterBodySchema = z.object({
   uid: z.string(),
   displayName: z.string().optional(),
   email: z.string().email(),
@@ -14,9 +14,11 @@ const userSchema = z.object({
   creationTime: z.string().optional(),
 })
 
+export type UserRegisterBodySchema = z.infer<typeof userRegisterBodySchema>
+
 export async function POST(req: Request) {
   const body = await req.json()
-  const result = userSchema.safeParse(body)
+  const result = userRegisterBodySchema.safeParse(body)
 
   if (!result.success) {
     return NextResponse.json({ error: 'Dados inválidos' }, { status: 400 })
