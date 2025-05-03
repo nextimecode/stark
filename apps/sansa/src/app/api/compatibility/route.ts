@@ -3,10 +3,10 @@ import { NextResponse } from 'next/server'
 import OpenAI from 'openai'
 import { z } from 'zod'
 import {
+  type UserData,
   familyPrompt,
   friendshipPrompt,
   lovePrompt,
-  UserData,
   workPrompt,
 } from './compatibility-prompts'
 
@@ -123,9 +123,9 @@ export const POST = async (request: Request) => {
       status: 200,
       headers: { 'Access-Control-Allow-Origin': '*' },
     })
-  } catch (error: any) {
+  } catch (error) {
     return NextResponse.json(
-      { error: error.message || 'Erro interno no servidor' },
+      { error: (error as Error).message || 'Erro interno no servidor' },
       { status: 500 }
     )
   }

@@ -7,7 +7,7 @@ import { extendZodWithOpenApi } from 'zod-openapi'
 
 extendZodWithOpenApi(z)
 
-const inviteParamsSchema = z
+export const inviteParamsSchema = z
   .object({
     id: z.string().uuid().openapi({
       description: 'ID do convite',
