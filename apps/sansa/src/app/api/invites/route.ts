@@ -10,13 +10,13 @@ extendZodWithOpenApi(z)
 // Schema para criação de convite
 export const createInviteBodySchema = z
   .object({
-    senderId: z.string().uuid().openapi({
+    senderId: z.number().openapi({
       description: 'ID do usuário que envia o convite',
-      example: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+      example: 1,
     }),
-    recipientId: z.string().uuid().openapi({
+    recipientId: z.number().openapi({
       description: 'ID do usuário que recebe o convite',
-      example: 'f1e2d3c4-b5a6-0987-zyxw-vu654321fedc',
+      example: 2,
     }),
   })
   .openapi({
