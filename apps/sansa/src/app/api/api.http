@@ -1,6 +1,6 @@
 @createBase = http://localhost:8000
 @compatBase = http://localhost:3001
-@userId = 7f297b2a-625c-41d8-8aea-96e6228e35be
+@userId = 1
 
 ### Criar usuário (upsert)
 POST {{createBase}}/api/register-user
@@ -29,5 +29,5 @@ Content-Type: application/json
 Origin: {{compatBase}}
 
 {
-  "mbtiType": "INTJ-A"
+  "mbtiType": "INTJ-F"
 }

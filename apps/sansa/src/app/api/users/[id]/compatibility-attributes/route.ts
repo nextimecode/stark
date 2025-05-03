@@ -9,27 +9,32 @@ import { extendZodWithOpenApi } from 'zod-openapi'
 
 extendZodWithOpenApi(z)
 
-/* ---------- Schemas ---------- */
-const paramsSchema = z
-  .object({
-    id: z.number().openapi({
+const paramsSchema = z.object({
+  id: z
+    .string()
+    .transform(val => {
+      const num = Number(val)
+      if (Number.isNaN(num)) {
+        throw new Error('Invalid user ID')
+      }
+      return num
+    })
+    .openapi({
       description: 'ID do usuário',
-      example: 1,
+      example: '1',
     }),
-  })
-  .openapi({ ref: 'CompatibilityAttributesParams' })
+})
 
 const bodySchema = z
   .object({})
   .passthrough()
   .openapi({ ref: 'CompatibilityAttributesBody' })
 
-/* ---------- Handlers ---------- */
 export async function GET(
   request: NextRequest,
-  context: { params: Promise<{ id: string }> } // params é Promise!
+  context: { params: Promise<{ id: string }> }
 ) {
-  const params = await context.params // <- aguarda
+  const params = await context.params
   const { id } = paramsSchema.parse(params)
   const attrs = await prisma.compatibilityAttributes.findUnique({
     where: { userId: id },
@@ -47,7 +52,7 @@ export async function PUT(
   request: NextRequest,
   context: { params: Promise<{ id: string }> }
 ) {
-  const params = await context.params // <- aguarda
+  const params = await context.params
   const { id } = paramsSchema.parse(params)
   const data = bodySchema.parse(await request.json())
 
