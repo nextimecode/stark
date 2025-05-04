@@ -70,5 +70,5 @@ Origin: {{compatBase}}
 {
   "user1Id": {{userId}},
   "user2Id": {{userId2}},
-  "relationshipType": {{relationshipType}}
+  "relationshipType": "{{relationshipType}}"
 }
