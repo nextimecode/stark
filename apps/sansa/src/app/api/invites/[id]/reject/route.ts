@@ -9,10 +9,17 @@ extendZodWithOpenApi(z)
 
 const inviteParamsSchema = z
   .object({
-    id: z.number().openapi({
-      description: 'ID do convite',
-      example: 1,
-    }),
+    id: z
+      .string()
+      .transform(val => {
+        const num = Number(val)
+        if (Number.isNaN(num)) throw new Error('Invalid invite ID')
+        return num
+      })
+      .openapi({
+        description: 'ID do convite',
+        example: '1',
+      }),
   })
   .openapi({
     ref: 'InviteParams',
@@ -21,10 +28,10 @@ const inviteParamsSchema = z
 
 export const POST = async (
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) => {
   try {
-    const { id } = inviteParamsSchema.parse(params)
+    const { id } = inviteParamsSchema.parse(await params)
 
     const invite = await prisma.invite.update({
       where: { id },
@@ -38,7 +45,12 @@ export const POST = async (
     return response
   } catch (error) {
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Validation failed' },
+      {
+        error:
+          error instanceof Error
+            ? error.message
+            : 'Falha na validação ou na rejeição do convite',
+      },
       { status: 400 }
     )
   }
