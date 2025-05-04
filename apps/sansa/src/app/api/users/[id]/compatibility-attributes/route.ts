@@ -1,4 +1,4 @@
-// src/app/api/users/[id]/compatibility-attributes/route.ts
+// api/users/[id]/compatibility-attributes/route.ts
 
 import { handleOptionsRequest } from '@/lib/handle-options'
 import { prisma } from '@/lib/prisma'

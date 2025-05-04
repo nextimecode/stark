@@ -1,4 +1,4 @@
-// Arquivo: compatibility-prompts.ts
+// api/compatibility/compatibility-prompts.ts
 
 // Define o tipo de relacionamento possível
 export type RelationshipType = 'LOVE' | 'FRIENDSHIP' | 'WORK' | 'FAMILY'

@@ -1,3 +1,5 @@
+// api/users/[id]/route.ts
+
 import { handleOptionsRequest } from '@/lib/handle-options'
 import { prisma } from '@/lib/prisma'
 import { setCorsHeaders } from '@/lib/set-cors-headers'
