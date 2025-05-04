@@ -1,9 +1,9 @@
+import { compatibilityTestSchema } from '@/app/api/compatibility/route'
 import { createDocument } from 'zod-openapi'
-
-import { subscriptionSchema } from '@/app/api/subscriptions/route'
+import { subscriptionSchema } from '../app/api/subscriptions/route'
 
 export const openApiDocument = createDocument({
-  openapi: '3.0.0',
+  openapi: '3.0.3',
   info: {
     title: 'Stark API',
     version: '1.0.0',
@@ -19,12 +19,27 @@ export const openApiDocument = createDocument({
           },
         },
         responses: {
-          201: {
-            description: 'Inscrição criada com sucesso',
+          201: { description: 'Inscrição criada com sucesso' },
+          400: { description: 'Erro de validação' },
+        },
+      },
+    },
+    '/api/compatibility': {
+      post: {
+        requestBody: {
+          content: {
+            'application/json': {
+              schema: compatibilityTestSchema,
+            },
           },
-          400: {
-            description: 'Erro de validação',
+        },
+        responses: {
+          200: {
+            description: 'Teste de compatibilidade realizado com sucesso',
           },
+          400: { description: 'Erro de validação' },
+          404: { description: 'Usuário não encontrado' },
+          500: { description: 'Erro interno no servidor' },
         },
       },
     },

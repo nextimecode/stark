@@ -4,8 +4,8 @@ import { z } from 'zod'
 
 import { prisma } from '@/lib/prisma'
 
-const userSchema = z.object({
-  uid: z.string(),
+const userRegisterBodySchema = z.object({
+  firebaseId: z.string(),
   displayName: z.string().optional(),
   email: z.string().email(),
   emailVerified: z.boolean(),
@@ -14,16 +14,18 @@ const userSchema = z.object({
   creationTime: z.string().optional(),
 })
 
+export type UserRegisterBodySchema = z.infer<typeof userRegisterBodySchema>
+
 export async function POST(req: Request) {
   const body = await req.json()
-  const result = userSchema.safeParse(body)
+  const result = userRegisterBodySchema.safeParse(body)
 
   if (!result.success) {
     return NextResponse.json({ error: 'Dados inválidos' }, { status: 400 })
   }
 
   const {
-    uid,
+    firebaseId,
     displayName,
     email,
     emailVerified,
@@ -34,22 +36,22 @@ export async function POST(req: Request) {
 
   try {
     await prisma.user.upsert({
-      where: { firebaseId: uid },
+      where: { firebaseId },
       update: {
-        authTime: creationTime ? new Date(creationTime) : null,
+        authTime: creationTime ? creationTime : new Date(),
         emailVerified,
         picture: photoURL,
         provider: providerId,
       },
       create: {
-        firebaseId: uid,
+        firebaseId,
         username: '',
         name: displayName || '',
         email,
         emailVerified,
         picture: photoURL,
         provider: providerId,
-        authTime: creationTime ? new Date(creationTime) : null,
+        authTime: creationTime ? creationTime : new Date(),
       },
     })
 

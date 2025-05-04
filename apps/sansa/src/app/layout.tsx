@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 import type { Metadata, Viewport } from 'next'
 import { Inter, Oxanium } from 'next/font/google'
@@ -38,8 +38,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       className={`${oxanium.variable} ${inter.variable}`}
       data-theme="dark"
     >
-      <body className="bg-white dark:bg-black">
-        <main>{children}</main>
+      <body>
+        <main className="bg-white dark:bg-black text-black dark:text-white">
+          {children}
+        </main>
       </body>
     </html>
   )
