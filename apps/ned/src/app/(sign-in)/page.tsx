@@ -23,33 +23,30 @@ export default function SignIn() {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const registerUserOnBackend = async (user: FirebaseUser) => {
-    await fetch('/api/register-user', {
+    const registerRes = await fetch('/api/register-user', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        uid: user.uid,
+        firebaseId: user.uid,
         displayName: user.displayName,
         email: user.email,
         emailVerified: user.emailVerified,
         photoURL: user.photoURL,
         providerId: user.providerId,
       }),
-    })
+    });
+    if (!registerRes.ok) throw new Error('Erro ao registrar usuário.');
 
-    const token = await user.getIdToken()
-
-    const res = await fetch('/api/set-cookie', {
+    const token = await user.getIdToken();
+    const cookieRes = await fetch('/api/set-cookie', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ token }),
-    })
+    });
+    if (!cookieRes.ok) throw new Error('Erro ao configurar o cookie de sessão.');
 
-    if (res.ok) {
-      router.push(env.NEXT_PUBLIC_SANSA_URL)
-    } else {
-      setErrorMessage('Erro ao configurar o cookie de sessão.')
-    }
-  }
+    router.push(env.NEXT_PUBLIC_SANSA_URL);
+  };
 
   const handleGoogleLogin = async () => {
     setIsLoading(true)

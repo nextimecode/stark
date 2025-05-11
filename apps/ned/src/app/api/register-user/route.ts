@@ -9,7 +9,7 @@ const userRegisterBodySchema = z.object({
   displayName: z.string().optional(),
   email: z.string().email(),
   emailVerified: z.boolean(),
-  photoURL: z.string().nullable().optional(),
+  photoURL: z.string().optional(),
   providerId: z.string(),
   creationTime: z.string().optional(),
 })
@@ -56,9 +56,10 @@ export async function POST(req: Request) {
     })
 
     return NextResponse.json({ success: true })
-  } catch (err) {
+  } catch (error) {
+    console.error(error)
     return NextResponse.json(
-      { error: 'Erro ao salvar ou atualizar usuário' },
+      { error: (error as Error).message },
       { status: 500 }
     )
   }
