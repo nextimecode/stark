@@ -4,67 +4,131 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("POSTGRES_PRISMA_URL")
+  url      = env("DATABASE_URL")
+}
+
+model Answer {
+  id         Int      @id @default(autoincrement())
+  uid        String   @unique @default(uuid())
+  questionId Int
+  text       String
+  value      Int
+  createdAt  DateTime @default(now()) @db.Timestamptz(6)
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model Category {
+  id          Int        @id @default(autoincrement())
+  uid         String     @unique @default(uuid())
+  name        String
+  description String?
+  createdAt   DateTime   @default(now()) @db.Timestamptz(6)
+  questions   Question[]
+}
+
+model Comparison {
+  id                 Int      @id @default(autoincrement())
+  uid                String   @unique @default(uuid())
+  testId1            Int
+  testId2            Int
+  compatibilityScore Float
+  details            Json
+  createdAt          DateTime @default(now()) @db.Timestamptz(6)
+  test1              Test     @relation("ComparisonTest1", fields: [testId1], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  test2              Test     @relation("ComparisonTest2", fields: [testId2], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model Invitation {
+  id                 Int                  @id @default(autoincrement())
+  uid                String               @unique @default(uuid())
+  senderId           Int
+  email              String
+  relationshipTypeId Int?
+  status             String               @default("pending")
+  testId             Int?
+  createdAt          DateTime             @default(now()) @db.Timestamptz(6)
+  expiresAt          DateTime             @default(dbgenerated("(now() + '7 days'::interval)")) @db.Timestamptz(6)
+  relationshipType   RelationshipTypeEnum
+  RelationshipType   RelationshipType?    @relation(fields: [relationshipTypeId], references: [id])
+  sender             User                 @relation(fields: [senderId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  test               Test?                @relation(fields: [testId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model QuestionRelation {
+  questionId         Int
+  relationshipTypeId Int?
+  weight             Float                @default(1.0)
+  relationshipType   RelationshipTypeEnum
+  question           Question             @relation(fields: [questionId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  RelationshipType   RelationshipType?    @relation(fields: [relationshipTypeId], references: [id])
+
+  @@id([questionId, relationshipType])
+}
+
+model Question {
+  id         Int                @id @default(autoincrement())
+  uid        String             @unique @default(uuid())
+  categoryId Int
+  text       String
+  weight     Int                @default(1)
+  createdAt  DateTime           @default(now()) @db.Timestamptz(6)
+  answers    Answer[]
+  category   Category           @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  relations  QuestionRelation[]
+}
+
+model RelationshipType {
+  id          Int                @id @default(autoincrement())
+  uid         String             @unique @default(uuid())
+  name        String             @unique
+  description String?
+  createdAt   DateTime           @default(now()) @db.Timestamptz(6)
+  invitations Invitation[]
+  relations   QuestionRelation[]
+  tests       Test[]
+}
+
+model Test {
+  id                 Int              @id @default(autoincrement())
+  uid                String           @unique @default(uuid())
+  userId             Int
+  relationshipTypeId Int
+  results            Json
+  createdAt          DateTime         @default(now()) @db.Timestamptz(6)
+  updatedAt          DateTime         @default(now()) @db.Timestamptz(6)
+  comparisons1       Comparison[]     @relation("ComparisonTest1")
+  comparisons2       Comparison[]     @relation("ComparisonTest2")
+  invitations        Invitation[]
+  relationshipType   RelationshipType @relation(fields: [relationshipTypeId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user               User             @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model User {
-  email                   String                   @unique
-  createdAt               DateTime                 @default(now())
-  updatedAt               DateTime                 @updatedAt
-  authTime                DateTime?
-  emailVerified           Boolean
-  firebaseId              String                   @unique
-  name                    String
-  picture                 String?
-  provider                String
-  username                String
-  uid                     String                   @unique @default(uuid())
   id                      Int                      @id @default(autoincrement())
+  uid                     String                   @unique @default(uuid())
+  firebaseId              String                   @unique
+  username                String?                  @unique
+  name                    String?
+  email                   String                   @unique
+  emailVerified           Boolean                  @default(false)
+  authTime                DateTime?
+  avatarUrl               String?
+  createdAt               DateTime                 @default(now()) @db.Timestamptz(6)
+  updatedAt               DateTime                 @default(now()) @db.Timestamptz(6)
+  displayName             String?
+  photoURL                String?
+  providerId              String
   compatibilityAttributes CompatibilityAttributes?
-  testsInitiated          CompatibilityTest[]      @relation("TestsInitiated")
-  testsReceived           CompatibilityTest[]      @relation("TestsReceived")
-  invitesReceived         Invite[]                 @relation("InvitesReceived")
-  invitesSent             Invite[]                 @relation("InvitesSent")
+  invitations             Invitation[]
+  tests                   Test[]
 }
 
 model CompatibilityAttributes {
-  mbtiType String?
-  userId   Int     @unique
   id       Int     @id @default(autoincrement())
   uid      String  @unique @default(uuid())
+  userId   Int     @unique
+  mbtiType String?
   user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model Invite {
-  status      InviteStatus @default(PENDING)
-  createdAt   DateTime     @default(now())
-  acceptedAt  DateTime?
-  senderId    Int
-  recipientId Int?
-  uid         String       @unique @default(uuid())
-  id          Int          @id @default(autoincrement())
-  recipient   User?        @relation("InvitesReceived", fields: [recipientId], references: [id])
-  sender      User         @relation("InvitesSent", fields: [senderId], references: [id])
-
-  @@index([senderId, recipientId])
-}
-
-model CompatibilityTest {
-  prompt           String
-  result           Json
-  model            String?
-  createdAt        DateTime         @default(now())
-  relationshipType RelationshipType
-  user1Id          Int
-  user2Id          Int
-  uid              String           @unique @default(uuid())
-  id               Int              @id @default(autoincrement())
-  user1            User             @relation("TestsInitiated", fields: [user1Id], references: [id])
-  user2            User             @relation("TestsReceived", fields: [user2Id], references: [id])
-
-  @@unique([user1Id, user2Id, relationshipType, createdAt])
-  @@index([user1Id])
-  @@index([user2Id])
 }
 
 enum InviteStatus {
@@ -74,7 +138,7 @@ enum InviteStatus {
   REJECTED
 }
 
-enum RelationshipType {
+enum RelationshipTypeEnum {
   LOVE
   FRIENDSHIP
   WORK
