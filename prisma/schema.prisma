@@ -71,8 +71,8 @@ model Question {
   weight     Int                @default(1)
   createdAt  DateTime           @default(now()) @db.Timestamptz(6)
   answers    Answer[]
-  category   Category           @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: NoAction)
   relations  QuestionRelation[]
+  category   Category           @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model RelationshipType {
@@ -105,14 +105,14 @@ model User {
   id            Int          @id @default(autoincrement())
   uid           String       @unique @default(uuid())
   firebaseId    String       @unique
+  displayName   String?
   username      String?      @unique
   name          String?
   email         String       @unique
   emailVerified Boolean      @default(false)
-  picture       String?
-  provider      String       @default("email")
+  photoURL      String?
+  providerId    String
   authTime      DateTime?
-  fullName      String?
   avatarUrl     String?
   createdAt     DateTime     @default(now()) @db.Timestamptz(6)
   updatedAt     DateTime     @default(now()) @db.Timestamptz(6)

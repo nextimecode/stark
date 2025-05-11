@@ -1,6 +1,6 @@
 'use client'
 
-import { FormEvent, useState } from 'react'
+import { type FormEvent, useState } from 'react'
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -30,8 +30,7 @@ export default function SignIn() {
         email: user.email,
         emailVerified: user.emailVerified,
         photoURL: user.photoURL,
-        providerId: user.providerId,
-        creationTime: user.metadata?.creationTime,
+        providerId: user.providerId
       }),
     })
 
