@@ -83,11 +83,11 @@ export const POST = async (request: Request) => {
     }
 
     const userData1: UserData = {
-      name: user1.name,
+      name: user1.name ?? '',
       mbti: attrs1.mbtiType ?? '',
     }
     const userData2: UserData = {
-      name: user2.name,
+      name: user2.name ?? '',
       mbti: attrs2.mbtiType ?? '',
     }
 

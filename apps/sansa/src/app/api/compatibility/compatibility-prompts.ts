@@ -1,8 +1,5 @@
 // api/compatibility/compatibility-prompts.ts
 
-// Define o tipo de relacionamento possível
-export type RelationshipType = 'LOVE' | 'FRIENDSHIP' | 'WORK' | 'FAMILY'
-
 // Dados básicos do usuário necessários para a geração do prompt
 export interface UserData {
   name: string
