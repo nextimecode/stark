@@ -18,9 +18,19 @@ export default function SignIn() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const registerUserOnBackend = async (user: any) => {
+  interface User {
+    uid: string;
+    displayName: string;
+    email: string;
+    emailVerified: boolean;
+    photoURL: string;
+    providerId: string;
+    getIdToken: () => Promise<string>;
+  }
+
+  const registerUserOnBackend = async (user: User) => {
     await fetch('/api/register-user', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -30,7 +40,7 @@ export default function SignIn() {
         email: user.email,
         emailVerified: user.emailVerified,
         photoURL: user.photoURL,
-        providerId: user.providerId
+        providerId: user.providerId,
       }),
     })
 
@@ -54,8 +64,17 @@ export default function SignIn() {
 
     const response = await signInWithGoogle()
 
-    if (response.error === null) {
-      await registerUserOnBackend(response.data)
+    if (!response.error) {
+      const userData = {
+        uid: response.data.uid,
+        displayName: response.data.displayName || '',
+        email: response.data.email,
+        emailVerified: response.data.emailVerified,
+        photoURL: response.data.photoURL,
+        providerId: response.data.providerId,
+        getIdToken: response.data.getIdToken || (() => Promise.resolve('')),
+      }
+      await registerUserOnBackend(userData as User)
     } else {
       setErrorMessage(
         response.error.details || 'Falha ao fazer login com o Google.'
@@ -71,8 +90,17 @@ export default function SignIn() {
 
     const response = await signInWithEmailAndPassword(email, password)
 
-    if (response.error === null) {
-      await registerUserOnBackend(response.data)
+    if (!response.error) {
+      const userData = {
+        uid: response.data.uid,
+        displayName: response.data.displayName || '',
+        email: response.data.email,
+        emailVerified: response.data.emailVerified,
+        photoURL: response.data.photoURL,
+        providerId: response.data.providerId,
+        getIdToken: response.data.getIdToken || (() => Promise.resolve('')),
+      }
+      await registerUserOnBackend(userData as User)
     } else {
       setErrorMessage(
         response.error.code === 'auth/wrong-password'
