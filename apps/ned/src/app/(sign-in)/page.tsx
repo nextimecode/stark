@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import { Title } from '@/components'
 import { Logo } from '@/components/logo'
 import { Spinner } from '@/components/ui/spinner'
+import type { User as FirebaseUser } from 'firebase/auth'
 
 import { signInWithEmailAndPassword, signInWithGoogle } from '@/firebase/auth'
 import { GoogleIcon } from '@/icons'
@@ -20,17 +21,7 @@ export default function SignIn() {
   const [errorMessage, setErrorMessage] = useState('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  interface User {
-    uid: string
-    displayName: string
-    email: string
-    emailVerified: boolean
-    photoURL: string
-    providerId: string
-    getIdToken: () => Promise<string>
-  }
-
-  const registerUserOnBackend = async (user: User) => {
+  const registerUserOnBackend = async (user: FirebaseUser) => {
     await fetch('/api/register-user', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -61,20 +52,10 @@ export default function SignIn() {
 
   const handleGoogleLogin = async () => {
     setIsLoading(true)
-
     const response = await signInWithGoogle()
 
     if (!response.error) {
-      const userData = {
-        uid: response.data.uid,
-        displayName: response.data.displayName || '',
-        email: response.data.email,
-        emailVerified: response.data.emailVerified,
-        photoURL: response.data.photoURL,
-        providerId: response.data.providerId,
-        getIdToken: response.data.getIdToken || (() => Promise.resolve('')),
-      }
-      await registerUserOnBackend(userData as User)
+      await registerUserOnBackend(response.data)
     } else {
       setErrorMessage(
         response.error.details || 'Falha ao fazer login com o Google.'
@@ -89,18 +70,8 @@ export default function SignIn() {
     setIsLoading(true)
 
     const response = await signInWithEmailAndPassword(email, password)
-
     if (!response.error) {
-      const userData = {
-        uid: response.data.uid,
-        displayName: response.data.displayName || '',
-        email: response.data.email,
-        emailVerified: response.data.emailVerified,
-        photoURL: response.data.photoURL,
-        providerId: response.data.providerId,
-        getIdToken: response.data.getIdToken || (() => Promise.resolve('')),
-      }
-      await registerUserOnBackend(userData as User)
+      await registerUserOnBackend(response.data)
     } else {
       setErrorMessage(
         response.error.code === 'auth/wrong-password'
@@ -111,6 +82,7 @@ export default function SignIn() {
 
     setIsLoading(false)
   }
+
 
   return (
     <div className="relative min-h-screen flex items-center justify-center">
