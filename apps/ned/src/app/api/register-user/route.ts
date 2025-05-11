@@ -40,17 +40,17 @@ export async function POST(req: Request) {
       update: {
         authTime: creationTime ? creationTime : new Date(),
         emailVerified,
-        picture: photoURL,
-        provider: providerId,
+        photoURL,
+        providerId,
       },
       create: {
         firebaseId,
         username: '',
-        name: displayName || '',
+        displayName,
         email,
         emailVerified,
-        picture: photoURL,
-        provider: providerId,
+        photoURL,
+        providerId,
         authTime: creationTime ? creationTime : new Date(),
       },
     })

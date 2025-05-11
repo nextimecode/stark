@@ -21,13 +21,13 @@ export default function SignIn() {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   interface User {
-    uid: string;
-    displayName: string;
-    email: string;
-    emailVerified: boolean;
-    photoURL: string;
-    providerId: string;
-    getIdToken: () => Promise<string>;
+    uid: string
+    displayName: string
+    email: string
+    emailVerified: boolean
+    photoURL: string
+    providerId: string
+    getIdToken: () => Promise<string>
   }
 
   const registerUserOnBackend = async (user: User) => {
