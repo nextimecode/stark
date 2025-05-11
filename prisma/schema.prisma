@@ -25,12 +25,13 @@ model User {
   id            Int       @id @default(autoincrement())
   uid           String    @unique @default(uuid())
   firebaseId    String    @unique
-  username      String
-  name          String
+  username      String?
+  name          String?
+  displayName   String?
   email         String    @unique
   emailVerified Boolean
-  picture       String?
-  provider      String
+  photoURL      String?
+  providerId    String
   authTime      DateTime?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
