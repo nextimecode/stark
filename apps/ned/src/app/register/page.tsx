@@ -10,7 +10,7 @@ import { Logo, Spinner, Title } from '@/components'
 import { env } from '@/env'
 import { signUpWithEmailAndPassword, signUpWithGoogle } from '@/firebase/auth'
 import { GoogleIcon } from '@/icons'
-import type { User } from 'firebase/auth'
+import type { User as FirebaseUser } from 'firebase/auth'
 import type { UserRegisterBodySchema } from '../api/register-user/route'
 
 export default function Register() {
@@ -21,21 +21,25 @@ export default function Register() {
   const [errorMessage, setErrorMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  const registerUserOnBackend = async (user: User) => {
+  const registerUserOnBackend = async (user: FirebaseUser) => {
     const userPayload: UserRegisterBodySchema = {
       firebaseId: user.uid,
-      displayName: user.displayName ?? undefined,
+      displayName: user.displayName ?? '',
       email: user.email ?? '',
       emailVerified: user.emailVerified,
-      photoURL: user.photoURL ?? undefined,
-      providerId: user.providerId,
-      creationTime: user.metadata?.creationTime,
+      photoURL: user.photoURL ?? '',
+      providerId: user.providerData[0].providerId,
+      phoneNumber: user.phoneNumber ?? '',
+      firebaseMetadata: {
+        creationTime: user.metadata?.creationTime ?? '',
+        lastSignInTime: user.metadata?.lastSignInTime ?? ''
+      },
     }
 
     await fetch('/api/register-user', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userPayload),
+      body: JSON.stringify(userPayload)
     })
 
     const token = await user.getIdToken()

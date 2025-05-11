@@ -16,8 +16,6 @@ const userRegisterBodySchema = z.object({
     .object({
       creationTime: z.string(),
       lastSignInTime: z.string(),
-      lastLoginAt: z.string(),
-      lastRefreshAt: z.string(),
     })
     .optional(),
 })

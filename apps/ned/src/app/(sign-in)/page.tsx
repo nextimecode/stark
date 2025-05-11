@@ -13,6 +13,7 @@ import type { User as FirebaseUser } from 'firebase/auth'
 
 import { signInWithEmailAndPassword, signInWithGoogle } from '@/firebase/auth'
 import { GoogleIcon } from '@/icons'
+import type { UserRegisterBodySchema } from '../api/register-user/route'
 
 export default function SignIn() {
   const router = useRouter()
@@ -23,19 +24,24 @@ export default function SignIn() {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const registerUserOnBackend = async (user: FirebaseUser) => {
+    const userPayload: UserRegisterBodySchema = {
+      firebaseId: user.uid,
+      displayName: user.displayName ?? '',
+      email: user.email ?? '',
+      emailVerified: user.emailVerified,
+      photoURL: user.photoURL ?? '',
+      providerId: user.providerData[0].providerId,
+      phoneNumber: user.phoneNumber ?? '',
+      firebaseMetadata: {
+        creationTime: user.metadata?.creationTime ?? '',
+        lastSignInTime: user.metadata?.lastSignInTime ?? ''
+      },
+    }
+
     const registerRes = await fetch('/api/register-user', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        firebaseId: user.uid,
-        displayName: user.displayName,
-        email: user.email,
-        emailVerified: user.emailVerified,
-        photoURL: user.photoURL,
-        providerId: user.providerData[0].providerId,
-        phoneNumber: user.phoneNumber,
-        firebaseMetadata: user.metadata
-      }),
+      body: JSON.stringify(userPayload)
     })
     if (!registerRes.ok) throw new Error('Erro ao registrar usuário.')
 
