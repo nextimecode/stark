@@ -11,7 +11,15 @@ const userRegisterBodySchema = z.object({
   emailVerified: z.boolean(),
   photoURL: z.string().optional(),
   providerId: z.string(),
-  creationTime: z.string().optional(),
+  phoneNumber: z.string().optional(),
+  firebaseMetadata: z
+    .object({
+      creationTime: z.string(),
+      lastSignInTime: z.string(),
+      lastLoginAt: z.string(),
+      lastRefreshAt: z.string(),
+    })
+    .optional(),
 })
 
 export type UserRegisterBodySchema = z.infer<typeof userRegisterBodySchema>
@@ -31,17 +39,19 @@ export async function POST(req: Request) {
     emailVerified,
     photoURL,
     providerId,
-    creationTime,
+    phoneNumber,
+    firebaseMetadata,
   } = result.data
 
   try {
     await prisma.user.upsert({
       where: { firebaseId },
       update: {
-        authTime: creationTime ? creationTime : new Date(),
         emailVerified,
         photoURL,
         providerId,
+        phoneNumber,
+        firebaseMetadata,
       },
       create: {
         firebaseId,
@@ -51,7 +61,8 @@ export async function POST(req: Request) {
         emailVerified,
         photoURL,
         providerId,
-        authTime: creationTime ? creationTime : new Date(),
+        phoneNumber,
+        firebaseMetadata,
       },
     })
 

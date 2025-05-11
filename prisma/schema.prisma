@@ -22,19 +22,20 @@ enum RelationshipType {
 }
 
 model User {
-  id            Int       @id @default(autoincrement())
-  uid           String    @unique @default(uuid())
-  firebaseId    String    @unique
-  username      String?
-  name          String?
-  displayName   String?
-  email         String    @unique
-  emailVerified Boolean
-  photoURL      String?
-  providerId    String
-  authTime      DateTime?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id               Int      @id @default(autoincrement())
+  uid              String   @unique @default(uuid())
+  firebaseId       String   @unique
+  username         String?
+  name             String?
+  displayName      String?
+  email            String   @unique
+  emailVerified    Boolean
+  photoURL         String?
+  providerId       String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  phoneNumber      String?
+  firebaseMetadata Json?
 
   compatibilityAttributes CompatibilityAttributes?
 

@@ -42,6 +42,8 @@ export async function signInWithGoogle(): Promise<UseCaseResponse<User>> {
 
   try {
     const result = await signInWithPopup(auth, provider)
+    console.log('result', result)
+    console.log('result.user', result.user)
     return success(result.user)
   } catch (error) {
     const firebaseError = error as FirebaseError

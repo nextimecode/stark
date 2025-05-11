@@ -32,28 +32,31 @@ export default function SignIn() {
         email: user.email,
         emailVerified: user.emailVerified,
         photoURL: user.photoURL,
-        providerId: user.providerId,
+        providerId: user.providerData[0].providerId,
+        phoneNumber: user.phoneNumber,
+        firebaseMetadata: user.metadata
       }),
-    });
-    if (!registerRes.ok) throw new Error('Erro ao registrar usuário.');
+    })
+    if (!registerRes.ok) throw new Error('Erro ao registrar usuário.')
 
-    const token = await user.getIdToken();
+    const token = await user.getIdToken()
     const cookieRes = await fetch('/api/set-cookie', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ token }),
-    });
-    if (!cookieRes.ok) throw new Error('Erro ao configurar o cookie de sessão.');
+    })
+    if (!cookieRes.ok) throw new Error('Erro ao configurar o cookie de sessão.')
 
-    router.push(env.NEXT_PUBLIC_SANSA_URL);
-  };
+    router.push(env.NEXT_PUBLIC_SANSA_URL)
+  }
 
   const handleGoogleLogin = async () => {
     setIsLoading(true)
     const response = await signInWithGoogle()
 
     if (!response.error) {
-      await registerUserOnBackend(response.data)
+      console.log('response.data', response.data)
+      // await registerUserOnBackend(response.data)
     } else {
       setErrorMessage(
         response.error.details || 'Falha ao fazer login com o Google.'
