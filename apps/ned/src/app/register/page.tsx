@@ -32,14 +32,14 @@ export default function Register() {
       phoneNumber: user.phoneNumber ?? '',
       firebaseMetadata: {
         creationTime: user.metadata?.creationTime ?? '',
-        lastSignInTime: user.metadata?.lastSignInTime ?? ''
+        lastSignInTime: user.metadata?.lastSignInTime ?? '',
       },
     }
 
     await fetch('/api/register-user', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userPayload)
+      body: JSON.stringify(userPayload),
     })
 
     const token = await user.getIdToken()

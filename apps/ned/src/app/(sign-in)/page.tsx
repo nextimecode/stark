@@ -34,14 +34,14 @@ export default function SignIn() {
       phoneNumber: user.phoneNumber ?? '',
       firebaseMetadata: {
         creationTime: user.metadata?.creationTime ?? '',
-        lastSignInTime: user.metadata?.lastSignInTime ?? ''
+        lastSignInTime: user.metadata?.lastSignInTime ?? '',
       },
     }
 
     const registerRes = await fetch('/api/register-user', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userPayload)
+      body: JSON.stringify(userPayload),
     })
     if (!registerRes.ok) throw new Error('Erro ao registrar usuário.')
 
@@ -61,8 +61,7 @@ export default function SignIn() {
     const response = await signInWithGoogle()
 
     if (!response.error) {
-      console.log('response.data', response.data)
-      // await registerUserOnBackend(response.data)
+      await registerUserOnBackend(response.data)
     } else {
       setErrorMessage(
         response.error.details || 'Falha ao fazer login com o Google.'
