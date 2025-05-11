@@ -2,6 +2,7 @@
 
 import { type FormEvent, useState } from 'react'
 
+import { env } from '@/env'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
@@ -44,7 +45,7 @@ export default function SignIn() {
     })
 
     if (res.ok) {
-      router.push('/')
+      router.push(env.NEXT_PUBLIC_SANSA_URL)
     } else {
       setErrorMessage('Erro ao configurar o cookie de sessão.')
     }
@@ -82,7 +83,6 @@ export default function SignIn() {
 
     setIsLoading(false)
   }
-
 
   return (
     <div className="relative min-h-screen flex items-center justify-center">
