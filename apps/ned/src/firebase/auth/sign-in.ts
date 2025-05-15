@@ -4,12 +4,12 @@
 
 export const dynamic = 'force-dynamic'
 
-import { FirebaseError } from 'firebase/app'
+import type { FirebaseError } from 'firebase/app'
 import {
   GoogleAuthProvider,
+  type User,
   signInWithEmailAndPassword as firebaseSignInWithEmailAndPassword,
   signInWithPopup,
-  type User,
 } from 'firebase/auth'
 
 import { FirebaseAuthError } from '@/core/errors/erros/firebase-auth-error'
@@ -28,8 +28,8 @@ export async function signInWithEmailAndPassword(
       password
     )
     return success(userCredential.user)
-  } catch (err: any) {
-    const firebaseError = err as FirebaseError
+  } catch (error) {
+    const firebaseError = error as FirebaseError
     return failure(new FirebaseAuthError(firebaseError), {
       status: 401,
       statusText: 'Erro ao autenticar com e-mail',
@@ -43,8 +43,8 @@ export async function signInWithGoogle(): Promise<UseCaseResponse<User>> {
   try {
     const result = await signInWithPopup(auth, provider)
     return success(result.user)
-  } catch (err: any) {
-    const firebaseError = err as FirebaseError
+  } catch (error) {
+    const firebaseError = error as FirebaseError
     return failure(new FirebaseAuthError(firebaseError), {
       status: 401,
       statusText: 'Erro ao autenticar com Google',

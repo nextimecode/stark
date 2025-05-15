@@ -1,8 +1,8 @@
-import { FirebaseError } from 'firebase/app'
+import type { FirebaseError } from 'firebase/app'
 import type { User } from 'firebase/auth'
 import {
-  createUserWithEmailAndPassword,
   GoogleAuthProvider,
+  createUserWithEmailAndPassword,
   signInWithPopup,
 } from 'firebase/auth'
 
@@ -22,8 +22,8 @@ export async function signUpWithEmailAndPassword(
       password
     )
     return success(userCredential.user)
-  } catch (err: any) {
-    const firebaseError = err as FirebaseError
+  } catch (error) {
+    const firebaseError = error as FirebaseError
     return failure(new FirebaseAuthError(firebaseError), {
       status: 400,
       statusText: 'Erro ao registrar com e-mail',
@@ -37,8 +37,8 @@ export async function signUpWithGoogle(): Promise<UseCaseResponse<User>> {
   try {
     const result = await signInWithPopup(auth, provider)
     return success(result.user)
-  } catch (err: any) {
-    const firebaseError = err as FirebaseError
+  } catch (error) {
+    const firebaseError = error as FirebaseError
     return failure(new FirebaseAuthError(firebaseError), {
       status: 400,
       statusText: 'Erro ao registrar com Google',

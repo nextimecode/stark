@@ -4,115 +4,86 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("POSTGRES_URL_NON_POOLING")
+  url      = env("DATABASE_URL")
+}
+
+enum InviteStatus {
+  PENDING
+  ACCEPTED
+  EXPIRED
+  REJECTED
+}
+
+enum RelationshipType {
+  LOVE
+  FRIENDSHIP
+  WORK
+  FAMILY
 }
 
 model User {
-  id            Int       @id @default(autoincrement())
-  uid           String    @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  firebaseId    String    @unique @map("firebase_id")
-  username      String
-  name          String
-  email         String    @unique
-  emailVerified Boolean   @map("email_verified")
-  picture       String?
-  provider      String
-  authTime      DateTime? @map("auth_time")
-  createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime  @default(now()) @map("updated_at")
+  id               Int      @id @default(autoincrement())
+  uid              String   @unique @default(uuid())
+  firebaseId       String   @unique
+  username         String?
+  name             String?
+  displayName      String?
+  email            String   @unique
+  emailVerified    Boolean
+  photoURL         String?
+  providerId       String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  phoneNumber      String?
+  firebaseMetadata Json?
 
-  answers       Answer[]
-  comments      Comment[]
-  notifications Notification[]
-  questions     Question[]
+  compatibilityAttributes CompatibilityAttributes?
 
-  @@map("users")
+  invitesSent     Invite[]            @relation("InvitesSent")
+  invitesReceived Invite[]            @relation("InvitesReceived")
+  testsInitiated  CompatibilityTest[] @relation("TestsInitiated")
+  testsReceived   CompatibilityTest[] @relation("TestsReceived")
 }
 
-model Question {
-  id           Int       @id @default(autoincrement())
-  uid          String    @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  title        String
-  slug         String    @unique
-  content      String
-  createdAt    DateTime  @default(now()) @map("created_at")
-  updatedAt    DateTime? @map("updated_at")
-  authorId     Int       @map("author_id")
-  bestAnswerId Int?      @unique @map("best_answer_id")
+model CompatibilityAttributes {
+  id       Int     @id @default(autoincrement())
+  uid      String  @unique @default(uuid())
+  userId   Int     @unique
+  mbtiType String?
 
-  author      User         @relation(fields: [authorId], references: [id])
-  bestAnswer  Answer?      @relation("BestAnswer", fields: [bestAnswerId], references: [id])
-  answers     Answer[]
-  attachments Attachment[]
-  comments    Comment[]
-
-  @@map("questions")
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model Answer {
-  id         Int       @id @default(autoincrement())
-  uid        String    @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  content    String
-  createdAt  DateTime  @default(now()) @map("created_at")
-  updatedAt  DateTime? @map("updated_at")
-  authorId   Int       @map("author_id")
-  questionId Int       @map("question_id")
+model Invite {
+  id          Int          @id @default(autoincrement())
+  uid         String       @unique @default(uuid())
+  senderId    Int
+  recipientId Int?
+  status      InviteStatus @default(PENDING)
+  createdAt   DateTime     @default(now())
+  acceptedAt  DateTime?
 
-  author       User         @relation(fields: [authorId], references: [id])
-  question     Question     @relation(fields: [questionId], references: [id])
-  chosenAsBest Question?    @relation("BestAnswer")
-  attachments  Attachment[]
-  comments     Comment[]
+  sender    User  @relation("InvitesSent", fields: [senderId], references: [id])
+  recipient User? @relation("InvitesReceived", fields: [recipientId], references: [id])
 
-  @@map("answers")
+  @@index([senderId, recipientId])
 }
 
-model Attachment {
-  id         Int    @id @default(autoincrement())
-  uid        String @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  title      String
-  url        String
-  questionId Int?   @map("question_id")
-  answerId   Int?   @map("answer_id")
+model CompatibilityTest {
+  id               Int              @id @default(autoincrement())
+  uid              String           @unique @default(uuid())
+  user1Id          Int
+  user2Id          Int
+  relationshipType RelationshipType
+  prompt           String
+  result           Json
+  model            String?
+  createdAt        DateTime         @default(now())
 
-  question Question? @relation(fields: [questionId], references: [id])
-  answer   Answer?   @relation(fields: [answerId], references: [id])
+  user1 User @relation("TestsInitiated", fields: [user1Id], references: [id])
+  user2 User @relation("TestsReceived", fields: [user2Id], references: [id])
 
-  @@map("attachments")
-}
-
-model Comment {
-  id         Int       @id @default(autoincrement())
-  uid        String    @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  content    String
-  authorId   Int       @map("author_id")
-  questionId Int?      @map("question_id")
-  answerId   Int?      @map("answer_id")
-  createdAt  DateTime  @default(now()) @map("created_at")
-  updatedAt  DateTime? @map("updated_at")
-
-  author   User      @relation(fields: [authorId], references: [id])
-  question Question? @relation(fields: [questionId], references: [id])
-  answer   Answer?   @relation(fields: [answerId], references: [id])
-
-  @@map("comments")
-}
-
-model Notification {
-  id          Int       @id @default(autoincrement())
-  uid         String    @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  recipientId Int       @map("recipient_id")
-  title       String
-  content     String
-  readAt      DateTime? @map("read_at")
-  createdAt   DateTime  @default(now()) @map("created_at")
-
-  recipient User @relation(fields: [recipientId], references: [id])
-
-  @@map("notifications")
-}
-
-enum UserRole {
-  STUDENT
-  INSTRUCTOR
+  @@unique([user1Id, user2Id, createdAt])
+  @@index([user1Id])
+  @@index([user2Id])
 }

@@ -1,16 +1,19 @@
 'use client'
 
-import { FormEvent, useState } from 'react'
+import { type FormEvent, useState } from 'react'
 
+import { env } from '@/env'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 import { Title } from '@/components'
 import { Logo } from '@/components/logo'
 import { Spinner } from '@/components/ui/spinner'
+import type { User as FirebaseUser } from 'firebase/auth'
 
 import { signInWithEmailAndPassword, signInWithGoogle } from '@/firebase/auth'
 import { GoogleIcon } from '@/icons'
+import type { UserRegisterBodySchema } from '../api/register-user/route'
 
 export default function SignIn() {
   const router = useRouter()
@@ -18,44 +21,46 @@ export default function SignIn() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const registerUserOnBackend = async (user: any) => {
-    await fetch('/api/register-user', {
+  const registerUserOnBackend = async (user: FirebaseUser) => {
+    const userPayload: UserRegisterBodySchema = {
+      firebaseId: user.uid,
+      displayName: user.displayName ?? '',
+      email: user.email ?? '',
+      emailVerified: user.emailVerified,
+      photoURL: user.photoURL ?? '',
+      providerId: user.providerData[0].providerId,
+      phoneNumber: user.phoneNumber ?? '',
+      firebaseMetadata: {
+        creationTime: user.metadata?.creationTime ?? '',
+        lastSignInTime: user.metadata?.lastSignInTime ?? '',
+      },
+    }
+
+    const registerRes = await fetch('/api/register-user', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        uid: user.uid,
-        displayName: user.displayName,
-        email: user.email,
-        emailVerified: user.emailVerified,
-        photoURL: user.photoURL,
-        providerId: user.providerId,
-        creationTime: user.metadata?.creationTime,
-      }),
+      body: JSON.stringify(userPayload),
     })
+    if (!registerRes.ok) throw new Error('Erro ao registrar usuário.')
 
     const token = await user.getIdToken()
-
-    const res = await fetch('/api/set-cookie', {
+    const cookieRes = await fetch('/api/set-cookie', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ token }),
     })
+    if (!cookieRes.ok) throw new Error('Erro ao configurar o cookie de sessão.')
 
-    if (res.ok) {
-      router.push('/')
-    } else {
-      setErrorMessage('Erro ao configurar o cookie de sessão.')
-    }
+    router.push(env.NEXT_PUBLIC_SANSA_URL)
   }
 
   const handleGoogleLogin = async () => {
     setIsLoading(true)
-
     const response = await signInWithGoogle()
 
-    if (response.error === null) {
+    if (!response.error) {
       await registerUserOnBackend(response.data)
     } else {
       setErrorMessage(
@@ -71,8 +76,7 @@ export default function SignIn() {
     setIsLoading(true)
 
     const response = await signInWithEmailAndPassword(email, password)
-
-    if (response.error === null) {
+    if (!response.error) {
       await registerUserOnBackend(response.data)
     } else {
       setErrorMessage(

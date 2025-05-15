@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "rm -rf .next && next dev --port 8000 --turbopack",
     "clean": "rm -rf .turbo .next .vercel dist node_modules pnpm-lock.yaml playwright-report test-results",
-    "build": "prisma generate --schema ../../prisma/schema.prisma && next build",
+    "build": "next build",
     "start": "next start --port 8000",
     "lint": "biome format --write",
     "e2e": "pnpm exec playwright test",

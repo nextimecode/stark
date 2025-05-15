@@ -1,10 +1,11 @@
 'use client'
 
+import type { OpenAPIObject } from 'openapi3-ts/oas31'
 import SwaggerUI from 'swagger-ui-react'
 import 'swagger-ui-react/swagger-ui.css'
 
 export interface ReactSwaggerProps {
-  spec: Record<string, any>
+  spec: OpenAPIObject
 }
 
 export function ReactSwagger({ spec }: ReactSwaggerProps) {
