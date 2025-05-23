@@ -1,10 +1,13 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["tsconfig.json", "pnpm-lock.yaml"],
+  "globalDependencies": ["tsconfig.json", "pnpm-lock.yaml", "prisma/schema.prisma"],
   "globalEnv": ["GITHUB_TOKEN"],
   "tasks": {
+    "prisma": {
+      "outputs": ["node_modules/.prisma/**", "node_modules/@prisma/client/**"]
+    },
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["prisma", "^build"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**", "types/**"],
       "env": ["FIREBASE_ADMIN_SERVICE_ACCOUNT"]
     },

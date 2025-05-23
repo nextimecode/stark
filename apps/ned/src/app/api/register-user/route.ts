@@ -4,59 +4,71 @@ import { z } from 'zod'
 
 import { prisma } from '@/lib/prisma'
 
-const userSchema = z.object({
-  uid: z.string(),
+const userRegisterBodySchema = z.object({
+  firebaseId: z.string(),
   displayName: z.string().optional(),
   email: z.string().email(),
   emailVerified: z.boolean(),
-  photoURL: z.string().nullable().optional(),
+  photoURL: z.string().optional(),
   providerId: z.string(),
-  creationTime: z.string().optional(),
+  phoneNumber: z.string().optional(),
+  firebaseMetadata: z
+    .object({
+      creationTime: z.string(),
+      lastSignInTime: z.string(),
+    })
+    .optional(),
 })
+
+export type UserRegisterBodySchema = z.infer<typeof userRegisterBodySchema>
 
 export async function POST(req: Request) {
   const body = await req.json()
-  const result = userSchema.safeParse(body)
+  const result = userRegisterBodySchema.safeParse(body)
 
   if (!result.success) {
     return NextResponse.json({ error: 'Dados inválidos' }, { status: 400 })
   }
 
   const {
-    uid,
+    firebaseId,
     displayName,
     email,
     emailVerified,
     photoURL,
     providerId,
-    creationTime,
+    phoneNumber,
+    firebaseMetadata,
   } = result.data
 
   try {
     await prisma.user.upsert({
-      where: { firebaseId: uid },
+      where: { firebaseId },
       update: {
-        authTime: creationTime ? new Date(creationTime) : null,
         emailVerified,
-        picture: photoURL,
-        provider: providerId,
+        photoURL,
+        providerId,
+        phoneNumber,
+        firebaseMetadata,
       },
       create: {
-        firebaseId: uid,
+        firebaseId,
         username: '',
-        name: displayName || '',
+        displayName,
         email,
         emailVerified,
-        picture: photoURL,
-        provider: providerId,
-        authTime: creationTime ? new Date(creationTime) : null,
+        photoURL,
+        providerId,
+        phoneNumber,
+        firebaseMetadata,
       },
     })
 
     return NextResponse.json({ success: true })
-  } catch (err) {
+  } catch (error) {
+    console.error(error)
     return NextResponse.json(
-      { error: 'Erro ao salvar ou atualizar usuário' },
+      { error: (error as Error).message },
       { status: 500 }
     )
   }

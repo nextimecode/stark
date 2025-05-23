@@ -1,0 +1,74 @@
+@createBase = http://localhost:8000
+@compatBase = http://localhost:3001
+@userId = 1
+@userId2 = 2
+@senderId = 1
+@recipientId = 2
+@inviteId   = 1
+@relationshipType = FRIENDSHIP
+
+
+### Criar usuário (upsert)
+POST {{createBase}}/api/register-user
+Content-Type: application/json
+
+{
+  "firebaseId": "test-uid-123",
+  "displayName": "Pedro Silva",
+  "email": "pedro.silva@example.com",
+  "emailVerified": true,
+  "photoURL": "https://example.com/avatar.jpg",
+  "providerId": "google.com"
+}
+
+### Obter atributos de compatibilidade (GET)
+GET {{compatBase}}/api/users/{{userId}}/compatibility-attributes
+Origin: {{compatBase}}
+
+### Atualizar/Inserir atributos de compatibilidade (PUT)
+PUT {{compatBase}}/api/users/{{userId}}/compatibility-attributes
+Content-Type: application/json
+Origin: {{compatBase}}
+
+{
+  "mbtiType": "ENTJ-A"
+}
+
+### Atualizar/Inserir atributos de compatibilidade (PUT)
+PUT {{compatBase}}/api/users/{{userId2}}/compatibility-attributes
+Content-Type: application/json
+Origin: {{compatBase}}
+
+{
+  "mbtiType": "ISFJ-A"
+}
+
+### Listar convites (GET)
+GET {{compatBase}}/api/invites
+Origin: {{compatBase}}
+
+### Criar convite (POST)
+POST {{compatBase}}/api/invites
+Content-Type: application/json
+Origin: {{compatBase}}
+
+{
+  "senderId": {{senderId}},
+  "recipientId": {{recipientId}}
+}
+
+
+### Aceitar convite (POST)
+POST {{compatBase}}/api/invites/{{inviteId}}/accept
+Origin: {{compatBase}}
+
+### Criar teste de compatibilidade (POST)
+POST {{compatBase}}/api/compatibility
+Content-Type: application/json
+Origin: {{compatBase}}
+
+{
+  "user1Id": {{userId}},
+  "user2Id": {{userId2}},
+  "relationshipType": "{{relationshipType}}"
+}

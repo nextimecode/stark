@@ -1,14 +1,17 @@
 'use client'
 
-import { FormEvent, useState } from 'react'
+import { type FormEvent, useState } from 'react'
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 import { Logo, Spinner, Title } from '@/components'
 
+import { env } from '@/env'
 import { signUpWithEmailAndPassword, signUpWithGoogle } from '@/firebase/auth'
 import { GoogleIcon } from '@/icons'
+import type { User as FirebaseUser } from 'firebase/auth'
+import type { UserRegisterBodySchema } from '../api/register-user/route'
 
 export default function Register() {
   const router = useRouter()
@@ -18,19 +21,25 @@ export default function Register() {
   const [errorMessage, setErrorMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  const registerUserOnBackend = async (user: any) => {
+  const registerUserOnBackend = async (user: FirebaseUser) => {
+    const userPayload: UserRegisterBodySchema = {
+      firebaseId: user.uid,
+      displayName: user.displayName ?? '',
+      email: user.email ?? '',
+      emailVerified: user.emailVerified,
+      photoURL: user.photoURL ?? '',
+      providerId: user.providerData[0].providerId,
+      phoneNumber: user.phoneNumber ?? '',
+      firebaseMetadata: {
+        creationTime: user.metadata?.creationTime ?? '',
+        lastSignInTime: user.metadata?.lastSignInTime ?? '',
+      },
+    }
+
     await fetch('/api/register-user', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        uid: user.uid,
-        displayName: user.displayName,
-        email: user.email,
-        emailVerified: user.emailVerified,
-        photoURL: user.photoURL,
-        providerId: user.providerId,
-        creationTime: user.metadata?.creationTime,
-      }),
+      body: JSON.stringify(userPayload),
     })
 
     const token = await user.getIdToken()
@@ -42,7 +51,7 @@ export default function Register() {
     })
 
     if (res.ok) {
-      router.push('/')
+      router.push(env.NEXT_PUBLIC_SANSA_URL)
     } else {
       setErrorMessage('Erro ao configurar o cookie de sessão.')
     }
