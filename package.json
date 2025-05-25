@@ -1,6 +1,6 @@
 {
   "name": "stark",
-  "version": "0.0.0-development",
+  "version": "1.14.0",
   "packageManager": "pnpm@10.11.0",
   "engines": {
     "node": "22.x"
