@@ -58,7 +58,9 @@ export default function DashboardClient({ user }: DashboardClientProps) {
 
     try {
       await sendEmailVerification(currentUser)
-      alert('E-mail de confirmação enviado com sucesso! Verifique sua caixa de entrada.')
+      alert(
+        'E-mail de confirmação enviado com sucesso! Verifique sua caixa de entrada.'
+      )
     } catch (error) {
       console.error('Erro ao enviar confirmação de e-mail:', error)
       alert('Falha ao enviar e-mail de confirmação. Tente novamente.')
@@ -101,7 +103,9 @@ export default function DashboardClient({ user }: DashboardClientProps) {
   return (
     <main>
       <h1 className="dark:text-white">{user.email}</h1>
-      {user.emailVerified && <h1 className="dark:text-white">E-mail verificado</h1>}
+      {user.emailVerified && (
+        <h1 className="dark:text-white">E-mail verificado</h1>
+      )}
 
       <Button
         type="button"

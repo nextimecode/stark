@@ -15,10 +15,14 @@ export default async function DashboardPage() {
 
   try {
     // TS infere o retorno de verifySessionCookie, mas vamos explicitar:
-    const decodedToken: DecodedIdToken =
-      await admin.auth().verifySessionCookie(token)
+    const decodedToken: DecodedIdToken = await admin
+      .auth()
+      .verifySessionCookie(token)
 
-    if (!decodedToken.email || typeof decodedToken.email_verified !== 'boolean') {
+    if (
+      !decodedToken.email ||
+      typeof decodedToken.email_verified !== 'boolean'
+    ) {
       return <p>Erro: dados do usuário inválidos</p>
     }
 
