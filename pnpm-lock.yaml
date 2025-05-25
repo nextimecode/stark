@@ -295,7 +295,11 @@ importers:
 
   apps/ned: {}
 
-  apps/sansa: {}
+  apps/sansa:
+    dependencies:
+      '@nextime/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
 
   packages/auth: {}
 
