@@ -1,21 +1,30 @@
+import { env } from '@/env'
+import { admin } from '@/firebase/admin'
 // app/api/set-cookie/route.ts
-
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
-import { env } from '@/env'
-import { admin } from '@/firebase/admin'
-
-const ALLOWED_ORIGINS = [
+const STATIC_ORIGINS = [
   env.NEXT_PUBLIC_ARYA_URL,
   env.NEXT_PUBLIC_BRAN_URL,
   env.NEXT_PUBLIC_SANSA_URL,
   env.NEXT_PUBLIC_NED_URL,
 ].filter(Boolean)
 
+function isVercelPreview(origin: string) {
+  try {
+    return new URL(origin).hostname.endsWith('.vercel.app')
+  } catch {
+    return false
+  }
+}
+
 function applyCors(req: NextRequest, res: NextResponse) {
   const origin = req.headers.get('origin')
-  if (origin && ALLOWED_ORIGINS.includes(origin)) {
+  if (
+    origin && // sem `!`
+    (STATIC_ORIGINS.includes(origin) || isVercelPreview(origin))
+  ) {
     res.headers.set('Access-Control-Allow-Origin', origin)
     res.headers.set('Access-Control-Allow-Methods', 'OPTIONS, GET, POST')
     res.headers.set('Access-Control-Allow-Headers', 'Content-Type')
@@ -31,9 +40,7 @@ export function OPTIONS(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const { token } = await req.json()
-
     const expiresIn = 14 * 24 * 60 * 60 * 1000
-
     const sessionCookie = await admin
       .auth()
       .createSessionCookie(token, { expiresIn })

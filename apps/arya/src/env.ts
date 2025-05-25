@@ -2,46 +2,50 @@
 import { createEnv } from '@t3-oss/env-nextjs'
 import { z } from 'zod'
 
-// Host gerado pela Vercel em preview/prod (ex: "ned-git-xyz.vercel.app")
+// Host gerado pela Vercel em preview ou production (ex: "ned-git-xyz.vercel.app")
 const vercelHost = process.env.VERCEL_URL
 
-// Raw de .env / .env.local / painel Vercel
-// Note que FIREBASE_ADMIN_SERVICE_ACCOUNT só existe no server
-const rawFirebaseSA = process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT ?? ''
+// Variáveis fixas definidas em .env/.env.local ou no painel Vercel (produção)
+const rawFirebaseSA = process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT
 const rawArya = process.env.NEXT_PUBLIC_ARYA_URL
 const rawBran = process.env.NEXT_PUBLIC_BRAN_URL
 const rawSansa = process.env.NEXT_PUBLIC_SANSA_URL
 const rawNed = process.env.NEXT_PUBLIC_NED_URL
 
-// --- validações SERVER-ONLY ---
+// --- validações SERVER-ONLY (evita break no client/browser) ---
 if (typeof window === 'undefined') {
   if (!rawFirebaseSA) {
     throw new Error('🛑 ENV VAR missing: FIREBASE_ADMIN_SERVICE_ACCOUNT')
   }
 }
 
-// --- funções de fallback de preview ---
+// --- monta URLs de preview dinamicamente (só para branches de preview) ---
 function derivePreviewUrl(
   service: 'arya' | 'bran' | 'sansa' | 'ned'
 ): string | undefined {
   if (!vercelHost) return
-  const prefix = `${service}-`
-  if (vercelHost.startsWith(prefix)) {
+  // preview hosts são no formato "<service>-<branch>.vercel.app"
+  if (vercelHost.startsWith(`${service}-`)) {
     return `https://${vercelHost}`
   }
 }
 
+// --- escolhe URL de preview (quando houver) ou a base definida ---
 function pickUrl(
   service: 'arya' | 'bran' | 'sansa' | 'ned',
   base?: string
 ): string {
   const preview = derivePreviewUrl(service)
-  if (preview) return preview
-  if (base) return base
-  throw new Error(`🛑 Missing URL for ${service}.`)
+  return (
+    preview ??
+    base ??
+    (() => {
+      throw new Error(`🛑 Missing URL for ${service}`)
+    })()
+  )
 }
 
-// --- single source of truth para env validadas ---
+// --- objeto final para createEnv ---
 export const env = createEnv({
   server: {
     FIREBASE_ADMIN_SERVICE_ACCOUNT: z.string(),
@@ -53,7 +57,7 @@ export const env = createEnv({
     NEXT_PUBLIC_NED_URL: z.string(),
   },
   runtimeEnv: {
-    FIREBASE_ADMIN_SERVICE_ACCOUNT: rawFirebaseSA,
+    FIREBASE_ADMIN_SERVICE_ACCOUNT: rawFirebaseSA ?? '',
     NEXT_PUBLIC_ARYA_URL: pickUrl('arya', rawArya),
     NEXT_PUBLIC_BRAN_URL: pickUrl('bran', rawBran),
     NEXT_PUBLIC_SANSA_URL: pickUrl('sansa', rawSansa),
