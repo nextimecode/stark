@@ -1,89 +1,59 @@
-import { cookies, headers } from 'next/headers'
-
-import { type CookieOptions, createServerClient } from '@supabase/ssr'
+// src/lib/supabase/server.ts
 
 import type { Database } from '@/lib/supabase/database.types'
+import { createServerClient } from '@supabase/ssr'
+import { cookies, headers } from 'next/headers'
 
-const conWarn = console.warn
-const conLog = console.log
-
-const IGNORE_WARNINGS = [
-  'Using the user object as returned from supabase.auth.getSession()',
-]
-
-console.warn = (...args) => {
-  const match = args.find(arg =>
-    typeof arg === 'string'
-      ? IGNORE_WARNINGS.find(warning => arg.includes(warning))
-      : false
-  )
-  if (!match) {
-    conWarn(...args)
-  }
-}
-
-console.log = (...args) => {
-  const match = args.find(arg =>
-    typeof arg === 'string'
-      ? IGNORE_WARNINGS.find(warning => arg.includes(warning))
-      : false
-  )
-  if (!match) {
-    conLog(...args)
-  }
-}
-
-type CreateClientOptions = {
+export type CreateClientOptions = {
   admin?: boolean
-  schema?: 'public' | 'storage'
 }
 
-export const createClient = async (options?: CreateClientOptions) => {
-  const { admin = false, ...rest } = options ?? {}
+export async function createClient(opts?: CreateClientOptions) {
+  const { admin = false } = opts ?? {}
 
-  const cookieStore = await cookies()
+  // 1) Validação das ENV vars
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  if (!url) throw new Error('Missing env var: NEXT_PUBLIC_SUPABASE_URL')
+
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  if (!anonKey)
+    throw new Error('Missing env var: NEXT_PUBLIC_SUPABASE_ANON_KEY')
 
   const key = admin
-    ? process.env.SUPABASE_SERVICE_KEY!
-    : process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    ? (process.env.SUPABASE_SERVICE_KEY ??
+      (() => {
+        throw new Error('Missing env var: SUPABASE_SERVICE_KEY')
+      })())
+    : anonKey
 
-  const auth = admin
-    ? {
-        persistSession: false,
-        autoRefreshToken: false,
-        detectSessionInUrl: false,
-      }
-    : {}
+  // 2) Leia cookies e headers (async!)
+  const cookieStore = await cookies()
+  const headerStore = await headers()
 
-  return createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    key,
-    {
-      ...rest,
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value
-        },
-        set(name: string, value: string, options: CookieOptions) {
-          try {
-            cookieStore.set({ name, value, ...options })
-          } catch (error) {}
-        },
-        remove(name: string, options: CookieOptions) {
-          try {
-            cookieStore.set({ name, value: '', ...options })
-          } catch (error) {}
-        },
+  // 3) Cria o client sem 'schema' e com new cookieMethods
+  return createServerClient<Database>(url, key, {
+    auth: admin
+      ? {
+          persistSession: false,
+          autoRefreshToken: false,
+          detectSessionInUrl: false,
+        }
+      : undefined,
+    cookies: {
+      getAll() {
+        return cookieStore.getAll()
       },
-      auth,
-      global: {
-        headers: {
-          // Pass user agent from browser
-          'user-agent': (await headers()).get('user-agent') as string,
-          // https://supabase.com/docs/guides/platform/read-replicas#experimental-routing
-          'sb-lb-routing-mode': 'alpha-all-services',
-        },
+      setAll(cookiesToSet) {
+        for (const { name, value, options } of cookiesToSet) {
+          cookieStore.set(name, value, options)
+        }
       },
-    }
-  )
+    },
+    global: {
+      headers: {
+        'user-agent': headerStore.get('user-agent') ?? '',
+        'sb-lb-routing-mode': 'alpha-all-services',
+      },
+    },
+  })
 }

@@ -38,6 +38,7 @@ export default function Register() {
 
     await fetch('/api/register-user', {
       method: 'POST',
+      credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(userPayload),
     })
