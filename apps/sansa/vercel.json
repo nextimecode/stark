@@ -1,0 +1,6 @@
+{
+  "buildCommand": "cd ../.. && pnpm install && pnpm run build --filter sansa && cd apps/sansa",
+  "outputDirectory": ".next",
+  "installCommand": "true",
+  "framework": "nextjs"
+} 
