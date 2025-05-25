@@ -300,6 +300,19 @@ importers:
       '@nextime/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+    devDependencies:
+      '@tailwindcss/postcss':
+        specifier: ^4.1.7
+        version: 4.1.7
+      autoprefixer:
+        specifier: ^10.4.21
+        version: 10.4.21(postcss@8.5.3)
+      postcss:
+        specifier: ^8.5.3
+        version: 8.5.3
+      tailwindcss:
+        specifier: ^4.1.7
+        version: 4.1.7
 
   packages/auth: {}
 
