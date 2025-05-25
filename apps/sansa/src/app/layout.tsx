@@ -1,10 +1,10 @@
-import { Analytics } from '@vercel/analytics/next';
-import type { ReactNode } from 'react';
+import { Analytics } from '@vercel/analytics/next'
+import type { ReactNode } from 'react'
 
-import type { Metadata, Viewport } from 'next';
-import { Inter, Oxanium } from 'next/font/google';
+import type { Metadata, Viewport } from 'next'
+import { Inter, Oxanium } from 'next/font/google'
 
-import './global.css';
+import './global.css'
 
 const oxanium = Oxanium({
   weight: ['500', '600'],
