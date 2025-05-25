@@ -7,6 +7,7 @@ import { deleteUser, sendEmailVerification, signOut } from 'firebase/auth'
 
 import { env } from '@/env'
 import { auth } from '@/firebase/client'
+import { Button } from '@nextime/ui'
 
 type DashboardClientProps = {
   user: {
@@ -68,9 +69,18 @@ export default function DashboardClient({ user }: DashboardClientProps) {
       {user.emailVerified && (
         <h1 className="dark:text-white">E-mail verificado</h1>
       )}
+      <Button
+        onClick={handleLogout}
+        disabled={loading}
+        type="button"
+        className="mt-4"
+      >
+        Logout (UI)
+      </Button>
       <button
         onClick={handleLogout}
         disabled={loading}
+        type="button"
         className="mt-4 px-4 py-2 bg-red-500 text-white rounded-sm hover:bg-red-600 focus:outline-hidden"
       >
         Logout
