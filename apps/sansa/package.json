@@ -16,5 +16,14 @@
     "e2e:codegen": "pnpm exec playwright codegen",
     "e2e:report": "pnpm exec playwright show-report",
     "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@nextime/ui": "workspace:*"
+  },
+  "devDependencies": {
+    "tailwindcss": "^4.1.7",
+    "@tailwindcss/postcss": "^4.1.7",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3"
   }
 }

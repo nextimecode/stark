@@ -19,7 +19,7 @@ import PersonalitySection from './personality-section'
 import ProfessionalSection from './professional-section'
 import RelationshipSection from './relationship-section'
 import RomanticSection from './romantic-section'
-import { ProfileFormValues, profileFormSchema } from './schema'
+import { type ProfileFormValues, profileFormSchema } from './schema'
 import ValuesSection from './values-section'
 
 export function ProfileForm() {

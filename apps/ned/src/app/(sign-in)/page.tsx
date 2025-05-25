@@ -40,9 +40,11 @@ export default function SignIn() {
 
     const registerRes = await fetch('/api/register-user', {
       method: 'POST',
+      credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(userPayload),
     })
+
     if (!registerRes.ok) throw new Error('Erro ao registrar usuário.')
 
     const token = await user.getIdToken()
@@ -51,6 +53,7 @@ export default function SignIn() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ token }),
     })
+
     if (!cookieRes.ok) throw new Error('Erro ao configurar o cookie de sessão.')
 
     router.push(env.NEXT_PUBLIC_SANSA_URL)
