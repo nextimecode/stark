@@ -1,6 +1,0 @@
-{
-  "buildCommand": "turbo run build --filter sansa",
-  "outputDirectory": ".next",
-  "installCommand": "true",
-  "framework": "nextjs"
-}
