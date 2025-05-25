@@ -1,3 +1,5 @@
+@import '@nextime/ui/src/global.css';
+
 @import "tailwindcss";
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
@@ -144,3 +146,5 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Adicione aqui estilos específicos do Ned, se necessário */
