@@ -40,7 +40,7 @@
     "depcheck": "depcheck",
     "dev": "prisma generate && turbo run dev --parallel",
     "e2e": "turbo run e2e",
-    "postinstall": "if [ \"$CI\" = \"true\" ]; then prisma generate; else husky && prisma generate; fi",
+    "postinstall": "if [ \"$CI\" = \"true\" ]; then prisma generate; else npx husky && prisma generate; fi",
     "lint": "turbo run lint --parallel",
     "ned:build": "pnpm prisma && turbo run build --filter ned",
     "ned:dev": "turbo run dev --filter ned",
