@@ -51,7 +51,7 @@
     "ned:e2e:report": "turbo run e2e:report --filter ned",
     "ned:e2e:ui": "turbo run e2e:ui --filter ned",
     "outdated": "pnpm outdated",
-    "prepare": "husky",
+    "prepare": "if [ \"$CI\" != \"true\" ]; then npx husky; fi",
     "release": "semantic-release",
     "release:ui": "turbo run build --filter=ui && changeset publish",
     "reset:all": "pnpm clean:all && pnpm i && turbo run build --parallel",
