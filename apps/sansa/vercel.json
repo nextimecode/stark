@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd ../.. && pnpm install && pnpm run build --filter sansa && cd apps/sansa",
+  "buildCommand": "turbo run build --filter sansa",
   "outputDirectory": ".next",
   "installCommand": "true",
   "framework": "nextjs"
