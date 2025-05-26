@@ -15,7 +15,10 @@ export default async function DashboardPage() {
 
   try {
     // TS infere o retorno de verifySessionCookie, mas vamos explicitar:
-    const decodedToken: DecodedIdToken = await adminAuth.verifySessionCookie(token, true)
+    const decodedToken: DecodedIdToken = await adminAuth.verifySessionCookie(
+      token,
+      true
+    )
 
     if (
       !decodedToken.email ||
