@@ -2,7 +2,7 @@ export const dynamic = 'force-dynamic'
 
 import type { ServiceAccount } from 'firebase-admin'
 import { cert, getApp, getApps, initializeApp } from 'firebase-admin/app'
-import { getAuth, type Auth } from 'firebase-admin/auth'
+import { type Auth, getAuth } from 'firebase-admin/auth'
 
 function initAuth(): Auth {
   const app =

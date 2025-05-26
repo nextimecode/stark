@@ -1,7 +1,7 @@
 import {
-  NextResponse,
   type MiddlewareConfig,
   type NextRequest,
+  NextResponse,
 } from 'next/server'
 
 import { env } from '@/env'

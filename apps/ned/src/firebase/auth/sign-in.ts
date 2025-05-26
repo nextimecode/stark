@@ -2,11 +2,11 @@
 'use client'
 
 import {
+  GoogleAuthProvider,
+  type User,
   auth,
   signInWithEmailAndPassword as firebaseClientSignInWithEmailAndPassword,
-  GoogleAuthProvider,
   signInWithPopup,
-  type User,
 } from '@/firebase/client'
 import type { FirebaseError } from 'firebase/app'
 
