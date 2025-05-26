@@ -13,7 +13,11 @@ import { Logo } from '@/components/logo'
 import { Spinner } from '@/components/ui/spinner'
 
 import type { UserRegisterBodySchema } from '@/app/api/register-user/route'
-import { type FirebaseUser, signInWithEmailAndPassword, signInWithGoogle } from '@/firebase/auth'
+import {
+  type FirebaseUser,
+  signInWithEmailAndPassword,
+  signInWithGoogle,
+} from '@/firebase/auth'
 import { GoogleIcon } from '@/icons'
 
 export default function SignIn() {

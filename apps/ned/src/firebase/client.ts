@@ -67,10 +67,13 @@ function initAuth(): Auth {
 const auth = initAuth()
 
 export {
-  auth, createUserWithEmailAndPassword,
+  auth,
+  createUserWithEmailAndPassword,
   GoogleAuthProvider,
-  onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup,
-  signOut
+  onAuthStateChanged,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
 }
 export type { User, UserCredential }
-

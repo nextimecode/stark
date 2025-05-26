@@ -70,7 +70,6 @@ export {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
-  signOut
+  signOut,
 }
 export type { User, UserCredential }
-

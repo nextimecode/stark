@@ -11,7 +11,11 @@ import { Logo, Spinner, Title } from '@/components'
 
 import type { UserRegisterBodySchema } from '@/app/api/register-user/route'
 import { env } from '@/env'
-import { type FirebaseUser, signUpWithEmailAndPassword, signUpWithGoogle } from '@/firebase/auth'
+import {
+  type FirebaseUser,
+  signUpWithEmailAndPassword,
+  signUpWithGoogle,
+} from '@/firebase/auth'
 import { GoogleIcon } from '@/icons'
 
 export default function Register() {
