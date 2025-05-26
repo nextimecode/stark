@@ -4,7 +4,7 @@
   "description": "Parte deslogada o www - Arya, inspirada em Arya Stark, simboliza independência, liberdade e adaptabilidade. Este projeto é a porta de entrada pública para o sistema, oferecendo uma experiência inicial fluida e acolhedora, com foco em acessibilidade e performance para cativar novos usuários.",
   "private": true,
   "scripts": {
-    "dev": "rm -rf .next && next dev --port 3000 --turbopack",
+    "dev": "rm -rf .next && next dev --port 8001 --turbopack",
     "clean": "rm -rf .turbo .next .vercel dist node_modules pnpm-lock.yaml playwright-report test-results",
     "build": "next build",
     "start": "next start --port 3000",

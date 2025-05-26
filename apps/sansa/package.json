@@ -4,7 +4,7 @@
   "description": "Parte logada o app - Sansa, inspirada em Sansa Stark, representa resiliência, crescimento e habilidade diplomática. Este projeto é o coração da área logada, projetado para oferecer uma interface principal organizada e eficiente, que prioriza a experiência do usuário com liderança e clareza em cada funcionalidade.",
   "private": true,
   "scripts": {
-    "dev": "rm -rf .next && next dev --port 3001 --turbopack",
+    "dev": "rm -rf .next && next dev --port 8002 --turbopack",
     "clean": "rm -rf .turbo .next .vercel dist node_modules pnpm-lock.yaml playwright-report test-results",
     "build": "next build",
     "start": "next start --port 3001",
