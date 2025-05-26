@@ -1,6 +1,7 @@
+// app/api/set-cookie/route.ts
+
 import { env } from '@/env'
 import { admin } from '@/firebase/admin'
-// app/api/set-cookie/route.ts
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
@@ -21,10 +22,7 @@ function isVercelPreview(origin: string) {
 
 function applyCors(req: NextRequest, res: NextResponse) {
   const origin = req.headers.get('origin')
-  if (
-    origin && // sem `!`
-    (STATIC_ORIGINS.includes(origin) || isVercelPreview(origin))
-  ) {
+  if (origin && (STATIC_ORIGINS.includes(origin) || isVercelPreview(origin))) {
     res.headers.set('Access-Control-Allow-Origin', origin)
     res.headers.set('Access-Control-Allow-Methods', 'OPTIONS, GET, POST')
     res.headers.set('Access-Control-Allow-Headers', 'Content-Type')
@@ -57,6 +55,7 @@ export async function POST(req: NextRequest) {
     return applyCors(req, res)
   } catch (error) {
     console.error('Erro ao criar session cookie:', error)
+    console.error((error as Error).message)
     return NextResponse.json(
       { error: (error as Error).message || 'Erro interno' },
       { status: 500 }
