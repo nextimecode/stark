@@ -1,6 +1,6 @@
 // app/api/set-cookie/route.ts
 
-import { admin } from '@/firebase/admin'
+import { adminAuth } from '@/firebase/admin'
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
@@ -48,9 +48,9 @@ export async function POST(req: NextRequest) {
   try {
     const { token } = await req.json()
     const expiresIn = 14 * 24 * 60 * 60 * 1000
-    const sessionCookie = await admin
-      .auth()
-      .createSessionCookie(token, { expiresIn })
+    const sessionCookie = await adminAuth.createSessionCookie(token, {
+      expiresIn,
+    })
 
     const res = NextResponse.json({ success: true })
     res.cookies.set('token', sessionCookie, {

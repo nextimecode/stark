@@ -1,39 +1,76 @@
-// firebase/config.ts
-export const dynamic = 'force-dynamic'
+// firebase/client.ts
 
-import { initializeApp, getApps, getApp } from 'firebase/app'
+'use client'
+
+import { getApp, getApps, initializeApp } from 'firebase/app'
 import {
-  getAuth,
-  onAuthStateChanged,
-  type User,
-  setPersistence,
   browserLocalPersistence,
+  createUserWithEmailAndPassword,
+  getAuth,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  sendPasswordResetEmail,
+  setPersistence,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+  type Auth,
+  type User,
+  type UserCredential,
 } from 'firebase/auth'
 
-const getFirebaseClient = () => {
-  if (!process.env.NEXT_PUBLIC_FIREBASE_API_KEY) {
-    throw new Error('Variáveis de ambiente do Firebase não estão definidas.')
-  }
-
-  const firebaseConfig = {
-    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-  }
-
-  const firebaseApp =
-    getApps().length > 0 ? getApp() : initializeApp(firebaseConfig)
-  const auth = getAuth(firebaseApp)
-
-  setPersistence(auth, browserLocalPersistence).catch(error => {
-    console.error('Erro ao configurar persistência:', error)
-  })
-
-  return { firebaseApp, auth }
+interface FirebaseClientConfig {
+  apiKey: string
+  authDomain: string
+  projectId: string
+  storageBucket: string
+  messagingSenderId: string
+  appId: string
 }
 
-export const { firebaseApp, auth } = getFirebaseClient()
-export { onAuthStateChanged, type User }
+function initAuth(): Auth {
+  const {
+    NEXT_PUBLIC_FIREBASE_API_KEY: apiKey,
+    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: authDomain,
+    NEXT_PUBLIC_FIREBASE_PROJECT_ID: projectId,
+    NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: storageBucket,
+    NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: messagingSenderId,
+    NEXT_PUBLIC_FIREBASE_APP_ID: appId,
+  } = process.env as NodeJS.ProcessEnv & Partial<FirebaseClientConfig>
+
+  if (
+    !apiKey ||
+    !authDomain ||
+    !projectId ||
+    !storageBucket ||
+    !messagingSenderId ||
+    !appId
+  ) {
+    throw new Error('Firebase client environment variables are missing.')
+  }
+
+  const config: FirebaseClientConfig = {
+    apiKey,
+    authDomain,
+    projectId,
+    storageBucket,
+    messagingSenderId,
+    appId,
+  }
+
+  const app = getApps().length ? getApp() : initializeApp(config)
+  const auth = getAuth(app)
+  void setPersistence(auth, browserLocalPersistence)
+  return auth
+}
+
+const auth = initAuth()
+
+export {
+  auth, createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup,
+  signOut
+}
+export type { User, UserCredential }
+

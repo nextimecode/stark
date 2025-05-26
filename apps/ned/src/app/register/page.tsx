@@ -1,3 +1,5 @@
+// app/register/page.tsx
+
 'use client'
 
 import { type FormEvent, useState } from 'react'
@@ -7,11 +9,10 @@ import { useRouter } from 'next/navigation'
 
 import { Logo, Spinner, Title } from '@/components'
 
+import type { UserRegisterBodySchema } from '@/app/api/register-user/route'
 import { env } from '@/env'
-import { signUpWithEmailAndPassword, signUpWithGoogle } from '@/firebase/auth'
+import { type FirebaseUser, signUpWithEmailAndPassword, signUpWithGoogle } from '@/firebase/auth'
 import { GoogleIcon } from '@/icons'
-import type { User as FirebaseUser } from 'firebase/auth'
-import type { UserRegisterBodySchema } from '../api/register-user/route'
 
 export default function Register() {
   const router = useRouter()

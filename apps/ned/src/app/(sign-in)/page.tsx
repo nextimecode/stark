@@ -1,3 +1,5 @@
+// app/(sign-in)/page.tsx
+
 'use client'
 
 import { type FormEvent, useState } from 'react'
@@ -9,11 +11,10 @@ import { useRouter } from 'next/navigation'
 import { Title } from '@/components'
 import { Logo } from '@/components/logo'
 import { Spinner } from '@/components/ui/spinner'
-import type { User as FirebaseUser } from 'firebase/auth'
 
-import { signInWithEmailAndPassword, signInWithGoogle } from '@/firebase/auth'
+import type { UserRegisterBodySchema } from '@/app/api/register-user/route'
+import { type FirebaseUser, signInWithEmailAndPassword, signInWithGoogle } from '@/firebase/auth'
 import { GoogleIcon } from '@/icons'
-import type { UserRegisterBodySchema } from '../api/register-user/route'
 
 export default function SignIn() {
   const router = useRouter()
