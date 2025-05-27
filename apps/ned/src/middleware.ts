@@ -26,19 +26,12 @@ export function middleware(request: NextRequest) {
 
   if (!authToken && !publicRoute) {
     const redirectUrl = request.nextUrl.clone()
-
     redirectUrl.pathname = REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE
-
     return NextResponse.redirect(redirectUrl)
   }
 
-  if (
-    authToken &&
-    publicRoute &&
-    publicRoute.whenAuthenticated === 'redirect'
-  ) {
-    return NextResponse.redirect(sansaUrl)
-  }
+  // Removido o redirecionamento automático para evitar loops
+  // O redirecionamento será feito apenas no lado do cliente após o login
 
   if (authToken && !publicRoute) {
     // checar se o jwt nao exta expirado ele carrega a data de expiração

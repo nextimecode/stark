@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 import { CookieBanner } from '@/components/cookie-banner'
 import { Header } from '@/components/header'

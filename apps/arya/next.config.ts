@@ -28,8 +28,9 @@ const nextConfig: NextConfig = {
   // === Novo bloco para permitir seus domínios em dev ===
   allowedDevOrigins: [
     'nextime.com.br', // domínio principal
-    'nextverso.com.br', // outro domínio que você usa
     '*.nextime.com.br', // se precisar de subdomínios (ex.: local.nextime.com.br)
+    'nextverso.com.br', // outro domínio que você usa
+    '*.nextverso.com.br',
   ],
 }
 

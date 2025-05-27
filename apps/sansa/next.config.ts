@@ -30,6 +30,8 @@ const nextConfig: NextConfig = {
     'nextime.com.br', // domínio principal
     'nextverso.com.br', // outro domínio que você usa
     '*.nextime.com.br', // se precisar de subdomínios (ex.: local.nextime.com.br)
+    'local-app.nextverso.com.br',
+    'localhost',
   ],
 }
 

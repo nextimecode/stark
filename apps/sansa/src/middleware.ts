@@ -1,7 +1,7 @@
 import {
-  NextResponse,
   type MiddlewareConfig,
   type NextRequest,
+  NextResponse,
 } from 'next/server'
 
 import { env } from '@/env'
@@ -10,6 +10,7 @@ const publicRoutes = [
   { path: '/register', whenAuthenticated: 'redirect' },
   { path: '/pricing', whenAuthenticated: 'next' },
   { path: '/docs', whenAuthenticated: 'next' },
+  { path: '/auth/callback', whenAuthenticated: 'next' }, // Permitir callback sem auth
 ] as const
 
 const REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE = env.NEXT_PUBLIC_NED_URL
@@ -19,11 +20,24 @@ export function middleware(request: NextRequest) {
   const publicRoute = publicRoutes.find(route => route.path === path)
   const authToken = request.cookies.get('token')?.value
 
+  console.log(
+    '[Sansa Middleware] path:',
+    path,
+    'authToken:',
+    !!authToken,
+    'publicRoute:',
+    !!publicRoute
+  )
+
   if (!authToken && publicRoute) {
+    console.log('[Sansa Middleware] Sem token, rota pública - permitindo')
     return NextResponse.next()
   }
 
   if (!authToken && !publicRoute) {
+    console.log(
+      '[Sansa Middleware] Sem token, rota privada - redirecionando para Ned'
+    )
     return NextResponse.redirect(REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE)
   }
 
@@ -32,16 +46,18 @@ export function middleware(request: NextRequest) {
     publicRoute &&
     publicRoute.whenAuthenticated === 'redirect'
   ) {
+    console.log(
+      '[Sansa Middleware] Com token, rota pública, redirecionando para /'
+    )
     return NextResponse.redirect('/')
   }
 
   if (authToken && !publicRoute) {
-    // checar se o jwt nao exta expirado ele carrega a data de expiração
-    // se sim pode remover o cookien e redirecionar para o login
-    // ou revalidar mas revalidar nao é bom que é custoso
+    console.log('[Sansa Middleware] Com token, rota privada - permitindo')
     return NextResponse.next()
   }
 
+  console.log('[Sansa Middleware] Default - permitindo')
   return NextResponse.next()
 }
 

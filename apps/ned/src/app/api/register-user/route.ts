@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 
 import { z } from 'zod'
 
-import { prisma } from '@/lib/prisma'
+import { executeWithRetry } from '@/lib/prisma'
 
 const userRegisterBodySchema = z.object({
   firebaseId: z.string(),
@@ -23,52 +23,62 @@ const userRegisterBodySchema = z.object({
 export type UserRegisterBodySchema = z.infer<typeof userRegisterBodySchema>
 
 export async function POST(req: Request) {
-  const body = await req.json()
-  const result = userRegisterBodySchema.safeParse(body)
-
-  if (!result.success) {
-    return NextResponse.json({ error: 'Dados inválidos' }, { status: 400 })
-  }
-
-  const {
-    firebaseId,
-    displayName,
-    email,
-    emailVerified,
-    photoURL,
-    providerId,
-    phoneNumber,
-    firebaseMetadata,
-  } = result.data
-
   try {
-    await prisma.user.upsert({
-      where: { firebaseId },
-      update: {
-        emailVerified,
-        photoURL,
-        providerId,
-        phoneNumber,
-        firebaseMetadata,
-      },
-      create: {
-        firebaseId,
-        username: '',
-        displayName,
-        email,
-        emailVerified,
-        photoURL,
-        providerId,
-        phoneNumber,
-        firebaseMetadata,
-      },
+    const body = await req.json()
+    const result = userRegisterBodySchema.safeParse(body)
+
+    if (!result.success) {
+      console.error('Validation error:', result.error)
+      return NextResponse.json({ error: 'Dados inválidos' }, { status: 400 })
+    }
+
+    const {
+      firebaseId,
+      displayName,
+      email,
+      emailVerified,
+      photoURL,
+      providerId,
+      phoneNumber,
+      firebaseMetadata,
+    } = result.data
+
+    console.log('Attempting to upsert user:', {
+      firebaseId,
+      email,
     })
 
-    return NextResponse.json({ success: true })
+    const user = await executeWithRetry(async client => {
+      return client.user.upsert({
+        where: { firebaseId },
+        update: {
+          emailVerified,
+          photoURL,
+          providerId,
+          phoneNumber,
+          firebaseMetadata,
+        },
+        create: {
+          firebaseId,
+          username: '',
+          displayName,
+          email,
+          emailVerified,
+          photoURL,
+          providerId,
+          phoneNumber,
+          firebaseMetadata,
+        },
+      })
+    })
+
+    console.log('User upserted successfully:', user.id)
+    return NextResponse.json({ success: true, userId: user.id })
   } catch (error) {
-    console.error(error)
+    console.error('Database error:', error)
+
     return NextResponse.json(
-      { error: (error as Error).message },
+      { error: 'Erro interno do servidor' },
       { status: 500 }
     )
   }
