@@ -2,9 +2,9 @@
 
 import { env } from '@/env'
 import { useSearchParams } from 'next/navigation'
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 
-export default function NedLogout() {
+function NedLogout() {
   const searchParams = useSearchParams()
   const redirectUrl = searchParams.get('redirect') || env.NEXT_PUBLIC_ARYA_URL
 
@@ -15,4 +15,12 @@ export default function NedLogout() {
   }, [redirectUrl])
 
   return <p>Saindo...</p>
-} 
+}
+
+export default function NedLogoutPage() {
+  return (
+    <Suspense>
+      <NedLogout />
+    </Suspense>
+  )
+}
