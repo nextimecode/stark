@@ -20,26 +20,46 @@ export function middleware(request: NextRequest) {
   const publicRoute = publicRoutes.find(route => route.path === path)
   const authToken = request.cookies.get('token')?.value
 
+  console.log(
+    '[Ned Middleware] path:',
+    path,
+    'authToken:',
+    !!authToken,
+    'publicRoute:',
+    !!publicRoute
+  )
+
   if (!authToken && publicRoute) {
+    console.log('[Ned Middleware] Sem token, rota pública - permitindo')
     return NextResponse.next()
   }
 
   if (!authToken && !publicRoute) {
+    console.log(
+      '[Ned Middleware] Sem token, rota privada - redirecionando para /'
+    )
     const redirectUrl = request.nextUrl.clone()
     redirectUrl.pathname = REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE
     return NextResponse.redirect(redirectUrl)
   }
 
-  // Removido o redirecionamento automático para evitar loops
-  // O redirecionamento será feito apenas no lado do cliente após o login
+  if (
+    authToken &&
+    publicRoute &&
+    publicRoute.whenAuthenticated === 'redirect'
+  ) {
+    console.log(
+      '[Ned Middleware] Com token, rota pública - redirecionando para Sansa'
+    )
+    return NextResponse.redirect(sansaUrl)
+  }
 
   if (authToken && !publicRoute) {
-    // checar se o jwt nao exta expirado ele carrega a data de expiração
-    // se sim pode remover o cookien e redirecionar para o login
-    // ou revalidar mas revalidar nao é bom que é custoso
+    console.log('[Ned Middleware] Com token, rota privada - permitindo')
     return NextResponse.next()
   }
 
+  console.log('[Ned Middleware] Default - permitindo')
   return NextResponse.next()
 }
 

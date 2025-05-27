@@ -13,7 +13,7 @@ const publicRoutes = [
   { path: '/auth/callback', whenAuthenticated: 'next' }, // Permitir callback sem auth
 ] as const
 
-const REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE = env.NEXT_PUBLIC_NED_URL
+const REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE = env.NEXT_PUBLIC_ARYA_URL
 
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname
@@ -36,7 +36,7 @@ export function middleware(request: NextRequest) {
 
   if (!authToken && !publicRoute) {
     console.log(
-      '[Sansa Middleware] Sem token, rota privada - redirecionando para Ned'
+      '[Sansa Middleware] Sem token, rota privada - redirecionando para Arya'
     )
     return NextResponse.redirect(REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE)
   }
