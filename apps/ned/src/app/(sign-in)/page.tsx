@@ -2,7 +2,7 @@
 
 'use client'
 
-import { type FormEvent, useEffect, useState } from 'react'
+import { type FormEvent, Suspense, useEffect, useState } from 'react'
 
 import { env } from '@/env'
 import Link from 'next/link'
@@ -14,13 +14,13 @@ import { Spinner } from '@/components/ui/spinner'
 
 import type { UserRegisterBodySchema } from '@/app/api/register-user/route'
 import {
-  type FirebaseUser,
-  signInWithEmailAndPassword,
-  signInWithGoogle,
+    type FirebaseUser,
+    signInWithEmailAndPassword,
+    signInWithGoogle,
 } from '@/firebase/auth'
 import { GoogleIcon } from '@/icons'
 
-export default function SignIn() {
+function SignIn() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const redirectUrl = searchParams.get('redirect') || env.NEXT_PUBLIC_SANSA_URL
@@ -37,7 +37,10 @@ export default function SignIn() {
       ?.split('=')[1]
     console.log('[SignIn] useEffect: token', token, 'redirectUrl', redirectUrl)
     if (token) {
-      console.log('[SignIn] Usuário já autenticado, redirecionando para:', redirectUrl)
+      console.log(
+        '[SignIn] Usuário já autenticado, redirecionando para:',
+        redirectUrl
+      )
       window.location.replace(redirectUrl)
     }
   }, [redirectUrl])
@@ -74,7 +77,10 @@ export default function SignIn() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ idToken }),
       })
-      console.log('[SignIn] /api/create-session-cookie status:', sessionRes.status)
+      console.log(
+        '[SignIn] /api/create-session-cookie status:',
+        sessionRes.status
+      )
       const { sessionCookie } = await sessionRes.json()
       if (!sessionCookie) throw new Error('Erro ao criar session cookie.')
       console.log('[SignIn] sessionCookie:', sessionCookie)
@@ -253,5 +259,13 @@ export default function SignIn() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense>
+      <SignIn />
+    </Suspense>
   )
 }

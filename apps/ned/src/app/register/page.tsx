@@ -33,9 +33,17 @@ export default function Register() {
       .split('; ')
       .find(row => row.startsWith('token='))
       ?.split('=')[1]
-    console.log('[Register] useEffect: token', token, 'redirectUrl', redirectUrl)
+    console.log(
+      '[Register] useEffect: token',
+      token,
+      'redirectUrl',
+      redirectUrl
+    )
     if (token) {
-      console.log('[Register] Usuário já autenticado, redirecionando para:', redirectUrl)
+      console.log(
+        '[Register] Usuário já autenticado, redirecionando para:',
+        redirectUrl
+      )
       window.location.replace(redirectUrl)
     }
   }, [redirectUrl])
@@ -72,7 +80,10 @@ export default function Register() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ idToken }),
       })
-      console.log('[Register] /api/create-session-cookie status:', sessionRes.status)
+      console.log(
+        '[Register] /api/create-session-cookie status:',
+        sessionRes.status
+      )
       const { sessionCookie } = await sessionRes.json()
       if (!sessionCookie) {
         setErrorMessage('Erro ao criar session cookie.')
@@ -137,7 +148,8 @@ export default function Register() {
         setErrorMessage(
           response.error.code === 'auth/email-already-in-use'
             ? 'Este email já está em uso. Por favor, tente outro.'
-            : response.error.details || 'Falha ao se cadastrar. Tente novamente.'
+            : response.error.details ||
+                'Falha ao se cadastrar. Tente novamente.'
         )
         setIsLoading(false)
       }
