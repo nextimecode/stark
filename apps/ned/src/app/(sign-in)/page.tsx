@@ -14,9 +14,9 @@ import { Spinner } from '@/components/ui/spinner'
 
 import type { UserRegisterBodySchema } from '@/app/api/register-user/route'
 import {
-    type FirebaseUser,
-    signInWithEmailAndPassword,
-    signInWithGoogle,
+  type FirebaseUser,
+  signInWithEmailAndPassword,
+  signInWithGoogle,
 } from '@/firebase/auth'
 import { GoogleIcon } from '@/icons'
 

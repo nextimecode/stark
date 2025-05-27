@@ -2,7 +2,7 @@
 
 'use client'
 
-import { type FormEvent, useEffect, useState } from 'react'
+import { type FormEvent, Suspense, useEffect, useState } from 'react'
 
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -12,13 +12,13 @@ import { Logo, Spinner, Title } from '@/components'
 import type { UserRegisterBodySchema } from '@/app/api/register-user/route'
 import { env } from '@/env'
 import {
-  type FirebaseUser,
-  signUpWithEmailAndPassword,
-  signUpWithGoogle,
+    type FirebaseUser,
+    signUpWithEmailAndPassword,
+    signUpWithGoogle,
 } from '@/firebase/auth'
 import { GoogleIcon } from '@/icons'
 
-export default function Register() {
+function Register() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const redirectUrl = searchParams.get('redirect') || env.NEXT_PUBLIC_SANSA_URL
@@ -261,5 +261,13 @@ export default function Register() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense>
+      <Register />
+    </Suspense>
   )
 }
