@@ -63,8 +63,8 @@ export default function Register() {
 
     const response = await signUpWithGoogle()
 
-    if (response.error === null) {
-      await registerUserOnBackend(response.data)
+    if (!response.error) {
+      await registerUserOnBackend(response.data.user)
     } else {
       setErrorMessage(
         response.error.details || 'Falha ao se cadastrar com o Google.'
@@ -80,8 +80,8 @@ export default function Register() {
 
     const response = await signUpWithEmailAndPassword(email, password)
 
-    if (response.error === null) {
-      await registerUserOnBackend(response.data)
+    if (!response.error) {
+      await registerUserOnBackend(response.data.user)
     } else {
       setErrorMessage(
         response.error.code === 'auth/email-already-in-use'
