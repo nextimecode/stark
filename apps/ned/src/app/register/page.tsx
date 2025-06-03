@@ -1,60 +1,116 @@
+// app/register/page.tsx
+
 'use client'
 
-import { type FormEvent, useState } from 'react'
+import { type FormEvent, Suspense, useEffect, useState } from 'react'
 
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 import { Logo, Spinner, Title } from '@/components'
 
+import type { UserRegisterBodySchema } from '@/app/api/register-user/route'
 import { env } from '@/env'
-import { signUpWithEmailAndPassword, signUpWithGoogle } from '@/firebase/auth'
+import {
+  type FirebaseUser,
+  signUpWithEmailAndPassword,
+  signUpWithGoogle,
+} from '@/firebase/auth'
 import { GoogleIcon } from '@/icons'
-import type { User as FirebaseUser } from 'firebase/auth'
-import type { UserRegisterBodySchema } from '../api/register-user/route'
 
-export default function Register() {
+function Register() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const redirectUrl = searchParams.get('redirect') || env.NEXT_PUBLIC_SANSA_URL
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  const registerUserOnBackend = async (user: FirebaseUser) => {
-    const userPayload: UserRegisterBodySchema = {
-      firebaseId: user.uid,
-      displayName: user.displayName ?? '',
-      email: user.email ?? '',
-      emailVerified: user.emailVerified,
-      photoURL: user.photoURL ?? '',
-      providerId: user.providerData[0].providerId,
-      phoneNumber: user.phoneNumber ?? '',
-      firebaseMetadata: {
-        creationTime: user.metadata?.creationTime ?? '',
-        lastSignInTime: user.metadata?.lastSignInTime ?? '',
-      },
+  useEffect(() => {
+    const token = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('token='))
+      ?.split('=')[1]
+    console.log(
+      '[Register] useEffect: token',
+      token,
+      'redirectUrl',
+      redirectUrl
+    )
+    if (token) {
+      console.log(
+        '[Register] Usuário já autenticado, redirecionando para:',
+        redirectUrl
+      )
+      window.location.replace(redirectUrl)
     }
+  }, [redirectUrl])
 
-    await fetch('/api/register-user', {
-      method: 'POST',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userPayload),
-    })
+  const registerUserOnBackend = async (user: FirebaseUser) => {
+    try {
+      const userPayload: UserRegisterBodySchema = {
+        firebaseId: user.uid,
+        displayName: user.displayName ?? '',
+        email: user.email ?? '',
+        emailVerified: user.emailVerified,
+        photoURL: user.photoURL ?? '',
+        providerId: user.providerData[0].providerId,
+        phoneNumber: user.phoneNumber ?? '',
+        firebaseMetadata: {
+          creationTime: user.metadata?.creationTime ?? '',
+          lastSignInTime: user.metadata?.lastSignInTime ?? '',
+        },
+      }
+      console.log('[Register] registerUserOnBackend: userPayload', userPayload)
+      const registerRes = await fetch('/api/register-user', {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userPayload),
+      })
+      console.log('[Register] /api/register-user status:', registerRes.status)
+      if (!registerRes.ok) throw new Error('Erro ao registrar usuário.')
 
-    const token = await user.getIdToken()
+      const idToken = await user.getIdToken()
+      console.log('[Register] idToken:', idToken)
+      const sessionRes = await fetch('/api/create-session-cookie', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idToken }),
+      })
+      console.log(
+        '[Register] /api/create-session-cookie status:',
+        sessionRes.status
+      )
+      const { sessionCookie } = await sessionRes.json()
+      if (!sessionCookie) {
+        setErrorMessage('Erro ao criar session cookie.')
+        return
+      }
+      console.log('[Register] sessionCookie:', sessionCookie)
 
-    const res = await fetch('/api/set-cookie', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token }),
-    })
+      const setCookieRes = await fetch('/api/set-cookie', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: sessionCookie }),
+      })
+      console.log('[Register] /api/set-cookie status:', setCookieRes.status)
+      if (!setCookieRes.ok) {
+        setErrorMessage('Erro ao definir cookie de autenticação')
+        return
+      }
 
-    if (res.ok) {
-      router.push(env.NEXT_PUBLIC_SANSA_URL)
-    } else {
-      setErrorMessage('Erro ao configurar o cookie de sessão.')
+      // Usa apenas o parâmetro de URL para redirecionar
+      const callbackUrl = `${redirectUrl}/auth/callback?sessionCookie=${encodeURIComponent(sessionCookie)}`
+      console.log('[Register] Redirecionando para:', callbackUrl)
+      setTimeout(() => {
+        window.location.replace(callbackUrl)
+      }, 100)
+    } catch (error) {
+      console.error('[Register] Erro no fluxo de autenticação:', error)
+      setErrorMessage('Erro ao autenticar. Por favor, tente novamente.')
     }
   }
 
@@ -64,14 +120,12 @@ export default function Register() {
     const response = await signUpWithGoogle()
 
     if (!response.error) {
-      await registerUserOnBackend(response.data.user)
+      await registerUserOnBackend(response.data)
     } else {
       setErrorMessage(
         response.error.details || 'Falha ao se cadastrar com o Google.'
       )
     }
-
-    setIsLoading(false)
   }
 
   const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -81,7 +135,7 @@ export default function Register() {
     const response = await signUpWithEmailAndPassword(email, password)
 
     if (!response.error) {
-      await registerUserOnBackend(response.data.user)
+      await registerUserOnBackend(response.data)
     } else {
       setErrorMessage(
         response.error.code === 'auth/email-already-in-use'
@@ -89,8 +143,6 @@ export default function Register() {
           : response.error.details || 'Falha ao se cadastrar. Tente novamente.'
       )
     }
-
-    setIsLoading(false)
   }
 
   return (
@@ -194,5 +246,13 @@ export default function Register() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense>
+      <Register />
+    </Suspense>
   )
 }

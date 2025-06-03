@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import { Title } from '@/components/title'
+import { env } from '@/env'
 
 export function Hero() {
   return (
@@ -24,10 +25,11 @@ export function Hero() {
             <div className="my-7 grid gap-3 w-full sm:inline-flex">
               <Link
                 className="transition-all duration-300 hover:animate-none animate-[button-glow_2.5s_ease-in-out_infinite] py-3 px-4 inline-flex justify-center items-center gap-x-2 text-md font-semibold rounded-lg border border-transparent bg-primary dark:text-white disabled:opacity-50 disabled:pointer-events-none"
-                href="/register"
+                href={`${env.NEXT_PUBLIC_NED_URL}/?redirect=${encodeURIComponent(env.NEXT_PUBLIC_SANSA_URL)}`}
               >
                 Grátis Por Tempo Limitado
                 <svg
+                  aria-hidden="true"
                   className="shrink-0 size-4"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"

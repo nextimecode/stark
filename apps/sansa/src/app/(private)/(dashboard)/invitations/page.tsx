@@ -2,7 +2,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 import { env } from '@/env'
-import { admin } from '@/firebase/admin'
+import { adminAuth } from '@/firebase/admin'
 // import { prisma } from '@/lib/prisma'
 
 const REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE = env.NEXT_PUBLIC_NED_URL
@@ -21,7 +21,7 @@ async function getUser() {
 
   let decodedToken
   try {
-    decodedToken = await admin.auth().verifySessionCookie(token)
+    decodedToken = await adminAuth.verifyIdToken(token)
   } catch {
     redirect(REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE)
   }

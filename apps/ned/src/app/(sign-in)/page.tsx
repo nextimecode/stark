@@ -1,62 +1,112 @@
+// app/(sign-in)/page.tsx
+
 'use client'
 
-import { type FormEvent, useState } from 'react'
+import { type FormEvent, Suspense, useEffect, useState } from 'react'
 
 import { env } from '@/env'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 import { Title } from '@/components'
 import { Logo } from '@/components/logo'
 import { Spinner } from '@/components/ui/spinner'
-import type { User as FirebaseUser } from 'firebase/auth'
 
-import { signInWithEmailAndPassword, signInWithGoogle } from '@/firebase/auth'
+import type { UserRegisterBodySchema } from '@/app/api/register-user/route'
+import {
+  type FirebaseUser,
+  signInWithEmailAndPassword,
+  signInWithGoogle,
+} from '@/firebase/auth'
 import { GoogleIcon } from '@/icons'
-import type { UserRegisterBodySchema } from '../api/register-user/route'
 
-export default function SignIn() {
+function SignIn() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const redirectUrl = searchParams.get('redirect') || env.NEXT_PUBLIC_SANSA_URL
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const registerUserOnBackend = async (user: FirebaseUser) => {
-    const userPayload: UserRegisterBodySchema = {
-      firebaseId: user.uid,
-      displayName: user.displayName ?? '',
-      email: user.email ?? '',
-      emailVerified: user.emailVerified,
-      photoURL: user.photoURL ?? '',
-      providerId: user.providerData[0].providerId,
-      phoneNumber: user.phoneNumber ?? '',
-      firebaseMetadata: {
-        creationTime: user.metadata?.creationTime ?? '',
-        lastSignInTime: user.metadata?.lastSignInTime ?? '',
-      },
+  useEffect(() => {
+    const token = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('token='))
+      ?.split('=')[1]
+    console.log('[SignIn] useEffect: token', token, 'redirectUrl', redirectUrl)
+    if (token) {
+      console.log(
+        '[SignIn] Usuário já autenticado, redirecionando para:',
+        redirectUrl
+      )
+      window.location.replace(redirectUrl)
     }
+  }, [redirectUrl])
 
-    const registerRes = await fetch('/api/register-user', {
-      method: 'POST',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userPayload),
-    })
+  const registerUserOnBackend = async (user: FirebaseUser) => {
+    try {
+      const userPayload: UserRegisterBodySchema = {
+        firebaseId: user.uid,
+        displayName: user.displayName ?? '',
+        email: user.email ?? '',
+        emailVerified: user.emailVerified,
+        photoURL: user.photoURL ?? '',
+        providerId: user.providerData[0].providerId,
+        phoneNumber: user.phoneNumber ?? '',
+        firebaseMetadata: {
+          creationTime: user.metadata?.creationTime ?? '',
+          lastSignInTime: user.metadata?.lastSignInTime ?? '',
+        },
+      }
+      console.log('[SignIn] registerUserOnBackend: userPayload', userPayload)
+      const registerRes = await fetch('/api/register-user', {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userPayload),
+      })
+      console.log('[SignIn] /api/register-user status:', registerRes.status)
+      if (!registerRes.ok) throw new Error('Erro ao registrar usuário.')
 
-    if (!registerRes.ok) throw new Error('Erro ao registrar usuário.')
+      const idToken = await user.getIdToken()
+      console.log('[SignIn] idToken:', idToken)
+      const sessionRes = await fetch('/api/create-session-cookie', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idToken }),
+      })
+      console.log(
+        '[SignIn] /api/create-session-cookie status:',
+        sessionRes.status
+      )
+      const { sessionCookie } = await sessionRes.json()
+      if (!sessionCookie) throw new Error('Erro ao criar session cookie.')
+      console.log('[SignIn] sessionCookie:', sessionCookie)
 
-    const token = await user.getIdToken()
-    const cookieRes = await fetch('/api/set-cookie', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token }),
-    })
+      const setCookieRes = await fetch('/api/set-cookie', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: sessionCookie }),
+      })
+      console.log('[SignIn] /api/set-cookie status:', setCookieRes.status)
+      if (!setCookieRes.ok) {
+        throw new Error('Erro ao definir cookie de autenticação')
+      }
 
-    if (!cookieRes.ok) throw new Error('Erro ao configurar o cookie de sessão.')
-
-    router.push(env.NEXT_PUBLIC_SANSA_URL)
+      // Usa apenas o parâmetro de URL para redirecionar
+      const callbackUrl = `${redirectUrl}/auth/callback?sessionCookie=${encodeURIComponent(sessionCookie)}`
+      console.log('[SignIn] Redirecionando para:', callbackUrl)
+      setTimeout(() => {
+        console.log('[SignIn] Executando window.location.replace')
+        window.location.replace(callbackUrl)
+        console.log('[SignIn] window.location.replace executado')
+      }, 100)
+    } catch (error) {
+      console.error('[SignIn] Erro no fluxo de autenticação:', error)
+      setErrorMessage('Erro ao autenticar. Por favor, tente novamente.')
+    }
   }
 
   const handleGoogleLogin = async () => {
@@ -64,14 +114,12 @@ export default function SignIn() {
     const response = await signInWithGoogle()
 
     if (!response.error) {
-      await registerUserOnBackend(response.data.user)
+      await registerUserOnBackend(response.data)
     } else {
       setErrorMessage(
         response.error.details || 'Falha ao fazer login com o Google.'
       )
     }
-
-    setIsLoading(false)
   }
 
   const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -80,7 +128,7 @@ export default function SignIn() {
 
     const response = await signInWithEmailAndPassword(email, password)
     if (!response.error) {
-      await registerUserOnBackend(response.data.user)
+      await registerUserOnBackend(response.data)
     } else {
       setErrorMessage(
         response.error.code === 'auth/wrong-password'
@@ -88,8 +136,6 @@ export default function SignIn() {
           : response.error.details || 'Falha ao fazer login. Tente novamente.'
       )
     }
-
-    setIsLoading(false)
   }
 
   return (
@@ -197,5 +243,13 @@ export default function SignIn() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense>
+      <SignIn />
+    </Suspense>
   )
 }

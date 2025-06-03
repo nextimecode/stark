@@ -1,6 +1,6 @@
 // app/(dashboard)/page.tsx
 
-import { admin } from '@/firebase/admin'
+import { adminAuth } from '@/firebase/admin'
 import type { DecodedIdToken } from 'firebase-admin/auth'
 import { cookies } from 'next/headers'
 import DashboardClient from './dashboard-client'
@@ -15,9 +15,10 @@ export default async function DashboardPage() {
 
   try {
     // TS infere o retorno de verifySessionCookie, mas vamos explicitar:
-    const decodedToken: DecodedIdToken = await admin
-      .auth()
-      .verifySessionCookie(token)
+    const decodedToken: DecodedIdToken = await adminAuth.verifySessionCookie(
+      token,
+      true
+    )
 
     if (
       !decodedToken.email ||

@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
-import { admin } from '@/firebase/admin'
+import { adminAuth } from '@/firebase/admin'
 
 interface NewInvitationPageProps {
   searchParams: {
@@ -21,7 +21,7 @@ export default async function NewInvitationPage({
 
   let decodedToken
   try {
-    decodedToken = await admin.auth().verifyIdToken(token)
+    decodedToken = await adminAuth.verifyIdToken(token)
   } catch (error) {
     redirect('/auth')
   }
