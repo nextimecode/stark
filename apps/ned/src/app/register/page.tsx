@@ -116,47 +116,32 @@ function Register() {
 
   const handleGoogleSignUp = async () => {
     setIsLoading(true)
-    try {
-      console.log('[Register] handleGoogleSignUp: redirectUrl', redirectUrl)
-      const response = await signUpWithGoogle()
-      console.log('[Register] handleGoogleSignUp: response', response)
-      if (response.error === null) {
-        await registerUserOnBackend(response.data)
-      } else {
-        setErrorMessage(
-          response.error.details || 'Falha ao se cadastrar com o Google.'
-        )
-        setIsLoading(false)
-      }
-    } catch (error) {
-      console.error('[Register] Erro no cadastro com Google:', error)
-      setErrorMessage('Erro ao se cadastrar. Por favor, tente novamente.')
-      setIsLoading(false)
+
+    const response = await signUpWithGoogle()
+
+    if (!response.error) {
+      await registerUserOnBackend(response.data.user)
+    } else {
+      setErrorMessage(
+        response.error.details || 'Falha ao se cadastrar com o Google.'
+      )
     }
   }
 
   const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setIsLoading(true)
-    try {
-      console.log('[Register] handleFormSubmit: email', email)
-      const response = await signUpWithEmailAndPassword(email, password)
-      console.log('[Register] handleFormSubmit: response', response)
-      if (response.error === null) {
-        await registerUserOnBackend(response.data)
-      } else {
-        setErrorMessage(
-          response.error.code === 'auth/email-already-in-use'
-            ? 'Este email já está em uso. Por favor, tente outro.'
-            : response.error.details ||
-                'Falha ao se cadastrar. Tente novamente.'
-        )
-        setIsLoading(false)
-      }
-    } catch (error) {
-      console.error('[Register] Erro no cadastro com email:', error)
-      setErrorMessage('Erro ao se cadastrar. Por favor, tente novamente.')
-      setIsLoading(false)
+
+    const response = await signUpWithEmailAndPassword(email, password)
+
+    if (!response.error) {
+      await registerUserOnBackend(response.data.user)
+    } else {
+      setErrorMessage(
+        response.error.code === 'auth/email-already-in-use'
+          ? 'Este email já está em uso. Por favor, tente outro.'
+          : response.error.details || 'Falha ao se cadastrar. Tente novamente.'
+      )
     }
   }
 

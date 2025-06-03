@@ -111,46 +111,30 @@ function SignIn() {
 
   const handleGoogleLogin = async () => {
     setIsLoading(true)
-    try {
-      console.log('[SignIn] handleGoogleLogin: redirectUrl', redirectUrl)
-      const response = await signInWithGoogle()
-      console.log('[SignIn] handleGoogleLogin: response', response)
-      if (!response.error) {
-        await registerUserOnBackend(response.data)
-      } else {
-        setErrorMessage(
-          response.error.details || 'Falha ao fazer login com o Google.'
-        )
-        setIsLoading(false)
-      }
-    } catch (error) {
-      console.error('[SignIn] Erro no login com Google:', error)
-      setErrorMessage('Erro ao fazer login. Por favor, tente novamente.')
-      setIsLoading(false)
+    const response = await signInWithGoogle()
+
+    if (!response.error) {
+      await registerUserOnBackend(response.data.user)
+    } else {
+      setErrorMessage(
+        response.error.details || 'Falha ao fazer login com o Google.'
+      )
     }
   }
 
   const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setIsLoading(true)
-    try {
-      console.log('[SignIn] handleFormSubmit: email', email)
-      const response = await signInWithEmailAndPassword(email, password)
-      console.log('[SignIn] handleFormSubmit: response', response)
-      if (!response.error) {
-        await registerUserOnBackend(response.data)
-      } else {
-        setErrorMessage(
-          response.error.code === 'auth/wrong-password'
-            ? 'Senha incorreta. Por favor, tente novamente.'
-            : response.error.details || 'Falha ao fazer login. Tente novamente.'
-        )
-        setIsLoading(false)
-      }
-    } catch (error) {
-      console.error('[SignIn] Erro no login com email:', error)
-      setErrorMessage('Erro ao fazer login. Por favor, tente novamente.')
-      setIsLoading(false)
+
+    const response = await signInWithEmailAndPassword(email, password)
+    if (!response.error) {
+      await registerUserOnBackend(response.data.user)
+    } else {
+      setErrorMessage(
+        response.error.code === 'auth/wrong-password'
+          ? 'Senha incorreta. Por favor, tente novamente.'
+          : response.error.details || 'Falha ao fazer login. Tente novamente.'
+      )
     }
   }
 
