@@ -120,7 +120,7 @@ function Register() {
     const response = await signUpWithGoogle()
 
     if (!response.error) {
-      await registerUserOnBackend(response.data.user)
+      await registerUserOnBackend(response.data)
     } else {
       setErrorMessage(
         response.error.details || 'Falha ao se cadastrar com o Google.'
@@ -135,7 +135,7 @@ function Register() {
     const response = await signUpWithEmailAndPassword(email, password)
 
     if (!response.error) {
-      await registerUserOnBackend(response.data.user)
+      await registerUserOnBackend(response.data)
     } else {
       setErrorMessage(
         response.error.code === 'auth/email-already-in-use'

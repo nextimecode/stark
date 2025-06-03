@@ -114,7 +114,7 @@ function SignIn() {
     const response = await signInWithGoogle()
 
     if (!response.error) {
-      await registerUserOnBackend(response.data.user)
+      await registerUserOnBackend(response.data)
     } else {
       setErrorMessage(
         response.error.details || 'Falha ao fazer login com o Google.'
@@ -128,7 +128,7 @@ function SignIn() {
 
     const response = await signInWithEmailAndPassword(email, password)
     if (!response.error) {
-      await registerUserOnBackend(response.data.user)
+      await registerUserOnBackend(response.data)
     } else {
       setErrorMessage(
         response.error.code === 'auth/wrong-password'
