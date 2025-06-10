@@ -3,46 +3,60 @@ import { createEnv } from '@t3-oss/env-nextjs'
 import { z } from 'zod'
 
 type Service = 'arya' | 'bran' | 'sansa' | 'ned'
-const isServer = typeof window === 'undefined'
 
-function rawHost(): string | undefined {
-  return (
-    process.env.VERCEL_BRANCH_URL ??
-    process.env.VERCEL_URL ??
-    process.env.NEXT_PUBLIC_VERCEL_URL
-  )
+function resolveServiceUrl(service: Service): string {
+  const envKey = `NEXT_PUBLIC_${service.toUpperCase()}_URL`
+
+  if (typeof window !== 'undefined') {
+    const url = process.env[envKey]
+    if (!url) {
+      throw new Error(`Missing URL for ${service}`)
+    }
+    return url
+  }
+
+  const vercelBranchUrl = process.env.VERCEL_BRANCH_URL
+  const vercelUrl = process.env.VERCEL_URL
+  const fixedUrl = process.env[envKey]
+
+  if (vercelBranchUrl?.includes('-git-')) {
+    const dashIndex = vercelBranchUrl.indexOf('-')
+    if (dashIndex > 0) {
+      const suffix = vercelBranchUrl.slice(dashIndex)
+      return `https://${service}${suffix}`
+    }
+  }
+
+  if (vercelUrl?.includes('-git-')) {
+    const dashIndex = vercelUrl.indexOf('-')
+    if (dashIndex > 0) {
+      const suffix = vercelUrl.slice(dashIndex)
+      return `https://${service}${suffix}`
+    }
+  }
+
+  if (fixedUrl) {
+    return fixedUrl
+  }
+
+  throw new Error(`Missing URL for ${service}`)
 }
 
-function derivePreviewUrl(service: Service): string | undefined {
-  if (!isServer) return undefined // nunca roda no browser
-  const host = rawHost()
-  if (!host || !host.includes('-git-')) return undefined
-  if (host.startsWith(`${service}-`)) return `https://${host}`
-  const i = host.indexOf('-')
-  return i > 0 ? `https://${service}${host.slice(i)}` : undefined
+const services: Service[] = ['arya', 'bran', 'sansa', 'ned']
+const resolvedUrls: Record<Service, string> = {} as Record<Service, string>
+
+if (typeof window === 'undefined') {
+  for (const service of services) {
+    const url = resolveServiceUrl(service)
+    resolvedUrls[service] = url
+    process.env[`NEXT_PUBLIC_${service.toUpperCase()}_URL`] = url
+  }
+} else {
+  for (const service of services) {
+    resolvedUrls[service] = resolveServiceUrl(service)
+  }
 }
 
-function pick(service: Service): string {
-  const envFixed = process.env[`NEXT_PUBLIC_${service.toUpperCase()}_URL`]
-  const url = derivePreviewUrl(service) ?? envFixed
-  if (url) return url
-  throw new Error(`🛑 Missing URL for ${service}`)
-}
-
-/* ---------- resolve todas as URLs no servidor ---------- */
-const RESOLVED = {
-  arya: pick('arya'),
-  bran: pick('bran'),
-  sansa: pick('sansa'),
-  ned: pick('ned'),
-} as const satisfies Record<Service, string>
-
-/* ---------- garante que o browser receba as variáveis ---------- */
-for (const [k, v] of Object.entries(RESOLVED)) {
-  process.env[`NEXT_PUBLIC_${k.toUpperCase()}_URL`] ??= v
-}
-
-/* ---------- createEnv ---------- */
 export const env = createEnv({
   server: {
     FIREBASE_ADMIN_SERVICE_ACCOUNT: z.string(),
@@ -58,9 +72,9 @@ export const env = createEnv({
     FIREBASE_ADMIN_SERVICE_ACCOUNT:
       process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT ?? '',
     DATABASE_URL: process.env.DATABASE_URL ?? '',
-    NEXT_PUBLIC_ARYA_URL: RESOLVED.arya,
-    NEXT_PUBLIC_BRAN_URL: RESOLVED.bran,
-    NEXT_PUBLIC_SANSA_URL: RESOLVED.sansa,
-    NEXT_PUBLIC_NED_URL: RESOLVED.ned,
-  } as const,
+    NEXT_PUBLIC_ARYA_URL: resolvedUrls.arya,
+    NEXT_PUBLIC_BRAN_URL: resolvedUrls.bran,
+    NEXT_PUBLIC_SANSA_URL: resolvedUrls.sansa,
+    NEXT_PUBLIC_NED_URL: resolvedUrls.ned,
+  },
 })
