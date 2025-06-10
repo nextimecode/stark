@@ -9,90 +9,25 @@ function derivePreviewUrl(service: Service): string | undefined {
   const host = process.env.NEXT_PUBLIC_VERCEL_URL ?? process.env.VERCEL_URL
   if (!host) return undefined
   if (host.startsWith(`${service}-`)) return `https://${host}`
-  const firstDash = host.indexOf('-')
-  return firstDash > 0
-    ? `https://${service}${host.slice(firstDash)}`
-    : undefined
+  const i = host.indexOf('-')
+  return i > 0 ? `https://${service}${host.slice(i)}` : undefined
 }
 
-const preview = {
-  arya: derivePreviewUrl('arya'),
-  bran: derivePreviewUrl('bran'),
-  sansa: derivePreviewUrl('sansa'),
-  ned: derivePreviewUrl('ned'),
-} as const satisfies Record<Service, string | undefined>
-
-function required(url: string | undefined, service: Service): string {
-  if (url) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.log(`[${service}] Using URL:`, url)
-    }
-    return url
-  }
-
-  if (process.env.NODE_ENV !== 'production') {
-    console.error(`[${service}] Missing URL - Environment variables:`, {
-      NEXT_PUBLIC_VERCEL_URL: process.env.NEXT_PUBLIC_VERCEL_URL,
-      VERCEL_URL: process.env.VERCEL_URL,
-      [`NEXT_PUBLIC_${service.toUpperCase()}_URL`]:
-        process.env[`NEXT_PUBLIC_${service.toUpperCase()}_URL`],
-    })
-  }
-
-  throw new Error(`🛑 Missing URL for ${service}`)
+function baseEnv(service: Service): string | undefined {
+  return process.env[`NEXT_PUBLIC_${service.toUpperCase()}_URL`] as
+    | string
+    | undefined
 }
 
-const rawFirebaseSA = process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT
-const rawDatabaseUrl = process.env.DATABASE_URL
-
-if (typeof window === 'undefined') {
-  if (process.env.NODE_ENV !== 'production') {
-    console.log('Running server-side environment validation')
-  }
-
-  if (!rawFirebaseSA) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.error('Missing Firebase Service Account configuration')
-    }
-    throw new Error('🛑 ENV VAR missing: FIREBASE_ADMIN_SERVICE_ACCOUNT')
-  }
-
-  if (!rawDatabaseUrl) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.error('Missing Database URL configuration')
-    }
-    throw new Error('🛑 ENV VAR missing: DATABASE_URL')
-  }
-
-  if (process.env.NODE_ENV !== 'production') {
-    console.log('Server-side environment validation passed')
-  }
+function pickUrl(service: Service): string {
+  return (
+    derivePreviewUrl(service) ??
+    baseEnv(service) ??
+    (() => {
+      throw new Error(`🛑 Missing URL for ${service}`)
+    })()
+  )
 }
-
-if (process.env.NODE_ENV !== 'production') {
-  console.log('Initializing environment configuration')
-}
-
-const runtimeEnv = {
-  FIREBASE_ADMIN_SERVICE_ACCOUNT: rawFirebaseSA ?? '',
-  DATABASE_URL: rawDatabaseUrl ?? '',
-  NEXT_PUBLIC_ARYA_URL: required(
-    process.env.NEXT_PUBLIC_ARYA_URL ?? preview.arya,
-    'arya'
-  ),
-  NEXT_PUBLIC_BRAN_URL: required(
-    process.env.NEXT_PUBLIC_BRAN_URL ?? preview.bran,
-    'bran'
-  ),
-  NEXT_PUBLIC_SANSA_URL: required(
-    process.env.NEXT_PUBLIC_SANSA_URL ?? preview.sansa,
-    'sansa'
-  ),
-  NEXT_PUBLIC_NED_URL: required(
-    process.env.NEXT_PUBLIC_NED_URL ?? preview.ned,
-    'ned'
-  ),
-} as const
 
 export const env = createEnv({
   server: {
@@ -105,9 +40,13 @@ export const env = createEnv({
     NEXT_PUBLIC_SANSA_URL: z.string().url(),
     NEXT_PUBLIC_NED_URL: z.string().url(),
   },
-  runtimeEnv,
+  runtimeEnv: {
+    FIREBASE_ADMIN_SERVICE_ACCOUNT:
+      process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT ?? '',
+    DATABASE_URL: process.env.DATABASE_URL ?? '',
+    NEXT_PUBLIC_ARYA_URL: pickUrl('arya'),
+    NEXT_PUBLIC_BRAN_URL: pickUrl('bran'),
+    NEXT_PUBLIC_SANSA_URL: pickUrl('sansa'),
+    NEXT_PUBLIC_NED_URL: pickUrl('ned'),
+  } as const,
 })
-
-if (process.env.NODE_ENV !== 'production') {
-  console.log('Environment configuration initialized successfully')
-}
