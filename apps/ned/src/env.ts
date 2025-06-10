@@ -24,10 +24,27 @@ function derivePreviewUrl(
   service: 'arya' | 'bran' | 'sansa' | 'ned'
 ): string | undefined {
   if (!vercelHost) return
-  // preview hosts são no formato "<service>-<branch>.vercel.app"
+
+  // 1. Exact match: we are already on the requested service host.
+  //    Example: "arya-git-feature-123.vercel.app"
   if (vercelHost.startsWith(`${service}-`)) {
     return `https://${vercelHost}`
   }
+
+  // 2. Cross-service preview: convert current preview URL to the target service.
+  //    Example: we are on "ned-git-feature-123.vercel.app" and need "arya".
+  //    Strategy: swap the prefix before the first "-" with the desired service
+  //    only when the host follows the Vercel preview pattern "<service>-git-<rest>.vercel.app".
+  if (vercelHost.includes('-git-')) {
+    const [, ...rest] = vercelHost.split('-')
+    // If for some reason the split failed to capture the rest, bail out.
+    if (rest.length === 0) return
+
+    return `https://${service}-${rest.join('-')}`
+  }
+
+  // 3. Non-preview (production/custom) – unable to derive automatically.
+  return
 }
 
 // --- escolhe URL de preview (quando houver) ou a base definida ---
