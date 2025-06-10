@@ -7,6 +7,7 @@ const vercelHost = process.env.VERCEL_URL
 
 // Variáveis fixas definidas em .env/.env.local ou no painel Vercel (produção)
 const rawFirebaseSA = process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT
+const rawDatabaseUrl = process.env.DATABASE_URL
 const rawArya = process.env.NEXT_PUBLIC_ARYA_URL
 const rawBran = process.env.NEXT_PUBLIC_BRAN_URL
 const rawSansa = process.env.NEXT_PUBLIC_SANSA_URL
@@ -16,6 +17,10 @@ const rawNed = process.env.NEXT_PUBLIC_NED_URL
 if (typeof window === 'undefined') {
   if (!rawFirebaseSA) {
     throw new Error('🛑 ENV VAR missing: FIREBASE_ADMIN_SERVICE_ACCOUNT')
+  }
+
+  if (!rawDatabaseUrl) {
+    throw new Error('🛑 ENV VAR missing: DATABASE_URL')
   }
 }
 
@@ -72,6 +77,7 @@ function pickUrl(
 export const env = createEnv({
   server: {
     FIREBASE_ADMIN_SERVICE_ACCOUNT: z.string(),
+    DATABASE_URL: z.string(),
   },
   client: {
     NEXT_PUBLIC_ARYA_URL: z.string(),
@@ -85,5 +91,6 @@ export const env = createEnv({
     NEXT_PUBLIC_BRAN_URL: pickUrl('bran', rawBran),
     NEXT_PUBLIC_SANSA_URL: pickUrl('sansa', rawSansa),
     NEXT_PUBLIC_NED_URL: pickUrl('ned', rawNed),
+    DATABASE_URL: rawDatabaseUrl ?? '',
   },
 })
