@@ -6,6 +6,9 @@ if (process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview') {
 }
 
 const nextConfig: NextConfig = {
+  env: {
+    NEXT_PUBLIC_VERCEL_URL: process.env.VERCEL_URL,
+  },
   logging: {
     fetches: {
       fullUrl: true,

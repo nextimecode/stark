@@ -2,103 +2,90 @@
 import { createEnv } from '@t3-oss/env-nextjs'
 import { z } from 'zod'
 
-// Host gerado pela Vercel em preview ou production (ex: "ned-git-xyz.vercel.app")
-const vercelHost = process.env.VERCEL_URL
+// --- Types & helpers --------------------------------------------------------
 
-// Variáveis fixas definidas em .env/.env.local ou no painel Vercel (produção)
+type Service = 'arya' | 'bran' | 'sansa' | 'ned'
+
+// Usa a variável pública em primeiro lugar (disponível também no client) e
+// faz fallback para VERCEL_URL apenas em build/server.
+const vercelHost = process.env.NEXT_PUBLIC_VERCEL_URL ?? process.env.VERCEL_URL
+
+function derivePreviewUrl(service: Service): string | undefined {
+  if (!vercelHost) return undefined
+
+  // 1. Estamos no host do próprio serviço (ex.: "arya-git-xyz.vercel.app").
+  if (vercelHost.startsWith(`${service}-`)) {
+    return `https://${vercelHost}`
+  }
+
+  // 2. Cross-service (ex.: "ned-git-xyz.vercel.app" -> "arya-git-xyz.vercel.app")
+  const firstDot = vercelHost.indexOf('.')
+  if (firstDot > 0 && vercelHost.includes('-')) {
+    const [_, ...rest] = vercelHost.split('-')
+    return `https://${service}-${rest.join('-')}`
+  }
+
+  // 3. Produção ou host custom – não há URL de preview a derivar.
+  return undefined
+}
+
+// Calcula-se uma única vez durante o build; o resultado é serializado no bundle.
+const preview: Record<Service, string | undefined> = {
+  arya: derivePreviewUrl('arya'),
+  bran: derivePreviewUrl('bran'),
+  sansa: derivePreviewUrl('sansa'),
+  ned: derivePreviewUrl('ned'),
+}
+
+function required(value: string | undefined, name: Service): string {
+  if (value) return value
+  throw new Error(`🛑 Missing URL for ${name}`)
+}
+
+// --- Variáveis fixas ---------------------------------------------------------
 const rawFirebaseSA = process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT
 const rawDatabaseUrl = process.env.DATABASE_URL
-const rawArya = process.env.NEXT_PUBLIC_ARYA_URL
-const rawBran = process.env.NEXT_PUBLIC_BRAN_URL
-const rawSansa = process.env.NEXT_PUBLIC_SANSA_URL
-const rawNed = process.env.NEXT_PUBLIC_NED_URL
 
-// --- validações SERVER-ONLY (evita break no client/browser) ---
+// Falha cedo apenas no servidor (para não quebrar o bundle do browser).
 if (typeof window === 'undefined') {
   if (!rawFirebaseSA) {
     throw new Error('🛑 ENV VAR missing: FIREBASE_ADMIN_SERVICE_ACCOUNT')
   }
-
   if (!rawDatabaseUrl) {
     throw new Error('🛑 ENV VAR missing: DATABASE_URL')
   }
 }
 
-// --- monta URLs de preview dinamicamente (só para branches de preview) ---
-function derivePreviewUrl(
-  service: 'arya' | 'bran' | 'sansa' | 'ned'
-): string | undefined {
-  // 1. Descobre o host corrente. Prioriza a variável de ambiente da Vercel
-  //    (disponível em build/server), mas faz fallback para `window.location.host`
-  //    quando no browser. Isso garante funcionalidade também no client‐side
-  //    durante requests em ambiente de preview.
-  const host =
-    vercelHost ??
-    (typeof window !== 'undefined' ? window.location.host : undefined)
-
-  if (!host) return
-
-  // 2. Exact match: já estamos no host do serviço solicitado.
-  //    Exemplo: "arya-git-feature-123.vercel.app"
-  if (host.startsWith(`${service}-`)) {
-    return `https://${host}`
-  }
-
-  // 3. Preview cross-service: substitui somente o primeiro segmento do subdomínio
-  //    pelo serviço desejado, mantendo o restante intacto.
-  //    Funciona para diferentes estratégias de nomenclatura, por exemplo:
-  //      "ned-git-feature-123.vercel.app"  -> "arya-git-feature-123.vercel.app"
-  //      "ned-pr-456.vercel.app"          -> "arya-pr-456.vercel.app"
-  //    Se não houver hífen, assumimos que é produção/custom e encerramos.
-  const firstDot = host.indexOf('.')
-  if (firstDot > 0 && host.includes('-')) {
-    const subdomain = host.slice(0, firstDot)
-    const rest = host.slice(firstDot) // inclui ponto inicial
-
-    const subdomainSegments = subdomain.split('-')
-    if (subdomainSegments.length > 1) {
-      subdomainSegments[0] = service
-      return `https://${subdomainSegments.join('-')}${rest}`
-    }
-  }
-
-  // 4. Produção ou host custom — não é possível derivar automaticamente.
-  return
-}
-
-// --- escolhe URL de preview (quando houver) ou a base definida ---
-function pickUrl(
-  service: 'arya' | 'bran' | 'sansa' | 'ned',
-  base?: string
-): string {
-  const preview = derivePreviewUrl(service)
-  return (
-    preview ??
-    base ??
-    (() => {
-      throw new Error(`🛑 Missing URL for ${service}`)
-    })()
-  )
-}
-
-// --- objeto final para createEnv ---
+// --- createEnv --------------------------------------------------------------
 export const env = createEnv({
   server: {
     FIREBASE_ADMIN_SERVICE_ACCOUNT: z.string(),
     DATABASE_URL: z.string(),
   },
   client: {
-    NEXT_PUBLIC_ARYA_URL: z.string(),
-    NEXT_PUBLIC_BRAN_URL: z.string(),
-    NEXT_PUBLIC_SANSA_URL: z.string(),
-    NEXT_PUBLIC_NED_URL: z.string(),
+    NEXT_PUBLIC_ARYA_URL: z.string().url(),
+    NEXT_PUBLIC_BRAN_URL: z.string().url(),
+    NEXT_PUBLIC_SANSA_URL: z.string().url(),
+    NEXT_PUBLIC_NED_URL: z.string().url(),
   },
   runtimeEnv: {
     FIREBASE_ADMIN_SERVICE_ACCOUNT: rawFirebaseSA ?? '',
-    NEXT_PUBLIC_ARYA_URL: pickUrl('arya', rawArya),
-    NEXT_PUBLIC_BRAN_URL: pickUrl('bran', rawBran),
-    NEXT_PUBLIC_SANSA_URL: pickUrl('sansa', rawSansa),
-    NEXT_PUBLIC_NED_URL: pickUrl('ned', rawNed),
     DATABASE_URL: rawDatabaseUrl ?? '',
+    NEXT_PUBLIC_ARYA_URL: required(
+      process.env.NEXT_PUBLIC_ARYA_URL ?? preview.arya,
+      'arya'
+    ),
+    NEXT_PUBLIC_BRAN_URL: required(
+      process.env.NEXT_PUBLIC_BRAN_URL ?? preview.bran,
+      'bran'
+    ),
+    NEXT_PUBLIC_SANSA_URL: required(
+      process.env.NEXT_PUBLIC_SANSA_URL ?? preview.sansa,
+      'sansa'
+    ),
+    NEXT_PUBLIC_NED_URL: required(
+      process.env.NEXT_PUBLIC_NED_URL ?? preview.ned,
+      'ned'
+    ),
   },
 })
