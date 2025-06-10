@@ -31,16 +31,22 @@ function derivePreviewUrl(
     return `https://${vercelHost}`
   }
 
-  // 2. Cross-service preview: convert current preview URL to the target service.
-  //    Example: we are on "ned-git-feature-123.vercel.app" and need "arya".
-  //    Strategy: swap the prefix before the first "-" with the desired service
-  //    only when the host follows the Vercel preview pattern "<service>-git-<rest>.vercel.app".
-  if (vercelHost.includes('-git-')) {
-    const [, ...rest] = vercelHost.split('-')
-    // If for some reason the split failed to capture the rest, bail out.
-    if (rest.length === 0) return
+  // 2. Generic cross-service preview: substitute the *first* sub-domain segment
+  //    by the desired service, keeping the rest intact.
+  //    Works for any preview naming strategy, e.g.:
+  //      "ned-git-feature-123.vercel.app"  -> "arya-git-feature-123.vercel.app"
+  //      "ned-pr-456.vercel.app"          -> "arya-pr-456.vercel.app"
+  //    Skip when host seems to be production (no dash) to avoid false positives.
+  const firstDot = vercelHost.indexOf('.')
+  if (firstDot > 0 && vercelHost.includes('-')) {
+    const subdomain = vercelHost.slice(0, firstDot)
+    const rest = vercelHost.slice(firstDot) // includes leading '.'
 
-    return `https://${service}-${rest.join('-')}`
+    const subdomainSegments = subdomain.split('-')
+    if (subdomainSegments.length > 1) {
+      subdomainSegments[0] = service
+      return `https://${subdomainSegments.join('-')}${rest}`
+    }
   }
 
   // 3. Non-preview (production/custom) – unable to derive automatically.
