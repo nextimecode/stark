@@ -6,18 +6,17 @@ type Service = 'arya' | 'bran' | 'sansa' | 'ned'
 
 function resolveServiceUrl(service: Service): string {
   const envKey = `NEXT_PUBLIC_${service.toUpperCase()}_URL`
+  const fixedUrl = process.env[envKey]
 
   if (typeof window !== 'undefined') {
-    const url = process.env[envKey]
-    if (!url) {
+    if (!fixedUrl) {
       throw new Error(`Missing URL for ${service}`)
     }
-    return url
+    return fixedUrl
   }
 
   const vercelBranchUrl = process.env.VERCEL_BRANCH_URL
   const vercelUrl = process.env.VERCEL_URL
-  const fixedUrl = process.env[envKey]
 
   if (vercelBranchUrl?.includes('-git-')) {
     const dashIndex = vercelBranchUrl.indexOf('-')
@@ -53,7 +52,12 @@ if (typeof window === 'undefined') {
   }
 } else {
   for (const service of services) {
-    resolvedUrls[service] = resolveServiceUrl(service)
+    const envKey = `NEXT_PUBLIC_${service.toUpperCase()}_URL`
+    const url = process.env[envKey]
+    if (!url) {
+      throw new Error(`Missing URL for ${service}`)
+    }
+    resolvedUrls[service] = url
   }
 }
 
