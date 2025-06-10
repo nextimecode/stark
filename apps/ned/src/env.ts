@@ -28,24 +28,32 @@ if (typeof window === 'undefined') {
 function derivePreviewUrl(
   service: 'arya' | 'bran' | 'sansa' | 'ned'
 ): string | undefined {
-  if (!vercelHost) return
+  // 1. Descobre o host corrente. Prioriza a variável de ambiente da Vercel
+  //    (disponível em build/server), mas faz fallback para `window.location.host`
+  //    quando no browser. Isso garante funcionalidade também no client‐side
+  //    durante requests em ambiente de preview.
+  const host =
+    vercelHost ??
+    (typeof window !== 'undefined' ? window.location.host : undefined)
 
-  // 1. Exact match: we are already on the requested service host.
-  //    Example: "arya-git-feature-123.vercel.app"
-  if (vercelHost.startsWith(`${service}-`)) {
-    return `https://${vercelHost}`
+  if (!host) return
+
+  // 2. Exact match: já estamos no host do serviço solicitado.
+  //    Exemplo: "arya-git-feature-123.vercel.app"
+  if (host.startsWith(`${service}-`)) {
+    return `https://${host}`
   }
 
-  // 2. Generic cross-service preview: substitute the *first* sub-domain segment
-  //    by the desired service, keeping the rest intact.
-  //    Works for any preview naming strategy, e.g.:
+  // 3. Preview cross-service: substitui somente o primeiro segmento do subdomínio
+  //    pelo serviço desejado, mantendo o restante intacto.
+  //    Funciona para diferentes estratégias de nomenclatura, por exemplo:
   //      "ned-git-feature-123.vercel.app"  -> "arya-git-feature-123.vercel.app"
   //      "ned-pr-456.vercel.app"          -> "arya-pr-456.vercel.app"
-  //    Skip when host seems to be production (no dash) to avoid false positives.
-  const firstDot = vercelHost.indexOf('.')
-  if (firstDot > 0 && vercelHost.includes('-')) {
-    const subdomain = vercelHost.slice(0, firstDot)
-    const rest = vercelHost.slice(firstDot) // includes leading '.'
+  //    Se não houver hífen, assumimos que é produção/custom e encerramos.
+  const firstDot = host.indexOf('.')
+  if (firstDot > 0 && host.includes('-')) {
+    const subdomain = host.slice(0, firstDot)
+    const rest = host.slice(firstDot) // inclui ponto inicial
 
     const subdomainSegments = subdomain.split('-')
     if (subdomainSegments.length > 1) {
@@ -54,7 +62,7 @@ function derivePreviewUrl(
     }
   }
 
-  // 3. Non-preview (production/custom) – unable to derive automatically.
+  // 4. Produção ou host custom — não é possível derivar automaticamente.
   return
 }
 
