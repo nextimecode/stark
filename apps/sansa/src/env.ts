@@ -6,40 +6,26 @@ import { z } from 'zod'
 
 type Service = 'arya' | 'bran' | 'sansa' | 'ned'
 
-// Usa a variável pública em primeiro lugar (disponível também no client) e
-// faz fallback para VERCEL_URL apenas em build/server.
-const vercelHost = process.env.NEXT_PUBLIC_VERCEL_URL ?? process.env.VERCEL_URL
-
 function derivePreviewUrl(service: Service): string | undefined {
-  if (!vercelHost) return undefined
-
-  // 1. Estamos no host do próprio serviço (ex.: "arya-git-xyz.vercel.app").
-  if (vercelHost.startsWith(`${service}-`)) {
-    return `https://${vercelHost}`
-  }
-
-  // 2. Cross-service (ex.: "ned-git-xyz.vercel.app" -> "arya-git-xyz.vercel.app")
-  const firstDot = vercelHost.indexOf('.')
-  if (firstDot > 0 && vercelHost.includes('-')) {
-    const [_, ...rest] = vercelHost.split('-')
-    return `https://${service}-${rest.join('-')}`
-  }
-
-  // 3. Produção ou host custom – não há URL de preview a derivar.
+  const host = process.env.NEXT_PUBLIC_VERCEL_URL ?? process.env.VERCEL_URL
+  if (!host) return undefined
+  if (host.startsWith(`${service}-`)) return `https://${host}`
+  const gitIdx = host.indexOf('-git-')
+  if (gitIdx >= 0) return `https://${service}${host.slice(gitIdx)}`
   return undefined
 }
 
 // Calcula-se uma única vez durante o build; o resultado é serializado no bundle.
-const preview: Record<Service, string | undefined> = {
+const preview = {
   arya: derivePreviewUrl('arya'),
   bran: derivePreviewUrl('bran'),
   sansa: derivePreviewUrl('sansa'),
   ned: derivePreviewUrl('ned'),
-}
+} as const satisfies Record<Service, string | undefined>
 
-function required(value: string | undefined, name: Service): string {
-  if (value) return value
-  throw new Error(`🛑 Missing URL for ${name}`)
+function required(url: string | undefined, service: Service): string {
+  if (url) return url
+  throw new Error(`🛑 Missing URL for ${service}`)
 }
 
 // --- Variáveis fixas ---------------------------------------------------------
