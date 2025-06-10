@@ -43,4 +43,4 @@ export async function POST(request: Request) {
   setCorsHeaders(origin, response)
 
   return response
-} 
+}

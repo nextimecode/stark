@@ -41,7 +41,10 @@ export async function POST(request: Request) {
       )
     }
 
-    const { data: { user }, error: userError } = await supabase.auth.getUser(token)
+    const {
+      data: { user },
+      error: userError,
+    } = await supabase.auth.getUser(token)
 
     if (userError || !user) {
       return NextResponse.json(
@@ -65,7 +68,7 @@ export async function POST(request: Request) {
 
     const response = NextResponse.json({
       success: true,
-      message: 'Account deleted successfully'
+      message: 'Account deleted successfully',
     })
 
     response.cookies.set('token', '', {
