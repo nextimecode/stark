@@ -82,7 +82,7 @@ export default function DashboardClient({ user }: DashboardClientProps) {
 
     try {
       await deleteUser(currentUser)
-      await fetch(`${env.NEXT_PUBLIC_NED_URL}/api/logout`, {
+      await fetch(`${env.NEXT_PUBLIC_NED_URL}/api/delete-account`, {
         method: 'POST',
         credentials: 'include',
       })
