@@ -2,28 +2,24 @@
 
 'use client'
 
-import { type FormEvent, Suspense, useEffect, useState } from 'react'
-
-import { env } from '@/env'
-import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
-
+import type { UserRegisterBodySchema } from '@/app/api/register-user/route'
 import { Title } from '@/components'
 import { Logo } from '@/components/logo'
 import { Spinner } from '@/components/ui/spinner'
-
-import type { UserRegisterBodySchema } from '@/app/api/register-user/route'
+import { env } from '@/env'
 import {
   type FirebaseUser,
   signInWithEmailAndPassword,
   signInWithGoogle,
 } from '@/firebase/auth'
 import { GoogleIcon } from '@/icons'
+import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
+import { type FormEvent, Suspense, useEffect, useState } from 'react'
 
 function SignIn() {
   const searchParams = useSearchParams()
   const redirectUrl = searchParams.get('redirect') || env.NEXT_PUBLIC_SANSA_URL
-
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -52,6 +48,7 @@ function SignIn() {
         lastSignInTime: user.metadata?.lastSignInTime ?? '',
       },
     }
+
     await fetch('/api/register-user', {
       method: 'POST',
       credentials: 'include',
