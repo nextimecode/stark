@@ -4,7 +4,7 @@ const delay = (ms: number): Promise<void> =>
   new Promise(resolve => setTimeout(resolve, ms))
 
 export async function api(path: string, init?: RequestInit): Promise<Response> {
-  const baseUrl = env.NEXT_PUBLIC_BRAN_URL
+  const baseUrl = env.NEXT_PUBLIC_SANSA_URL
 
   if (!baseUrl) {
     throw new Error(
