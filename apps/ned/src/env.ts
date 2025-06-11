@@ -1,64 +1,51 @@
 // src/env.ts
+
 import { createEnv } from '@t3-oss/env-nextjs'
 import { z } from 'zod'
 
-type Service = 'arya' | 'bran' | 'sansa' | 'ned'
+const vercelHost = process.env.VERCEL_URL
+console.log('🔍 Vercel Host:', vercelHost)
 
-function resolveServiceUrl(service: Service): string {
-  const envKey = `NEXT_PUBLIC_${service.toUpperCase()}_URL`
-  const fixedUrl = process.env[envKey]
-
-  if (typeof window !== 'undefined') {
-    if (!fixedUrl) {
-      throw new Error(`Missing URL for ${service}`)
-    }
-    return fixedUrl
-  }
-
-  const vercelBranchUrl = process.env.VERCEL_BRANCH_URL
-  const vercelUrl = process.env.VERCEL_URL
-
-  if (vercelBranchUrl?.includes('-git-')) {
-    const dashIndex = vercelBranchUrl.indexOf('-')
-    if (dashIndex > 0) {
-      const suffix = vercelBranchUrl.slice(dashIndex)
-      return `https://${service}${suffix}`
-    }
-  }
-
-  if (vercelUrl?.includes('-git-')) {
-    const dashIndex = vercelUrl.indexOf('-')
-    if (dashIndex > 0) {
-      const suffix = vercelUrl.slice(dashIndex)
-      return `https://${service}${suffix}`
-    }
-  }
-
-  if (fixedUrl) {
-    return fixedUrl
-  }
-
-  throw new Error(`Missing URL for ${service}`)
-}
-
-const services: Service[] = ['arya', 'bran', 'sansa', 'ned']
-const resolvedUrls: Record<Service, string> = {} as Record<Service, string>
+const rawFirebaseSA = process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT
+const rawDatabaseURL = process.env.DATABASE_URL
+const rawArya = process.env.NEXT_PUBLIC_ARYA_URL
+const rawSansa = process.env.NEXT_PUBLIC_SANSA_URL
+const rawNed = process.env.NEXT_PUBLIC_NED_URL
 
 if (typeof window === 'undefined') {
-  for (const service of services) {
-    const url = resolveServiceUrl(service)
-    resolvedUrls[service] = url
-    process.env[`NEXT_PUBLIC_${service.toUpperCase()}_URL`] = url
+  if (!rawFirebaseSA) {
+    throw new Error('🛑 ENV VAR missing: FIREBASE_ADMIN_SERVICE_ACCOUNT')
   }
-} else {
-  for (const service of services) {
-    const envKey = `NEXT_PUBLIC_${service.toUpperCase()}_URL`
-    const url = process.env[envKey]
-    if (!url) {
-      throw new Error(`Missing URL for ${service}`)
-    }
-    resolvedUrls[service] = url
+  if (!rawDatabaseURL) {
+    throw new Error('🛑 ENV VAR missing: DATABASE_URL')
   }
+}
+
+function derivePreviewUrl(
+  service: 'arya' | 'sansa' | 'ned'
+): string | undefined {
+  if (!vercelHost) {
+    console.log(`⚠️ No Vercel host found for ${service}`)
+    return
+  }
+  if (vercelHost.startsWith(`${service}-`)) {
+    const previewUrl = `https://${vercelHost}`
+    console.log(`✅ Preview URL for ${service}:`, previewUrl)
+    return previewUrl
+  }
+  console.log(`❌ No preview URL match for ${service} in host:`, vercelHost)
+}
+
+function pickUrl(service: 'arya' | 'sansa' | 'ned', base?: string): string {
+  const preview = derivePreviewUrl(service)
+  const finalUrl =
+    preview ??
+    base ??
+    (() => {
+      throw new Error(`🛑 Missing URL for ${service}`)
+    })()
+  console.log(`🎯 Final URL for ${service}:`, finalUrl)
+  return finalUrl
 }
 
 export const env = createEnv({
@@ -67,18 +54,15 @@ export const env = createEnv({
     DATABASE_URL: z.string(),
   },
   client: {
-    NEXT_PUBLIC_ARYA_URL: z.string().url(),
-    NEXT_PUBLIC_BRAN_URL: z.string().url(),
-    NEXT_PUBLIC_SANSA_URL: z.string().url(),
-    NEXT_PUBLIC_NED_URL: z.string().url(),
+    NEXT_PUBLIC_ARYA_URL: z.string(),
+    NEXT_PUBLIC_SANSA_URL: z.string(),
+    NEXT_PUBLIC_NED_URL: z.string(),
   },
   runtimeEnv: {
-    FIREBASE_ADMIN_SERVICE_ACCOUNT:
-      process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT ?? '',
-    DATABASE_URL: process.env.DATABASE_URL ?? '',
-    NEXT_PUBLIC_ARYA_URL: resolvedUrls.arya,
-    NEXT_PUBLIC_BRAN_URL: resolvedUrls.bran,
-    NEXT_PUBLIC_SANSA_URL: resolvedUrls.sansa,
-    NEXT_PUBLIC_NED_URL: resolvedUrls.ned,
+    FIREBASE_ADMIN_SERVICE_ACCOUNT: rawFirebaseSA ?? '',
+    DATABASE_URL: rawDatabaseURL ?? '',
+    NEXT_PUBLIC_ARYA_URL: pickUrl('arya', rawArya),
+    NEXT_PUBLIC_SANSA_URL: pickUrl('sansa', rawSansa),
+    NEXT_PUBLIC_NED_URL: pickUrl('ned', rawNed),
   },
 })
