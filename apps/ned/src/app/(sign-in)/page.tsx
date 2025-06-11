@@ -1,27 +1,38 @@
+// app/(sign-in)/page.tsx
+
 'use client'
 
-import { type FormEvent, useState } from 'react'
-
-import { env } from '@/env'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-
+import type { UserRegisterBodySchema } from '@/app/api/register-user/route'
 import { Title } from '@/components'
 import { Logo } from '@/components/logo'
 import { Spinner } from '@/components/ui/spinner'
-import type { User as FirebaseUser } from 'firebase/auth'
-
-import { signInWithEmailAndPassword, signInWithGoogle } from '@/firebase/auth'
+import { env } from '@/env'
+import {
+  type FirebaseUser,
+  signInWithEmailAndPassword,
+  signInWithGoogle,
+} from '@/firebase/auth'
 import { GoogleIcon } from '@/icons'
-import type { UserRegisterBodySchema } from '../api/register-user/route'
+import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
+import { type FormEvent, Suspense, useEffect, useState } from 'react'
 
-export default function SignIn() {
-  const router = useRouter()
-
+function SignIn() {
+  const searchParams = useSearchParams()
+  const redirectUrl = searchParams.get('redirect') || env.NEXT_PUBLIC_SANSA_URL
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [errorMessage, setErrorMessage] = useState('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  useEffect(() => {
+    const token = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('token='))
+      ?.split('=')[1]
+    if (token) {
+      window.location.replace(redirectUrl)
+    }
+  }, [redirectUrl])
 
   const registerUserOnBackend = async (user: FirebaseUser) => {
     const userPayload: UserRegisterBodySchema = {
@@ -38,58 +49,60 @@ export default function SignIn() {
       },
     }
 
-    const registerRes = await fetch('/api/register-user', {
+    await fetch('/api/register-user', {
       method: 'POST',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(userPayload),
     })
 
-    if (!registerRes.ok) throw new Error('Erro ao registrar usuário.')
-
-    const token = await user.getIdToken()
-    const cookieRes = await fetch('/api/set-cookie', {
+    const idToken = await user.getIdToken()
+    const sessionRes = await fetch('/api/create-session-cookie', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token }),
+      body: JSON.stringify({ idToken }),
+    })
+    const { sessionCookie } = await sessionRes.json()
+
+    await fetch('/api/set-cookie', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: sessionCookie }),
     })
 
-    if (!cookieRes.ok) throw new Error('Erro ao configurar o cookie de sessão.')
-
-    router.push(env.NEXT_PUBLIC_SANSA_URL)
+    const callbackUrl = `${redirectUrl}/auth/callback?sessionCookie=${encodeURIComponent(sessionCookie)}`
+    window.location.replace(callbackUrl)
   }
 
   const handleGoogleLogin = async () => {
     setIsLoading(true)
-    const response = await signInWithGoogle()
+    try {
+      const response = await signInWithGoogle()
 
-    if (!response.error) {
-      await registerUserOnBackend(response.data.user)
-    } else {
-      setErrorMessage(
-        response.error.details || 'Falha ao fazer login com o Google.'
-      )
+      if (!response.error) {
+        await registerUserOnBackend(response.data)
+      }
+    } catch (error) {
+      console.error('[SignIn] Erro no login com Google:', error)
+    } finally {
+      setIsLoading(false)
     }
-
-    setIsLoading(false)
   }
 
   const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setIsLoading(true)
 
-    const response = await signInWithEmailAndPassword(email, password)
-    if (!response.error) {
-      await registerUserOnBackend(response.data.user)
-    } else {
-      setErrorMessage(
-        response.error.code === 'auth/wrong-password'
-          ? 'Senha incorreta. Por favor, tente novamente.'
-          : response.error.details || 'Falha ao fazer login. Tente novamente.'
-      )
+    try {
+      const response = await signInWithEmailAndPassword(email, password)
+      if (!response.error) {
+        await registerUserOnBackend(response.data)
+      }
+    } catch (error) {
+      console.error('[SignIn] Erro no login com email/senha:', error)
+    } finally {
+      setIsLoading(false)
     }
-
-    setIsLoading(false)
   }
 
   return (
@@ -146,10 +159,6 @@ export default function SignIn() {
                 />
               </div>
 
-              {errorMessage && (
-                <p className="text-red-500 text-sm">{errorMessage}</p>
-              )}
-
               <div>
                 <label
                   htmlFor="password"
@@ -197,5 +206,13 @@ export default function SignIn() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense>
+      <SignIn />
+    </Suspense>
   )
 }

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 import type { Metadata, Viewport } from 'next'
 import { Inter, Oxanium } from 'next/font/google'

@@ -1,28 +1,32 @@
-import type { FirebaseError } from 'firebase/app'
-import type { User } from 'firebase/auth'
+// firebase/auth/register.ts
+
+'use client'
+
 import {
+  auth,
+  createUserWithEmailAndPassword as firebaseClientCreateUserWithEmailAndPassword,
   GoogleAuthProvider,
-  createUserWithEmailAndPassword,
   signInWithPopup,
-} from 'firebase/auth'
+  type User,
+} from '@/firebase/client'
+import type { FirebaseError } from 'firebase/app'
 
 import { FirebaseAuthError } from '@/core/errors/erros/firebase-auth-error'
 import type { UseCaseResponse } from '@/core/types/use-case-response'
 import { failure, success } from '@/core/types/use-case-response-helpers'
-import { auth } from '@/firebase/client'
 
 export async function signUpWithEmailAndPassword(
   email: string,
   password: string
 ): Promise<UseCaseResponse<User>> {
   try {
-    const userCredential = await createUserWithEmailAndPassword(
+    const { user } = await firebaseClientCreateUserWithEmailAndPassword(
       auth,
       email,
       password
     )
-    return success(userCredential.user)
-  } catch (error) {
+    return success(user)
+  } catch (error: unknown) {
     const firebaseError = error as FirebaseError
     return failure(new FirebaseAuthError(firebaseError), {
       status: 400,
@@ -35,9 +39,9 @@ export async function signUpWithGoogle(): Promise<UseCaseResponse<User>> {
   const provider = new GoogleAuthProvider()
 
   try {
-    const result = await signInWithPopup(auth, provider)
-    return success(result.user)
-  } catch (error) {
+    const { user } = await signInWithPopup(auth, provider)
+    return success(user)
+  } catch (error: unknown) {
     const firebaseError = error as FirebaseError
     return failure(new FirebaseAuthError(firebaseError), {
       status: 400,

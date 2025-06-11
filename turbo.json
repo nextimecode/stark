@@ -9,7 +9,7 @@
     "build": {
       "dependsOn": ["prisma", "^build"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**", "types/**"],
-      "env": ["FIREBASE_ADMIN_SERVICE_ACCOUNT"]
+      "env": ["FIREBASE_ADMIN_SERVICE_ACCOUNT", "OPENAI_API_KEY", "DATABASE_URL"]
     },
     "docs:build": {
       "dependsOn": ["^docs:build"]

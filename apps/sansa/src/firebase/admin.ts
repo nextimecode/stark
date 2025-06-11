@@ -1,21 +1,25 @@
 export const dynamic = 'force-dynamic'
 
-import firebaseAdminLib from 'firebase-admin'
+import type { ServiceAccount } from 'firebase-admin'
+import { cert, getApp, getApps, initializeApp } from 'firebase-admin/app'
+import { type Auth, getAuth } from 'firebase-admin/auth'
 
-const getFirebaseAdmin = () => {
-  const serviceAccountKey = process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT
-  if (!serviceAccountKey) {
-    throw new Error('FIREBASE_ADMIN_SERVICE_ACCOUNT não está definida.')
-  }
+function initAuth(): Auth {
+  const app =
+    getApps().length > 0
+      ? getApp()
+      : initializeApp({
+          credential: cert(
+            JSON.parse(
+              Buffer.from(
+                process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT as string,
+                'base64'
+              ).toString('utf8')
+            ) as ServiceAccount
+          ),
+        })
 
-  if (!firebaseAdminLib.apps.length) {
-    const serviceAccount = JSON.parse(serviceAccountKey)
-
-    firebaseAdminLib.initializeApp({
-      credential: firebaseAdminLib.credential.cert(serviceAccount),
-    })
-  }
-  return { admin: firebaseAdminLib, key: serviceAccountKey }
+  return getAuth(app)
 }
 
-export const { admin, key } = getFirebaseAdmin()
+export const adminAuth = initAuth()

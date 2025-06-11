@@ -1,13 +1,15 @@
+// app/recover/page.tsx
+
 'use client'
 
-import { FormEvent, useState } from 'react'
+import { type FormEvent, useState } from 'react'
 
 import Link from 'next/link'
 
 import { Title } from '@/components/'
 import { Logo } from '@/components/logo'
 
-import { sendPasswordResetEmail } from 'firebase/auth'
+import { sendPasswordResetEmail } from '@/firebase/auth'
 
 import { auth } from '@/firebase/client'
 

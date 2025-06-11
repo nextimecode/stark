@@ -38,7 +38,9 @@ export default function DashboardClient({ user }: DashboardClientProps) {
         method: 'POST',
         credentials: 'include',
       })
-      router.push(env.NEXT_PUBLIC_ARYA_URL)
+      router.push(
+        `${env.NEXT_PUBLIC_NED_URL}/logout?redirect=${encodeURIComponent(env.NEXT_PUBLIC_ARYA_URL)}`
+      )
     } catch (error) {
       console.error('Erro no logout:', error)
       alert('Não foi possível deslogar. Tente novamente.')
@@ -80,7 +82,7 @@ export default function DashboardClient({ user }: DashboardClientProps) {
 
     try {
       await deleteUser(currentUser)
-      await fetch(`${env.NEXT_PUBLIC_NED_URL}/api/logout`, {
+      await fetch(`${env.NEXT_PUBLIC_NED_URL}/api/delete-account`, {
         method: 'POST',
         credentials: 'include',
       })

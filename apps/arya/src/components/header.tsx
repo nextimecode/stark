@@ -9,6 +9,7 @@ import { env } from '@/env'
 import { Title } from './title'
 
 const nedUrl = env.NEXT_PUBLIC_NED_URL
+const sansaUrl = env.NEXT_PUBLIC_SANSA_URL
 
 export function Header() {
   return (
@@ -29,7 +30,7 @@ export function Header() {
         <div className="flex items-center gap-x-2 ms-auto py-1 md:ps-6 md:order-3 md:col-span-3">
           <Link
             className="transition-all duration-300 hover:animate-[button-glow_2.5s_ease-in-out_infinite] py-2 px-3 inline-flex items-center gap-x-2 text-sm rounded-xl border border-transparent bg-primary text-white font-semibold disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-primary-600"
-            href={nedUrl}
+            href={`${nedUrl}?redirect=${encodeURIComponent(sansaUrl)}`}
           >
             <User className="h-4 w-4" />
             Conta NeXTIME
@@ -44,6 +45,7 @@ export function Header() {
               aria-label="Toggle navigation"
             >
               <svg
+                aria-hidden="true"
                 className="hs-collapse-open:hidden shrink-0 size-4"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -60,6 +62,7 @@ export function Header() {
                 <line x1="3" x2="21" y1="18" y2="18" />
               </svg>
               <svg
+                aria-hidden="true"
                 className="hs-collapse-open:block hidden shrink-0 size-4"
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"

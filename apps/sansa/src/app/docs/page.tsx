@@ -1,4 +1,5 @@
 // app/api-doc/page.tsx
+
 'use client'
 
 import { openApiDocument } from '@/lib/openapi'
