@@ -6,7 +6,6 @@ import { createClient } from '@/lib/supabase/server'
 
 const allowedOrigins = [
   env.NEXT_PUBLIC_ARYA_URL,
-  env.NEXT_PUBLIC_BRAN_URL,
   env.NEXT_PUBLIC_SANSA_URL,
   env.NEXT_PUBLIC_NED_URL,
 ].filter(Boolean)
