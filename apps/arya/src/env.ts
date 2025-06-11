@@ -1,67 +1,68 @@
+// src/env.ts
+
 import { createEnv } from '@t3-oss/env-nextjs'
 import { z } from 'zod'
 
-const SERVICES = ['arya', 'bran', 'sansa', 'ned'] as const
-type ServiceKey = `${Uppercase<(typeof SERVICES)[number]>}_URL`
+const vercelHost = process.env.VERCEL_URL
+console.log('🔍 Vercel Host:', vercelHost)
 
-function derivePreview(host: string): Record<ServiceKey, string> {
-  const [, suffix] = host
-    .replace(/^https?:\/\//, '')
-    .replace('.vercel.app', '')
-    .split('-git-')
-  if (!suffix) return {} as Record<ServiceKey, string>
-  return Object.fromEntries(
-    SERVICES.map(s => [
-      `${s.toUpperCase()}_URL`,
-      `https://${s}-git-${suffix}.vercel.app`,
-    ])
-  ) as Record<ServiceKey, string>
+const rawFirebaseSA = process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT
+const rawArya = process.env.NEXT_PUBLIC_ARYA_URL
+const rawBran = process.env.NEXT_PUBLIC_BRAN_URL
+const rawSansa = process.env.NEXT_PUBLIC_SANSA_URL
+const rawNed = process.env.NEXT_PUBLIC_NED_URL
+
+if (typeof window === 'undefined') {
+  if (!rawFirebaseSA) {
+    throw new Error('🛑 ENV VAR missing: FIREBASE_ADMIN_SERVICE_ACCOUNT')
+  }
 }
 
-const host =
-  process.env.VERCEL_ENV === 'preview' ? (process.env.VERCEL_URL ?? '') : ''
-const previewUrls = host ? derivePreview(host) : {}
+function derivePreviewUrl(
+  service: 'arya' | 'bran' | 'sansa' | 'ned'
+): string | undefined {
+  if (!vercelHost) {
+    console.log(`⚠️ No Vercel host found for ${service}`)
+    return
+  }
+  if (vercelHost.startsWith(`${service}-`)) {
+    const previewUrl = `https://${vercelHost}`
+    console.log(`✅ Preview URL for ${service}:`, previewUrl)
+    return previewUrl
+  }
+  console.log(`❌ No preview URL match for ${service} in host:`, vercelHost)
+}
 
-const baseUrls = Object.fromEntries(
-  SERVICES.map(s => [
-    `${s.toUpperCase()}_URL`,
-    process.env[`NEXT_PUBLIC_${s.toUpperCase()}_URL`] ?? '',
-  ])
-) as Record<ServiceKey, string>
-
-const urls =
-  Object.keys(previewUrls).length === SERVICES.length
-    ? { ...baseUrls, ...previewUrls }
-    : baseUrls
+function pickUrl(
+  service: 'arya' | 'bran' | 'sansa' | 'ned',
+  base?: string
+): string {
+  const preview = derivePreviewUrl(service)
+  const finalUrl =
+    preview ??
+    base ??
+    (() => {
+      throw new Error(`🛑 Missing URL for ${service}`)
+    })()
+  console.log(`🎯 Final URL for ${service}:`, finalUrl)
+  return finalUrl
+}
 
 export const env = createEnv({
   server: {
     FIREBASE_ADMIN_SERVICE_ACCOUNT: z.string(),
-    DATABASE_URL: z.string().url(),
-    OPENAI_API_KEY: z.string(),
-    ARYA_URL: z.string().url(),
-    BRAN_URL: z.string().url(),
-    SANSA_URL: z.string().url(),
-    NED_URL: z.string().url(),
   },
   client: {
-    NEXT_PUBLIC_ARYA_URL: z.string().url(),
-    NEXT_PUBLIC_BRAN_URL: z.string().url(),
-    NEXT_PUBLIC_SANSA_URL: z.string().url(),
-    NEXT_PUBLIC_NED_URL: z.string().url(),
+    NEXT_PUBLIC_ARYA_URL: z.string(),
+    NEXT_PUBLIC_BRAN_URL: z.string(),
+    NEXT_PUBLIC_SANSA_URL: z.string(),
+    NEXT_PUBLIC_NED_URL: z.string(),
   },
   runtimeEnv: {
-    ...process.env,
-    FIREBASE_ADMIN_SERVICE_ACCOUNT: process.env.FIREBASE_ADMIN_SERVICE_ACCOUNT,
-    DATABASE_URL: process.env.DATABASE_URL,
-    OPENAI_API_KEY: process.env.OPENAI_API_KEY,
-    ARYA_URL: urls.ARYA_URL,
-    BRAN_URL: urls.BRAN_URL,
-    SANSA_URL: urls.SANSA_URL,
-    NED_URL: urls.NED_URL,
-    NEXT_PUBLIC_ARYA_URL: urls.ARYA_URL,
-    NEXT_PUBLIC_BRAN_URL: urls.BRAN_URL,
-    NEXT_PUBLIC_SANSA_URL: urls.SANSA_URL,
-    NEXT_PUBLIC_NED_URL: urls.NED_URL,
+    FIREBASE_ADMIN_SERVICE_ACCOUNT: rawFirebaseSA ?? '',
+    NEXT_PUBLIC_ARYA_URL: pickUrl('arya', rawArya),
+    NEXT_PUBLIC_BRAN_URL: pickUrl('bran', rawBran),
+    NEXT_PUBLIC_SANSA_URL: pickUrl('sansa', rawSansa),
+    NEXT_PUBLIC_NED_URL: pickUrl('ned', rawNed),
   },
 })
