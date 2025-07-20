@@ -206,7 +206,8 @@
     "overrides": {
       "undici": "^7.12.0",
       "esbuild": "^0.25.8",
-      "prismjs": "^1.30.0"
+      "prismjs": "^1.30.0",
+      "@eslint/plugin-kit": "0.3.3"
     }
   },
   "prisma": {
