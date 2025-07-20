@@ -8,6 +8,7 @@ import reactPlugin from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import sonarjs from 'eslint-plugin-sonarjs';
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
+import vitest from 'eslint-plugin-vitest';
 import globals from 'globals';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -54,8 +55,7 @@ export default tseslint.config(
       ...compat.config({
         extends: [
           'plugin:@next/next/recommended',
-          'plugin:@next/next/core-web-vitals',
-          'plugin:@next/next/typescript'
+          'plugin:@next/next/core-web-vitals'
         ]
       }),
       prettierConfig
@@ -67,6 +67,7 @@ export default tseslint.config(
         ...globals.browser,
         ...globals.builtin
       },
+      parser: tseslint.parser,
       parserOptions: {
         ecmaFeatures: {
           jsx: true
@@ -76,6 +77,11 @@ export default tseslint.config(
     plugins: {
       '@next/next': nextPlugin,
       prettier: prettierPlugin
+    },
+    settings: {
+      next: {
+        rootDir: ['apps/*/']
+      }
     },
     rules: {
       // TypeScript rules
@@ -147,6 +153,9 @@ export default tseslint.config(
         }
       ],
       semi: ['error', 'never'],
+
+      // Next.js rules
+      '@next/next/no-html-link-for-pages': ['error', ['apps/*/src/app/', 'apps/*/app/']],
 
       // Perfectionist rules
       'perfectionist/sort-imports': 'off',
@@ -244,6 +253,25 @@ export default tseslint.config(
       'unicorn/prefer-top-level-await': 'off',
       'unicorn/prevent-abbreviations': [0, { ignore: ['/.*/ig'] }],
       'unicorn/text-encoding-identifier-case': 'off'
+    }
+  },
+  {
+    files: ['**/*.{test,spec}.{js,ts,tsx}', '**/tests/**/*.{js,ts,tsx}'],
+    plugins: {
+      vitest: vitest
+    },
+    rules: {
+      ...vitest.configs.recommended.rules,
+      'vitest/consistent-test-it': ['error', { fn: 'test' }],
+      'vitest/no-focused-tests': 'error',
+      'vitest/no-disabled-tests': 'warn',
+      'vitest/prefer-to-be': 'error',
+      'vitest/prefer-to-have-length': 'error'
+    },
+    settings: {
+      vitest: {
+        typecheck: true
+      }
     }
   }
 );
