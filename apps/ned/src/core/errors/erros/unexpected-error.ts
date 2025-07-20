@@ -1,9 +1,9 @@
 import { UseCaseError } from '../use-case-error'
 
 export class UnexpectedError extends Error implements UseCaseError {
+  code: string
   details: string
   hint: string
-  code: string
 
   constructor(message = 'Unexpected error occurred') {
     super(message)

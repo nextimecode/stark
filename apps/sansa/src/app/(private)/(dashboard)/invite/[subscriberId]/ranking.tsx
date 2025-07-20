@@ -1,5 +1,4 @@
 import Image from 'next/image'
-
 import cooper from '@/assets/medal-cooper.svg'
 import gold from '@/assets/medal-gold.svg'
 import silver from '@/assets/medal-silver.svg'
@@ -11,7 +10,7 @@ export async function Ranking() {
 
   return (
     <div className="w-full max-w-[440px] space-y-5">
-      <h2 className="text-gray-200 text-xl font-heading font-semibold leading-none">
+      <h2 className="font-heading text-xl leading-none font-semibold text-gray-200">
         Ranking de indicações
       </h2>
 
@@ -22,27 +21,27 @@ export async function Ranking() {
           return (
             <div
               key={rank.id}
-              className="relative rounded-xl bg-gray-700 border border-gray-600 p-6 flex flex-col justify-center gap-3"
+              className="relative flex flex-col justify-center gap-3 rounded-xl border border-gray-600 bg-gray-700 p-6"
             >
-              <span className="text-sm text-gray-300 leading-none">
+              <span className="text-sm leading-none text-gray-300">
                 <span className="font-semibold">{rankingPosition}&ordm;</span> |{' '}
                 {rank.name}
               </span>
 
-              <span className="font-heading text-2xl font-semibold text-gray-200 leading-none">
+              <span className="font-heading text-2xl leading-none font-semibold text-gray-200">
                 {rank.score}
               </span>
 
               {rankingPosition === 1 && (
-                <Image src={gold} alt="" className="absolute top-0 right-8" />
+                <Image className="absolute top-0 right-8" alt="" src={gold} />
               )}
 
               {rankingPosition === 2 && (
-                <Image src={silver} alt="" className="absolute top-0 right-8" />
+                <Image className="absolute top-0 right-8" alt="" src={silver} />
               )}
 
               {rankingPosition === 3 && (
-                <Image src={cooper} alt="" className="absolute top-0 right-8" />
+                <Image className="absolute top-0 right-8" alt="" src={cooper} />
               )}
             </div>
           )

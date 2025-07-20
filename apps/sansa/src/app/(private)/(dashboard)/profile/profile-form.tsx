@@ -2,15 +2,11 @@
 
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-
 import { useRouter } from 'next/navigation'
-
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
-
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Save } from 'lucide-react'
-
 import BasicSection from './basic-section'
 import FamilySection from './family-section'
 import FriendshipSection from './friendship-section'
@@ -19,61 +15,61 @@ import PersonalitySection from './personality-section'
 import ProfessionalSection from './professional-section'
 import RelationshipSection from './relationship-section'
 import RomanticSection from './romantic-section'
-import { type ProfileFormValues, profileFormSchema } from './schema'
+import { profileFormSchema, type ProfileFormValues } from './schema'
 import ValuesSection from './values-section'
 
 export function ProfileForm() {
   const router = useRouter()
   const [openSections, setOpenSections] = useState({
     basic: true,
-    personality: false,
+    family: false,
+    friendship: false,
     interests: false,
-    values: false,
+    personality: false,
+    professional: false,
     relationship: false,
     romantic: false,
-    professional: false,
-    friendship: false,
-    family: false,
+    values: false
   })
 
   const form = useForm<ProfileFormValues>({
-    resolver: zodResolver(profileFormSchema),
     defaultValues: {
-      name: '',
-      email: '',
       age: 18,
-      location: '',
-      mbtiType: '',
-      introExtroScale: 5,
-      communicationStyle: 'mixed',
-      hobbies: '',
-      musicPreference: '',
-      leisureActivities: '',
-      coreValues: '',
-      lifeGoals: '',
-      relationshipExpectations: '',
-      relationshipFocus: 'romantic',
-      desiredContactFrequency: 'weekly',
-      conflictResolutionStyle: 'collaborative',
-      maritalStatus: '',
-      relationshipDuration: '',
-      communicationExpectation: '',
-      intimacyExpectation: '',
-      technicalSkills: '',
-      professionalExperience: '',
-      workArea: '',
-      currentPosition: '',
-      workPreferences: [],
       careerObjectives: '',
-      friendHobbies: [],
-      socializationFrequency: '',
+      communicationExpectation: '',
       communicationPreference: '',
-      friendActivities: [],
+      communicationStyle: 'mixed',
+      conflictResolutionStyle: 'collaborative',
+      coreValues: '',
+      currentPosition: '',
+      desiredContactFrequency: 'weekly',
+      email: '',
       familyContactFrequency: '',
+      familyDynamics: [],
       familyRole: '',
       familyTraditionsImportance: '',
-      familyDynamics: [],
+      friendActivities: [],
+      friendHobbies: [],
+      hobbies: '',
+      intimacyExpectation: '',
+      introExtroScale: 5,
+      leisureActivities: '',
+      lifeGoals: '',
+      location: '',
+      maritalStatus: '',
+      mbtiType: '',
+      musicPreference: '',
+      name: '',
+      professionalExperience: '',
+      relationshipDuration: '',
+      relationshipExpectations: '',
+      relationshipFocus: 'romantic',
+      socializationFrequency: '',
+      technicalSkills: '',
+      workArea: '',
+      workPreferences: []
     },
+    resolver: zodResolver(profileFormSchema)
   })
 
   const onSubmit = async (data: ProfileFormValues) => {
@@ -90,7 +86,7 @@ export function ProfileForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form className="space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
         <BasicSection
           form={form}
           open={openSections.basic}
@@ -137,7 +133,7 @@ export function ProfileForm() {
           toggle={() => toggleSection('family')}
         />
         <div className="flex justify-end pt-6">
-          <Button type="submit" className="flex items-center gap-2">
+          <Button className="flex items-center gap-2" type="submit">
             <Save className="h-4 w-4" />
             Salvar e Continuar
           </Button>

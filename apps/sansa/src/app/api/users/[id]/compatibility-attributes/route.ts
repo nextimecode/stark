@@ -1,34 +1,31 @@
 // api/users/[id]/compatibility-attributes/route.ts
 
-import { handleOptionsRequest } from '@/lib/handle-options'
 import { prisma } from '@/lib/prisma'
 import { setCorsHeaders } from '@/lib/set-cors-headers'
 import { type NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
-import { extendZodWithOpenApi } from 'zod-openapi'
-
-extendZodWithOpenApi(z)
 
 const paramsSchema = z.object({
   id: z
     .string()
     .transform(val => {
       const num = Number(val)
+
       if (Number.isNaN(num)) {
-        throw new Error('Invalid user ID')
+        throw new TypeError('Invalid user ID')
       }
       return num
     })
-    .openapi({
+    .meta({
       description: 'ID do usuário',
-      example: '1',
-    }),
+      example: '1'
+    })
 })
 
 const bodySchema = z
   .object({})
   .passthrough()
-  .openapi({ ref: 'CompatibilityAttributesBody' })
+  .meta({ id: 'CompatibilityAttributesBody' })
 
 export async function GET(
   request: NextRequest,
@@ -37,7 +34,7 @@ export async function GET(
   const params = await context.params
   const { id } = paramsSchema.parse(params)
   const attrs = await prisma.compatibilityAttributes.findUnique({
-    where: { userId: id },
+    where: { userId: id }
   })
 
   const res = attrs
@@ -57,9 +54,9 @@ export async function PUT(
   const data = bodySchema.parse(await request.json())
 
   const attrs = await prisma.compatibilityAttributes.upsert({
-    where: { userId: id },
-    update: data,
     create: { userId: id, ...data },
+    update: data,
+    where: { userId: id }
   })
 
   const res = NextResponse.json(attrs)
@@ -67,4 +64,4 @@ export async function PUT(
   return res
 }
 
-export const OPTIONS = handleOptionsRequest
+export { handleOptionsRequest as OPTIONS } from '@/lib/handle-options'

@@ -5,7 +5,7 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from '@/components/ui/card'
 import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
 import {
@@ -13,7 +13,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from '@/components/ui/form'
 import { Textarea } from '@/components/ui/textarea'
 
@@ -28,14 +28,14 @@ export function ValuesSection({ form, open, toggle }: ValuesSectionProps) {
     <Card className="relative">
       <div className="absolute top-4 right-4 cursor-pointer" onClick={toggle}>
         <button
-          type="button"
           className="text-muted-foreground hover:text-primary"
+          type="button"
         >
           {open ? 'Fechar' : 'Expandir'}
         </button>
       </div>
       <CardHeader>
-        <CardTitle onClick={toggle} className="cursor-pointer">
+        <CardTitle className="cursor-pointer" onClick={toggle}>
           Valores e Expectativas
         </CardTitle>
         <CardDescription>O que é importante para você</CardDescription>
@@ -44,7 +44,6 @@ export function ValuesSection({ form, open, toggle }: ValuesSectionProps) {
         <CollapsibleContent>
           <CardContent className="space-y-4">
             <FormField
-              control={form.control}
               name="coreValues"
               render={({ field }) => (
                 <FormItem>
@@ -58,9 +57,9 @@ export function ValuesSection({ form, open, toggle }: ValuesSectionProps) {
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
             <FormField
-              control={form.control}
               name="lifeGoals"
               render={({ field }) => (
                 <FormItem>
@@ -74,9 +73,9 @@ export function ValuesSection({ form, open, toggle }: ValuesSectionProps) {
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
             <FormField
-              control={form.control}
               name="relationshipExpectations"
               render={({ field }) => (
                 <FormItem>
@@ -90,6 +89,7 @@ export function ValuesSection({ form, open, toggle }: ValuesSectionProps) {
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
           </CardContent>
         </CollapsibleContent>

@@ -1,5 +1,4 @@
 import { createBrowserClient } from '@supabase/ssr'
-
 import type { Database } from '@/lib/supabase/database.types'
 
 export const createClient = () => {
@@ -10,9 +9,9 @@ export const createClient = () => {
       global: {
         headers: {
           // https://supabase.com/docs/guides/platform/read-replicas#experimental-routing
-          'sb-lb-routing-mode': 'alpha-all-services',
-        },
-      },
+          'sb-lb-routing-mode': 'alpha-all-services'
+        }
+      }
     }
   )
 }

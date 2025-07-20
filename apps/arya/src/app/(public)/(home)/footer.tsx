@@ -31,8 +31,9 @@ export function Footer() {
           <p className="text-gray-500 dark:text-neutral-500">
             Mais um produto da{' '}
             <a
-              className="text-blue-600 decoration-2 hover:underline focus:outline-hidden focus:underline font-medium dark:text-blue-500"
               href="https://www.nextime.com.br/"
+              className="font-medium text-blue-600 decoration-2 hover:underline focus:underline focus:outline-hidden dark:text-blue-500"
+              rel="noreferrer"
               target="_blank"
             >
               NeXTIME

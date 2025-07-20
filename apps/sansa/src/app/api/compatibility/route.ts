@@ -4,46 +4,43 @@ import { PrismaClient } from '@prisma/client'
 import { NextResponse } from 'next/server'
 import OpenAI from 'openai'
 import { z } from 'zod'
-import { extendZodWithOpenApi } from 'zod-openapi'
 import {
-  type UserData,
   familyPrompt,
   friendshipPrompt,
   lovePrompt,
-  workPrompt,
+  type UserData,
+  workPrompt
 } from './compatibility-prompts'
-
-extendZodWithOpenApi(z)
 
 const prisma = new PrismaClient()
 
 export const compatibilityTestSchema = z
   .object({
-    user1Id: z.number().openapi({
+    relationshipType: z.enum(['LOVE', 'FRIENDSHIP', 'WORK', 'FAMILY']).meta({
+      description: 'Tipo de relacionamento a ser analisado',
+      example: 'LOVE'
+    }),
+    user1Id: z.number().meta({
       description: 'ID do primeiro usuário',
-      example: 1,
+      example: 1
     }),
     user2Id: z
       .number()
-      .openapi({ description: 'ID do segundo usuário', example: 2 }),
-    relationshipType: z.enum(['LOVE', 'FRIENDSHIP', 'WORK', 'FAMILY']).openapi({
-      description: 'Tipo de relacionamento a ser analisado',
-      example: 'LOVE',
-    }),
+      .meta({ description: 'ID do segundo usuário', example: 2 })
   })
-  .openapi({
-    ref: 'CompatibilityTest',
+  .meta({
     description: 'Dados para análise de compatibilidade entre dois usuários',
+    id: 'CompatibilityTest'
   })
 
 export const OPTIONS = async () =>
   new Response(null, {
-    status: 204,
     headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      'Access-Control-Allow-Origin': '*'
     },
+    status: 204
   })
 
 export const POST = async (request: Request) => {
@@ -52,14 +49,14 @@ export const POST = async (request: Request) => {
     const parsed = compatibilityTestSchema.safeParse(json)
 
     if (!parsed.success) {
-      return NextResponse.json({ error: parsed.error.errors }, { status: 400 })
+      return NextResponse.json({ error: parsed.error.issues }, { status: 400 })
     }
 
-    const { user1Id, user2Id, relationshipType } = parsed.data
+    const { relationshipType, user1Id, user2Id } = parsed.data
 
     const users = await prisma.user.findMany({
-      where: { id: { in: [user1Id, user2Id] } },
       include: { compatibilityAttributes: true },
+      where: { id: { in: [user1Id, user2Id] } }
     })
 
     const user1 = users.find(user => user.id === user1Id)
@@ -83,56 +80,56 @@ export const POST = async (request: Request) => {
     }
 
     const userData1: UserData = {
-      name: user1.name ?? '',
       mbti: attrs1.mbtiType ?? '',
+      name: user1.name ?? ''
     }
     const userData2: UserData = {
-      name: user2.name ?? '',
       mbti: attrs2.mbtiType ?? '',
+      name: user2.name ?? ''
     }
 
     const prompts = {
-      LOVE: lovePrompt,
-      FRIENDSHIP: friendshipPrompt,
-      WORK: workPrompt,
       FAMILY: familyPrompt,
+      FRIENDSHIP: friendshipPrompt,
+      LOVE: lovePrompt,
+      WORK: workPrompt
     }
 
-    const promptFn = prompts[relationshipType]
+    const promptFn = prompts[relationshipType as keyof typeof prompts]
     const prompt = promptFn(userData1, userData2)
 
     const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
     const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
       messages: [
         {
-          role: 'system',
           content:
             'Você é um assistente especialista em análise de compatibilidade humana, baseado em psicologia, MBTI e Big Five. Sua tarefa é interpretar perfis fornecidos e gerar uma análise detalhada e equilibrada sobre a compatibilidade entre duas pessoas. Seja técnico e respeitoso.',
+          role: 'system'
         },
         {
-          role: 'user',
           content: prompt,
-        },
+          role: 'user'
+        }
       ],
+      model: 'gpt-4o-mini'
     })
 
     const completionText = completion.choices?.[0]?.message?.content ?? ''
 
     const compatibilityTest = await prisma.compatibilityTest.create({
       data: {
-        user1Id,
-        user2Id,
-        relationshipType,
-        prompt,
-        result: { text: completionText },
         model: 'gpt-4o-mini',
-      },
+        prompt,
+        relationshipType,
+        result: { text: completionText },
+        user1Id,
+        user2Id
+      }
     })
 
     return NextResponse.json(compatibilityTest, {
-      status: 200,
       headers: { 'Access-Control-Allow-Origin': '*' },
+      status: 200
     })
   } catch (error) {
     return NextResponse.json(

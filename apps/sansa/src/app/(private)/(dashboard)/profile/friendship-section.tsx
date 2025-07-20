@@ -5,7 +5,7 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
@@ -15,7 +15,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from '@/components/ui/form'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import {
@@ -23,9 +23,8 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
+  SelectValue
 } from '@/components/ui/select'
-
 import { Users } from 'lucide-react'
 
 interface FriendshipSectionProps {
@@ -37,22 +36,22 @@ interface FriendshipSectionProps {
 export function FriendshipSection({
   form,
   open,
-  toggle,
+  toggle
 }: FriendshipSectionProps) {
   return (
     <Card className="relative">
       <div className="absolute top-4 right-4 cursor-pointer" onClick={toggle}>
         <button
-          type="button"
           className="text-muted-foreground hover:text-primary"
+          type="button"
         >
           {open ? 'Fechar' : 'Expandir'}
         </button>
       </div>
       <CardHeader>
         <CardTitle
+          className="flex cursor-pointer items-center"
           onClick={toggle}
-          className="cursor-pointer flex items-center"
         >
           <Users className="mr-2 h-5 w-5" />
           Amizade
@@ -63,7 +62,6 @@ export function FriendshipSection({
         <CollapsibleContent>
           <CardContent className="space-y-4">
             <FormField
-              control={form.control}
               name="friendHobbies"
               render={({ field }) => (
                 <FormItem>
@@ -72,7 +70,7 @@ export function FriendshipSection({
                     Selecione os hobbies que mais gosta
                   </FormDescription>
                   <FormControl>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
                       <div className="flex items-center space-x-2">
                         <Checkbox
                           checked={field.value?.includes('sports')}
@@ -98,7 +96,7 @@ export function FriendshipSection({
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'fitness',
+                                'fitness'
                               ])
                             } else {
                               field.onChange(
@@ -137,7 +135,7 @@ export function FriendshipSection({
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'reading',
+                                'reading'
                               ])
                             } else {
                               field.onChange(
@@ -192,17 +190,17 @@ export function FriendshipSection({
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
             <FormField
-              control={form.control}
               name="socializationFrequency"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Frequência de Socialização</FormLabel>
                   <FormControl>
                     <Select
-                      onValueChange={field.onChange}
                       defaultValue={field.value}
+                      onValueChange={field.onChange}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Frequência ideal" />
@@ -224,20 +222,20 @@ export function FriendshipSection({
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
             <FormField
-              control={form.control}
               name="communicationPreference"
               render={({ field }) => (
                 <FormItem className="space-y-3">
                   <FormLabel>Estilo de Comunicação</FormLabel>
                   <FormControl>
                     <RadioGroup
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
                       className="flex flex-col space-y-1"
+                      defaultValue={field.value}
+                      onValueChange={field.onChange}
                     >
-                      <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormItem className="flex items-center space-y-0 space-x-3">
                         <FormControl>
                           <RadioGroupItem value="extroverted" />
                         </FormControl>
@@ -245,7 +243,7 @@ export function FriendshipSection({
                           Extrovertido(a)
                         </FormLabel>
                       </FormItem>
-                      <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormItem className="flex items-center space-y-0 space-x-3">
                         <FormControl>
                           <RadioGroupItem value="introverted" />
                         </FormControl>
@@ -253,7 +251,7 @@ export function FriendshipSection({
                           Introvertido(a)
                         </FormLabel>
                       </FormItem>
-                      <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormItem className="flex items-center space-y-0 space-x-3">
                         <FormControl>
                           <RadioGroupItem value="ambiverted" />
                         </FormControl>
@@ -266,9 +264,9 @@ export function FriendshipSection({
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
             <FormField
-              control={form.control}
               name="friendActivities"
               render={({ field }) => (
                 <FormItem>
@@ -285,7 +283,7 @@ export function FriendshipSection({
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'home-gatherings',
+                                'home-gatherings'
                               ])
                             } else {
                               field.onChange(
@@ -306,7 +304,7 @@ export function FriendshipSection({
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'outdoor-activities',
+                                'outdoor-activities'
                               ])
                             } else {
                               field.onChange(
@@ -329,7 +327,7 @@ export function FriendshipSection({
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'parties',
+                                'parties'
                               ])
                             } else {
                               field.onChange(
@@ -350,7 +348,7 @@ export function FriendshipSection({
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'group-sports',
+                                'group-sports'
                               ])
                             } else {
                               field.onChange(
@@ -391,7 +389,7 @@ export function FriendshipSection({
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'restaurants',
+                                'restaurants'
                               ])
                             } else {
                               field.onChange(
@@ -414,7 +412,7 @@ export function FriendshipSection({
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'cultural-events',
+                                'cultural-events'
                               ])
                             } else {
                               field.onChange(
@@ -435,6 +433,7 @@ export function FriendshipSection({
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
           </CardContent>
         </CollapsibleContent>

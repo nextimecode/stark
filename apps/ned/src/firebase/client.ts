@@ -4,22 +4,13 @@ import {
   type FirebaseOptions,
   getApp,
   getApps,
-  initializeApp,
+  initializeApp
 } from 'firebase/app'
 import {
   type Auth,
-  GoogleAuthProvider,
-  type User,
-  type UserCredential,
   browserLocalPersistence,
-  createUserWithEmailAndPassword,
   getAuth,
-  onAuthStateChanged,
-  sendPasswordResetEmail,
-  setPersistence,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  signOut,
+  setPersistence
 } from 'firebase/auth'
 
 const apiKey = process.env.NEXT_PUBLIC_FIREBASE_API_KEY
@@ -43,16 +34,16 @@ if (
 
 const config: FirebaseOptions = {
   apiKey,
-  authDomain,
-  projectId,
-  storageBucket,
-  messagingSenderId,
   appId,
+  authDomain,
   measurementId,
+  messagingSenderId,
+  projectId,
+  storageBucket
 }
 
 function initAuth(): Auth {
-  const app = getApps().length ? getApp() : initializeApp(config)
+  const app = getApps().length > 0 ? getApp() : initializeApp(config)
   const auth = getAuth(app)
   void setPersistence(auth, browserLocalPersistence)
   return auth
@@ -61,13 +52,13 @@ function initAuth(): Auth {
 export const auth = initAuth()
 
 export {
-  GoogleAuthProvider,
   createUserWithEmailAndPassword,
+  GoogleAuthProvider,
   onAuthStateChanged,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
-}
-
-export type { User, UserCredential }
+  type User,
+  type UserCredential
+} from 'firebase/auth'

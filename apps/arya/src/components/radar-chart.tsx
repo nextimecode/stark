@@ -1,32 +1,35 @@
 'use client'
 
 import { ApexOptions } from 'apexcharts'
-
 import { ApexChart } from './apex-chart'
 
 interface RadarChartProps {
-  title: string
   categories: string[]
-  series: { name: string; data: number[] }[]
   colors?: string[]
   height?: number
+  series: { data: number[]; name: string }[]
+  title: string
 }
 
 export const RadarChart = ({
-  title,
   categories,
-  series,
   colors,
   height = 350,
+  series,
+  title
 }: RadarChartProps) => {
   const options: ApexOptions = {
     chart: {
-      type: 'radar',
       toolbar: { show: false },
+      type: 'radar'
     },
+    colors,
+    fill: { opacity: 0.5 },
     grid: {
-      padding: { top: -30, bottom: -30, left: 0, right: 0 },
+      padding: { bottom: -30, left: 0, right: 0, top: -30 }
     },
+    markers: { size: 4 },
+    stroke: { width: 2 },
     xaxis: {
       categories,
       labels: {
@@ -40,31 +43,27 @@ export const RadarChart = ({
             '#fff',
             '#fff',
             '#fff',
-            '#fff',
+            '#fff'
           ],
-          fontSize: '12px',
-        },
-      },
+          fontSize: '12px'
+        }
+      }
     },
     yaxis: {
-      show: false,
-    },
-    stroke: { width: 2 },
-    markers: { size: 4 },
-    fill: { opacity: 0.5 },
-    colors,
+      show: false
+    }
   }
 
   return (
-    <div className="w-full max-w-full mx-auto">
-      <h2 className="dark:text-white text-2xl font-bold text-center">
+    <div className="mx-auto w-full max-w-full">
+      <h2 className="text-center text-2xl font-bold dark:text-white">
         {title}
       </h2>
       <ApexChart
-        options={options}
+        height={height}
         series={series}
         type="radar"
-        height={height}
+        options={options}
       />
     </div>
   )

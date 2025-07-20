@@ -1,42 +1,40 @@
 import type { ReactNode } from 'react'
-
 import type { Metadata, Viewport } from 'next'
 import { Inter, Oxanium } from 'next/font/google'
-
 import './global.css'
 
 const oxanium = Oxanium({
-  weight: ['500', '600'],
   subsets: ['latin'],
   variable: '--font-oxanium',
+  weight: ['500', '600']
 })
 
 const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-inter'
 })
 
 export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1.0,
-  maximumScale: 1.0,
+  initialScale: 1,
+  maximumScale: 1,
   userScalable: false,
+  width: 'device-width'
 }
 
 export const metadata: Metadata = {
-  title: {
-    template: '%s | NeXTverso',
-    default: 'NeXTverso',
-  },
   description: '',
+  title: {
+    default: 'NeXTverso',
+    template: '%s | NeXTverso'
+  }
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
-      lang="pt-BR"
       className={`${oxanium.variable} ${inter.variable}`}
       data-theme="dark"
+      lang="pt-BR"
     >
       <body className="bg-white dark:bg-black">
         <main className="relative min-h-screen">{children}</main>

@@ -1,7 +1,5 @@
 import type { Metadata } from 'next'
-
 import { Charts } from '@/components/charts'
-
 import { BenefitsSection } from './benefits-section'
 import { FAQ } from './faq'
 import { Footer } from './footer'
@@ -11,7 +9,7 @@ import { PersonalityCharts } from './personality-charts'
 import { TestimonialsSection } from './testimonials-section'
 
 export const metadata: Metadata = {
-  title: 'Home',
+  title: 'Home'
 }
 
 export default function Home() {

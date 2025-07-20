@@ -5,15 +5,16 @@ import { useEffect, useState } from 'react'
 
 export default function AuthCallback() {
   const router = useRouter()
-  const [sessionCookie, setSessionCookie] = useState<string | null>(null)
+  const [sessionCookie, setSessionCookie] = useState<null | string>(null)
   const [setCookieStatus, setSetCookieStatus] =
     useState<string>('Aguardando...')
 
   useEffect(() => {
-    const url = new URL(window.location.href)
+    const url = new URL(globalThis.location.href)
     const cookie = url.searchParams.get('sessionCookie')
     setSessionCookie(cookie)
     console.log('[Sansa AuthCallback] sessionCookie:', cookie)
+
     if (!cookie) {
       setSetCookieStatus('Session cookie não encontrado na URL')
       console.log('[Sansa AuthCallback] Session cookie não encontrado na URL')
@@ -22,10 +23,10 @@ export default function AuthCallback() {
     }
 
     fetch('/api/set-cookie', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ token: cookie }),
       credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      method: 'POST'
     })
       .then(res => {
         setSetCookieStatus('Status do set-cookie: ' + res.status)
@@ -34,6 +35,7 @@ export default function AuthCallback() {
       })
       .then(json => {
         console.log('[Sansa AuthCallback] /api/set-cookie response:', json)
+
         if (json.success) {
           console.log(
             '[Sansa AuthCallback] Cookie set com sucesso, redirecionando para /'
@@ -44,11 +46,11 @@ export default function AuthCallback() {
           console.error('[Sansa AuthCallback] Erro ao definir cookie:', json)
         }
       })
-      .catch(err => {
-        setSetCookieStatus('Erro ao chamar /api/set-cookie: ' + err)
+      .catch(error => {
+        setSetCookieStatus('Erro ao chamar /api/set-cookie: ' + error)
         console.error(
           '[Sansa AuthCallback] Erro ao chamar /api/set-cookie:',
-          err
+          error
         )
       })
   }, [router])

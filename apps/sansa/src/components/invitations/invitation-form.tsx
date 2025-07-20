@@ -2,9 +2,7 @@
 
 import type React from 'react'
 import { useState } from 'react'
-
 import { useRouter } from 'next/navigation'
-
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -12,7 +10,7 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -21,10 +19,15 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
+  SelectValue
 } from '@/components/ui/select'
-
 import { Loader2 } from 'lucide-react'
+
+interface InvitationFormProps {
+  selectedTest: null | Test
+  tests: Test[]
+  userId: string
+}
 
 interface Test {
   id: string
@@ -34,22 +37,16 @@ interface Test {
   }
 }
 
-interface InvitationFormProps {
-  userId: string
-  tests: Test[]
-  selectedTest: Test | null
-}
-
 export function InvitationForm({
-  userId,
-  tests,
   selectedTest,
+  tests,
+  userId
 }: InvitationFormProps) {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [testId, setTestId] = useState(selectedTest?.id || '')
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState<null | string>(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -64,16 +61,16 @@ export function InvitationForm({
       }
 
       const response = await fetch('/api/invitations', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({
-          senderId: userId,
           email,
           relationshipTypeId: selectedTest.relationshipType.id,
-          testId,
+          senderId: userId,
+          testId
         }),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: 'POST'
       })
 
       if (!response.ok) {
@@ -83,8 +80,8 @@ export function InvitationForm({
 
       router.push('/invitations')
       router.refresh()
-    } catch (err: any) {
-      setError(err.message)
+    } catch (error_: any) {
+      setError(error_.message)
     } finally {
       setIsSubmitting(false)
     }
@@ -99,9 +96,9 @@ export function InvitationForm({
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           {error && (
-            <div className="bg-destructive/15 text-destructive text-sm p-3 rounded-md">
+            <div className="bg-destructive/15 text-destructive rounded-md p-3 text-sm">
               {error}
             </div>
           )}
@@ -112,11 +109,11 @@ export function InvitationForm({
               id="email"
               type="email"
               value={email}
+              required
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setEmail(e.target.value)
               }
               placeholder="Enter recipient's email"
-              required
             />
           </div>
 
@@ -141,9 +138,9 @@ export function InvitationForm({
       </CardContent>
       <CardFooter>
         <Button
-          onClick={handleSubmit}
-          disabled={isSubmitting || !email || !testId}
           className="w-full"
+          disabled={isSubmitting || !email || !testId}
+          onClick={handleSubmit}
         >
           {isSubmitting ? (
             <>

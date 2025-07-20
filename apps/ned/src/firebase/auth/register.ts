@@ -7,10 +7,9 @@ import {
   createUserWithEmailAndPassword as firebaseClientCreateUserWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
-  type User,
+  type User
 } from '@/firebase/client'
 import type { FirebaseError } from 'firebase/app'
-
 import { FirebaseAuthError } from '@/core/errors/erros/firebase-auth-error'
 import type { UseCaseResponse } from '@/core/types/use-case-response'
 import { failure, success } from '@/core/types/use-case-response-helpers'
@@ -30,7 +29,7 @@ export async function signUpWithEmailAndPassword(
     const firebaseError = error as FirebaseError
     return failure(new FirebaseAuthError(firebaseError), {
       status: 400,
-      statusText: 'Erro ao registrar com e-mail',
+      statusText: 'Erro ao registrar com e-mail'
     })
   }
 }
@@ -45,7 +44,7 @@ export async function signUpWithGoogle(): Promise<UseCaseResponse<User>> {
     const firebaseError = error as FirebaseError
     return failure(new FirebaseAuthError(firebaseError), {
       status: 400,
-      statusText: 'Erro ao registrar com Google',
+      statusText: 'Erro ao registrar com Google'
     })
   }
 }

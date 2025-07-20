@@ -1,6 +1,5 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-
 import { env } from '@/env'
 import { adminAuth } from '@/firebase/admin'
 // import { prisma } from '@/lib/prisma'
@@ -13,32 +12,8 @@ interface NewInvitationPageProps {
   }
 }
 
-async function getUser() {
-  const cookieStore = await cookies()
-  const token = cookieStore.get('token')?.value
-
-  if (!token) redirect(REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE)
-
-  let decodedToken
-  try {
-    decodedToken = await adminAuth.verifyIdToken(token)
-  } catch {
-    redirect(REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE)
-  }
-
-  if (!decodedToken.email || typeof decodedToken.email_verified !== 'boolean') {
-    redirect(REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE)
-  }
-
-  return {
-    uid: decodedToken.uid,
-    email: decodedToken.email,
-    emailVerified: decodedToken.email_verified,
-  }
-}
-
 export default async function NewInvitationPage({
-  searchParams,
+  searchParams
 }: NewInvitationPageProps) {
   const user = await getUser()
   const userId = user.uid
@@ -75,4 +50,31 @@ export default async function NewInvitationPage({
       /> */}
     </div>
   )
+}
+
+async function getUser() {
+  const cookieStore = await cookies()
+  const token = cookieStore.get('token')?.value
+
+  if (!token) {
+    redirect(REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE)
+  }
+
+  let decodedToken
+
+  try {
+    decodedToken = await adminAuth.verifyIdToken(token)
+  } catch {
+    redirect(REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE)
+  }
+
+  if (!decodedToken.email || typeof decodedToken.email_verified !== 'boolean') {
+    redirect(REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE)
+  }
+
+  return {
+    email: decodedToken.email,
+    emailVerified: decodedToken.email_verified,
+    uid: decodedToken.uid
+  }
 }

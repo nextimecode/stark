@@ -5,7 +5,7 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from '@/components/ui/card'
 import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
 import {
@@ -13,7 +13,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from '@/components/ui/form'
 import { Textarea } from '@/components/ui/textarea'
 
@@ -26,20 +26,20 @@ interface InterestsSectionProps {
 export function InterestsSection({
   form,
   open,
-  toggle,
+  toggle
 }: InterestsSectionProps) {
   return (
     <Card className="relative">
       <div className="absolute top-4 right-4 cursor-pointer" onClick={toggle}>
         <button
-          type="button"
           className="text-muted-foreground hover:text-primary"
+          type="button"
         >
           {open ? 'Fechar' : 'Expandir'}
         </button>
       </div>
       <CardHeader>
-        <CardTitle onClick={toggle} className="cursor-pointer">
+        <CardTitle className="cursor-pointer" onClick={toggle}>
           Interesses e Hobbies
         </CardTitle>
         <CardDescription>Seus gostos e atividades preferidas</CardDescription>
@@ -48,7 +48,6 @@ export function InterestsSection({
         <CollapsibleContent>
           <CardContent className="space-y-4">
             <FormField
-              control={form.control}
               name="hobbies"
               render={({ field }) => (
                 <FormItem>
@@ -62,9 +61,9 @@ export function InterestsSection({
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
             <FormField
-              control={form.control}
               name="musicPreference"
               render={({ field }) => (
                 <FormItem>
@@ -78,9 +77,9 @@ export function InterestsSection({
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
             <FormField
-              control={form.control}
               name="leisureActivities"
               render={({ field }) => (
                 <FormItem>
@@ -94,6 +93,7 @@ export function InterestsSection({
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
           </CardContent>
         </CollapsibleContent>

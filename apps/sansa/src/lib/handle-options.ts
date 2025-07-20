@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server'
-
 import { setCorsHeaders } from './set-cors-headers'
 
 export const handleOptionsRequest = (request: Request) => {

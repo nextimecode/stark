@@ -1,34 +1,18 @@
 // api/invites/[id]/route.ts
 
-import { handleOptionsRequest } from '@/lib/handle-options'
 import { prisma } from '@/lib/prisma'
+import { inviteParamsSchema } from '@/lib/schemas/invite-params'
 import { setCorsHeaders } from '@/lib/set-cors-headers'
 import { NextResponse } from 'next/server'
-import { z } from 'zod'
-import { extendZodWithOpenApi } from 'zod-openapi'
-
-extendZodWithOpenApi(z)
-
-const inviteParamsSchema = z
-  .object({
-    id: z.number().openapi({
-      description: 'ID do convite',
-      example: 1,
-    }),
-  })
-  .openapi({
-    ref: 'InviteParams',
-    description: 'Parâmetros para operações de convite',
-  })
 
 export const GET = async (
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) => {
-  const { id } = inviteParamsSchema.parse(params)
+  const { id } = inviteParamsSchema.parse(await params)
 
   const invite = await prisma.invite.findUnique({
-    where: { id },
+    where: { id }
   })
 
   if (!invite) {
@@ -44,12 +28,12 @@ export const GET = async (
 
 export const DELETE = async (
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) => {
-  const { id } = inviteParamsSchema.parse(params)
+  const { id } = inviteParamsSchema.parse(await params)
 
   await prisma.invite.delete({
-    where: { id },
+    where: { id }
   })
 
   const response = NextResponse.json(null, { status: 204 })
@@ -59,4 +43,4 @@ export const DELETE = async (
   return response
 }
 
-export const OPTIONS = handleOptionsRequest
+export { handleOptionsRequest as OPTIONS } from '@/lib/handle-options'

@@ -5,7 +5,7 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from '@/components/ui/card'
 import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
 import {
@@ -14,7 +14,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from '@/components/ui/form'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import {
@@ -22,9 +22,8 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
+  SelectValue
 } from '@/components/ui/select'
-
 import { Heart } from 'lucide-react'
 
 interface RomanticSectionProps {
@@ -38,16 +37,16 @@ export function RomanticSection({ form, open, toggle }: RomanticSectionProps) {
     <Card className="relative">
       <div className="absolute top-4 right-4 cursor-pointer" onClick={toggle}>
         <button
-          type="button"
           className="text-muted-foreground hover:text-primary"
+          type="button"
         >
           {open ? 'Fechar' : 'Expandir'}
         </button>
       </div>
       <CardHeader>
         <CardTitle
+          className="flex cursor-pointer items-center"
           onClick={toggle}
-          className="cursor-pointer flex items-center"
         >
           <Heart className="mr-2 h-5 w-5" />
           Relacionamento Amoroso
@@ -60,15 +59,14 @@ export function RomanticSection({ form, open, toggle }: RomanticSectionProps) {
         <CollapsibleContent>
           <CardContent className="space-y-4">
             <FormField
-              control={form.control}
               name="maritalStatus"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Estado Civil</FormLabel>
                   <FormControl>
                     <Select
-                      onValueChange={field.onChange}
                       defaultValue={field.value}
+                      onValueChange={field.onChange}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Selecione seu estado civil" />
@@ -88,17 +86,17 @@ export function RomanticSection({ form, open, toggle }: RomanticSectionProps) {
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
             <FormField
-              control={form.control}
               name="relationshipDuration"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Tempo de Relacionamento</FormLabel>
                   <FormControl>
                     <Select
-                      onValueChange={field.onChange}
                       defaultValue={field.value}
+                      onValueChange={field.onChange}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Tempo do relacionamento" />
@@ -124,9 +122,9 @@ export function RomanticSection({ form, open, toggle }: RomanticSectionProps) {
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
             <FormField
-              control={form.control}
               name="communicationExpectation"
               render={({ field }) => (
                 <FormItem className="space-y-3">
@@ -136,11 +134,11 @@ export function RomanticSection({ form, open, toggle }: RomanticSectionProps) {
                   </FormDescription>
                   <FormControl>
                     <RadioGroup
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
                       className="flex flex-col space-y-1"
+                      defaultValue={field.value}
+                      onValueChange={field.onChange}
                     >
-                      <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormItem className="flex items-center space-y-0 space-x-3">
                         <FormControl>
                           <RadioGroupItem value="frequent" />
                         </FormControl>
@@ -148,7 +146,7 @@ export function RomanticSection({ form, open, toggle }: RomanticSectionProps) {
                           Contato frequente
                         </FormLabel>
                       </FormItem>
-                      <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormItem className="flex items-center space-y-0 space-x-3">
                         <FormControl>
                           <RadioGroupItem value="regular" />
                         </FormControl>
@@ -156,7 +154,7 @@ export function RomanticSection({ form, open, toggle }: RomanticSectionProps) {
                           Contato regular
                         </FormLabel>
                       </FormItem>
-                      <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormItem className="flex items-center space-y-0 space-x-3">
                         <FormControl>
                           <RadioGroupItem value="occasional" />
                         </FormControl>
@@ -164,7 +162,7 @@ export function RomanticSection({ form, open, toggle }: RomanticSectionProps) {
                           Contato ocasional
                         </FormLabel>
                       </FormItem>
-                      <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormItem className="flex items-center space-y-0 space-x-3">
                         <FormControl>
                           <RadioGroupItem value="deep" />
                         </FormControl>
@@ -172,7 +170,7 @@ export function RomanticSection({ form, open, toggle }: RomanticSectionProps) {
                           Conversas profundas
                         </FormLabel>
                       </FormItem>
-                      <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormItem className="flex items-center space-y-0 space-x-3">
                         <FormControl>
                           <RadioGroupItem value="light" />
                         </FormControl>
@@ -185,9 +183,9 @@ export function RomanticSection({ form, open, toggle }: RomanticSectionProps) {
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
             <FormField
-              control={form.control}
               name="intimacyExpectation"
               render={({ field }) => (
                 <FormItem className="space-y-3">
@@ -197,11 +195,11 @@ export function RomanticSection({ form, open, toggle }: RomanticSectionProps) {
                   </FormDescription>
                   <FormControl>
                     <RadioGroup
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
                       className="flex flex-col space-y-1"
+                      defaultValue={field.value}
+                      onValueChange={field.onChange}
                     >
-                      <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormItem className="flex items-center space-y-0 space-x-3">
                         <FormControl>
                           <RadioGroupItem value="deep-emotional" />
                         </FormControl>
@@ -209,7 +207,7 @@ export function RomanticSection({ form, open, toggle }: RomanticSectionProps) {
                           Conexão emocional profunda
                         </FormLabel>
                       </FormItem>
-                      <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormItem className="flex items-center space-y-0 space-x-3">
                         <FormControl>
                           <RadioGroupItem value="physical" />
                         </FormControl>
@@ -217,7 +215,7 @@ export function RomanticSection({ form, open, toggle }: RomanticSectionProps) {
                           Valoriza o aspecto físico
                         </FormLabel>
                       </FormItem>
-                      <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormItem className="flex items-center space-y-0 space-x-3">
                         <FormControl>
                           <RadioGroupItem value="balanced" />
                         </FormControl>
@@ -225,7 +223,7 @@ export function RomanticSection({ form, open, toggle }: RomanticSectionProps) {
                           Equilíbrio entre emocional e físico
                         </FormLabel>
                       </FormItem>
-                      <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormItem className="flex items-center space-y-0 space-x-3">
                         <FormControl>
                           <RadioGroupItem value="need-time" />
                         </FormControl>
@@ -233,7 +231,7 @@ export function RomanticSection({ form, open, toggle }: RomanticSectionProps) {
                           Precisa de tempo para desenvolver intimidade
                         </FormLabel>
                       </FormItem>
-                      <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormItem className="flex items-center space-y-0 space-x-3">
                         <FormControl>
                           <RadioGroupItem value="not-priority" />
                         </FormControl>
@@ -246,6 +244,7 @@ export function RomanticSection({ form, open, toggle }: RomanticSectionProps) {
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
           </CardContent>
         </CollapsibleContent>

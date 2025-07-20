@@ -1,11 +1,11 @@
 export const BuildingAndSquareIcon = () => (
   <svg
-    className="shrink-0 size-10 mb-3"
-    xmlns="http://www.w3.org/2000/svg"
+    className="mb-3 size-10 shrink-0"
     width="46"
     height="46"
-    viewBox="0 0 46 46"
     fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 46 46"
   >
     <path
       d="M21 25H32C33.6569 25 35 26.3431 35 28V37C35 38.6569 33.6569 40 32 40H21V25Z"
@@ -23,11 +23,11 @@ export const BuildingAndSquareIcon = () => (
       strokeWidth="2"
     />
     <rect
-      x="27"
-      y="4"
       width="14"
       height="14"
       rx="3"
+      x="27"
+      y="4"
       stroke="#BF5AF2"
       strokeWidth="2"
     />

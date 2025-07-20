@@ -8,10 +8,10 @@ export async function POST(req: Request) {
     const res = NextResponse.json({ success: true })
     res.cookies.set('token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-      path: '/',
       maxAge: expiresIn,
+      path: '/',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      secure: process.env.NODE_ENV === 'production'
     })
     return res
   } catch (error) {

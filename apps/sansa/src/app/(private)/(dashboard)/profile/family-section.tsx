@@ -5,7 +5,7 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
@@ -15,16 +15,15 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from '@/components/ui/form'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
+  SelectValue
 } from '@/components/ui/select'
-
 import { Home } from 'lucide-react'
 
 interface FamilySectionProps {
@@ -38,16 +37,16 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
     <Card className="relative">
       <div className="absolute top-4 right-4 cursor-pointer" onClick={toggle}>
         <button
-          type="button"
           className="text-muted-foreground hover:text-primary"
+          type="button"
         >
           {open ? 'Fechar' : 'Expandir'}
         </button>
       </div>
       <CardHeader>
         <CardTitle
+          className="flex cursor-pointer items-center"
           onClick={toggle}
-          className="cursor-pointer flex items-center"
         >
           <Home className="mr-2 h-5 w-5" />
           Relação Familiar
@@ -58,15 +57,14 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
         <CollapsibleContent>
           <CardContent className="space-y-4">
             <FormField
-              control={form.control}
               name="familyContactFrequency"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Frequência de Contato Familiar</FormLabel>
                   <FormControl>
                     <Select
-                      onValueChange={field.onChange}
                       defaultValue={field.value}
+                      onValueChange={field.onChange}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Selecione a frequência" />
@@ -88,17 +86,17 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
             <FormField
-              control={form.control}
               name="familyRole"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Papel na Família</FormLabel>
                   <FormControl>
                     <Select
-                      onValueChange={field.onChange}
                       defaultValue={field.value}
+                      onValueChange={field.onChange}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Selecione seu papel" />
@@ -122,17 +120,17 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
             <FormField
-              control={form.control}
               name="familyTraditionsImportance"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Importância das Tradições Familiares</FormLabel>
                   <FormControl>
                     <Select
-                      onValueChange={field.onChange}
                       defaultValue={field.value}
+                      onValueChange={field.onChange}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Selecione a importância" />
@@ -155,9 +153,9 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
             <FormField
-              control={form.control}
               name="familyDynamics"
               render={({ field }) => (
                 <FormItem>
@@ -174,7 +172,7 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'constant',
+                                'constant'
                               ])
                             } else {
                               field.onChange(
@@ -197,7 +195,7 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'balanced',
+                                'balanced'
                               ])
                             } else {
                               field.onChange(
@@ -220,7 +218,7 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'privacy',
+                                'privacy'
                               ])
                             } else {
                               field.onChange(
@@ -263,7 +261,7 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'activities',
+                                'activities'
                               ])
                             } else {
                               field.onChange(
@@ -286,7 +284,7 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'emotional',
+                                'emotional'
                               ])
                             } else {
                               field.onChange(
@@ -307,6 +305,7 @@ export function FamilySection({ form, open, toggle }: FamilySectionProps) {
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
           </CardContent>
         </CollapsibleContent>

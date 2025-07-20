@@ -1,11 +1,10 @@
 import { FirebaseError } from 'firebase/app'
-
 import { UseCaseError } from '../use-case-error'
 
 export class FirebaseAuthError extends Error implements UseCaseError {
+  code: string
   details: string
   hint: string
-  code: string
 
   constructor(firebaseError: FirebaseError) {
     super(firebaseError.message)

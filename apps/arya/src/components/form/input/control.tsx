@@ -1,8 +1,7 @@
 import { InputHTMLAttributes } from 'react'
-
 import { twMerge } from 'tailwind-merge'
 
-export interface ControlProps extends InputHTMLAttributes<HTMLInputElement> {}
+export type ControlProps = InputHTMLAttributes<HTMLInputElement>
 
 export function Control(props: ControlProps) {
   return (

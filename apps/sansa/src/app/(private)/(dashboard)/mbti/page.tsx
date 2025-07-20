@@ -1,5 +1,4 @@
 import { Suspense } from 'react'
-
 import { AddMBTI } from './add-mbti'
 import { MyMBTI } from './my-mbti'
 

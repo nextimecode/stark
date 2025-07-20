@@ -1,8 +1,7 @@
 export const dynamic = 'force-dynamic'
 
-import { notFound } from 'next/navigation'
-
 import { api } from '@/data/api'
+import { notFound } from 'next/navigation'
 
 interface Question {
   id: string
@@ -10,14 +9,13 @@ interface Question {
 }
 
 const fetchQuestions = async () => {
-  // Autenticação
   const authResponse = await api('/sessions', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       email: 'diego@rocketseat.com.br',
-      password: '123456',
+      password: process.env.TEST_PASSWORD || 'test-password'
     }),
+    headers: { 'Content-Type': 'application/json' },
+    method: 'POST'
   })
 
   if (!authResponse.ok) {
@@ -29,11 +27,11 @@ const fetchQuestions = async () => {
 
   // Buscar perguntas
   const response = await api('/questions?page=1', {
-    method: 'GET',
     headers: {
-      'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json'
     },
+    method: 'GET'
   })
 
   if (!response.ok) {
@@ -49,7 +47,7 @@ export const MyMBTI = async () => {
 
   try {
     questions = await fetchQuestions()
-  } catch (error) {
+  } catch {
     notFound()
   }
 

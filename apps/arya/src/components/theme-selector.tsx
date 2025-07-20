@@ -2,34 +2,34 @@ export function ThemeSelector() {
   return (
     <div className="hs-dropdown">
       <button
+        className="hs-dropdown-toggle hs-dark-mode group flex items-center font-medium text-gray-600 hover:text-blue-600 dark:text-neutral-400 dark:hover:text-neutral-500"
         type="button"
-        className="hs-dropdown-toggle hs-dark-mode group flex items-center text-gray-600 hover:text-blue-600 font-medium dark:text-neutral-400 dark:hover:text-neutral-500"
       >
         <svg
           className="hs-dark-mode-active:hidden block size-4"
-          xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
-          viewBox="0 0 24 24"
           fill="none"
+          xmlns="http://www.w3.org/2000/svg"
           stroke="currentColor"
-          strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
         >
           <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
         </svg>
         <svg
           className="hs-dark-mode-active:block hidden size-4"
-          xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
-          viewBox="0 0 24 24"
           fill="none"
+          xmlns="http://www.w3.org/2000/svg"
           stroke="currentColor"
-          strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
         >
           <circle cx="12" cy="12" r="4"></circle>
           <path d="M12 2v2"></path>
@@ -44,27 +44,27 @@ export function ThemeSelector() {
       </button>
 
       <div
+        className="hs-dropdown-menu hs-dropdown-open:opacity-100 z-10 mt-2 mb-2 hidden origin-bottom-left space-y-1 rounded-lg bg-white p-2 opacity-0 shadow-md transition-[margin,opacity] duration-300 dark:divide-neutral-700 dark:border dark:border-neutral-700 dark:bg-neutral-800"
         id="selectThemeDropdown"
-        className="hs-dropdown-menu hs-dropdown-open:opacity-100 mt-2 hidden z-10 transition-[margin,opacity] opacity-0 duration-300 mb-2 origin-bottom-left bg-white shadow-md rounded-lg p-2 space-y-1 dark:bg-neutral-800 dark:border dark:border-neutral-700 dark:divide-neutral-700"
       >
         <button
-          type="button"
-          className="w-full flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300"
+          className="flex w-full items-center gap-x-3.5 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300"
           data-hs-theme-click-value="default"
+          type="button"
         >
           Default (Light)
         </button>
         <button
-          type="button"
-          className="w-full flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300"
+          className="flex w-full items-center gap-x-3.5 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300"
           data-hs-theme-click-value="dark"
+          type="button"
         >
           Dark
         </button>
         <button
-          type="button"
-          className="w-full flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300"
+          className="flex w-full items-center gap-x-3.5 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300"
           data-hs-theme-click-value="auto"
+          type="button"
         >
           Auto (System)
         </button>

@@ -1,9 +1,10 @@
 'use client'
 
+import { HTMLAttributes } from 'react'
 import { FileItem } from './file-item'
 import { useFileInput } from './root'
 
-export interface FileListProps {}
+export type FileListProps = HTMLAttributes<HTMLDivElement>
 
 export function FileList(props: FileListProps) {
   const { files } = useFileInput()
@@ -20,8 +21,8 @@ export function FileList(props: FileListProps) {
             key={file.name}
             name={file.name}
             size={file.size}
-            type={file.type}
             state="error"
+            type={file.type}
           />
         )
       })}

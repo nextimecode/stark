@@ -4,22 +4,20 @@ import {
   Flag,
   Home,
   SquareStack,
-  Users,
+  Users
 } from 'lucide-react'
-
+import { HTMLAttributes } from 'react'
 import { NavItem } from './nav-item'
 
-export interface NavigationProps {}
-
-export function Navigation(props: NavigationProps) {
+export function Navigation(props: HTMLAttributes<HTMLElement>) {
   return (
     <nav {...props} className="flex flex-col gap-0.5">
-      <NavItem icon={Home} title="Home" />
-      <NavItem icon={BarChart} title="Dashboard" />
-      <NavItem icon={SquareStack} title="Projects" />
-      <NavItem icon={CheckSquare} title="Tasks" />
-      <NavItem icon={Flag} title="Reporting" />
-      <NavItem icon={Users} title="Users" />
+      <NavItem title="Home" icon={Home} />
+      <NavItem title="Dashboard" icon={BarChart} />
+      <NavItem title="Projects" icon={SquareStack} />
+      <NavItem title="Tasks" icon={CheckSquare} />
+      <NavItem title="Reporting" icon={Flag} />
+      <NavItem title="Users" icon={Users} />
     </nav>
   )
 }

@@ -13,7 +13,7 @@ export async function POST() {
 
     console.log('Database connection reset successfully')
 
-    return NextResponse.json({ success: true, message: 'Connection reset' })
+    return NextResponse.json({ message: 'Connection reset', success: true })
   } catch (error) {
     console.error('Error resetting database connection:', error)
 

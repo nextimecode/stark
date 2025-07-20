@@ -1,29 +1,25 @@
 // api/invites/route.ts
 
-import { handleOptionsRequest } from '@/lib/handle-options'
 import { prisma } from '@/lib/prisma'
 import { setCorsHeaders } from '@/lib/set-cors-headers'
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
-import { extendZodWithOpenApi } from 'zod-openapi'
-
-extendZodWithOpenApi(z)
 
 // Schema para criação de convite
 export const createInviteBodySchema = z
   .object({
-    senderId: z.number().openapi({
-      description: 'ID do usuário que envia o convite',
-      example: 1,
-    }),
-    recipientId: z.number().openapi({
+    recipientId: z.number().meta({
       description: 'ID do usuário que recebe o convite',
-      example: 2,
+      example: 2
     }),
+    senderId: z.number().meta({
+      description: 'ID do usuário que envia o convite',
+      example: 1
+    })
   })
-  .openapi({
-    ref: 'CreateInvite',
+  .meta({
     description: 'Dados para criação de um novo convite',
+    id: 'CreateInvite'
   })
 
 export const GET = async (request: Request) => {
@@ -37,7 +33,7 @@ export const GET = async (request: Request) => {
     return NextResponse.json(
       {
         error:
-          error instanceof Error ? error.message : 'Erro ao listar convites',
+          error instanceof Error ? error.message : 'Erro ao listar convites'
       },
       { status: 500 }
     )
@@ -47,10 +43,10 @@ export const GET = async (request: Request) => {
 export const POST = async (request: Request) => {
   try {
     const body = await request.json()
-    const { senderId, recipientId } = createInviteBodySchema.parse(body)
+    const { recipientId, senderId } = createInviteBodySchema.parse(body)
 
     const invite = await prisma.invite.create({
-      data: { senderId, recipientId },
+      data: { recipientId, senderId }
     })
 
     const response = NextResponse.json(invite, { status: 201 })
@@ -65,4 +61,4 @@ export const POST = async (request: Request) => {
   }
 }
 
-export const OPTIONS = handleOptionsRequest
+export { handleOptionsRequest as OPTIONS } from '@/lib/handle-options'

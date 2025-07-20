@@ -1,17 +1,14 @@
 'use client'
 
-import { useMemo } from 'react'
-
-import Image from 'next/image'
-
 import { User } from 'lucide-react'
-
+import Image from 'next/image'
+import { HTMLAttributes, useMemo } from 'react'
 import { useFileInput } from './root'
 
-export interface ImagePreviewProps {}
+export type ImagePreviewProps = HTMLAttributes<HTMLDivElement>
 
 export function ImagePreview(props: ImagePreviewProps) {
-  const { multiple, files } = useFileInput()
+  const { files, multiple } = useFileInput()
 
   if (multiple) {
     throw new Error(
@@ -36,11 +33,11 @@ export function ImagePreview(props: ImagePreviewProps) {
     </div>
   ) : (
     <Image
+      className="h-16 w-16 rounded-full bg-violet-50 object-cover dark:bg-zinc-800"
       width={32}
       height={32}
-      className="h-16 w-16 rounded-full bg-violet-50 object-cover dark:bg-zinc-800"
-      src={previewURL}
       alt=""
+      src={previewURL}
     />
   )
 }

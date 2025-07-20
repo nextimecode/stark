@@ -1,6 +1,6 @@
 export interface UseCaseError {
-  message: string
+  code: string
   details: string
   hint: string
-  code: string
+  message: string
 }

@@ -4,9 +4,7 @@ import * as Input from '@/components/form/input'
 import * as Select from '@/components/form/select'
 import { Textarea } from '@/components/form/textarea'
 import { ThemeSelector } from '@/components/theme-selector'
-
 import { Bold, Italic, Link, List, ListOrdered, Mail } from 'lucide-react'
-
 import { CountrySelect } from './country-select'
 import { SettingsTabs } from './settings-tabs'
 
@@ -33,46 +31,46 @@ export default function Dashboard() {
             <Button type="button" variant="outline">
               Cancel
             </Button>
-            <Button type="submit" form="settings" variant="primary">
+            <Button type="submit" variant="primary" form="settings">
               Save
             </Button>
           </div>
         </div>
       </div>
       <form
-        id="settings"
         className="mt-6 flex w-full flex-col gap-5 divide-y divide-zinc-200 dark:divide-zinc-800"
+        id="settings"
       >
-        <div className="grid gap-3 lg:grid-cols-form">
+        <div className="lg:grid-cols-form grid gap-3">
           <label
-            htmlFor="firstName"
             className="text-sm font-medium text-zinc-700 dark:text-zinc-100"
+            htmlFor="firstName"
           >
             Name
           </label>
           <div className="grid gap-6 lg:grid-cols-2">
             <Input.Root>
               <Input.Control
-                name="firstName"
                 id="firstName"
-                type="text"
+                name="firstName"
                 defaultValue="Diego"
+                type="text"
               />
             </Input.Root>
             <Input.Root>
               <Input.Control
                 name="lastName"
-                type="text"
                 defaultValue="Fernandes"
+                type="text"
               />
             </Input.Root>
           </div>
         </div>
 
-        <div className="grid gap-3 pt-5 lg:grid-cols-form">
+        <div className="lg:grid-cols-form grid gap-3 pt-5">
           <label
-            htmlFor="email"
             className="text-sm font-medium text-zinc-700 dark:text-zinc-100"
+            htmlFor="email"
           >
             Email address
           </label>
@@ -83,18 +81,18 @@ export default function Dashboard() {
               </Input.Prefix>
               <Input.Control
                 id="email"
-                type="email"
                 name="email"
                 defaultValue="diego.schell.f@gmail.com"
+                type="email"
               />
             </Input.Root>
           </div>
         </div>
 
-        <div className="grid gap-3 pt-5 lg:grid-cols-form">
+        <div className="lg:grid-cols-form grid gap-3 pt-5">
           <label
+            className="flex flex-col text-sm leading-relaxed font-medium text-zinc-700 dark:text-zinc-100"
             htmlFor="photo"
-            className="flex flex-col text-sm font-medium leading-relaxed text-zinc-700 dark:text-zinc-100"
           >
             Your photo
             <span className="text-sm font-normal text-zinc-500 dark:text-zinc-400">
@@ -102,8 +100,8 @@ export default function Dashboard() {
             </span>
           </label>
           <FileInput.Root
-            id="photo"
             className="flex flex-col items-start gap-5 lg:flex-row"
+            id="photo"
           >
             <FileInput.ImagePreview />
             <FileInput.Trigger />
@@ -111,34 +109,34 @@ export default function Dashboard() {
           </FileInput.Root>
         </div>
 
-        <div className="grid gap-3 pt-5 lg:grid-cols-form">
+        <div className="lg:grid-cols-form grid gap-3 pt-5">
           <label
-            htmlFor="role"
             className="text-sm font-medium text-zinc-700 dark:text-zinc-100"
+            htmlFor="role"
           >
             Role
           </label>
           <div className="flex gap-3">
             <Input.Root>
               <Input.Control
-                name="role"
                 id="role"
+                name="role"
                 defaultValue="Product Designer"
               />
             </Input.Root>
           </div>
         </div>
 
-        <label className="grid gap-3 pt-5 lg:grid-cols-form">
-          <span className="flex flex-col text-sm font-medium leading-relaxed text-zinc-700 dark:text-zinc-100">
+        <label className="lg:grid-cols-form grid gap-3 pt-5">
+          <span className="flex flex-col text-sm leading-relaxed font-medium text-zinc-700 dark:text-zinc-100">
             Country
           </span>
 
           <CountrySelect />
         </label>
 
-        <label className="grid gap-3 pt-5 lg:grid-cols-form">
-          <span className="flex flex-col text-sm font-medium leading-relaxed text-zinc-700 dark:text-zinc-100">
+        <label className="lg:grid-cols-form grid gap-3 pt-5">
+          <span className="flex flex-col text-sm leading-relaxed font-medium text-zinc-700 dark:text-zinc-100">
             Timezone
           </span>
           <Select.Root name="timezone">
@@ -157,10 +155,10 @@ export default function Dashboard() {
           </Select.Root>
         </label>
 
-        <div className="grid gap-3 pt-5 lg:grid-cols-form">
+        <div className="lg:grid-cols-form grid gap-3 pt-5">
           <label
+            className="flex flex-col text-sm leading-relaxed font-medium text-zinc-700 dark:text-zinc-100"
             htmlFor="bio"
-            className="flex flex-col text-sm font-medium leading-relaxed text-zinc-700 dark:text-zinc-100"
           >
             Bio
             <span className="text-sm font-normal text-zinc-500 dark:text-zinc-400">
@@ -205,17 +203,17 @@ export default function Dashboard() {
               </div>
             </div>
             <Textarea
-              name="bio"
               id="bio"
+              name="bio"
               defaultValue="I'm a Product Designer based in Melbourne, Australia. I specialise in UX/UI design, brand strategy, and Webflow development."
             />
           </div>
         </div>
 
-        <div className="grid gap-3 pt-5 lg:grid-cols-form">
+        <div className="lg:grid-cols-form grid gap-3 pt-5">
           <label
+            className="flex flex-col text-sm leading-relaxed font-medium text-zinc-700 dark:text-zinc-100"
             htmlFor="projects"
-            className="flex flex-col text-sm font-medium leading-relaxed text-zinc-700 dark:text-zinc-100"
           >
             Portfolio projects
             <span className="text-sm font-normal text-zinc-500">
@@ -233,7 +231,7 @@ export default function Dashboard() {
           <Button type="button" variant="outline">
             Cancel
           </Button>
-          <Button type="submit" form="settings" variant="primary">
+          <Button type="submit" variant="primary" form="settings">
             Save
           </Button>
         </div>

@@ -16,7 +16,7 @@ function initAuth(): Auth {
                 'base64'
               ).toString('utf8')
             ) as ServiceAccount
-          ),
+          )
         })
 
   return getAuth(app)

@@ -1,17 +1,17 @@
 export const DocumentAndClipboardIcon = () => (
   <svg
-    className="shrink-0 size-10 mt-1"
+    className="mt-1 size-10 shrink-0"
     width="46"
     height="46"
-    viewBox="0 0 46 46"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 46 46"
   >
     <path
       d="M20.7692 13L21.6232 9.62218C21.7598 9.08182 22.3118 8.75743 22.8503 8.90104L35.9299 12.3889C36.4538 12.5286 36.7709 13.0604 36.6448 13.5877L31.6111 34.6379C31.4799 35.1865 30.9213 35.5181 30.377 35.3706L30.2319 35.3312"
       stroke="#64D2FF"
-      strokeWidth="2"
       strokeLinecap="round"
+      strokeWidth="2"
     />
     <path
       d="M26.8715 14.64H11.8715C11.3192 14.64 10.8715 15.0877 10.8715 15.64V32.6117C10.8715 33.0112 11.1092 33.3723 11.4761 33.5303L20.835 37.5585C20.9598 37.6123 21.0944 37.64 21.2303 37.64H26.8715C27.4237 37.64 27.8715 37.1923 27.8715 36.64V15.64C27.8715 15.0877 27.4237 14.64 26.8715 14.64Z"
@@ -24,20 +24,20 @@ export const DocumentAndClipboardIcon = () => (
     <path
       d="M15.0923 19.5H20.0923"
       stroke="white"
-      strokeWidth="2"
       strokeLinecap="round"
+      strokeWidth="2"
     />
     <path
       d="M15.0923 23.5H23.5923"
       stroke="white"
-      strokeWidth="2"
       strokeLinecap="round"
+      strokeWidth="2"
     />
     <path
       d="M15.0923 27.5H23.5923"
       stroke="white"
-      strokeWidth="2"
       strokeLinecap="round"
+      strokeWidth="2"
     />
   </svg>
 )

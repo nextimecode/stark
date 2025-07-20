@@ -1,13 +1,12 @@
 'use client'
 
 import { ChangeEvent, InputHTMLAttributes } from 'react'
-
 import { useFileInput } from './root'
 
-export interface ControlProps extends InputHTMLAttributes<HTMLInputElement> {}
+export type ControlProps = InputHTMLAttributes<HTMLInputElement>
 
 export function Control(props: ControlProps) {
-  const { onFilesSelected, multiple, id } = useFileInput()
+  const { id, multiple, onFilesSelected } = useFileInput()
 
   function handleFilesSelected(event: ChangeEvent<HTMLInputElement>) {
     if (!event.target.files?.length) {
@@ -21,11 +20,11 @@ export function Control(props: ControlProps) {
 
   return (
     <input
-      id={id}
-      type="file"
       className="sr-only"
-      onChange={handleFilesSelected}
+      id={id}
       multiple={multiple}
+      type="file"
+      onChange={handleFilesSelected}
       {...props}
     />
   )

@@ -5,7 +5,7 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
@@ -15,7 +15,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import {
@@ -23,10 +23,9 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
+  SelectValue
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-
 import { Briefcase } from 'lucide-react'
 
 interface ProfessionalSectionProps {
@@ -38,22 +37,22 @@ interface ProfessionalSectionProps {
 export function ProfessionalSection({
   form,
   open,
-  toggle,
+  toggle
 }: ProfessionalSectionProps) {
   return (
     <Card className="relative">
       <div className="absolute top-4 right-4 cursor-pointer" onClick={toggle}>
         <button
-          type="button"
           className="text-muted-foreground hover:text-primary"
+          type="button"
         >
           {open ? 'Fechar' : 'Expandir'}
         </button>
       </div>
       <CardHeader>
         <CardTitle
+          className="flex cursor-pointer items-center"
           onClick={toggle}
-          className="cursor-pointer flex items-center"
         >
           <Briefcase className="mr-2 h-5 w-5" />
           Ambiente de Trabalho
@@ -64,7 +63,6 @@ export function ProfessionalSection({
         <CollapsibleContent>
           <CardContent className="space-y-4">
             <FormField
-              control={form.control}
               name="technicalSkills"
               render={({ field }) => (
                 <FormItem>
@@ -78,17 +76,17 @@ export function ProfessionalSection({
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
             <FormField
-              control={form.control}
               name="professionalExperience"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Experiência Profissional</FormLabel>
                   <FormControl>
                     <Select
-                      onValueChange={field.onChange}
                       defaultValue={field.value}
+                      onValueChange={field.onChange}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Selecione o tempo de experiência" />
@@ -109,9 +107,9 @@ export function ProfessionalSection({
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
             <FormField
-              control={form.control}
               name="workArea"
               render={({ field }) => (
                 <FormItem>
@@ -125,9 +123,9 @@ export function ProfessionalSection({
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
             <FormField
-              control={form.control}
               name="currentPosition"
               render={({ field }) => (
                 <FormItem>
@@ -138,9 +136,9 @@ export function ProfessionalSection({
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
             <FormField
-              control={form.control}
               name="workPreferences"
               render={({ field }) => (
                 <FormItem>
@@ -157,7 +155,7 @@ export function ProfessionalSection({
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'individual',
+                                'individual'
                               ])
                             } else {
                               field.onChange(
@@ -196,7 +194,7 @@ export function ProfessionalSection({
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'structured',
+                                'structured'
                               ])
                             } else {
                               field.onChange(
@@ -217,7 +215,7 @@ export function ProfessionalSection({
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'flexible',
+                                'flexible'
                               ])
                             } else {
                               field.onChange(
@@ -256,7 +254,7 @@ export function ProfessionalSection({
                             if (checked) {
                               field.onChange([
                                 ...(field.value || []),
-                                'presential',
+                                'presential'
                               ])
                             } else {
                               field.onChange(
@@ -293,17 +291,17 @@ export function ProfessionalSection({
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
             <FormField
-              control={form.control}
               name="careerObjectives"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Objetivos de Carreira</FormLabel>
                   <FormControl>
                     <Select
-                      onValueChange={field.onChange}
                       defaultValue={field.value}
+                      onValueChange={field.onChange}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Selecione seu objetivo" />
@@ -324,6 +322,7 @@ export function ProfessionalSection({
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
           </CardContent>
         </CollapsibleContent>

@@ -11,6 +11,84 @@ html {
   scroll-behavior: smooth;
 }
 
+@theme light {
+  --color-text: #1c1c1e;
+  --color-primary: #cc65ff;
+  --color-secondary: #5acdfa;
+
+  --color-system-red: #ff383c;
+  --color-system-orange: #ff8d28;
+  --color-system-yellow: #ffcc00;
+  --color-system-green: #34c759;
+  --color-system-mint: #00c8b3;
+  --color-system-teal: #30b0c7;
+  --color-system-cyan: #00c0e8;
+  --color-system-blue: #0088ff;
+  --color-system-indigo: #6155f5;
+  --color-system-purple: #cb30e0;
+  --color-system-pink: #ff2d55;
+  --color-system-brown: #ac7f5e;
+
+  --color-fill-1: rgba(0,0,0,0.10);
+  --color-fill-2: rgba(0,0,0,0.08);
+  --color-fill-3: rgba(0,0,0,0.05);
+  --color-fill-4: rgba(0,0,0,0.03);
+  --color-fill-5: rgba(0,0,0,0.02);
+
+  --color-label-1: rgba(0,0,0,0.85);
+  --color-label-2: rgba(0,0,0,0.50);
+  --color-label-3: rgba(0,0,0,0.25);
+  --color-label-4: rgba(0,0,0,0.10);
+  --color-label-5: rgba(0,0,0,0.05);
+  --color-label-6: rgba(0,0,0,0.03);
+
+  --color-accent-10: rgba(0,136,255,0.10);
+  --color-accent-15: rgba(0,136,255,0.15);
+  --color-accent-25: rgba(0,136,255,0.25);
+  --color-accent-50: rgba(0,136,255,0.50);
+  --color-accent-85: rgba(0,136,255,0.85);
+  --color-accent-main: #0088ff;
+}
+
+@theme dark {
+  --color-text: #f5f5f7;
+  --color-primary: #cc65ff;
+  --color-secondary: #5acdfa;
+
+  --color-system-red: #ff4f44;
+  --color-system-orange: #ffa814;
+  --color-system-yellow: #ffe014;
+  --color-system-green: #3ce155;
+  --color-system-mint: #6ce0db;
+  --color-system-teal: #44d4ed;
+  --color-system-cyan: #5acdfa;
+  --color-system-blue: #148eff;
+  --color-system-indigo: #6361f2;
+  --color-system-purple: #cc65ff;
+  --color-system-pink: #ff4169;
+  --color-system-brown: #b69872;
+
+  --color-fill-1: #242424;
+  --color-fill-2: #141414;
+  --color-fill-3: #0d0d0d;
+  --color-fill-4: #090909;
+  --color-fill-5: #070707;
+
+  --color-label-1: #ffffff;
+  --color-label-2: rgba(255,255,255,0.55);
+  --color-label-3: rgba(255,255,255,0.25);
+  --color-label-4: rgba(255,255,255,0.10);
+  --color-label-5: rgba(255,255,255,0.05);
+  --color-label-6: rgba(255,255,255,0.03);
+
+  --color-accent-10: rgba(0,136,255,0.10);
+  --color-accent-15: rgba(0,136,255,0.15);
+  --color-accent-25: rgba(0,136,255,0.25);
+  --color-accent-50: rgba(0,136,255,0.50);
+  --color-accent-85: rgba(0,136,255,0.85);
+  --color-accent-main: #0088ff;
+}
+
 @theme {
   /* Breakpoints */
   --screen-xs: (max-width: 639px);

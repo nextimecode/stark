@@ -1,5 +1,4 @@
 import { HTMLAttributes, ReactNode } from 'react'
-
 import { twMerge } from 'tailwind-merge'
 
 export interface PrefixProps extends HTMLAttributes<HTMLDivElement> {

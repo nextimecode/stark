@@ -2,7 +2,7 @@ export function UsedSpaceWidget() {
   return (
     <div className="flex flex-col gap-4 rounded-lg bg-violet-50 px-4 py-5 dark:bg-zinc-800">
       <div className="flex flex-col gap-1">
-        <span className="text-sm font-medium leading-5 text-violet-700 dark:text-zinc-100">
+        <span className="text-sm leading-5 font-medium text-violet-700 dark:text-zinc-100">
           Used space
         </span>
         <span className="text-sm leading-5 text-violet-500 dark:text-zinc-400">
@@ -16,15 +16,15 @@ export function UsedSpaceWidget() {
 
       <div className="flex gap-3">
         <button
-          type="button"
           className="text-sm font-medium text-violet-500 dark:text-violet-300"
+          type="button"
         >
           Dismiss
         </button>
 
         <button
-          type="button"
           className="text-sm font-medium text-violet-700 dark:text-zinc-300"
+          type="button"
         >
           Upgrade plan
         </button>

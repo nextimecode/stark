@@ -1,25 +1,22 @@
 'use client'
 
 import type React from 'react'
-
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-
 import {
   BarChart2,
   ClipboardCheck,
   LayoutDashboard,
   UserCircle,
-  Users,
+  Users
 } from 'lucide-react'
-
 import { cn } from '@/lib/utils'
 
 interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
   items?: {
     href: string
-    title: string
     icon: React.ReactNode
+    title: string
   }[]
 }
 
@@ -29,35 +26,35 @@ export function Sidebar({ items }: SidebarNavProps) {
   const defaultItems = [
     {
       href: '/',
-      title: 'Dashboard',
       icon: <LayoutDashboard className="mr-2 h-4 w-4" />,
+      title: 'Dashboard'
     },
     {
       href: '/test',
-      title: 'Take Test',
       icon: <ClipboardCheck className="mr-2 h-4 w-4" />,
+      title: 'Take Test'
     },
     {
       href: '/comparison',
-      title: 'Comparisons',
       icon: <BarChart2 className="mr-2 h-4 w-4" />,
+      title: 'Comparisons'
     },
     {
       href: '/profile',
-      title: 'Profile',
       icon: <UserCircle className="mr-2 h-4 w-4" />,
+      title: 'Profile'
     },
     {
       href: '/invitations',
-      title: 'Invitations',
       icon: <Users className="mr-2 h-4 w-4" />,
-    },
+      title: 'Invitations'
+    }
   ]
 
   const navItems = items || defaultItems
 
   return (
-    <nav className="hidden md:block w-64 border-r p-4 space-y-4">
+    <nav className="hidden w-64 space-y-4 border-r p-4 md:block">
       <div className="space-y-1">
         {navItems.map(item => (
           <Link

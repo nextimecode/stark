@@ -1,5 +1,4 @@
-import { ReactNode, HTMLAttributes } from 'react'
-
+import { HTMLAttributes, ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 export interface RootProps extends HTMLAttributes<HTMLDivElement> {
