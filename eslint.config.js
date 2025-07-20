@@ -155,7 +155,7 @@ export default tseslint.config(
       semi: 'off',
 
       // Next.js rules
-      '@next/next/no-html-link-for-pages': ['error', ['apps/*/src/app/', 'apps/*/app/']],
+      '@next/next/no-html-link-for-pages': 'off',
 
       // Perfectionist rules
       'perfectionist/sort-imports': 'off',
