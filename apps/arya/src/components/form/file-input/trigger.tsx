@@ -4,7 +4,9 @@ import { UploadCloud } from 'lucide-react'
 import { LabelHTMLAttributes } from 'react'
 import { useFileInput } from './root'
 
-export function Trigger(props: LabelHTMLAttributes<HTMLLabelElement>) {
+export type TriggerProps = LabelHTMLAttributes<HTMLLabelElement>
+
+export function Trigger(props: TriggerProps) {
   const { id } = useFileInput()
 
   return (

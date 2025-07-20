@@ -4,7 +4,9 @@ import { HTMLAttributes } from 'react'
 import { FileItem } from './file-item'
 import { useFileInput } from './root'
 
-export function FileList(props: HTMLAttributes<HTMLDivElement>) {
+export type FileListProps = HTMLAttributes<HTMLDivElement>
+
+export function FileList(props: FileListProps) {
   const { files } = useFileInput()
 
   if (files.length === 0) {

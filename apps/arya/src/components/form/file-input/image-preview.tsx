@@ -5,7 +5,9 @@ import Image from 'next/image'
 import { HTMLAttributes, useMemo } from 'react'
 import { useFileInput } from './root'
 
-export function ImagePreview(props: HTMLAttributes<HTMLDivElement>) {
+export type ImagePreviewProps = HTMLAttributes<HTMLDivElement>
+
+export function ImagePreview(props: ImagePreviewProps) {
   const { files, multiple } = useFileInput()
 
   if (multiple) {

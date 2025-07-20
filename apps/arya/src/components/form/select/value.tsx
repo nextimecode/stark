@@ -3,10 +3,9 @@
 import * as Select from '@radix-ui/react-select'
 import { ComponentProps } from 'react'
 
-export function Value({
-  children,
-  ...props
-}: ComponentProps<typeof Select.Value>) {
+export type ValueProps = ComponentProps<typeof Select.Value>
+
+export function Value({ children, ...props }: ValueProps) {
   if (!children) {
     return <Select.Value {...props} />
   }
