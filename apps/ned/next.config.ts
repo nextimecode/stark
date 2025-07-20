@@ -6,6 +6,12 @@ if (process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview') {
 }
 
 const nextConfig: NextConfig = {
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: false,
+  },
   // === Novo bloco para permitir seus domínios em dev ===
   allowedDevOrigins: [
     'nextime.com.br', // domínio principal

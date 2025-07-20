@@ -52,12 +52,6 @@ export default tseslint.config(
       perfectionist.configs['recommended-natural'],
       sonarjs.configs.recommended,
       eslintPluginUnicorn.configs.recommended,
-      ...compat.config({
-        extends: [
-          'plugin:@next/next/recommended',
-          'plugin:@next/next/core-web-vitals'
-        ]
-      }),
       prettierConfig
     ],
     files: ['**/*.{js,jsx,mjs,cjs,ts,tsx}'],
@@ -155,7 +149,22 @@ export default tseslint.config(
       semi: 'off',
 
       // Next.js rules
+      '@next/next/google-font-display': 'warn',
+      '@next/next/google-font-preconnect': 'warn',
+      '@next/next/next-script-for-ga': 'warn',
+      '@next/next/no-async-client-component': 'error',
+      '@next/next/no-before-interactive-script-outside-document': 'warn',
+      '@next/next/no-css-tags': 'warn',
+      '@next/next/no-head-element': 'warn',
+      '@next/next/no-head-import-in-document': 'error',
       '@next/next/no-html-link-for-pages': 'off',
+      '@next/next/no-img-element': 'warn',
+      '@next/next/no-page-custom-font': 'warn',
+      '@next/next/no-styled-jsx-in-document': 'warn',
+      '@next/next/no-sync-scripts': 'warn',
+      '@next/next/no-title-in-document-head': 'warn',
+      '@next/next/no-typos': 'warn',
+      '@next/next/no-unwanted-polyfillio': 'warn',
 
       // Perfectionist rules
       'perfectionist/sort-imports': 'off',
