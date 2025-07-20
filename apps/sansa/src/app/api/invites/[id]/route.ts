@@ -5,19 +5,16 @@ import { prisma } from '@/lib/prisma'
 import { setCorsHeaders } from '@/lib/set-cors-headers'
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
-import { extendZodWithOpenApi } from 'zod-openapi'
-
-extendZodWithOpenApi(z)
 
 const inviteParamsSchema = z
   .object({
-    id: z.number().openapi({
+    id: z.number().meta({
       description: 'ID do convite',
       example: 1,
     }),
   })
-  .openapi({
-    ref: 'InviteParams',
+  .meta({
+    id: 'InviteParams',
     description: 'Parâmetros para operações de convite',
   })
 

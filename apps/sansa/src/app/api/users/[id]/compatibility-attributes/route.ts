@@ -5,9 +5,6 @@ import { prisma } from '@/lib/prisma'
 import { setCorsHeaders } from '@/lib/set-cors-headers'
 import { type NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
-import { extendZodWithOpenApi } from 'zod-openapi'
-
-extendZodWithOpenApi(z)
 
 const paramsSchema = z.object({
   id: z
@@ -19,7 +16,7 @@ const paramsSchema = z.object({
       }
       return num
     })
-    .openapi({
+    .meta({
       description: 'ID do usuário',
       example: '1',
     }),
@@ -28,7 +25,7 @@ const paramsSchema = z.object({
 const bodySchema = z
   .object({})
   .passthrough()
-  .openapi({ ref: 'CompatibilityAttributesBody' })
+  .meta({ id: 'CompatibilityAttributesBody' })
 
 export async function GET(
   request: NextRequest,

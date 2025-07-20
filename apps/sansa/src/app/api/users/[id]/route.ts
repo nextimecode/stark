@@ -5,19 +5,16 @@ import { prisma } from '@/lib/prisma'
 import { setCorsHeaders } from '@/lib/set-cors-headers'
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
-import { extendZodWithOpenApi } from 'zod-openapi'
-
-extendZodWithOpenApi(z)
 
 const userParamsSchema = z
   .object({
-    id: z.number().openapi({
+    id: z.number().meta({
       description: 'ID do usuário',
       example: 1,
     }),
   })
-  .openapi({
-    ref: 'UserParams',
+  .meta({
+    id: 'UserParams',
     description: 'Parâmetros para operações de usuário',
   })
 
@@ -26,18 +23,18 @@ const updateUserBodySchema = z
     email: z
       .string()
       .email()
-      .openapi({
+      .meta({
         description: 'Novo email do usuário',
         example: 'pedro@example.com',
       })
       .optional(),
     name: z
       .string()
-      .openapi({ description: 'Nome do usuário', example: 'Pedro' })
+      .meta({ description: 'Nome do usuário', example: 'Pedro' })
       .optional(),
     fullName: z
       .string()
-      .openapi({
+      .meta({
         description: 'Nome completo do usuário',
         example: 'Pedro Duarte',
       })
@@ -45,22 +42,22 @@ const updateUserBodySchema = z
     birthDate: z
       .string()
       .datetime()
-      .openapi({
+      .meta({
         description: 'Data de nascimento em formato ISO',
         example: '1990-01-01T00:00:00.000Z',
       })
       .optional(),
     gender: z
       .string()
-      .openapi({ description: 'Gênero do usuário', example: 'male' })
+      .meta({ description: 'Gênero do usuário', example: 'male' })
       .optional(),
     mbtiType: z
       .string()
-      .openapi({ description: 'Tipo MBTI do usuário', example: 'INTJ' })
+      .meta({ description: 'Tipo MBTI do usuário', example: 'INTJ' })
       .optional(),
   })
-  .openapi({
-    ref: 'UpdateUser',
+  .meta({
+    id: 'UpdateUser',
     description: 'Dados para atualização de usuário',
   })
 

@@ -5,24 +5,21 @@ import { prisma } from '@/lib/prisma'
 import { setCorsHeaders } from '@/lib/set-cors-headers'
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
-import { extendZodWithOpenApi } from 'zod-openapi'
-
-extendZodWithOpenApi(z)
 
 // Schema para criação de convite
 export const createInviteBodySchema = z
   .object({
-    senderId: z.number().openapi({
+    senderId: z.number().meta({
       description: 'ID do usuário que envia o convite',
       example: 1,
     }),
-    recipientId: z.number().openapi({
+    recipientId: z.number().meta({
       description: 'ID do usuário que recebe o convite',
       example: 2,
     }),
   })
-  .openapi({
-    ref: 'CreateInvite',
+  .meta({
+    id: 'CreateInvite',
     description: 'Dados para criação de um novo convite',
   })
 

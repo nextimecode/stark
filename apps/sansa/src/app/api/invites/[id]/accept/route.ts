@@ -3,9 +3,6 @@ import { prisma } from '@/lib/prisma'
 import { setCorsHeaders } from '@/lib/set-cors-headers'
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
-import { extendZodWithOpenApi } from 'zod-openapi'
-
-extendZodWithOpenApi(z)
 
 export const inviteParamsSchema = z
   .object({
@@ -16,13 +13,13 @@ export const inviteParamsSchema = z
         if (Number.isNaN(num)) throw new Error('Invalid invite ID')
         return num
       })
-      .openapi({
+      .meta({
         description: 'ID do convite',
         example: '1',
       }),
   })
-  .openapi({
-    ref: 'InviteParams',
+  .meta({
+    id: 'InviteParams',
     description: 'Parâmetros para atualização de convite',
   })
 

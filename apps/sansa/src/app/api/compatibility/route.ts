@@ -5,10 +5,10 @@ import { NextResponse } from 'next/server'
 import OpenAI from 'openai'
 import { z } from 'zod'
 import {
-  type UserData,
   familyPrompt,
   friendshipPrompt,
   lovePrompt,
+  type UserData,
   workPrompt,
 } from './compatibility-prompts'
 

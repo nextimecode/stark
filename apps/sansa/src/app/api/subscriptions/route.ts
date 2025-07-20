@@ -2,20 +2,18 @@ import { handleOptionsRequest } from '@/lib/handle-options'
 import { setCorsHeaders } from '@/lib/set-cors-headers'
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
-import { extendZodWithOpenApi } from 'zod-openapi'
-extendZodWithOpenApi(z)
 
 export const subscriptionSchema = z
   .object({
     name: z
       .string()
-      .openapi({ description: 'Nome do assinante', example: 'Pedro Duarte' }),
-    email: z.string().email().openapi({
+      .meta({ description: 'Nome do assinante', example: 'Pedro Duarte' }),
+    email: z.string().email().meta({
       description: 'Email do assinante',
       example: 'pedro@example.com',
     }),
   })
-  .openapi({ ref: 'Subscription', description: 'Dados para inscrição' })
+  .meta({ id: 'Subscription', description: 'Dados para inscrição' })
 
 export async function POST(request: Request) {
   try {
