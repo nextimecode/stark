@@ -152,7 +152,7 @@ export default tseslint.config(
           prev: 'import'
         }
       ],
-      semi: ['error', 'never'],
+      semi: 'off',
 
       // Next.js rules
       '@next/next/no-html-link-for-pages': ['error', ['apps/*/src/app/', 'apps/*/app/']],
