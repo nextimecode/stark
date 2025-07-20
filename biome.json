@@ -1,8 +1,6 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-  "organizeImports": {
-    "enabled": true
-  },
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "formatter": {
     "formatWithErrors": true,
     "indentStyle": "space",
@@ -25,24 +23,25 @@
     }
   },
   "files": {
-    "ignore": [
-      "node_modules",
-      ".next",
-      ".turbo",
-      "dist",
-      ".vercel",
-      "coverage",
-      "test-results",
-      "playwright-report",
-      "pnpm-lock.yaml",
-      ".env",
-      ".env.local",
-      ".env.development",
-      ".env.production",
-      ".env.test",
-      ".env.preview",
-      ".cursor",
-      "**/*.css"
+    "includes": [
+      "**",
+      "!**/node_modules",
+      "!**/.next",
+      "!**/.turbo",
+      "!**/dist",
+      "!**/.vercel",
+      "!**/coverage",
+      "!**/test-results",
+      "!**/playwright-report",
+      "!**/pnpm-lock.yaml",
+      "!**/.env",
+      "!**/.env.local",
+      "!**/.env.development",
+      "!**/.env.production",
+      "!**/.env.test",
+      "!**/.env.preview",
+      "!**/.cursor",
+      "!**/*.css"
     ]
   }
 }

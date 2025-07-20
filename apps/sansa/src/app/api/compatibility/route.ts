@@ -4,7 +4,6 @@ import { PrismaClient } from '@prisma/client'
 import { NextResponse } from 'next/server'
 import OpenAI from 'openai'
 import { z } from 'zod'
-import { extendZodWithOpenApi } from 'zod-openapi'
 import {
   type UserData,
   familyPrompt,
@@ -13,26 +12,24 @@ import {
   workPrompt,
 } from './compatibility-prompts'
 
-extendZodWithOpenApi(z)
-
 const prisma = new PrismaClient()
 
 export const compatibilityTestSchema = z
   .object({
-    user1Id: z.number().openapi({
+    user1Id: z.number().meta({
       description: 'ID do primeiro usuário',
       example: 1,
     }),
     user2Id: z
       .number()
-      .openapi({ description: 'ID do segundo usuário', example: 2 }),
-    relationshipType: z.enum(['LOVE', 'FRIENDSHIP', 'WORK', 'FAMILY']).openapi({
+      .meta({ description: 'ID do segundo usuário', example: 2 }),
+    relationshipType: z.enum(['LOVE', 'FRIENDSHIP', 'WORK', 'FAMILY']).meta({
       description: 'Tipo de relacionamento a ser analisado',
       example: 'LOVE',
     }),
   })
-  .openapi({
-    ref: 'CompatibilityTest',
+  .meta({
+    id: 'CompatibilityTest',
     description: 'Dados para análise de compatibilidade entre dois usuários',
   })
 
@@ -52,7 +49,7 @@ export const POST = async (request: Request) => {
     const parsed = compatibilityTestSchema.safeParse(json)
 
     if (!parsed.success) {
-      return NextResponse.json({ error: parsed.error.errors }, { status: 400 })
+      return NextResponse.json({ error: parsed.error.issues }, { status: 400 })
     }
 
     const { user1Id, user2Id, relationshipType } = parsed.data
@@ -98,7 +95,7 @@ export const POST = async (request: Request) => {
       FAMILY: familyPrompt,
     }
 
-    const promptFn = prompts[relationshipType]
+    const promptFn = prompts[relationshipType as keyof typeof prompts]
     const prompt = promptFn(userData1, userData2)
 
     const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
