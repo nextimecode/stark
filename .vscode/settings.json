@@ -6,5 +6,6 @@
     "activityBar.foreground": "#BF5AF2",
     "statusBarItem.remoteForeground": "#000000",
     "statusBarItem.remoteBackground": "#64D2FF"
-  }
+  },
+  "cSpell.words": ["arya", "unplugin"]
 }
