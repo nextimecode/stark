@@ -1,4 +1,6 @@
+import { FlatCompat } from '@eslint/eslintrc';
 import js from '@eslint/js';
+import nextPlugin from '@next/eslint-plugin-next';
 import prettierConfig from 'eslint-config-prettier';
 import perfectionist from 'eslint-plugin-perfectionist';
 import prettierPlugin from 'eslint-plugin-prettier';
@@ -7,7 +9,18 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import sonarjs from 'eslint-plugin-sonarjs';
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 import globals from 'globals';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import tseslint from 'typescript-eslint';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+  recommendedConfig: js.configs.recommended,
+  allConfig: js.configs.all,
+});
 
 export default tseslint.config(
   {
@@ -38,6 +51,13 @@ export default tseslint.config(
       perfectionist.configs['recommended-natural'],
       sonarjs.configs.recommended,
       eslintPluginUnicorn.configs.recommended,
+      ...compat.config({
+        extends: [
+          'plugin:@next/next/recommended',
+          'plugin:@next/next/core-web-vitals',
+          'plugin:@next/next/typescript'
+        ]
+      }),
       prettierConfig
     ],
     files: ['**/*.{js,jsx,mjs,cjs,ts,tsx}'],
@@ -54,6 +74,7 @@ export default tseslint.config(
       }
     },
     plugins: {
+      '@next/next': nextPlugin,
       prettier: prettierPlugin
     },
     rules: {
