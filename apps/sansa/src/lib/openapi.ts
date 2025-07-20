@@ -3,7 +3,7 @@ import { createDocument } from 'zod-openapi'
 import { subscriptionSchema } from '../app/api/subscriptions/route'
 
 export const openApiDocument = createDocument({
-  openapi: '3.0.3',
+  openapi: '3.1.1',
   info: {
     title: 'Stark API',
     version: '1.0.0',
