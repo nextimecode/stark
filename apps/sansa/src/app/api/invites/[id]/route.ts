@@ -1,27 +1,15 @@
 // api/invites/[id]/route.ts
 
 import { prisma } from '@/lib/prisma'
+import { inviteParamsSchema } from '@/lib/schemas/invite-params'
 import { setCorsHeaders } from '@/lib/set-cors-headers'
 import { NextResponse } from 'next/server'
-import { z } from 'zod'
-
-const inviteParamsSchema = z
-  .object({
-    id: z.number().meta({
-      description: 'ID do convite',
-      example: 1
-    })
-  })
-  .meta({
-    description: 'Parâmetros para operações de convite',
-    id: 'InviteParams'
-  })
 
 export const GET = async (
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) => {
-  const { id } = inviteParamsSchema.parse(params)
+  const { id } = inviteParamsSchema.parse(await params)
 
   const invite = await prisma.invite.findUnique({
     where: { id }
@@ -40,9 +28,9 @@ export const GET = async (
 
 export const DELETE = async (
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) => {
-  const { id } = inviteParamsSchema.parse(params)
+  const { id } = inviteParamsSchema.parse(await params)
 
   await prisma.invite.delete({
     where: { id }
