@@ -3,14 +3,10 @@
 'use client'
 
 import { type FormEvent, useState } from 'react'
-
 import Link from 'next/link'
-
 import { Title } from '@/components/'
 import { Logo } from '@/components/logo'
-
 import { sendPasswordResetEmail } from '@/firebase/auth'
-
 import { auth } from '@/firebase/client'
 
 export default function Recover() {
@@ -30,7 +26,7 @@ export default function Recover() {
       setSuccessMessage(
         'E-mail de redefinição de senha enviado com sucesso. Verifique sua caixa de entrada.'
       )
-    } catch (error) {
+    } catch {
       setErrorMessage(
         'Não foi possível enviar o e-mail de redefinição de senha. Verifique se o endereço de e-mail está correto.'
       )
@@ -40,15 +36,15 @@ export default function Recover() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-xl bg-white border border-gray-200 rounded-xl  dark:bg-system-gray6 dark:border-system-gray2 shadow-card">
+    <div className="flex min-h-screen items-center justify-center">
+      <div className="dark:bg-system-gray6 dark:border-system-gray2 shadow-card w-full max-w-xl rounded-xl border border-gray-200 bg-white">
         <div className="p-4 sm:p-7">
           <div>
             <div className="pb-4">
               <Logo className="mx-auto" width={81} height={100} />
             </div>
-            <div className="text-center pb-4">
-              <Title color="blue" size="text-3xl">
+            <div className="pb-4 text-center">
+              <Title size="text-3xl" color="blue">
                 Recuperar Senha
               </Title>
               <p className="mt-2 text-sm text-gray-600 dark:text-neutral-400">
@@ -60,44 +56,44 @@ export default function Recover() {
               <div className="grid gap-y-4">
                 <div>
                   <label
+                    className="mb-2 block text-sm dark:text-white"
                     htmlFor="email"
-                    className="block text-sm mb-2 dark:text-white"
                   >
                     E-mail
                   </label>
                   <div className="relative">
                     <input
-                      type="email"
+                      className="dark:bg-system-gray6 dark:border-system-gray2 block w-full rounded-lg border border-gray-200 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:text-white dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                       id="email"
                       name="email"
-                      className="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-system-gray6 dark:border-system-gray2 dark:text-white dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                      required
-                      placeholder="Digite seu e-mail"
+                      type="email"
                       value={email}
+                      required
                       onChange={e => setEmail(e.target.value)}
+                      placeholder="Digite seu e-mail"
                     />
                   </div>
                 </div>
                 {errorMessage && (
-                  <p className="text-red-500 text-sm">{errorMessage}</p>
+                  <p className="text-sm text-red-500">{errorMessage}</p>
                 )}
                 {successMessage && (
-                  <p className="text-green-500 text-sm">{successMessage}</p>
+                  <p className="text-sm text-green-500">{successMessage}</p>
                 )}
                 <button
-                  type="submit"
-                  className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                  className="inline-flex w-full items-center justify-center gap-x-2 rounded-lg border border-transparent bg-blue-600 px-4 py-3 text-sm font-medium text-white hover:bg-blue-700 focus:bg-blue-700 focus:outline-hidden disabled:pointer-events-none disabled:opacity-50"
                   disabled={isLoading}
+                  type="submit"
                 >
                   {isLoading ? 'Enviando...' : 'Enviar'}
                 </button>
               </div>
             </form>
-            <p className="mt-4 text-sm text-gray-600 dark:text-neutral-400 text-center">
+            <p className="mt-4 text-center text-sm text-gray-600 dark:text-neutral-400">
               Lembrou sua senha?{' '}
               <Link
                 href="/"
-                className="text-blue-600 decoration-2 hover:underline focus:outline-hidden focus:underline font-medium dark:text-blue-500"
+                className="font-medium text-blue-600 decoration-2 hover:underline focus:underline focus:outline-hidden dark:text-blue-500"
               >
                 Faça login
               </Link>

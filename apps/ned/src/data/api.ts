@@ -2,6 +2,7 @@ import { env } from '@/env'
 
 export function api(path: string, init?: RequestInit) {
   const baseUrl = env.NEXT_PUBLIC_SANSA_URL
+
   if (!baseUrl) {
     throw new Error(
       'A variável de ambiente NEXT_PUBLIC_SANSA_URL não está definida.'

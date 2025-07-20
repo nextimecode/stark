@@ -14,10 +14,10 @@ export default async function InvitePage(props: InvitePageProps) {
   const inviteLink = `http://localhost:3333/invites/${subscriberId}`
 
   return (
-    <div className="min-h-dvh flex items-center justify-between gap-16 flex-col md:flex-row">
-      <div className="flex flex-col gap-10 w-full max-w-[550px]">
+    <div className="flex min-h-dvh flex-col items-center justify-between gap-16 md:flex-row">
+      <div className="flex w-full max-w-[550px] flex-col gap-10">
         <div className="space-y-2">
-          <h1 className="text-4xl font-semibold font-heading text-gray-100 leading-none">
+          <h1 className="font-heading text-4xl leading-none font-semibold text-gray-100">
             Inscrição confirmada!
           </h1>
           <p className="text-gray-300">
@@ -27,7 +27,7 @@ export default async function InvitePage(props: InvitePageProps) {
 
         <div className="space-y-6">
           <div className="space-y-3">
-            <h2 className="text-gray-200 text-xl font-heading font-semibold leading-none">
+            <h2 className="font-heading text-xl leading-none font-semibold text-gray-200">
               Indique e ganhe
             </h2>
             <p className="text-gray-300">

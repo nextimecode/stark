@@ -1,7 +1,7 @@
 export interface HomeProps {
-  message: string
-  key: string
-  vercelUrl: string | undefined
-  projectProductionUrl: string | undefined
   isPreview: boolean
+  key: string
+  message: string
+  projectProductionUrl: string | undefined
+  vercelUrl: string | undefined
 }

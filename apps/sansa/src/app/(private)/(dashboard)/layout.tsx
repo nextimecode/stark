@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react'
-
 import { Navbar } from '@/components/layout/navbar'
 import { Sidebar } from '@/components/layout/sidebar'
 

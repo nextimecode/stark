@@ -1,13 +1,12 @@
 'use client'
 
 import {
-  HTMLAttributes,
   createContext,
+  HTMLAttributes,
   useContext,
   useId,
-  useState,
+  useState
 } from 'react'
-
 import { twMerge } from 'tailwind-merge'
 
 export interface RootProps extends HTMLAttributes<HTMLDivElement> {
@@ -15,21 +14,21 @@ export interface RootProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 interface FileInputContextType {
-  id: string
   files: File[]
+  id: string
   multiple: boolean
   onFilesSelected: (files: File[]) => void
 }
 
 const FileInputContext = createContext({} as FileInputContextType)
 
-export function Root({ multiple = false, id, ...props }: RootProps) {
+export function Root({ id, multiple = false, ...props }: RootProps) {
   const customId = useId()
   const [files, setFiles] = useState<File[]>([])
 
   return (
     <FileInputContext.Provider
-      value={{ id: id ?? customId, files, multiple, onFilesSelected: setFiles }}
+      value={{ files, id: id ?? customId, multiple, onFilesSelected: setFiles }}
     >
       <div {...props} className={twMerge('group w-full', props.className)} />
     </FileInputContext.Provider>

@@ -22,6 +22,7 @@ export async function api(path: string, init?: RequestInit): Promise<Response> {
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
     try {
       const response = await fetch(url, init)
+
       if (!response.ok) {
         throw new Error(`Erro na requisição: ${response.statusText}`)
       }

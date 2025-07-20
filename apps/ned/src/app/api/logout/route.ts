@@ -1,15 +1,16 @@
 import { NextResponse } from 'next/server'
-
 import { env } from '@/env'
 
-const allowedOrigins = [
-  env.NEXT_PUBLIC_ARYA_URL,
-  env.NEXT_PUBLIC_SANSA_URL,
-  env.NEXT_PUBLIC_NED_URL,
-].filter(Boolean)
+const allowedOrigins = new Set(
+  [
+    env.NEXT_PUBLIC_ARYA_URL,
+    env.NEXT_PUBLIC_SANSA_URL,
+    env.NEXT_PUBLIC_NED_URL
+  ].filter(Boolean)
+)
 
-const setCorsHeaders = (origin: string | null, response: NextResponse) => {
-  if (origin && allowedOrigins.includes(origin)) {
+const setCorsHeaders = (origin: null | string, response: NextResponse) => {
+  if (origin && allowedOrigins.has(origin)) {
     response.headers.set('Access-Control-Allow-Origin', origin)
     response.headers.set('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
     response.headers.set('Access-Control-Allow-Headers', 'Content-Type')
@@ -30,12 +31,12 @@ export async function POST(request: Request) {
   const response = NextResponse.json({ success: true })
 
   response.cookies.set('token', '', {
+    expires: new Date(0),
+    httpOnly: true,
     maxAge: 0,
     path: '/',
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
     sameSite: 'strict',
-    expires: new Date(0),
+    secure: process.env.NODE_ENV === 'production'
   })
 
   const origin = request.headers.get('origin')

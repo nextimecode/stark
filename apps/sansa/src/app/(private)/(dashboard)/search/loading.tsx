@@ -1,7 +1,5 @@
 import { Suspense } from 'react'
-
 import { Skeleton } from '@/components/skeleton'
-
 import { CurrentSearch } from './current-search'
 
 export default function SearchLoading() {

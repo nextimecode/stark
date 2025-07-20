@@ -21,7 +21,7 @@ import { redirect } from 'next/navigation'
 // }
 
 export default async function Search({
-  searchParams,
+  searchParams
 }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>
 }) {

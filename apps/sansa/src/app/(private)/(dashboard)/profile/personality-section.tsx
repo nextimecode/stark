@@ -5,7 +5,7 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from '@/components/ui/card'
 import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
 import {
@@ -13,7 +13,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from '@/components/ui/form'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import {
@@ -21,7 +21,7 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
+  SelectValue
 } from '@/components/ui/select'
 import { Slider } from '@/components/ui/slider'
 
@@ -34,20 +34,20 @@ interface PersonalitySectionProps {
 export function PersonalitySection({
   form,
   open,
-  toggle,
+  toggle
 }: PersonalitySectionProps) {
   return (
     <Card className="relative">
       <div className="absolute top-4 right-4 cursor-pointer" onClick={toggle}>
         <button
-          type="button"
           className="text-muted-foreground hover:text-primary"
+          type="button"
         >
           {open ? 'Fechar' : 'Expandir'}
         </button>
       </div>
       <CardHeader>
-        <CardTitle onClick={toggle} className="cursor-pointer">
+        <CardTitle className="cursor-pointer" onClick={toggle}>
           Personalidade
         </CardTitle>
         <CardDescription>Informações sobre sua personalidade</CardDescription>
@@ -56,15 +56,14 @@ export function PersonalitySection({
         <CollapsibleContent>
           <CardContent className="space-y-4">
             <FormField
-              control={form.control}
               name="mbtiType"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Tipo MBTI</FormLabel>
                   <FormControl>
                     <Select
-                      onValueChange={field.onChange}
                       defaultValue={field.value}
+                      onValueChange={field.onChange}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Selecione seu tipo MBTI" />
@@ -94,16 +93,16 @@ export function PersonalitySection({
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
             <FormField
-              control={form.control}
               name="introExtroScale"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Escala de Introversão/Extroversão</FormLabel>
                   <FormControl>
                     <div className="space-y-2">
-                      <div className="flex justify-between text-sm text-muted-foreground">
+                      <div className="text-muted-foreground flex justify-between text-sm">
                         <span>Introvertido</span>
                         <span>Extrovertido</span>
                       </div>
@@ -114,7 +113,7 @@ export function PersonalitySection({
                         step={1}
                         onValueChange={vals => field.onChange(vals[0])}
                       />
-                      <div className="text-center text-sm text-muted-foreground">
+                      <div className="text-muted-foreground text-center text-sm">
                         Valor: {field.value}
                       </div>
                     </div>
@@ -122,32 +121,32 @@ export function PersonalitySection({
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
             <FormField
-              control={form.control}
               name="communicationStyle"
               render={({ field }) => (
                 <FormItem className="space-y-3">
                   <FormLabel>Estilo de Comunicação</FormLabel>
                   <FormControl>
                     <RadioGroup
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
                       className="flex flex-col space-y-1"
+                      defaultValue={field.value}
+                      onValueChange={field.onChange}
                     >
-                      <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormItem className="flex items-center space-y-0 space-x-3">
                         <FormControl>
                           <RadioGroupItem value="direct" />
                         </FormControl>
                         <FormLabel className="font-normal">Direto</FormLabel>
                       </FormItem>
-                      <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormItem className="flex items-center space-y-0 space-x-3">
                         <FormControl>
                           <RadioGroupItem value="indirect" />
                         </FormControl>
                         <FormLabel className="font-normal">Indireto</FormLabel>
                       </FormItem>
-                      <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormItem className="flex items-center space-y-0 space-x-3">
                         <FormControl>
                           <RadioGroupItem value="mixed" />
                         </FormControl>
@@ -158,6 +157,7 @@ export function PersonalitySection({
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
           </CardContent>
         </CollapsibleContent>

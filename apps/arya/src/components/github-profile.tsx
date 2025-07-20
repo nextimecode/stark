@@ -1,15 +1,7 @@
-import { Suspense } from 'react'
-
-// import { Button } from '@stark/ui'
-
 import { api } from '@/data/api'
 import { HomeProps } from '@/data/types/home'
+import { Suspense } from 'react'
 
-async function getHomeData(): Promise<HomeProps> {
-  const response = await api('/github')
-  const message = await response.json()
-  return message
-}
 export default async function GithubProfile() {
   const { message } = await getHomeData()
   const response = await getHomeData()
@@ -21,4 +13,10 @@ export default async function GithubProfile() {
       {/* <Button>{response.message}</Button> */}
     </main>
   )
+}
+
+async function getHomeData(): Promise<HomeProps> {
+  const response = await api('/github')
+  const message = await response.json()
+  return message
 }

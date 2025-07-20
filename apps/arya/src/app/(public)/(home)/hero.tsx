@@ -1,17 +1,16 @@
 import Link from 'next/link'
-
 import { Title } from '@/components/title'
 import { env } from '@/env'
 
 export function Hero() {
   return (
     <section id="hero">
-      <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 gap-4 md:gap-8 xl:gap-20 md:items-center">
+      <div className="mx-auto max-w-[85rem] px-4 sm:px-6 lg:px-8">
+        <div className="grid gap-4 md:grid-cols-2 md:items-center md:gap-8 xl:gap-20">
           <div>
             <h1 className="font-heading block text-3xl font-bold text-gray-800 sm:text-4xl lg:text-6xl lg:leading-tight dark:text-white">
               Descubra conexões que fazem sentido com o{' '}
-              <Title color="violet" size="text-6xl">
+              <Title size="text-6xl" color="violet">
                 NeXTverso
               </Title>
             </h1>
@@ -22,37 +21,37 @@ export function Hero() {
               as conexões que realmente importa.
             </p>
 
-            <div className="my-7 grid gap-3 w-full sm:inline-flex">
+            <div className="my-7 grid w-full gap-3 sm:inline-flex">
               <Link
-                className="transition-all duration-300 hover:animate-none animate-[button-glow_2.5s_ease-in-out_infinite] py-3 px-4 inline-flex justify-center items-center gap-x-2 text-md font-semibold rounded-lg border border-transparent bg-primary dark:text-white disabled:opacity-50 disabled:pointer-events-none"
                 href={`${env.NEXT_PUBLIC_NED_URL}/?redirect=${encodeURIComponent(env.NEXT_PUBLIC_SANSA_URL)}`}
+                className="text-md bg-primary inline-flex animate-[button-glow_2.5s_ease-in-out_infinite] items-center justify-center gap-x-2 rounded-lg border border-transparent px-4 py-3 font-semibold transition-all duration-300 hover:animate-none disabled:pointer-events-none disabled:opacity-50 dark:text-white"
               >
                 Grátis Por Tempo Limitado
                 <svg
+                  className="size-4 shrink-0"
                   aria-hidden="true"
-                  className="shrink-0 size-4"
-                  xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
-                  viewBox="0 0 24 24"
                   fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
                   stroke="currentColor"
-                  strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
                 >
                   <path d="m9 18 6-6-6-6" />
                 </svg>
               </Link>
               <Link
-                className="py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-xs hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800"
                 href="#faq"
+                className="inline-flex items-center justify-center gap-x-2 rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm font-medium text-gray-800 shadow-xs hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800"
               >
                 Saiba Mais
               </Link>
             </div>
 
-            <div className="hidden md:block my-5 gap-x-5">
+            <div className="my-5 hidden gap-x-5 md:block">
               <p className="text-sm text-gray-800 dark:text-neutral-200">
                 Uma relação saudável depende de comunicação, respeito e
                 compatibilidade, e nosso aplicativo tenta fortalecer esses laços
@@ -63,12 +62,12 @@ export function Hero() {
 
           <div>
             <video
-              className="md:w-[600px] md:h-[600px] rounded-md object-cover"
+              className="rounded-md object-cover md:h-[600px] md:w-[600px]"
               src="movie.mp4"
-              autoPlay
-              loop
               muted
               playsInline
+              autoPlay
+              loop
             />
           </div>
         </div>

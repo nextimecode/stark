@@ -1,14 +1,14 @@
 'use client'
 
-import { ComponentProps } from 'react'
-
 import * as Select from '@radix-ui/react-select'
 import { ChevronDown } from 'lucide-react'
+import { ComponentProps } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-export interface TriggerProps extends ComponentProps<typeof Select.Trigger> {}
-
-export function Trigger({ children, ...props }: TriggerProps) {
+export function Trigger({
+  children,
+  ...props
+}: ComponentProps<typeof Select.Trigger>) {
   return (
     <Select.Trigger
       {...props}

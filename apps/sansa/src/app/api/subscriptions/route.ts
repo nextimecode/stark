@@ -1,28 +1,27 @@
-import { handleOptionsRequest } from '@/lib/handle-options'
 import { setCorsHeaders } from '@/lib/set-cors-headers'
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
 
 export const subscriptionSchema = z
   .object({
-    name: z
-      .string()
-      .meta({ description: 'Nome do assinante', example: 'Pedro Duarte' }),
     email: z.string().email().meta({
       description: 'Email do assinante',
-      example: 'pedro@example.com',
+      example: 'pedro@example.com'
     }),
+    name: z
+      .string()
+      .meta({ description: 'Nome do assinante', example: 'Pedro Duarte' })
   })
-  .meta({ id: 'Subscription', description: 'Dados para inscrição' })
+  .meta({ description: 'Dados para inscrição', id: 'Subscription' })
 
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { name, email } = subscriptionSchema.parse(body)
+    const { email, name } = subscriptionSchema.parse(body)
 
-    // TODO: salvar no banco de dados
+    console.log('Subscription data:', { email, name })
 
-    const response = NextResponse.json({ name, email }, { status: 201 })
+    const response = NextResponse.json({ email, name }, { status: 201 })
     const origin = request.headers.get('origin')
     setCorsHeaders(origin, response)
 
@@ -35,4 +34,4 @@ export async function POST(request: Request) {
   }
 }
 
-export const OPTIONS = handleOptionsRequest
+export { handleOptionsRequest as OPTIONS } from '@/lib/handle-options'

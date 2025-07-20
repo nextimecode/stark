@@ -1,17 +1,15 @@
 import Link from 'next/link'
-
 import { RadarChart } from '@/components/radar-chart'
-
 import {
   MBTI_CATEGORIES,
-  MBTI_PERSONALITY_TYPES,
+  MBTI_PERSONALITY_TYPES
 } from '@/data/mbti-personality-types'
 
 export function PersonalityCharts() {
   return (
     <section id="personality-charts">
-      <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+      <div className="mx-auto max-w-[85rem] px-4 sm:px-6 lg:px-8">
+        <div className="mb-12 text-center">
           <h2 className="text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
             Seu Perfil de Personalidade MBTI
           </h2>
@@ -21,7 +19,7 @@ export function PersonalityCharts() {
           </p>
           <Link
             href="/register"
-            className="mt-6 inline-block px-6 py-3 text-md font-medium text-white hover:bg-primary-500 hover:animate-none rounded-md transition-all duration-300 animate-[button-glow_2.5s_ease-in-out_infinite]"
+            className="text-md hover:bg-primary-500 mt-6 inline-block animate-[button-glow_2.5s_ease-in-out_infinite] rounded-md px-6 py-3 font-medium text-white transition-all duration-300 hover:animate-none"
           >
             Faça o Teste MBTI
           </Link>
@@ -31,11 +29,11 @@ export function PersonalityCharts() {
         <div className="overflow-x-auto">
           <div className="flex space-x-6">
             {MBTI_PERSONALITY_TYPES.Analistas.types.map(profile => (
-              <div key={profile.type} className="flex-shrink-0 w-[420px]">
+              <div key={profile.type} className="w-[420px] flex-shrink-0">
                 <RadarChart
+                  series={profile.series}
                   title={profile.type}
                   categories={MBTI_CATEGORIES}
-                  series={profile.series}
                   colors={[profile.color]}
                 />
               </div>

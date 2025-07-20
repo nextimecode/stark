@@ -13,11 +13,16 @@ export async function createClient(opts?: CreateClientOptions) {
 
   // 1) Validação das ENV vars
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
-  if (!url) throw new Error('Missing env var: NEXT_PUBLIC_SUPABASE_URL')
+
+  if (!url) {
+    throw new Error('Missing env var: NEXT_PUBLIC_SUPABASE_URL')
+  }
 
   const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  if (!anonKey)
+
+  if (!anonKey) {
     throw new Error('Missing env var: NEXT_PUBLIC_SUPABASE_ANON_KEY')
+  }
 
   const key = admin
     ? (process.env.SUPABASE_SERVICE_KEY ??
@@ -34,9 +39,9 @@ export async function createClient(opts?: CreateClientOptions) {
   return createServerClient<Database>(url, key, {
     auth: admin
       ? {
-          persistSession: false,
           autoRefreshToken: false,
           detectSessionInUrl: false,
+          persistSession: false
         }
       : undefined,
     cookies: {
@@ -44,16 +49,16 @@ export async function createClient(opts?: CreateClientOptions) {
         return cookieStore.getAll()
       },
       setAll(cookiesToSet) {
-        for (const { name, value, options } of cookiesToSet) {
+        for (const { name, options, value } of cookiesToSet) {
           cookieStore.set(name, value, options)
         }
-      },
+      }
     },
     global: {
       headers: {
-        'user-agent': headerStore.get('user-agent') ?? '',
         'sb-lb-routing-mode': 'alpha-all-services',
-      },
-    },
+        'user-agent': headerStore.get('user-agent') ?? ''
+      }
+    }
   })
 }

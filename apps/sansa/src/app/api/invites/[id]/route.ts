@@ -1,6 +1,5 @@
 // api/invites/[id]/route.ts
 
-import { handleOptionsRequest } from '@/lib/handle-options'
 import { prisma } from '@/lib/prisma'
 import { setCorsHeaders } from '@/lib/set-cors-headers'
 import { NextResponse } from 'next/server'
@@ -10,12 +9,12 @@ const inviteParamsSchema = z
   .object({
     id: z.number().meta({
       description: 'ID do convite',
-      example: 1,
-    }),
+      example: 1
+    })
   })
   .meta({
-    id: 'InviteParams',
     description: 'Parâmetros para operações de convite',
+    id: 'InviteParams'
   })
 
 export const GET = async (
@@ -25,7 +24,7 @@ export const GET = async (
   const { id } = inviteParamsSchema.parse(params)
 
   const invite = await prisma.invite.findUnique({
-    where: { id },
+    where: { id }
   })
 
   if (!invite) {
@@ -46,7 +45,7 @@ export const DELETE = async (
   const { id } = inviteParamsSchema.parse(params)
 
   await prisma.invite.delete({
-    where: { id },
+    where: { id }
   })
 
   const response = NextResponse.json(null, { status: 204 })
@@ -56,4 +55,4 @@ export const DELETE = async (
   return response
 }
 
-export const OPTIONS = handleOptionsRequest
+export { handleOptionsRequest as OPTIONS } from '@/lib/handle-options'

@@ -1,16 +1,17 @@
-import dotenv from 'dotenv'
-import type { NextConfig } from 'next'
+import dotenv from 'dotenv';
+import type { NextConfig } from 'next';
 
 if (process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview') {
-  dotenv.config({ path: '.env.preview', override: true })
+  dotenv.config({ override: true, path: '.env.preview' });
 }
 
 const nextConfig: NextConfig = {
-  logging: {
-    fetches: {
-      fullUrl: true,
-    },
-  },
+  // === Novo bloco para permitir seus domínios em dev ===
+  allowedDevOrigins: [
+    'nextime.com.br', // domínio principal
+    'nextverso.com.br', // outro domínio que você usa
+    '*.nextime.com.br', // se precisar de subdomínios (ex.: local.nextime.com.br)
+  ],
   images: {
     remotePatterns: [
       {
@@ -25,12 +26,11 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // === Novo bloco para permitir seus domínios em dev ===
-  allowedDevOrigins: [
-    'nextime.com.br', // domínio principal
-    'nextverso.com.br', // outro domínio que você usa
-    '*.nextime.com.br', // se precisar de subdomínios (ex.: local.nextime.com.br)
-  ],
-}
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  }
+};
 
-export default nextConfig
+export default nextConfig;

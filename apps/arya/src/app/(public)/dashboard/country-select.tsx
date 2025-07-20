@@ -1,17 +1,13 @@
 'use client'
 
+import * as Select from '@/components/form/select'
+import { countries } from '@/lib/countries'
 import { useState } from 'react'
 import Flag from 'react-world-flags'
 
-import * as Select from '@/components/form/select'
-
-import { countries } from '@/lib/countries'
-
-export interface CountrySelectProps {}
-
 type CountryCode = keyof typeof countries
 
-export function CountrySelect(props: CountrySelectProps) {
+export function CountrySelect() {
   const [value, setValue] = useState<CountryCode | undefined>()
 
   function handleCountrySelected(value: string) {
@@ -23,7 +19,6 @@ export function CountrySelect(props: CountrySelectProps) {
       name="country"
       value={value}
       onValueChange={handleCountrySelected}
-      {...props}
     >
       <Select.Trigger>
         <Select.Value placeholder="Select your country...">

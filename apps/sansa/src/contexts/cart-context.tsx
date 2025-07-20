@@ -1,15 +1,15 @@
 'use client'
 
-import { ReactNode, createContext, useContext, useState } from 'react'
+import { createContext, ReactNode, useContext, useState } from 'react'
+
+interface CartContextType {
+  addToCart: (productId: number) => void
+  items: CartItem[]
+}
 
 interface CartItem {
   productId: number
   quantity: number
-}
-
-interface CartContextType {
-  items: CartItem[]
-  addToCart: (productId: number) => void
 }
 
 const CartContext = createContext({} as CartContextType)
@@ -32,7 +32,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <CartContext.Provider value={{ items: cartItems, addToCart }}>
+    <CartContext.Provider value={{ addToCart, items: cartItems }}>
       {children}
     </CartContext.Provider>
   )

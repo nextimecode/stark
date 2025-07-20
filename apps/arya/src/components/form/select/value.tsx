@@ -1,12 +1,12 @@
 'use client'
 
+import * as Select from '@radix-ui/react-select'
 import { ComponentProps } from 'react'
 
-import * as Select from '@radix-ui/react-select'
-
-export interface ValueProps extends ComponentProps<typeof Select.Value> {}
-
-export function Value({ children, ...props }: ValueProps) {
+export function Value({
+  children,
+  ...props
+}: ComponentProps<typeof Select.Value>) {
   if (!children) {
     return <Select.Value {...props} />
   }

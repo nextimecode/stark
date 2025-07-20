@@ -1,6 +1,5 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-
 import { adminAuth } from '@/firebase/admin'
 
 interface NewInvitationPageProps {
@@ -10,7 +9,7 @@ interface NewInvitationPageProps {
 }
 
 export default async function NewInvitationPage({
-  searchParams,
+  searchParams
 }: NewInvitationPageProps) {
   const cookieStore = await cookies()
   const token = cookieStore.get('token')?.value
@@ -20,16 +19,17 @@ export default async function NewInvitationPage({
   }
 
   let decodedToken
+
   try {
     decodedToken = await adminAuth.verifyIdToken(token)
-  } catch (error) {
+  } catch {
     redirect('/auth')
   }
 
   const userId = decodedToken.uid
   // const testId = searchParams.testId
 
-  let selectedTest = null
+  const selectedTest = null
 
   // if (testId) {
   //   selectedTest = await prisma.test.findUnique({

@@ -5,7 +5,7 @@ import { useFormStatus } from 'react-dom'
 export function AddMBTIButton() {
   const { pending } = useFormStatus()
   return (
-    <button type="submit" disabled={pending}>
+    <button disabled={pending} type="submit">
       {pending ? 'carregando' : 'Salvar MBTI'}
     </button>
   )

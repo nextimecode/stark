@@ -8,7 +8,7 @@
     "clean": "rm -rf .turbo .next .vercel dist node_modules pnpm-lock.yaml playwright-report test-results",
     "build": "next build",
     "start": "next start --port 8002",
-    "lint": "biome format --write",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "e2e": "pnpm exec playwright test",
     "e2e:ui": "pnpm exec playwright test --ui",
     "e2e:chromium": "pnpm exec playwright test --project=chromium",

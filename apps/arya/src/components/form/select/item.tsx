@@ -1,13 +1,13 @@
 'use client'
 
-import { ComponentProps } from 'react'
-
 import * as Select from '@radix-ui/react-select'
 import { Check } from 'lucide-react'
+import { ComponentProps } from 'react'
 
-export interface ItemProps extends ComponentProps<typeof Select.Item> {}
-
-export function Item({ children, ...props }: ItemProps) {
+export function Item({
+  children,
+  ...props
+}: ComponentProps<typeof Select.Item>) {
   return (
     <Select.Item
       className="flex items-center gap-2 px-3 py-2.5 data-highlighted:bg-zinc-50 data-highlighted:outline-hidden dark:data-highlighted:bg-zinc-700"

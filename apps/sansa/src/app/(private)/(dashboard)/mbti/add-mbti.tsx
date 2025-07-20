@@ -1,5 +1,4 @@
 import { revalidateTag } from 'next/cache'
-
 import { AddMBTIButton } from './add-mbti-button'
 
 export function AddMBTI() {
@@ -16,30 +15,30 @@ export function AddMBTI() {
     await new Promise(resolve => setTimeout(resolve, 3000))
 
     const authResponse = await fetch('http://localhost:3333/sessions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
       body: JSON.stringify({
         email: 'diego@rocketseat.com.br',
-        password: '123456',
+        password: process.env.TEST_PASSWORD || 'test-password'
       }),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'POST'
     })
 
     const authData = await authResponse.json()
     const accessToken = authData.access_token
 
     await fetch('http://localhost:3333/questions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
-      },
       body: JSON.stringify({
-        title,
-        content: 'Teste',
         attachments: [],
+        content: 'Teste',
+        title
       }),
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      },
+      method: 'POST'
     })
 
     revalidateTag('get-tags')
@@ -47,7 +46,7 @@ export function AddMBTI() {
 
   return (
     <form action={handleCreateTag}>
-      <input type="text" name="title" placeholder="title do mbti" />
+      <input name="title" type="text" placeholder="title do mbti" />
       <AddMBTIButton />
     </form>
   )

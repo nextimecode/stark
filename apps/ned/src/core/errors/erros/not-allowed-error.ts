@@ -1,9 +1,9 @@
 import { UseCaseError } from '../use-case-error'
 
 export class NotAllowedError extends Error implements UseCaseError {
+  code: string
   details: string
   hint: string
-  code: string
 
   constructor() {
     super('Not allowed')

@@ -12,38 +12,38 @@ export const CookieBanner = () => {
     <div>
       {showBanner && (
         <div
+          className="fixed start-1/2 bottom-0 z-60 mx-auto w-full -translate-x-1/2 transform p-6 sm:max-w-4xl"
           id="cookies-simple-with-dismiss-button"
-          className="fixed bottom-0 start-1/2 transform -translate-x-1/2 z-60 sm:max-w-4xl w-full mx-auto p-6"
         >
-          <div className="p-4 bg-white border border-gray-200 rounded-xl shadow-xs dark:bg-neutral-900 dark:border-neutral-800">
-            <div className="flex justify-between items-center gap-x-5 sm:gap-x-10">
+          <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-xs dark:border-neutral-800 dark:bg-neutral-900">
+            <div className="flex items-center justify-between gap-x-5 sm:gap-x-10">
               <h2 className="text-sm text-gray-600 dark:text-neutral-400">
                 By continuing to use this site you consent to the use of cookies
                 in accordance with our
                 <a
-                  className="inline-flex items-center gap-x-1.5 text-blue-600 decoration-2 hover:underline font-medium dark:text-blue-500"
                   href="#"
+                  className="inline-flex items-center gap-x-1.5 font-medium text-blue-600 decoration-2 hover:underline dark:text-blue-500"
                 >
                   Cookies Policy.
                 </a>
               </h2>
               <button
-                type="button"
-                className="p-2 inline-flex items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent bg-gray-100 text-gray-800 hover:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none dark:bg-white/10 dark:hover:bg-white/20 dark:text-white dark:hover:text-white"
-                onClick={dismissBanner} // Utiliza a prop `onDismiss` para remover o elemento
+                className="inline-flex items-center gap-x-2 rounded-full border border-transparent bg-gray-100 p-2 text-sm font-semibold text-gray-800 hover:bg-gray-200 disabled:pointer-events-none disabled:opacity-50 dark:bg-white/10 dark:text-white dark:hover:bg-white/20 dark:hover:text-white"
                 aria-label="Dismiss"
+                type="button"
+                onClick={dismissBanner} // Utiliza a prop `onDismiss` para remover o elemento
               >
                 <svg
-                  className="shrink-0 size-5"
-                  xmlns="http://www.w3.org/2000/svg"
+                  className="size-5 shrink-0"
                   width="24"
                   height="24"
-                  viewBox="0 0 24 24"
                   fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
                   stroke="currentColor"
-                  strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
                 >
                   <path d="M18 6 6 18"></path>
                   <path d="m6 6 12 12"></path>

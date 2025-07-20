@@ -8,7 +8,7 @@ export const MBTI_CATEGORIES = [
   'Intuição',
   'Sensação',
   'Extroversão',
-  'Introversão',
+  'Introversão'
 ]
 
 export const MBTI_PERSONALITY_TYPES = {
@@ -16,116 +16,116 @@ export const MBTI_PERSONALITY_TYPES = {
     color: SYSTEM_COLORS.SystemPurple,
     types: [
       {
-        type: 'INTJ',
-        name: 'Arquiteto',
+        color: SYSTEM_COLORS.SystemIndigo,
         description:
           'Pensadores criativos e estratégicos, com um plano para tudo.',
-        color: SYSTEM_COLORS.SystemIndigo,
-        series: [{ name: 'INTJ', data: [68, 65, 54, 38, 0, 0, 0, 0] }],
+        name: 'Arquiteto',
+        series: [{ data: [68, 65, 54, 38, 0, 0, 0, 0], name: 'INTJ' }],
+        type: 'INTJ'
       },
       {
-        type: 'INTP',
-        name: 'Lógico',
+        color: SYSTEM_COLORS.SystemBlue,
         description:
           'Inventores criativos, com uma sede insaciável de conhecimento.',
-        color: SYSTEM_COLORS.SystemBlue,
-        series: [{ name: 'INTP', data: [41, 70, 65, 33, 0, 0, 0, 0] }],
+        name: 'Lógico',
+        series: [{ data: [41, 70, 65, 33, 0, 0, 0, 0], name: 'INTP' }],
+        type: 'INTP'
       },
       {
-        type: 'ENTJ',
-        name: 'Comandante',
+        color: SYSTEM_COLORS.SystemRed,
         description:
           'Líderes corajosos, criativos e determinados, sempre dando um jeito para tudo.',
-        color: SYSTEM_COLORS.SystemRed,
-        series: [{ name: 'ENTJ', data: [82, 87, 33, 62, 0, 0, 0, 0] }],
+        name: 'Comandante',
+        series: [{ data: [82, 87, 33, 62, 0, 0, 0, 0], name: 'ENTJ' }],
+        type: 'ENTJ'
       },
       {
-        type: 'ENTP',
-        name: 'Inovador',
+        color: SYSTEM_COLORS.SystemOrange,
         description:
           'Pensadores espertos e curiosos, que não resistem a um desafio intelectual.',
-        color: SYSTEM_COLORS.SystemOrange,
-        series: [{ name: 'ENTP', data: [50, 64, 69, 76, 0, 0, 0, 0] }],
-      },
-    ],
+        name: 'Inovador',
+        series: [{ data: [50, 64, 69, 76, 0, 0, 0, 0], name: 'ENTP' }],
+        type: 'ENTP'
+      }
+    ]
   },
   Diplomatas: {
     color: SYSTEM_COLORS.SystemGreen,
     types: [
       {
-        type: 'INFJ',
-        name: 'Apoiador',
+        color: SYSTEM_COLORS.SystemPurple,
         description:
           'Idealistas serenos e místicos, porém muito inspiradores e incansáveis.',
-        color: SYSTEM_COLORS.SystemPurple,
-        series: [{ name: 'INFJ', data: [50, 26, 67, 43, 0, 0, 0, 0] }],
+        name: 'Apoiador',
+        series: [{ data: [50, 26, 67, 43, 0, 0, 0, 0], name: 'INFJ' }],
+        type: 'INFJ'
       },
       {
-        type: 'INFP',
-        name: 'Mediador',
+        color: SYSTEM_COLORS.SystemPink,
         description:
           'Pessoas poéticas, bondosas e altruístas, sempre prontas para apoiar uma boa causa.',
-        color: SYSTEM_COLORS.SystemPink,
-        series: [{ name: 'INFP', data: [36, 57, 65, 38, 0, 0, 0, 0] }],
+        name: 'Mediador',
+        series: [{ data: [36, 57, 65, 38, 0, 0, 0, 0], name: 'INFP' }],
+        type: 'INFP'
       },
       {
-        type: 'ENFJ',
-        name: 'Protagonista',
+        color: SYSTEM_COLORS.SystemYellow,
         description:
           'Líderes carismáticos e inspiradores, capazes de hipnotizar seus ouvintes.',
-        color: SYSTEM_COLORS.SystemYellow,
-        series: [{ name: 'ENFJ', data: [45, 48, 62, 60, 0, 0, 0, 0] }],
+        name: 'Protagonista',
+        series: [{ data: [45, 48, 62, 60, 0, 0, 0, 0], name: 'ENFJ' }],
+        type: 'ENFJ'
       },
       {
-        type: 'ENFP',
-        name: 'Ativista',
+        color: SYSTEM_COLORS.SystemTeal,
         description:
           'Espíritos livres animados, criativos e sociáveis, que sempre encontram um motivo para sorrir.',
-        color: SYSTEM_COLORS.SystemTeal,
-        series: [{ name: 'ENFP', data: [41, 48, 70, 67, 0, 0, 0, 0] }],
-      },
-    ],
-  },
-  Sentinelas: {
-    color: SYSTEM_COLORS.SystemMint,
-    types: [
-      {
-        type: 'ISTJ',
-        name: 'Prático',
-        description:
-          'Indivíduos pragmáticos e focados em fatos, com uma confiabilidade indiscutível.',
-        color: SYSTEM_COLORS.SystemGray,
-        series: [{ name: 'ISTJ', data: [86, 83, 19, 21, 0, 0, 0, 0] }],
-      },
-      {
-        type: 'ISFJ',
-        name: 'Defensor',
-        description:
-          'Protetores muito dedicados e acolhedores, sempre prontos para defender quem amam.',
-        color: SYSTEM_COLORS.SystemBrown,
-        series: [{ name: 'ISFJ', data: [68, 57, 32, 52, 0, 0, 0, 0] }],
-      },
-    ],
+        name: 'Ativista',
+        series: [{ data: [41, 48, 70, 67, 0, 0, 0, 0], name: 'ENFP' }],
+        type: 'ENFP'
+      }
+    ]
   },
   Exploradores: {
     color: SYSTEM_COLORS.SystemYellow,
     types: [
       {
-        type: 'ISTP',
-        name: 'Virtuoso',
+        color: SYSTEM_COLORS.SystemCyan,
         description:
           'Experimentadores ousados e práticos, mestres em todos os tipos de ferramentas.',
-        color: SYSTEM_COLORS.SystemCyan,
-        series: [{ name: 'ISTP', data: [36, 83, 37, 43, 0, 0, 0, 0] }],
+        name: 'Virtuoso',
+        series: [{ data: [36, 83, 37, 43, 0, 0, 0, 0], name: 'ISTP' }],
+        type: 'ISTP'
       },
       {
-        type: 'ISFP',
-        name: 'Aventureiro',
+        color: SYSTEM_COLORS.SystemGray3,
         description:
           'Artistas flexíveis e encantadores, sempre prontos para explorar e experimentar algo novo.',
-        color: SYSTEM_COLORS.SystemGray3,
-        series: [{ name: 'ISFP', data: [41, 54, 50, 48, 0, 0, 0, 0] }],
-      },
-    ],
+        name: 'Aventureiro',
+        series: [{ data: [41, 54, 50, 48, 0, 0, 0, 0], name: 'ISFP' }],
+        type: 'ISFP'
+      }
+    ]
   },
+  Sentinelas: {
+    color: SYSTEM_COLORS.SystemMint,
+    types: [
+      {
+        color: SYSTEM_COLORS.SystemGray,
+        description:
+          'Indivíduos pragmáticos e focados em fatos, com uma confiabilidade indiscutível.',
+        name: 'Prático',
+        series: [{ data: [86, 83, 19, 21, 0, 0, 0, 0], name: 'ISTJ' }],
+        type: 'ISTJ'
+      },
+      {
+        color: SYSTEM_COLORS.SystemBrown,
+        description:
+          'Protetores muito dedicados e acolhedores, sempre prontos para defender quem amam.',
+        name: 'Defensor',
+        series: [{ data: [68, 57, 32, 52, 0, 0, 0, 0], name: 'ISFJ' }],
+        type: 'ISFJ'
+      }
+    ]
+  }
 }

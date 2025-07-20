@@ -1,29 +1,28 @@
 // components/button.tsx
 
 import { ButtonHTMLAttributes } from 'react'
-
 import { Slot } from '@radix-ui/react-slot'
 import { tv, VariantProps } from 'tailwind-variants'
 
 const button = tv({
   base: [
-    'rounded-lg px-4 py-2 text-sm font-semibold outline-hidden shadow-xs',
-    'focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-violet-500',
-    'active:opacity-80',
+    'rounded-lg px-4 py-2 text-sm font-semibold shadow-xs outline-hidden',
+    'focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2',
+    'active:opacity-80'
   ],
+  defaultVariants: {
+    variant: 'primary'
+  },
   variants: {
     variant: {
       ghost:
-        'rounded-md px-2 hover:bg-zinc-50 shadow-none dark:hover:bg-white/5',
-      primary:
-        'bg-violet-600 text-white hover:bg-violet-700 dark:bg-violet-500 dark:hover:bg-violet-600',
+        'rounded-md px-2 shadow-none hover:bg-zinc-50 dark:hover:bg-white/5',
       outline:
         'border border-zinc-300 text-zinc-700 hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800',
-    },
-  },
-  defaultVariants: {
-    variant: 'primary',
-  },
+      primary:
+        'bg-violet-600 text-white hover:bg-violet-700 dark:bg-violet-500 dark:hover:bg-violet-600'
+    }
+  }
 })
 
 export interface ButtonProps
@@ -32,8 +31,8 @@ export interface ButtonProps
   asChild?: boolean
 }
 
-export function Button({ asChild, variant, className, ...props }: ButtonProps) {
+export function Button({ asChild, className, variant, ...props }: ButtonProps) {
   const Component = asChild ? Slot : 'button'
 
-  return <Component {...props} className={button({ variant, className })} />
+  return <Component {...props} className={button({ className, variant })} />
 }

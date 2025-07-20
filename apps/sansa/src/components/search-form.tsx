@@ -1,9 +1,7 @@
 'use client'
 
 import { FormEvent } from 'react'
-
 import { useRouter, useSearchParams } from 'next/navigation'
-
 import { Search } from 'lucide-react'
 
 export function SearchForm() {
@@ -29,17 +27,17 @@ export function SearchForm() {
 
   return (
     <form
-      onSubmit={handleSearch}
       className="flex w-[320px] items-center gap-3 rounded-full bg-zinc-900 px-5 py-3 ring-zinc-700"
+      onSubmit={handleSearch}
     >
-      <Search className="w-5 h-5 text-zinc-500" />
+      <Search className="h-5 w-5 text-zinc-500" />
 
       <input
+        className="flex-1 bg-transparent text-sm outline-hidden placeholder:text-zinc-500"
         name="q"
         defaultValue={query ?? ''}
-        placeholder="Buscar produtos..."
-        className="flex-1 bg-transparent text-sm outline-hidden placeholder:text-zinc-500"
         required
+        placeholder="Buscar produtos..."
       />
     </form>
   )

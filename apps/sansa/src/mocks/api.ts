@@ -4,14 +4,14 @@ import type {
   GetSubscriberInviteCount200,
   GetSubscriberRankingPosition200,
   SubscribeToEvent201,
-  SubscribeToEventBody,
+  SubscribeToEventBody
 } from '@/http/api'
 
 export const subscribeToEvent = async (
   subscribeToEventBody: SubscribeToEventBody
 ): Promise<SubscribeToEvent201> => {
   return {
-    subscriberId: 'mock-subscriber-id',
+    subscriberId: 'mock-subscriber-id'
   }
 }
 
@@ -20,8 +20,8 @@ export const getRanking = async (): Promise<GetRanking200> => {
     ranking: [
       { id: '1', name: 'João Silva', score: 120 },
       { id: '2', name: 'Maria Souza', score: 90 },
-      { id: '3', name: 'Pedro Santos', score: 70 },
-    ],
+      { id: '3', name: 'Pedro Santos', score: 70 }
+    ]
   }
 }
 

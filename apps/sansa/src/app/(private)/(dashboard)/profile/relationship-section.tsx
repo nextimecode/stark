@@ -5,7 +5,7 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from '@/components/ui/card'
 import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
 import {
@@ -13,14 +13,14 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from '@/components/ui/form'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
+  SelectValue
 } from '@/components/ui/select'
 
 interface RelationshipSectionProps {
@@ -32,20 +32,20 @@ interface RelationshipSectionProps {
 export function RelationshipSection({
   form,
   open,
-  toggle,
+  toggle
 }: RelationshipSectionProps) {
   return (
     <Card className="relative">
       <div className="absolute top-4 right-4 cursor-pointer" onClick={toggle}>
         <button
-          type="button"
           className="text-muted-foreground hover:text-primary"
+          type="button"
         >
           {open ? 'Fechar' : 'Expandir'}
         </button>
       </div>
       <CardHeader>
-        <CardTitle onClick={toggle} className="cursor-pointer">
+        <CardTitle className="cursor-pointer" onClick={toggle}>
           Configurações de Relacionamento
         </CardTitle>
         <CardDescription>Como você se relaciona com os outros</CardDescription>
@@ -54,15 +54,14 @@ export function RelationshipSection({
         <CollapsibleContent>
           <CardContent className="space-y-4">
             <FormField
-              control={form.control}
               name="relationshipFocus"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Foco Principal</FormLabel>
                   <FormControl>
                     <Select
-                      onValueChange={field.onChange}
                       defaultValue={field.value}
+                      onValueChange={field.onChange}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Selecione o tipo de relacionamento" />
@@ -80,17 +79,17 @@ export function RelationshipSection({
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
             <FormField
-              control={form.control}
               name="desiredContactFrequency"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Frequência de Contato</FormLabel>
                   <FormControl>
                     <Select
-                      onValueChange={field.onChange}
                       defaultValue={field.value}
+                      onValueChange={field.onChange}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Selecione a frequência" />
@@ -106,17 +105,17 @@ export function RelationshipSection({
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
             <FormField
-              control={form.control}
               name="conflictResolutionStyle"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Estilo de Resolução de Conflitos</FormLabel>
                   <FormControl>
                     <Select
-                      onValueChange={field.onChange}
                       defaultValue={field.value}
+                      onValueChange={field.onChange}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Como lida com conflitos?" />
@@ -138,6 +137,7 @@ export function RelationshipSection({
                   <FormMessage />
                 </FormItem>
               )}
+              control={form.control}
             />
           </CardContent>
         </CollapsibleContent>

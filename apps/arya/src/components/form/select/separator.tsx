@@ -1,12 +1,8 @@
 'use client'
 
+import * as Select from '@radix-ui/react-select'
 import { ComponentProps } from 'react'
 
-import * as Select from '@radix-ui/react-select'
-
-export interface SeparatorProps
-  extends ComponentProps<typeof Select.Separator> {}
-
-export function Separator(props: SeparatorProps) {
+export function Separator(props: ComponentProps<typeof Select.Separator>) {
   return <Select.Separator {...props} />
 }

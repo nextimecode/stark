@@ -1,16 +1,15 @@
 import {
   type MiddlewareConfig,
   type NextRequest,
-  NextResponse,
+  NextResponse
 } from 'next/server'
-
 import { env } from '@/env'
 const sansaUrl = env.NEXT_PUBLIC_SANSA_URL
 
 const publicRoutes = [
   { path: '/', whenAuthenticated: 'redirect' },
   { path: '/register', whenAuthenticated: 'redirect' },
-  { path: '/recover', whenAuthenticated: 'redirect' },
+  { path: '/recover', whenAuthenticated: 'redirect' }
 ] as const
 
 const REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE = '/'
@@ -72,6 +71,6 @@ export const config: MiddlewareConfig = {
      * - _next/image (image optimization files)
      * - favicon.ico, sitemap.xml, robots.txt (metadata files)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
-  ],
+    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)'
+  ]
 }

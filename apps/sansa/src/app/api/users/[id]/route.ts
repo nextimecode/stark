@@ -1,6 +1,5 @@
 // api/users/[id]/route.ts
 
-import { handleOptionsRequest } from '@/lib/handle-options'
 import { prisma } from '@/lib/prisma'
 import { setCorsHeaders } from '@/lib/set-cors-headers'
 import { NextResponse } from 'next/server'
@@ -10,41 +9,37 @@ const userParamsSchema = z
   .object({
     id: z.number().meta({
       description: 'ID do usuário',
-      example: 1,
-    }),
+      example: 1
+    })
   })
   .meta({
-    id: 'UserParams',
     description: 'Parâmetros para operações de usuário',
+    id: 'UserParams'
   })
 
 const updateUserBodySchema = z
   .object({
-    email: z
-      .string()
-      .email()
-      .meta({
-        description: 'Novo email do usuário',
-        example: 'pedro@example.com',
-      })
-      .optional(),
-    name: z
-      .string()
-      .meta({ description: 'Nome do usuário', example: 'Pedro' })
-      .optional(),
-    fullName: z
-      .string()
-      .meta({
-        description: 'Nome completo do usuário',
-        example: 'Pedro Duarte',
-      })
-      .optional(),
     birthDate: z
       .string()
       .datetime()
       .meta({
         description: 'Data de nascimento em formato ISO',
-        example: '1990-01-01T00:00:00.000Z',
+        example: '1990-01-01T00:00:00.000Z'
+      })
+      .optional(),
+    email: z
+      .string()
+      .email()
+      .meta({
+        description: 'Novo email do usuário',
+        example: 'pedro@example.com'
+      })
+      .optional(),
+    fullName: z
+      .string()
+      .meta({
+        description: 'Nome completo do usuário',
+        example: 'Pedro Duarte'
       })
       .optional(),
     gender: z
@@ -55,10 +50,14 @@ const updateUserBodySchema = z
       .string()
       .meta({ description: 'Tipo MBTI do usuário', example: 'INTJ' })
       .optional(),
+    name: z
+      .string()
+      .meta({ description: 'Nome do usuário', example: 'Pedro' })
+      .optional()
   })
   .meta({
-    id: 'UpdateUser',
     description: 'Dados para atualização de usuário',
+    id: 'UpdateUser'
   })
 
 export const GET = async (
@@ -69,7 +68,7 @@ export const GET = async (
     const { id } = userParamsSchema.parse(params)
 
     const user = await prisma.user.findUnique({
-      where: { id },
+      where: { id }
     })
 
     if (!user) {
@@ -97,8 +96,8 @@ export const PUT = async (
     const data = updateUserBodySchema.parse(await request.json())
 
     const user = await prisma.user.update({
-      where: { id },
       data,
+      where: { id }
     })
 
     const response = NextResponse.json(user, { status: 200 })
@@ -121,7 +120,7 @@ export const DELETE = async (
     const { id } = userParamsSchema.parse(params)
 
     await prisma.user.delete({
-      where: { id },
+      where: { id }
     })
 
     const response = NextResponse.json(null, { status: 204 })
@@ -136,4 +135,4 @@ export const DELETE = async (
   }
 }
 
-export const OPTIONS = handleOptionsRequest
+export { handleOptionsRequest as OPTIONS } from '@/lib/handle-options'

@@ -1,8 +1,8 @@
 import { PrismaClient } from '@prisma/client'
 
-const globalForPrisma = global as unknown as {
-  prisma: PrismaClient | undefined
+const globalForPrisma = globalThis as unknown as {
   connectionCount: number
+  prisma: PrismaClient | undefined
 }
 
 // Initialize connection counter
@@ -14,12 +14,12 @@ function createPrismaClient() {
   globalForPrisma.connectionCount++
 
   return new PrismaClient({
-    log: process.env.NODE_ENV === 'development' ? ['error', 'warn'] : ['error'],
     datasources: {
       db: {
-        url: process.env.DATABASE_URL || process.env.POSTGRES_PRISMA_URL,
-      },
+        url: process.env.DATABASE_URL || process.env.POSTGRES_PRISMA_URL
+      }
     },
+    log: process.env.NODE_ENV === 'development' ? ['error', 'warn'] : ['error']
   })
 }
 
@@ -32,12 +32,12 @@ if (process.env.NODE_ENV !== 'production') {
 // Create a fresh client for operations that might have prepared statement conflicts
 export function createFreshPrismaClient() {
   const client = new PrismaClient({
-    log: process.env.NODE_ENV === 'development' ? ['error'] : ['error'],
     datasources: {
       db: {
-        url: process.env.DATABASE_URL || process.env.POSTGRES_PRISMA_URL,
-      },
+        url: process.env.DATABASE_URL || process.env.POSTGRES_PRISMA_URL
+      }
     },
+    log: process.env.NODE_ENV === 'development' ? ['error', 'warn'] : ['error']
   })
 
   globalForPrisma.connectionCount++
