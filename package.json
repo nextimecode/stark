@@ -1,6 +1,6 @@
 {
   "name": "stark",
-  "version": "1.14.0",
+  "version": "1.15.0",
   "type": "module",
   "packageManager": "pnpm@10.13.1",
   "engines": {
